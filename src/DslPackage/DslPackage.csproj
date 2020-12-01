@@ -243,6 +243,18 @@
     <Content Include="TextTemplates\EFModelGenerator.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Compile Include="TextTemplates\EditingOnly\EF6Designer.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EF6ModelGenerator.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFCore2ModelGenerator.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFCore3ModelGenerator.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFCore5ModelGenerator.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFCoreDesigner.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFCoreModelGenerator.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFDesigner.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFModelFileManager.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFModelGenerator.cs" />
+    <Compile Include="TextTemplates\EditingOnly\MultipleOutputHelper.cs" />
+    <Compile Include="TextTemplates\EditingOnly\VSIntegration.cs" />
     <Compile Include="VSPackage.Designer.cs" />
     <Content Include="GeneratedCode\GeneratedVSCT.vsct">
       <Generator>VsctGenerator</Generator>
@@ -394,6 +406,7 @@
     <Content Include="TextTemplates\VSIntegration.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <None Include="TextTemplates\EditingOnly\_ReadMe.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dsl\Dsl.csproj">

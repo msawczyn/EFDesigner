@@ -2,16 +2,24 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Testing</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="EFModel.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="Custom\Context\Placeholder.txt" />
     <None Remove="Custom\Entities\Placeholder.txt" />
     <None Remove="Custom\Enums\Placeholder.txt" />
     <None Remove="Custom\Structs\Placeholder.txt" />
+    <None Remove="EFModel.efmodel" />
+    <None Remove="EFModel.efmodel.diagramx" />
     <None Remove="EFModel.tt" />
+    <None Remove="EFModel1.tt" />
+    <None Remove="Migrations\Placeholder.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,23 +27,24 @@
     <Content Include="Custom\Entities\Placeholder.txt" />
     <Content Include="Custom\Enums\Placeholder.txt" />
     <Content Include="Custom\Structs\Placeholder.txt" />
-    <Content Include="EFModel.tt">
-      <LastGenOutput>EFModel.cs</LastGenOutput>
+    <Content Include="EFModel1.tt">
+      <LastGenOutput>EFModel1.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </Content>
+    <Content Include="Migrations\Placeholder.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -43,11 +52,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="EFModel.cs">
+    <Compile Update="EFModel1.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>EFModel.tt</DependentUpon>
     </Compile>
+    <Compile Update="EntityAbstract.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Update="EntityRelated.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="EFModel1.efmodel.diagramx">
+      <DependentUpon>EFModel1.efmodel</DependentUpon>
+    </None>
   </ItemGroup>
 
 </Project>

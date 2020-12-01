@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.Modeling;
+﻿using System.Linq;
+
+using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -177,8 +179,14 @@ namespace Sawczyn.EFDesigner.EFModel
             string identifierName = rootName;
             int index = 0;
 
-            while (element.Target.HasPropertyNamed(identifierName))
+            ModelClass modelClass = element.Target;
+
+            while (modelClass.HasPropertyNamed(identifierName)
+                || modelClass.AllSubclasses.Any(c => c.HasPropertyNamed(identifierName))
+                || modelClass.AllSuperclasses.Any(c => c.HasPropertyNamed(identifierName)))
+            {
                identifierName = $"{rootName}_{++index}";
+            }
 
             element.SourcePropertyName = identifierName;
          }
@@ -195,8 +203,14 @@ namespace Sawczyn.EFDesigner.EFModel
             string identifierName = rootName;
             int index = 0;
 
-            while (element.Source.HasPropertyNamed(identifierName))
+            ModelClass modelClass = element.Source;
+
+            while (modelClass.HasPropertyNamed(identifierName)
+                || modelClass.AllSubclasses.Any(c => c.HasPropertyNamed(identifierName))
+                || modelClass.AllSuperclasses.Any(c => c.HasPropertyNamed(identifierName)))
+            {
                identifierName = $"{rootName}_{++index}";
+            }
 
             element.TargetPropertyName = identifierName;
          }

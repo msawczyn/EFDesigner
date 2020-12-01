@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.0.5
+//     Produced by Entity Framework Visual Editor v3.0.1.0
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -22,17 +22,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Testing
+namespace EFDesignerCoreTest
 {
-   public partial class RenamedColumn
+   public partial class EntityImplementation: global::EFDesignerCoreTest.EntityAbstract
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public RenamedColumn()
+      public EntityImplementation(): base()
       {
+         Entity1 = global::EFDesignerCoreTest.Entity1.CreateEntity1Unsafe();
+
          Init();
       }
 
@@ -41,41 +43,17 @@ namespace Testing
        *************************************************************************/
 
       /// <summary>
-      /// Backing field for Id
+      /// Max length = 255
       /// </summary>
-      internal int _id;
-      /// <summary>
-      /// When provided in a partial class, allows value of Id to be changed before setting.
-      /// </summary>
-      partial void SetId(int oldValue, ref int newValue);
-      /// <summary>
-      /// When provided in a partial class, allows value of Id to be changed before returning.
-      /// </summary>
-      partial void GetId(ref int result);
+      [MaxLength(255)]
+      [StringLength(255)]
+      public string Test { get; set; }
 
-      /// <summary>
-      /// Identity, Indexed, Required
-      /// </summary>
-      [Key]
-      [Required]
-      public int Id
-      {
-         get
-         {
-            int value = _id;
-            GetId(ref value);
-            return (_id = value);
-         }
-         protected set
-         {
-            int oldValue = _id;
-            SetId(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _id = value;
-            }
-         }
-      }
+      /*************************************************************************
+       * Navigation properties
+       *************************************************************************/
+
+      public virtual global::EFDesignerCoreTest.Entity1 Entity1 { get; set; }
 
    }
 }

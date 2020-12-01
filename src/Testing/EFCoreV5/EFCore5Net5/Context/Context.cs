@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Testing
 {
-   partial class AllFeatureModel
+   partial class EFModel1
    {
-      public AllFeatureModel() { }
+      public EFModel1() { }
 
       partial void CustomInit(DbContextOptionsBuilder optionsBuilder)
       {

@@ -7,7 +7,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.0.5
+      // EFDesigner v3.0.1.0
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -104,39 +104,33 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   if (!string.IsNullOrEmpty(foreignKeySegment))
                      segments.Add(foreignKeySegment);
 
+                  if (association.Dependent == association.Target)
+                  {
+                     if (association.TargetDeleteAction == DeleteAction.None)
+                        segments.Add("OnDelete(DeleteBehavior.NoAction)");
+                     else if (association.TargetDeleteAction == DeleteAction.Cascade)
+                        segments.Add("OnDelete(DeleteBehavior.Cascade)");
+
+                     if (targetRequired)
+                        segments.Add("IsRequired()");
+                  }
+                  else if (association.Dependent == association.Source)
+                  {
+                     if (association.SourceDeleteAction == DeleteAction.None)
+                        segments.Add("OnDelete(DeleteBehavior.NoAction)");
+                     else if (association.SourceDeleteAction == DeleteAction.Cascade)
+                        segments.Add("OnDelete(DeleteBehavior.Cascade)");
+
+                     if (sourceRequired)
+                        segments.Add("IsRequired()");
+                  }
+
                   Output(segments);
 
-                  if (!association.TargetAutoProperty)
-                  {
-                     segments.Add($"modelBuilder.Entity<{association.Source.FullName}>().Navigation(e => e.{association.TargetPropertyName})");
-                     segments.Add($"HasField(\"{association.TargetBackingFieldName}\")");
-                     segments.Add($"UsePropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode})");
-                     Output(segments);
-                  }
-
-                  if (!association.SourceAutoProperty)
-                  {
-                     segments.Add($"modelBuilder.Entity<{association.Target.FullName}>().Navigation(e => e.{association.SourcePropertyName})");
-                     segments.Add($"HasField(\"{association.SourceBackingFieldName}\")");
-                     segments.Add($"UsePropertyAccessMode(PropertyAccessMode.{association.SourcePropertyAccessMode})");
-                     Output(segments);
-                  }
-
-                  if (targetRequired)
+                  if (association.Principal == association.Target && targetRequired)
                      Output($"modelBuilder.Entity<{association.Source.FullName}>().Navigation(e => e.{association.TargetPropertyName}).IsRequired();");
-
-                  if (sourceRequired)
+                  else if (association.Principal == association.Source && sourceRequired)
                      Output($"modelBuilder.Entity<{association.Target.FullName}>().Navigation(e => e.{association.SourcePropertyName}).IsRequired();");
-
-                  if (association.TargetDeleteAction == DeleteAction.None)
-                     Output($"modelBuilder.Entity<{association.Source.FullName}>().Navigation(e => e.{association.TargetPropertyName}).OnDelete(DeleteBehavior.NoAction);");
-                  else if (association.TargetDeleteAction == DeleteAction.Cascade)
-                     Output($"modelBuilder.Entity<{association.Source.FullName}>().Navigation(e => e.{association.TargetPropertyName}).OnDelete(DeleteBehavior.Cascade);");
-
-                  if (association.SourceDeleteAction == DeleteAction.None)
-                     Output($"modelBuilder.Entity<{association.Target.FullName}>().Navigation(e => e.{association.SourcePropertyName}).OnDelete(DeleteBehavior.NoAction);");
-                  else if (association.SourceDeleteAction == DeleteAction.Cascade)
-                     Output($"modelBuilder.Entity<{association.Target.FullName}>().Navigation(e => e.{association.SourcePropertyName}).OnDelete(DeleteBehavior.Cascade);");
                }
             }
 
@@ -345,13 +339,28 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   if (!string.IsNullOrEmpty(foreignKeySegment))
                      segments.Add(foreignKeySegment);
 
-                  if (sourceRequired || targetRequired)
-                     segments.Add("IsRequired()");
+                  if (association.Dependent == association.Target)
+                  {
+                     if (association.TargetDeleteAction == DeleteAction.None)
+                        segments.Add("OnDelete(DeleteBehavior.NoAction)");
+                     else if (association.TargetDeleteAction == DeleteAction.Cascade)
+                        segments.Add("OnDelete(DeleteBehavior.Cascade)");
+                     if (targetRequired)
+                        segments.Add("IsRequired()");
+                  }
+                  else if (association.Dependent == association.Source)
+                  {
+                     if (association.SourceDeleteAction == DeleteAction.None)
+                        segments.Add("OnDelete(DeleteBehavior.NoAction)");
+                     else if (association.SourceDeleteAction == DeleteAction.Cascade)
+                        segments.Add("OnDelete(DeleteBehavior.Cascade)");
 
-                  if (association.TargetDeleteAction == DeleteAction.None || association.SourceDeleteAction == DeleteAction.None)
-                     segments.Add("OnDelete(DeleteBehavior.NoAction);");
-                  if (association.TargetDeleteAction == DeleteAction.Cascade || association.SourceDeleteAction == DeleteAction.Cascade)
-                     segments.Add("OnDelete(DeleteBehavior.Cascade);");
+                     if (sourceRequired)
+                        segments.Add("IsRequired()");
+                  }
+
+                  if (association.Principal == association.Target && targetRequired)
+                     Output($"modelBuilder.Entity<{association.Source.FullName}>().Navigation(e => e.{association.TargetPropertyName}).IsRequired();");
 
                   Output(segments);
 

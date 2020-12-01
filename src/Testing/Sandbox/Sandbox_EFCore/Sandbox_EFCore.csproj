@@ -41,18 +41,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Custom\Context\AllFeatureModel.cs" />
     <Compile Include="Custom\EFModel.cs" />
-    <Compile Include="EFModel.cs">
-      <DependentUpon>EFModel.tt</DependentUpon>
+    <Compile Include="EFModel1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFModel1.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity1.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityAbstract.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityImplementation.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityRelated.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="EFModel.efmodel" />
+    <None Include="EFModel1.efmodel" />
+    <None Include="EFModel1.efmodel.diagramx">
+      <DependentUpon>EFModel1.efmodel</DependentUpon>
+    </None>
     <None Include="Properties\EFModel.efmodel" />
     <None Include="Properties\EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>
@@ -65,14 +82,13 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Custom\Context\Placeholder.txt" />
     <Content Include="Custom\Entities\Placeholder.txt" />
     <Content Include="Custom\Enums\Placeholder.txt" />
     <Content Include="Custom\Structs\Placeholder.txt" />
-    <Content Include="EFModel.tt">
+    <Content Include="EFModel1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EFModel.cs</LastGenOutput>
-      <Parameters>&lt;%3fxml version="1.0" encoding="utf-16"%3f&gt;
-&lt;ArrayOfParameterStorage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" /&gt;</Parameters>
+      <LastGenOutput>EFModel1.cs</LastGenOutput>
     </Content>
     <None Include="Generated\Context\Placeholder.txt" />
     <None Include="Generated\Entities\Placeholder.txt" />

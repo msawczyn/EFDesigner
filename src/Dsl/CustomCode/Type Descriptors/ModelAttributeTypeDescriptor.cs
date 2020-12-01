@@ -77,6 +77,23 @@ namespace Sawczyn.EFDesigner.EFModel
                propertyDescriptors.Remove("PropertyAccessMode");
             }
 
+            // only abstract classes can have abstract properties
+            if (!modelAttribute.ModelClass.IsAbstract)
+               propertyDescriptors.Remove("IsAbstract");
+
+            // abstract properties don't get lots of stuff
+            if (modelAttribute.IsAbstract)
+            {
+               propertyDescriptors.Remove("IsIdentity");
+               propertyDescriptors.Remove("IdentityType");
+               propertyDescriptors.Remove("AutoProperty");
+               propertyDescriptors.Remove("InitialValue");
+               propertyDescriptors.Remove("BackingFieldName");
+               propertyDescriptors.Remove("PropertyAccessMode");
+               propertyDescriptors.Remove("Indexed");
+               propertyDescriptors.Remove("IndexedUnique");
+            }
+
             /********************************************************************************/
 
             //Add the descriptors for the tracking properties 

@@ -21,7 +21,7 @@ RealLiteral    = {Digit}*'.'{Digit}+
 StringLiteral  = '"'( {String Ch} | '\'{Printable} )* '"'
 CharLiteral    = '' ( {Char Ch} | '\'{Printable} )''
 
-
+TimestampType  = 'byte[]' | 'Byte[]'
 
 ! ----------------------------------------------------------------- Rules
 
@@ -64,6 +64,7 @@ CharLiteral    = '' ( {Char Ch} | '\'{Printable} )''
 
 <Type>
        ::= Identifier
+        |  TimestampType
         
 <EnumValue>
        ::= Identifier '.' Identifier  

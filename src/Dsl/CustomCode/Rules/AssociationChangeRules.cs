@@ -127,6 +127,18 @@ namespace Sawczyn.EFDesigner.EFModel
                    || ((element.SourceMultiplicity == Multiplicity.ZeroOne || element.SourceMultiplicity == Multiplicity.ZeroMany) && priorSourceMultiplicity == Multiplicity.One))
                      doForeignKeyFixup = true;
 
+                  string defaultSourcePropertyName = 
+                     priorSourceMultiplicity == Multiplicity.ZeroMany && ModelRoot.PluralizationService?.IsSingular(element.Source.Name) == true
+                                          ? ModelRoot.PluralizationService.Pluralize(element.Source.Name)
+                                          : element.Source.Name;
+
+                  if (element is BidirectionalAssociation bidirectional && bidirectional.SourcePropertyName == defaultSourcePropertyName)
+                  {
+                     bidirectional.SourcePropertyName = element.SourceMultiplicity == Multiplicity.ZeroMany && ModelRoot.PluralizationService?.IsSingular(element.Source.Name) == true
+                                                           ? ModelRoot.PluralizationService.Pluralize(element.Source.Name)
+                                                           : element.Source.Name;
+                  }
+
                   break;
                }
 
@@ -196,6 +208,17 @@ namespace Sawczyn.EFDesigner.EFModel
                    || ((element.TargetMultiplicity == Multiplicity.ZeroOne || element.TargetMultiplicity == Multiplicity.ZeroMany) && priorTargetMultiplicity == Multiplicity.One))
                      doForeignKeyFixup = true;
 
+                  string defaultTargetPropertyName = 
+                     priorTargetMultiplicity == Multiplicity.ZeroMany && ModelRoot.PluralizationService?.IsSingular(element.Target.Name) == true
+                        ? ModelRoot.PluralizationService.Pluralize(element.Target.Name)
+                        : element.Target.Name;
+
+                  if (element.TargetPropertyName == defaultTargetPropertyName)
+                  {
+                     element.TargetPropertyName = element.TargetMultiplicity == Multiplicity.ZeroMany && ModelRoot.PluralizationService?.IsSingular(element.Target.Name) == true
+                                             ? ModelRoot.PluralizationService.Pluralize(element.Target.Name)
+                                             : element.Target.Name;
+                  }
                   break;
                }
 

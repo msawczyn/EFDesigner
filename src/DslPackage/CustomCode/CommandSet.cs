@@ -272,15 +272,16 @@ namespace Sawczyn.EFDesigner.EFModel
                            continue;
                         }
 
-                        ModelAttribute modelAttribute = new ModelAttribute(element.Store,
-                                                                           new PropertyAssignment(ModelAttribute.NameDomainPropertyId, parseResult.Name),
-                                                                           new PropertyAssignment(ModelAttribute.TypeDomainPropertyId, parseResult.Type ?? "String"),
-                                                                           new PropertyAssignment(ModelAttribute.RequiredDomainPropertyId, parseResult.Required ?? true),
-                                                                           new PropertyAssignment(ModelAttribute.MaxLengthDomainPropertyId, parseResult.MaxLength ?? -1),
-                                                                           new PropertyAssignment(ModelAttribute.MinLengthDomainPropertyId, parseResult.MinLength ?? 0),
-                                                                           new PropertyAssignment(ModelAttribute.InitialValueDomainPropertyId, parseResult.InitialValue),
-                                                                           new PropertyAssignment(ModelAttribute.IsIdentityDomainPropertyId, parseResult.IsIdentity),
-                                                                           new PropertyAssignment(ModelAttribute.SetterVisibilityDomainPropertyId, parseResult.SetterVisibility ?? SetterAccessModifier.Public));
+                        ModelAttribute modelAttribute =
+                           new ModelAttribute(element.Store
+                                            , new PropertyAssignment(ModelAttribute.NameDomainPropertyId, parseResult.Name)
+                                            , new PropertyAssignment(ModelAttribute.TypeDomainPropertyId, parseResult.Type ?? "String")
+                                            , new PropertyAssignment(ModelAttribute.RequiredDomainPropertyId, parseResult.Required ?? true)
+                                            , new PropertyAssignment(ModelAttribute.MaxLengthDomainPropertyId, parseResult.MaxLength ?? -1)
+                                            , new PropertyAssignment(ModelAttribute.MinLengthDomainPropertyId, parseResult.MinLength ?? 0)
+                                            , new PropertyAssignment(ModelAttribute.InitialValueDomainPropertyId, parseResult.InitialValue)
+                                            , new PropertyAssignment(ModelAttribute.IsIdentityDomainPropertyId, parseResult.IsIdentity)
+                                            , new PropertyAssignment(ModelAttribute.SetterVisibilityDomainPropertyId, parseResult.SetterVisibility ?? SetterAccessModifier.Public));
 
                         element.Attributes.Add(modelAttribute);
                      }

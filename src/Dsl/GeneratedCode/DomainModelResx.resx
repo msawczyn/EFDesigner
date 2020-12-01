@@ -1377,6 +1377,18 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;PropertyAccessMode&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsAbstract.Description" xml:space="preserve">
+    <value>If true, this will be generated as an abstract property</value>
+    <comment>Description for DomainProperty &apos;IsAbstract&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsAbstract.DisplayName" xml:space="preserve">
+    <value>Abstract</value>
+    <comment>DisplayName for DomainProperty &apos;IsAbstract&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsAbstract.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;IsAbstract&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Comment.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;Comment&apos;</comment>
@@ -1969,6 +1981,18 @@
     <value>Is Target Auto Property Tracking</value>
     <comment>DisplayName for DomainProperty &apos;IsTargetAutoPropertyTracking&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/IsTargetAbstract.Description" xml:space="preserve">
+    <value>If true, the property for this end will be abstract</value>
+    <comment>Description for DomainProperty &apos;IsTargetAbstract&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/IsTargetAbstract.DisplayName" xml:space="preserve">
+    <value>End1 Is Abstract</value>
+    <comment>DisplayName for DomainProperty &apos;IsTargetAbstract&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/IsTargetAbstract.Category" xml:space="preserve">
+    <value>End2</value>
+    <comment>Category for DomainProperty &apos;IsTargetAbstract&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association/Source.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainRole &apos;Source&apos; on DomainRelationship &apos;Association&apos;</comment>
@@ -2272,6 +2296,18 @@
   <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/IsSourceAutoPropertyTracking.DisplayName" xml:space="preserve">
     <value>Is Source Auto Property Tracking</value>
     <comment>DisplayName for DomainProperty &apos;IsSourceAutoPropertyTracking&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/IsSourceAbstract.Description" xml:space="preserve">
+    <value>If true, the property for this end will be abstract</value>
+    <comment>Description for DomainProperty &apos;IsSourceAbstract&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/IsSourceAbstract.DisplayName" xml:space="preserve">
+    <value>End2 Is Abstract</value>
+    <comment>DisplayName for DomainProperty &apos;IsSourceAbstract&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/IsSourceAbstract.Category" xml:space="preserve">
+    <value>End 1</value>
+    <comment>Category for DomainProperty &apos;IsSourceAbstract&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/BidirectionalSource.Description" xml:space="preserve">
     <value></value>

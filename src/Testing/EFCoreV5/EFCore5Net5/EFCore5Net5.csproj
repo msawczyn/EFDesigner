@@ -5,14 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="AllFeatureModel.tt" />
+    <Compile Remove="AllFeatureModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="AllFeatureModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AllFeatureModel.cs</LastGenOutput>
-    </Content>
+    <None Remove="AllFeatureModel.efmodel" />
+    <None Remove="AllFeatureModel.efmodel.diagramx" />
+    <None Remove="AllFeatureModel.tt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,10 +33,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="AllFeatureModel.cs">
+    <None Update="EFModel1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EFModel1.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Generated\Context\" />
+    <Folder Include="Generated\Entities\" />
+    <Folder Include="Generated\Enums\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="EFModel1.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>AllFeatureModel.tt</DependentUpon>
+      <DependentUpon>EFModel1.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

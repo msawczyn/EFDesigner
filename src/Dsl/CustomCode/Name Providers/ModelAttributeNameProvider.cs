@@ -14,22 +14,31 @@ namespace Sawczyn.EFDesigner.EFModel
          base.SetUniqueName(element, container, embeddedDomainRole, "Property");
       }
 
-      private IList<ModelElement> Siblings(ModelAttribute modelAttribute)
+      public static IList<ModelElement> Siblings(ModelAttribute modelAttribute)
       {
-         return modelAttribute.ModelClass.AllSuperclasses
-                              .Union(modelAttribute.ModelClass.AllSubclasses)
-                              .SelectMany(c => c.Attributes)
-                              .Union(modelAttribute.ModelClass.AllAttributes)
-                              .Except(new[] {modelAttribute})
-                              .Distinct()
-                              .Cast<ModelElement>()
-                              .ToList();
+         List<ModelClass> inheritanceTree = modelAttribute.ModelClass.AllSuperclasses
+                                                          .Union(modelAttribute.ModelClass.AllSubclasses)
+                                                          .ToList();
+
+         List<ModelAttribute> attributes = inheritanceTree.SelectMany(c => c.Attributes)
+                                                          .Union(modelAttribute.ModelClass.AllAttributes)
+                                                          .Except(new[] {modelAttribute})
+                                                          .Distinct()
+                                                          .ToList();
+
+         List<Association> associations = modelAttribute.Store.GetAll<Association>()
+                                                        .Where(association => inheritanceTree.Contains(association.Source))
+                                                        .Distinct()
+                                                        .ToList();
+
+         return attributes.Cast<ModelElement>().Union(associations).ToList();
       }
 
       // ReSharper disable once RedundantAssignment
       protected override void SetUniqueNameCore(ModelElement element, string baseName, IDictionary<string, ModelElement> siblingNames)
       {
-         siblingNames = Siblings(element as ModelAttribute).GroupBy(x => ((ModelAttribute)x).Name)
+
+         siblingNames = Siblings(element as ModelAttribute).GroupBy(x => (x as ModelAttribute)?.Name ?? (x as Association)?.Name)
                                                            .ToDictionary(g => g.Key, g => g.First());
          base.SetUniqueNameCore(element, baseName, siblingNames);
       }

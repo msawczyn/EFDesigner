@@ -4703,6 +4703,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // IsAbstract
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribIsAbstract = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isAbstract");
+	         if (attribIsAbstract != null)
+	         {
+	            global::System.Boolean valueOfIsAbstract;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsAbstract, out valueOfIsAbstract))
+	            {
+	               instanceOfModelAttribute.IsAbstract = valueOfIsAbstract;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isAbstract", typeof(global::System.Boolean), attribIsAbstract);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -5534,6 +5551,19 @@ namespace Sawczyn.EFDesigner.EFModel
 	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "FieldDuringConstruction") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "propertyAccessMode", serializedPropValue);
+	            }
+	         }
+	      }
+	      // IsAbstract
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelAttribute.IsAbstract;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isAbstract", serializedPropValue);
 	            }
 	         }
 	      }
@@ -9977,6 +10007,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // IsTargetAbstract
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribIsTargetAbstract = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isTargetAbstract");
+	         if (attribIsTargetAbstract != null)
+	         {
+	            global::System.Boolean valueOfIsTargetAbstract;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsTargetAbstract, out valueOfIsTargetAbstract))
+	            {
+	               instanceOfAssociation.IsTargetAbstract = valueOfIsTargetAbstract;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isTargetAbstract", typeof(global::System.Boolean), attribIsTargetAbstract);
+	            }
+	         }
+	      }
 	   }
 	
 	   #region TryCreateInstance & TryCreateDerivedInstance
@@ -10581,6 +10628,16 @@ namespace Sawczyn.EFDesigner.EFModel
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isTargetAutoPropertyTracking", serializedPropValue);
 	            }
+	         }
+	      }
+	      // IsTargetAbstract
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfAssociation.IsTargetAbstract;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isTargetAbstract", serializedPropValue);
 	         }
 	      }
 	   }
@@ -14168,6 +14225,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // IsSourceAbstract
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribIsSourceAbstract = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isSourceAbstract");
+	         if (attribIsSourceAbstract != null)
+	         {
+	            global::System.Boolean valueOfIsSourceAbstract;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsSourceAbstract, out valueOfIsSourceAbstract))
+	            {
+	               instanceOfBidirectionalAssociation.IsSourceAbstract = valueOfIsSourceAbstract;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isSourceAbstract", typeof(global::System.Boolean), attribIsSourceAbstract);
+	            }
+	         }
+	      }
 	   }
 	
 	   #region TryCreateInstance & TryCreateDerivedInstance
@@ -14756,6 +14830,16 @@ namespace Sawczyn.EFDesigner.EFModel
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isSourceAutoPropertyTracking", serializedPropValue);
 	            }
+	         }
+	      }
+	      // IsSourceAbstract
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfBidirectionalAssociation.IsSourceAbstract;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isSourceAbstract", serializedPropValue);
 	         }
 	      }
 	   }

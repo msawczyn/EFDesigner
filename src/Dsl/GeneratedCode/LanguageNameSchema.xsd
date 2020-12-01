@@ -826,6 +826,12 @@
             <xsd:documentation>Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: IsAbstract -->
+        <xsd:attribute name="isAbstract" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, this will be generated as an abstract property</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1321,6 +1327,12 @@
             <xsd:documentation>If true, Association.TargetAutoProperty tracks ModelClass.AutoPropertyDefault</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: IsTargetAbstract -->
+        <xsd:attribute name="isTargetAbstract" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, the property for this end will be abstract</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1563,6 +1575,12 @@
         <xsd:attribute name="isSourceAutoPropertyTracking" type="xsd:boolean" >
           <xsd:annotation>
             <xsd:documentation>If true, Association.SourceAutoProperty tracks ModelClass.AutoPropertyDefault</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsSourceAbstract -->
+        <xsd:attribute name="isSourceAbstract" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, the property for this end will be abstract</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>

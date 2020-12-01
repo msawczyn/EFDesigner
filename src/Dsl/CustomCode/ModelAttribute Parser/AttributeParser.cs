@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+
 using GOLD;
 // ReSharper disable RedundantVerbatimPrefix
 // ReSharper disable UnusedMember.Local
@@ -81,15 +82,15 @@ namespace Sawczyn.EFDesigner.EFModel
 
                         case ProductionIndex.Maxlength_Lbracket_Decliteral_Rbracket:
                         case ProductionIndex.Maxlength_Lparen_Decliteral_Rparen:
-                        case ProductionIndex.Maxlength_Lbracketmaxrbracket:                 
-                        case ProductionIndex.Maxlength_Lparenmaxrparen:                 
+                        case ProductionIndex.Maxlength_Lbracketmaxrbracket:
+                        case ProductionIndex.Maxlength_Lparenmaxrparen:
 
                            // <Max Length> ::= '[' DecLiteral ']'
                            // <Max Length> ::= '(' DecLiteral ')'
                            // <Max Length> ::= '[max]'
                            // <Max Length> ::= '(max)'
-                           if (reduction.get_Data(0) is string maxLength && 
-                               (maxLength.ToLowerInvariant() == "[max]" || 
+                           if (reduction.get_Data(0) is string maxLength &&
+                               (maxLength.ToLowerInvariant() == "[max]" ||
                                 maxLength.ToLowerInvariant() == "(max)"))
                            {
                               result.MaxLength = ModelAttribute.MAXLENGTH_MAX;
@@ -101,10 +102,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
                         case ProductionIndex.Lengths_Lbracket_Decliteral_Minus_Decliteral_Rbracket:
                         case ProductionIndex.Lengths_Lparen_Decliteral_Minus_Decliteral_Rparen:
-                        case ProductionIndex.Lengths_Lbracket_Decliteral_Minus_Max_Rbracket:                 
-                        case ProductionIndex.Lengths_Lparen_Decliteral_Minus_Max_Rparen:                 
-                        case ProductionIndex.Lengths_Lbracket_Decliteral_Minus_Rbracket:                 
-                        case ProductionIndex.Lengths_Lparen_Decliteral_Minus_Rparen:                 
+                        case ProductionIndex.Lengths_Lbracket_Decliteral_Minus_Max_Rbracket:
+                        case ProductionIndex.Lengths_Lparen_Decliteral_Minus_Max_Rparen:
+                        case ProductionIndex.Lengths_Lbracket_Decliteral_Minus_Rbracket:
+                        case ProductionIndex.Lengths_Lparen_Decliteral_Minus_Rparen:
                            // <Lengths> ::= '[' DecLiteral '-' DecLiteral ']'
                            // <Lengths> ::= '(' DecLiteral '-' DecLiteral ')'
                            // <Lengths> ::= '[' DecLiteral '-' max ']'
@@ -123,7 +124,7 @@ namespace Sawczyn.EFDesigner.EFModel
                               {
                                  switch (maxLengthData)
                                  {
-                                    case "]": 
+                                    case "]":
                                     case ")":
                                        result.MaxLength = ModelAttribute.MAXLENGTH_UNDEFINED;
                                        break;
@@ -143,8 +144,8 @@ namespace Sawczyn.EFDesigner.EFModel
                               return null;
                            }
 
-                           if (result.MaxLength.HasValue && 
-                               result.MaxLength > 0 && 
+                           if (result.MaxLength.HasValue &&
+                               result.MaxLength > 0 &&
                                result.MinLength > result.MaxLength)
                            {
                               FailMessage = "Min length cannot be greater than max length";
@@ -157,6 +158,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
                            // <Type> ::= Identifier
                            result.Type = reduction.get_Data(0) as string;
+                           break;
+
+                        case ProductionIndex.Type_Timestamptype:
+                           // <Type> ::= TimestampType
+                           result.Type = "Binary";
                            break;
 
                         case ProductionIndex.Enumvalue_Identifier_Dot_Identifier:
@@ -245,53 +251,54 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #region Indices
 
-    private enum ProductionIndex
-    {
-        @Initializer_Eq = 0,                       // <Initializer> ::= '=' <Initial Value>
-        @Namespec = 1,                             // <Name Spec> ::= <Name> <Is Identity>
-        @Namespec2 = 2,                            // <Name Spec> ::= <Name>
-        @Name_Identifier = 3,                      // <Name> ::= Identifier
-        @Isidentity_Identity = 4,                  // <Is Identity> ::= Identity
-        @Isoptional_Optional = 5,                  // <Is Optional> ::= Optional
-        @Maxlength_Lbracket_Decliteral_Rbracket = 6,  // <Max Length> ::= '[' DecLiteral ']'
-        @Maxlength_Lparen_Decliteral_Rparen = 7,   // <Max Length> ::= '(' DecLiteral ')'
-        @Maxlength_Lbracketmaxrbracket = 8,        // <Max Length> ::= '[max]'
-        @Maxlength_Lparenmaxrparen = 9,            // <Max Length> ::= '(max)'
-        @Lengths_Lbracket_Decliteral_Minus_Decliteral_Rbracket = 10,  // <Lengths> ::= '[' DecLiteral '-' DecLiteral ']'
-        @Lengths_Lbracket_Decliteral_Minus_Max_Rbracket = 11,  // <Lengths> ::= '[' DecLiteral '-' max ']'
-        @Lengths_Lparen_Decliteral_Minus_Decliteral_Rparen = 12,  // <Lengths> ::= '(' DecLiteral '-' DecLiteral ')'
-        @Lengths_Lparen_Decliteral_Minus_Max_Rparen = 13,  // <Lengths> ::= '(' DecLiteral '-' max ')'
-        @Lengths_Lparen_Decliteral_Minus_Rparen = 14,  // <Lengths> ::= '(' DecLiteral '-' ')'
-        @Lengths_Lbracket_Decliteral_Minus_Rbracket = 15,  // <Lengths> ::= '[' DecLiteral '-' ']'
-        @Lengths = 16,                             // <Lengths> ::= <Max Length>
-        @Typespec = 17,                            // <Type Spec> ::= <Type> <Is Optional> <Lengths>
-        @Typespec2 = 18,                           // <Type Spec> ::= <Type> <Lengths>
-        @Typespec3 = 19,                           // <Type Spec> ::= <Type> <Is Optional>
-        @Typespec4 = 20,                           // <Type Spec> ::= <Type>
-        @Type_Identifier = 21,                     // <Type> ::= Identifier
-        @Enumvalue_Identifier_Dot_Identifier = 22,  // <EnumValue> ::= Identifier '.' Identifier
-        @Visibility_Public = 23,                   // <Visibility> ::= public
-        @Visibility_Protected = 24,                // <Visibility> ::= protected
-        @Visibility_Internal = 25,                 // <Visibility> ::= internal
-        @Initialvalue_Decliteral = 26,             // <Initial Value> ::= DecLiteral
-        @Initialvalue_Hexliteral = 27,             // <Initial Value> ::= HexLiteral
-        @Initialvalue_Realliteral = 28,            // <Initial Value> ::= RealLiteral
-        @Initialvalue_Stringliteral = 29,          // <Initial Value> ::= StringLiteral
-        @Initialvalue_Charliteral = 30,            // <Initial Value> ::= CharLiteral
-        @Initialvalue = 31,                        // <Initial Value> ::= <EnumValue>
-        @Input = 32,                               // <Input> ::= <Visibility> <Type Spec> <Name Spec> <Initializer>
-        @Input2 = 33,                              // <Input> ::= <Visibility> <Type Spec> <Name Spec>
-        @Input3 = 34,                              // <Input> ::= <Type Spec> <Name Spec> <Initializer>
-        @Input4 = 35,                              // <Input> ::= <Type Spec> <Name Spec>
-        @Input5 = 36,                              // <Input> ::= <Name Spec> <Initializer>
-        @Input6 = 37,                              // <Input> ::= <Name Spec>
-        @Input_Colon = 38,                         // <Input> ::= <Visibility> <Name Spec> ':' <Type Spec> <Initializer>
-        @Input_Colon2 = 39,                        // <Input> ::= <Visibility> <Name Spec> ':' <Type Spec>
-        @Input7 = 40,                              // <Input> ::= <Visibility> <Name Spec> <Initializer>
-        @Input8 = 41,                              // <Input> ::= <Visibility> <Name Spec>
-        @Input_Colon3 = 42,                        // <Input> ::= <Name Spec> ':' <Type Spec> <Initializer>
-        @Input_Colon4 = 43                         // <Input> ::= <Name Spec> ':' <Type Spec>
-    }
+      private enum ProductionIndex
+      {
+         @Initializer_Eq = 0,                       // <Initializer> ::= '=' <Initial Value>
+         @Namespec = 1,                             // <Name Spec> ::= <Name> <Is Identity>
+         @Namespec2 = 2,                            // <Name Spec> ::= <Name>
+         @Name_Identifier = 3,                      // <Name> ::= Identifier
+         @Isidentity_Identity = 4,                  // <Is Identity> ::= Identity
+         @Isoptional_Optional = 5,                  // <Is Optional> ::= Optional
+         @Maxlength_Lbracket_Decliteral_Rbracket = 6,  // <Max Length> ::= '[' DecLiteral ']'
+         @Maxlength_Lparen_Decliteral_Rparen = 7,   // <Max Length> ::= '(' DecLiteral ')'
+         @Maxlength_Lbracketmaxrbracket = 8,        // <Max Length> ::= '[max]'
+         @Maxlength_Lparenmaxrparen = 9,            // <Max Length> ::= '(max)'
+         @Lengths_Lbracket_Decliteral_Minus_Decliteral_Rbracket = 10,  // <Lengths> ::= '[' DecLiteral '-' DecLiteral ']'
+         @Lengths_Lbracket_Decliteral_Minus_Max_Rbracket = 11,  // <Lengths> ::= '[' DecLiteral '-' max ']'
+         @Lengths_Lparen_Decliteral_Minus_Decliteral_Rparen = 12,  // <Lengths> ::= '(' DecLiteral '-' DecLiteral ')'
+         @Lengths_Lparen_Decliteral_Minus_Max_Rparen = 13,  // <Lengths> ::= '(' DecLiteral '-' max ')'
+         @Lengths_Lparen_Decliteral_Minus_Rparen = 14,  // <Lengths> ::= '(' DecLiteral '-' ')'
+         @Lengths_Lbracket_Decliteral_Minus_Rbracket = 15,  // <Lengths> ::= '[' DecLiteral '-' ']'
+         @Lengths = 16,                             // <Lengths> ::= <Max Length>
+         @Typespec = 17,                            // <Type Spec> ::= <Type> <Is Optional> <Lengths>
+         @Typespec2 = 18,                           // <Type Spec> ::= <Type> <Lengths>
+         @Typespec3 = 19,                           // <Type Spec> ::= <Type> <Is Optional>
+         @Typespec4 = 20,                           // <Type Spec> ::= <Type>
+         @Type_Identifier = 21,                     // <Type> ::= Identifier
+         @Type_Timestamptype = 22,                  // <Type> ::= TimestampType
+         @Enumvalue_Identifier_Dot_Identifier = 23,  // <EnumValue> ::= Identifier '.' Identifier
+         @Visibility_Public = 24,                   // <Visibility> ::= public
+         @Visibility_Protected = 25,                // <Visibility> ::= protected
+         @Visibility_Internal = 26,                 // <Visibility> ::= internal
+         @Initialvalue_Decliteral = 27,             // <Initial Value> ::= DecLiteral
+         @Initialvalue_Hexliteral = 28,             // <Initial Value> ::= HexLiteral
+         @Initialvalue_Realliteral = 29,            // <Initial Value> ::= RealLiteral
+         @Initialvalue_Stringliteral = 30,          // <Initial Value> ::= StringLiteral
+         @Initialvalue_Charliteral = 31,            // <Initial Value> ::= CharLiteral
+         @Initialvalue = 32,                        // <Initial Value> ::= <EnumValue>
+         @Input = 33,                               // <Input> ::= <Visibility> <Type Spec> <Name Spec> <Initializer>
+         @Input2 = 34,                              // <Input> ::= <Visibility> <Type Spec> <Name Spec>
+         @Input3 = 35,                              // <Input> ::= <Type Spec> <Name Spec> <Initializer>
+         @Input4 = 36,                              // <Input> ::= <Type Spec> <Name Spec>
+         @Input5 = 37,                              // <Input> ::= <Name Spec> <Initializer>
+         @Input6 = 38,                              // <Input> ::= <Name Spec>
+         @Input_Colon = 39,                         // <Input> ::= <Visibility> <Name Spec> ':' <Type Spec> <Initializer>
+         @Input_Colon2 = 40,                        // <Input> ::= <Visibility> <Name Spec> ':' <Type Spec>
+         @Input7 = 41,                              // <Input> ::= <Visibility> <Name Spec> <Initializer>
+         @Input8 = 42,                              // <Input> ::= <Visibility> <Name Spec>
+         @Input_Colon3 = 43,                        // <Input> ::= <Name Spec> ':' <Type Spec> <Initializer>
+         @Input_Colon4 = 44                         // <Input> ::= <Name Spec> ':' <Type Spec>
+      }
 
       #endregion
    }

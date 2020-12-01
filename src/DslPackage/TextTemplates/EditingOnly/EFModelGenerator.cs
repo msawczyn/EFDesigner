@@ -11,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.0.5
+      // EFDesigner v3.0.1.0
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -1098,7 +1098,9 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                if (!string.IsNullOrWhiteSpace(modelAttribute.CustomAttributes))
                   Output($"[{modelAttribute.CustomAttributes.Trim('[', ']')}]");
 
-               if (modelAttribute.IsConcurrencyToken || modelAttribute.AutoProperty)
+               if (modelAttribute.IsAbstract)
+                  Output($"public abstract {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
+               else if (modelAttribute.IsConcurrencyToken || modelAttribute.AutoProperty)
                   Output($"public {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
                else
                {
@@ -1145,4 +1147,5 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
       #endregion Template
    }
 }
+
 

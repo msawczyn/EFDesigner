@@ -2529,6 +2529,94 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region IsTargetAbstract domain property code
+		
+		/// <summary>
+		/// IsTargetAbstract domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsTargetAbstractDomainPropertyId = new global::System.Guid(0xc264b738, 0xeb47, 0x4cdf, 0x9e, 0xe2, 0x65, 0xbd, 0x0c, 0xa4, 0x45, 0xa0);
+		
+		/// <summary>
+		/// Storage for IsTargetAbstract
+		/// </summary>
+		private global::System.Boolean isTargetAbstractPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsTargetAbstract domain property.
+		/// If true, the property for this end will be abstract
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Association/IsTargetAbstract.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.Association/IsTargetAbstract.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association/IsTargetAbstract.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("c264b738-eb47-4cdf-9ee2-65bd0ca445a0")]
+		public global::System.Boolean IsTargetAbstract
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isTargetAbstractPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsTargetAbstractPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the Association.IsTargetAbstract domain property.
+		/// </summary>
+		internal sealed partial class IsTargetAbstractPropertyHandler : DslModeling::DomainPropertyValueHandler<Association, global::System.Boolean>
+		{
+			private IsTargetAbstractPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the Association.IsTargetAbstract domain property value handler.
+			/// </summary>
+			public static readonly IsTargetAbstractPropertyHandler Instance = new IsTargetAbstractPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the Association.IsTargetAbstract domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsTargetAbstractDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(Association element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isTargetAbstractPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(Association element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isTargetAbstractPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Source link accessor
 		/// <summary>
 		/// Get the list of Association links to a ModelClass.
@@ -4836,6 +4924,94 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.isSourceAutoPropertyTrackingPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region IsSourceAbstract domain property code
+		
+		/// <summary>
+		/// IsSourceAbstract domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsSourceAbstractDomainPropertyId = new global::System.Guid(0x1efba570, 0xfa00, 0x474d, 0xbc, 0x74, 0x24, 0xfc, 0xb5, 0x18, 0x41, 0x1a);
+		
+		/// <summary>
+		/// Storage for IsSourceAbstract
+		/// </summary>
+		private global::System.Boolean isSourceAbstractPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsSourceAbstract domain property.
+		/// If true, the property for this end will be abstract
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/IsSourceAbstract.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/IsSourceAbstract.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/IsSourceAbstract.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("1efba570-fa00-474d-bc74-24fcb518411a")]
+		public global::System.Boolean IsSourceAbstract
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isSourceAbstractPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsSourceAbstractPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the BidirectionalAssociation.IsSourceAbstract domain property.
+		/// </summary>
+		internal sealed partial class IsSourceAbstractPropertyHandler : DslModeling::DomainPropertyValueHandler<BidirectionalAssociation, global::System.Boolean>
+		{
+			private IsSourceAbstractPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the BidirectionalAssociation.IsSourceAbstract domain property value handler.
+			/// </summary>
+			public static readonly IsSourceAbstractPropertyHandler Instance = new IsSourceAbstractPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the BidirectionalAssociation.IsSourceAbstract domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsSourceAbstractDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(BidirectionalAssociation element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isSourceAbstractPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(BidirectionalAssociation element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isSourceAbstractPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

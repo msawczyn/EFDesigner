@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="3" Revision="5" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="3" Build="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -778,6 +778,11 @@
             <DomainEnumerationMoniker Name="PropertyAccessMode" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="0ee5f3e7-a047-4c79-a4f4-2d632f2bd47c" Description="If true, this will be generated as an abstract property" Name="IsAbstract" DisplayName="Abstract" DefaultValue="false" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="e2c13b26-0944-4b6c-89b5-bb95c500f515" Description="" Name="Comment" DisplayName="Comment" Namespace="Sawczyn.EFDesigner.EFModel">
@@ -1174,6 +1179,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="c264b738-eb47-4cdf-9ee2-65bd0ca445a0" Description="If true, the property for this end will be abstract" Name="IsTargetAbstract" DisplayName="End1 Is Abstract" Category="End2">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <Source>
         <DomainRole Id="d2edf927-64c2-4fe3-8d4e-c44e87142c4c" Description="" Name="Source" DisplayName="Source" PropertyName="Targets" PropertyDisplayName="Targets">
@@ -1350,6 +1360,11 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="545b091f-abd0-4ad4-8151-80c546ed1049" Description="If true, Association.SourceAutoProperty tracks ModelClass.AutoPropertyDefault" Name="IsSourceAutoPropertyTracking" DisplayName="Is Source Auto Property Tracking" DefaultValue="true" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="1efba570-fa00-474d-bc74-24fcb518411a" Description="If true, the property for this end will be abstract" Name="IsSourceAbstract" DisplayName="End2 Is Abstract" Category="End 1">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -1988,6 +2003,9 @@
           <XmlPropertyData XmlName="isTargetAutoPropertyTracking">
             <DomainPropertyMoniker Name="Association/IsTargetAutoPropertyTracking" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="isTargetAbstract">
+            <DomainPropertyMoniker Name="Association/IsTargetAbstract" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ClassHasAttributes" MonikerAttributeName="" SerializeId="true" MonikerElementName="classHasAttributesMoniker" ElementName="classHasAttributes" MonikerTypeName="ClassHasAttributesMoniker">
@@ -2362,6 +2380,9 @@
           <XmlPropertyData XmlName="propertyAccessMode">
             <DomainPropertyMoniker Name="ModelAttribute/PropertyAccessMode" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="isAbstract">
+            <DomainPropertyMoniker Name="ModelAttribute/IsAbstract" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="Comment" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentMoniker" ElementName="comment" MonikerTypeName="CommentMoniker">
@@ -2425,6 +2446,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isSourceAutoPropertyTracking">
             <DomainPropertyMoniker Name="BidirectionalAssociation/IsSourceAutoPropertyTracking" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isSourceAbstract">
+            <DomainPropertyMoniker Name="BidirectionalAssociation/IsSourceAbstract" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

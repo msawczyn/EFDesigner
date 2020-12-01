@@ -21,7 +21,7 @@ the visual model, as is the ability to add text blocks to explain potentially ar
 While giving you complete control over how the code is generated you'll be able to create, out of the box, sophisticated, 
 consistent and **correct** Entity Framework code that can be regenerated when your model changes. And, since the code is written using 
 partial classes, any additions you make to your generated code are retained across subsequent generations.
-The designer doesn't need to be present to use the the code that's generated - it generates standard C#, using the code-first, fluent API - so the tool doesn't
+The designer doesn't need to be present to use the code that's generated - it generates standard C#, using the code-first, fluent API - so the tool doesn't
 become a dependency to your project.
 
 If you are used to the EF visual modeling that comes with Visual Studio, you'll be pretty much at home.
@@ -75,7 +75,7 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - Possibly breaking changes: 
       - T4 template structure has been changed drastically to simplify managing code generation for the various EF versions.
         If customized T4 templates have been added to a project, they'll still work, but enhancements will continue to be made only to the new, more 
-        object-oriented, T4 structure. Updating the the model's .tt file to use the new template structure is quite simple; details will be in the documentation 
+        object-oriented, T4 structure. Updating the model's .tt file to use the new template structure is quite simple; details will be in the documentation 
         at https://msawczyn.github.io/EFDesigner/Customizing.html
 
 <details>

@@ -51,6 +51,7 @@ $files =
    'src\DslPackage\TextTemplates\EditingOnly\VSIntegration.cs'
 
 foreach ($f in $files) {
+   sleep 1
    try {
    [regex]::Replace((get-content $f -Raw), '(\s*)// EFDesigner v[\d\.]+', '$1// EFDesigner v'+$version) | set-content $f
    [regex]::Replace((get-content $f -Raw), '\r?\n\r?\n\r?\n[\r\n]*', "") | set-content $f

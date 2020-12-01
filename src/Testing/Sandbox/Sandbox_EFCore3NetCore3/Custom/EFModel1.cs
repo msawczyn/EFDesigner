@@ -1,14 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Text;
-
+using System.Linq;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Testing
+namespace EFDesignerCoreTest
 {
-   public partial class AllFeatureModel
+   /// <inheritdoc/>
+   public partial class EFModel1 
    {
-      public AllFeatureModel() { }
+      public EFModel1() { }
 
       partial void CustomInit(DbContextOptionsBuilder optionsBuilder)
       {
