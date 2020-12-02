@@ -16,8 +16,8 @@ using System.Runtime.ConstrainedExecution;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("3.0.1.0")]
-[assembly: AssemblyFileVersion("3.0.1.0")]
+[assembly: AssemblyVersion("3.0.1.1")]
+[assembly: AssemblyFileVersion("3.0.1.1")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(false)]
 [assembly: ReliabilityContract(Consistency.MayCorruptProcess, Cer.None)]

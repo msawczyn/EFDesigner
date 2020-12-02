@@ -241,6 +241,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                using (Transaction tx = element.Store.TransactionManager.BeginTransaction("AddProperties"))
                {
+                  List<ModelAttribute> existingModelAttributes = element.Attributes.ToList();
                   element.Attributes.Clear();
 
                   foreach (string codeFormLine in codeForm.Lines)
@@ -272,18 +273,35 @@ namespace Sawczyn.EFDesigner.EFModel
                            continue;
                         }
 
-                        ModelAttribute modelAttribute =
-                           new ModelAttribute(element.Store
-                                            , new PropertyAssignment(ModelAttribute.NameDomainPropertyId, parseResult.Name)
-                                            , new PropertyAssignment(ModelAttribute.TypeDomainPropertyId, parseResult.Type ?? "String")
-                                            , new PropertyAssignment(ModelAttribute.RequiredDomainPropertyId, parseResult.Required ?? true)
-                                            , new PropertyAssignment(ModelAttribute.MaxLengthDomainPropertyId, parseResult.MaxLength ?? -1)
-                                            , new PropertyAssignment(ModelAttribute.MinLengthDomainPropertyId, parseResult.MinLength ?? 0)
-                                            , new PropertyAssignment(ModelAttribute.InitialValueDomainPropertyId, parseResult.InitialValue)
-                                            , new PropertyAssignment(ModelAttribute.IsIdentityDomainPropertyId, parseResult.IsIdentity)
-                                            , new PropertyAssignment(ModelAttribute.SetterVisibilityDomainPropertyId, parseResult.SetterVisibility ?? SetterAccessModifier.Public));
+                        ModelAttribute modelAttribute = existingModelAttributes.FirstOrDefault(a => a.Name == parseResult.Name);
 
-                        element.Attributes.Add(modelAttribute);
+                        if (modelAttribute == null)
+                        {
+                           modelAttribute = new ModelAttribute(element.Store
+                                                             , new PropertyAssignment(ModelAttribute.NameDomainPropertyId, parseResult.Name)
+                                                             , new PropertyAssignment(ModelAttribute.TypeDomainPropertyId, parseResult.Type ?? "String")
+                                                             , new PropertyAssignment(ModelAttribute.RequiredDomainPropertyId, parseResult.Required ?? true)
+                                                             , new PropertyAssignment(ModelAttribute.MaxLengthDomainPropertyId, parseResult.MaxLength ?? -1)
+                                                             , new PropertyAssignment(ModelAttribute.MinLengthDomainPropertyId, parseResult.MinLength ?? 0)
+                                                             , new PropertyAssignment(ModelAttribute.InitialValueDomainPropertyId, parseResult.InitialValue)
+                                                             , new PropertyAssignment(ModelAttribute.IsIdentityDomainPropertyId, parseResult.IsIdentity)
+                                                             , new PropertyAssignment(ModelAttribute.SetterVisibilityDomainPropertyId, parseResult.SetterVisibility ?? SetterAccessModifier.Public));
+                        }
+                        else
+                        {
+                           modelAttribute.Type = parseResult.Type ?? modelAttribute.Type;
+                           modelAttribute.Required = parseResult.Required ?? modelAttribute.Required;
+                           modelAttribute.MaxLength = parseResult.MaxLength ?? modelAttribute.MaxLength;
+                           modelAttribute.MinLength = parseResult.MinLength ?? modelAttribute.MinLength;
+                           modelAttribute.InitialValue = parseResult.InitialValue ?? modelAttribute.InitialValue;
+                           modelAttribute.IsIdentity = parseResult.IsIdentity;
+                           modelAttribute.SetterVisibility = parseResult.SetterVisibility ?? modelAttribute.SetterVisibility;
+                        }
+
+                        if (element.Attributes.All(a => a.Name != modelAttribute.Name))
+                           element.Attributes.Add(modelAttribute);
+                        else
+                           Messages.AddWarning($"Tried to add multiple properties named '{modelAttribute.Name}'. Only the first will be added.");
                      }
                      catch (Exception exception)
                      {
@@ -322,6 +340,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                using (Transaction tx = element.Store.TransactionManager.BeginTransaction("AddValues"))
                {
+                  List<ModelEnumValue> existingValues = element.Values.ToList();
                   element.Values.Clear();
 
                   foreach (string codeFormLine in codeForm.Lines)
@@ -330,7 +349,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      {
                         string[] parts = codeFormLine.Replace(",", string.Empty)
                                                      .Replace(";", string.Empty)
-                                                     .Split('=')
+                                                     .Split(new []{"="}, StringSplitOptions.RemoveEmptyEntries)
                                                      .Select(x => x.Trim())
                                                      .ToArray();
 
@@ -347,17 +366,34 @@ namespace Sawczyn.EFDesigner.EFModel
                               switch (parts.Length)
                               {
                                  case 1:
-
-                                    element.Values.Add(new ModelEnumValue(element.Store,
-                                                                          new PropertyAssignment(ModelEnumValue.NameDomainPropertyId, parts[0])));
+                                    if (element.Values.Any(v => v.Name == parts[0]))
+                                       Messages.AddWarning($"Tried to add multiple values named '{parts[0]}' to {element.Name}. Only the first will be added.");
+                                    else
+                                    {
+                                       element.Values.Add(existingValues.FirstOrDefault(v => v.Name == parts[0])
+                                                       ?? new ModelEnumValue(element.Store, new PropertyAssignment(ModelEnumValue.NameDomainPropertyId, parts[0])));
+                                    }
 
                                     break;
                                  case 2:
+                                    if (element.Values.Any(v => v.Name == parts[0]))
+                                       Messages.AddWarning($"Tried to add multiple values named '{parts[0]}' to {element.Name}. Only the first will be added.");
+                                    else
+                                    {
+                                       ModelEnumValue existingValue = existingValues.FirstOrDefault(v => v.Name == parts[0]);
 
-                                    element.Values.Add(new ModelEnumValue(element.Store,
-                                                                          new PropertyAssignment(ModelEnumValue.NameDomainPropertyId, parts[0]),
-                                                                          new PropertyAssignment(ModelEnumValue.ValueDomainPropertyId, parts[1])));
-
+                                       if (existingValue != null)
+                                       {
+                                          existingValue.Value = parts[1];
+                                          element.Values.Add(existingValue);
+                                       }
+                                       else
+                                       {
+                                          element.Values.Add(new ModelEnumValue(element.Store
+                                                                              , new PropertyAssignment(ModelEnumValue.NameDomainPropertyId, parts[0])
+                                                                              , new PropertyAssignment(ModelEnumValue.ValueDomainPropertyId, parts[1])));
+                                       }
+                                    }
                                     break;
                                  default:
                                     message = $"Could not add '{codeFormLine}' to {element.Name}: The string was not in the proper format.";

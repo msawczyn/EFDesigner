@@ -22,9 +22,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace EFDesignerCoreTest
+namespace Testing
 {
-   public partial class EntityImplementation: global::EFDesignerCoreTest.EntityAbstract
+   public partial class EntityImplementation: global::Testing.EntityAbstract
    {
       partial void Init();
 
@@ -33,7 +33,7 @@ namespace EFDesignerCoreTest
       /// </summary>
       public EntityImplementation(): base()
       {
-         Entity1 = global::EFDesignerCoreTest.Entity1.CreateEntity1Unsafe();
+         Entity1 = global::Testing.Entity1.CreateEntity1Unsafe();
 
          Init();
       }
@@ -53,7 +53,7 @@ namespace EFDesignerCoreTest
        * Navigation properties
        *************************************************************************/
 
-      public virtual global::EFDesignerCoreTest.Entity1 Entity1 { get; set; }
+      public virtual global::Testing.Entity1 Entity1 { get; set; }
 
    }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -7,13 +8,41 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.1.0
+      // EFDesigner v3.0.1.1
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
       public class EFCore5ModelGenerator : EFCore3ModelGenerator
       {
          public EFCore5ModelGenerator(GeneratedTextTransformation host) : base(host) { }
+
+         protected override List<string> GatherModelAttributeSegments(ModelAttribute modelAttribute)
+         {
+            List<string> segments = base.GatherModelAttributeSegments(modelAttribute);
+
+            if (!string.IsNullOrEmpty(modelAttribute.InitialValue))
+            {
+               switch (modelAttribute.Type)
+               {
+                  case "String":
+                     segments.Add($"HasDefaultValue(\"{modelAttribute.InitialValue.Trim(' ', '"')}\")");
+                     break;
+                  case "Char":
+                     segments.Add($"HasDefaultValue('{modelAttribute.InitialValue.Trim(' ', '\'')}')");
+                     break;
+                  case "DateTime":
+                     if (modelAttribute.InitialValue == "DateTime.UtcNow")
+                        segments.Add("HasDefaultValueSql(\"CURRENT_TIMESTAMP\")");
+                     break;
+                  default:
+                     segments.Add($"HasDefaultValue({modelAttribute.InitialValue})");
+                     break;
+               }
+            }
+
+            return segments;
+         }
+
 
          [SuppressMessage("ReSharper", "RedundantNameQualifier")]
          protected override void ConfigureBidirectionalAssociations(ModelClass modelClass

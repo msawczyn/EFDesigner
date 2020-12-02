@@ -22,7 +22,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace EFDesignerCoreTest
+namespace Testing
 {
    public partial class EntityRelated
    {
@@ -50,7 +50,7 @@ namespace EFDesignerCoreTest
       /// Public constructor with required data
       /// </summary>
       /// <param name="entityabstract"></param>
-      public EntityRelated(global::EFDesignerCoreTest.EntityAbstract entityabstract)
+      public EntityRelated(global::Testing.EntityAbstract entityabstract)
       {
          if (entityabstract == null) throw new ArgumentNullException(nameof(entityabstract));
          this.EntityAbstract = entityabstract;
@@ -63,7 +63,7 @@ namespace EFDesignerCoreTest
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="entityabstract"></param>
-      public static EntityRelated Create(global::EFDesignerCoreTest.EntityAbstract entityabstract)
+      public static EntityRelated Create(global::Testing.EntityAbstract entityabstract)
       {
          return new EntityRelated(entityabstract);
       }
@@ -86,7 +86,7 @@ namespace EFDesignerCoreTest
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::EFDesignerCoreTest.EntityAbstract EntityAbstract { get; set; }
+      public virtual global::Testing.EntityAbstract EntityAbstract { get; set; }
 
    }
 }

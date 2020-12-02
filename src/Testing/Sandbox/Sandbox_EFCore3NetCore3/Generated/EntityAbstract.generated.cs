@@ -22,7 +22,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace EFDesignerCoreTest
+namespace Testing
 {
    public abstract partial class EntityAbstract
    {
@@ -33,7 +33,7 @@ namespace EFDesignerCoreTest
       /// </summary>
       protected EntityAbstract()
       {
-         EntityRelated = new System.Collections.Generic.HashSet<global::EFDesignerCoreTest.EntityRelated>();
+         EntityRelated = new System.Collections.Generic.HashSet<global::Testing.EntityRelated>();
 
          Init();
       }
@@ -53,7 +53,7 @@ namespace EFDesignerCoreTest
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::EFDesignerCoreTest.EntityRelated> EntityRelated { get; private set; }
+      public virtual ICollection<global::Testing.EntityRelated> EntityRelated { get; private set; }
 
    }
 }

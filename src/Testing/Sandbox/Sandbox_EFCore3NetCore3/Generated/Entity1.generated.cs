@@ -22,7 +22,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace EFDesignerCoreTest
+namespace Testing
 {
    public partial class Entity1
    {
@@ -33,7 +33,7 @@ namespace EFDesignerCoreTest
       /// </summary>
       protected Entity1()
       {
-         EntityImplementation = new global::EFDesignerCoreTest.EntityImplementation();
+         EntityImplementation = new global::Testing.EntityImplementation();
 
          Init();
       }
@@ -50,7 +50,7 @@ namespace EFDesignerCoreTest
       /// Public constructor with required data
       /// </summary>
       /// <param name="entityimplementation"></param>
-      public Entity1(global::EFDesignerCoreTest.EntityImplementation entityimplementation)
+      public Entity1(global::Testing.EntityImplementation entityimplementation)
       {
          if (entityimplementation == null) throw new ArgumentNullException(nameof(entityimplementation));
          this.EntityImplementation = entityimplementation;
@@ -63,7 +63,7 @@ namespace EFDesignerCoreTest
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="entityimplementation"></param>
-      public static Entity1 Create(global::EFDesignerCoreTest.EntityImplementation entityimplementation)
+      public static Entity1 Create(global::Testing.EntityImplementation entityimplementation)
       {
          return new Entity1(entityimplementation);
       }
@@ -87,7 +87,7 @@ namespace EFDesignerCoreTest
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::EFDesignerCoreTest.EntityImplementation EntityImplementation { get; set; }
+      public virtual global::Testing.EntityImplementation EntityImplementation { get; set; }
 
    }
 }

@@ -19,23 +19,23 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace EFDesignerCoreTest
+namespace Testing
 {
    /// <inheritdoc/>
    public partial class EFModel1 : DbContext
    {
       #region DbSets
-      public virtual Microsoft.EntityFrameworkCore.DbSet<global::EFDesignerCoreTest.Entity1> Entity1 { get; set; }
-      public virtual Microsoft.EntityFrameworkCore.DbSet<global::EFDesignerCoreTest.EntityAbstract> EntityAbstract { get; set; }
-      public virtual Microsoft.EntityFrameworkCore.DbSet<global::EFDesignerCoreTest.EntityImplementation> EntityImplementation { get; set; }
-      public virtual Microsoft.EntityFrameworkCore.DbSet<global::EFDesignerCoreTest.EntityRelated> EntityRelated { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.Entity1> Entity1 { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.EntityAbstract> EntityAbstract { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.EntityImplementation> EntityImplementation { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.EntityRelated> EntityRelated { get; set; }
 
       #endregion DbSets
 
       /// <summary>
       /// Default connection string
       /// </summary>
-      public static string ConnectionString { get; set; } = @"Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True";
+      public static string ConnectionString { get; set; } = @"Data Source=(localdb)\MSSQLLocalDb;Initial Catalog=Test;Integrated Security=True";
 
       /// <inheritdoc />
       public EFModel1(DbContextOptions<EFModel1> options) : base(options)
@@ -61,43 +61,43 @@ namespace EFDesignerCoreTest
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<global::EFDesignerCoreTest.Entity1>()
+         modelBuilder.Entity<global::Testing.Entity1>()
                      .ToTable("Entity1")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<global::EFDesignerCoreTest.Entity1>()
+         modelBuilder.Entity<global::Testing.Entity1>()
                      .Property(t => t.Id)
                      .IsRequired()
                      .ValueGeneratedOnAdd();
-         modelBuilder.Entity<global::EFDesignerCoreTest.Entity1>()
-                     .HasOne<global::EFDesignerCoreTest.EntityImplementation>(p => p.EntityImplementation)
+         modelBuilder.Entity<global::Testing.Entity1>()
+                     .HasOne<global::Testing.EntityImplementation>(p => p.EntityImplementation)
                      .WithOne(p => p.Entity1)
                      .HasForeignKey("Entity1", "EntityImplementationId");
-         modelBuilder.Entity<global::EFDesignerCoreTest.Entity1>().Navigation(e => e.EntityImplementation).IsRequired();
+         modelBuilder.Entity<global::Testing.Entity1>().Navigation(e => e.EntityImplementation).IsRequired();
 
-         modelBuilder.Entity<global::EFDesignerCoreTest.EntityAbstract>()
+         modelBuilder.Entity<global::Testing.EntityAbstract>()
                      .ToTable("EntityAbstract")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<global::EFDesignerCoreTest.EntityAbstract>()
+         modelBuilder.Entity<global::Testing.EntityAbstract>()
                      .Property(t => t.Id)
                      .IsRequired()
                      .ValueGeneratedOnAdd();
 
-         modelBuilder.Entity<global::EFDesignerCoreTest.EntityImplementation>()
+         modelBuilder.Entity<global::Testing.EntityImplementation>()
                      .Property(t => t.Test)
                      .HasMaxLength(255);
 
-         modelBuilder.Entity<global::EFDesignerCoreTest.EntityRelated>()
+         modelBuilder.Entity<global::Testing.EntityRelated>()
                      .ToTable("EntityRelated")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<global::EFDesignerCoreTest.EntityRelated>()
+         modelBuilder.Entity<global::Testing.EntityRelated>()
                      .Property(t => t.Id)
                      .IsRequired()
                      .ValueGeneratedOnAdd();
-         modelBuilder.Entity<global::EFDesignerCoreTest.EntityRelated>()
-                     .HasOne<global::EFDesignerCoreTest.EntityAbstract>(p => p.EntityAbstract)
+         modelBuilder.Entity<global::Testing.EntityRelated>()
+                     .HasOne<global::Testing.EntityAbstract>(p => p.EntityAbstract)
                      .WithMany(p => p.EntityRelated)
                      .HasForeignKey("EntityAbstractId");
-         modelBuilder.Entity<global::EFDesignerCoreTest.EntityRelated>().Navigation(e => e.EntityAbstract).IsRequired();
+         modelBuilder.Entity<global::Testing.EntityRelated>().Navigation(e => e.EntityAbstract).IsRequired();
 
          OnModelCreatedImpl(modelBuilder);
       }
