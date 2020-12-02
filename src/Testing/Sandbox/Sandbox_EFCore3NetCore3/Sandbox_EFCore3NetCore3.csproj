@@ -19,7 +19,6 @@
     <None Remove="EFModel.efmodel.diagramx" />
     <None Remove="EFModel.tt" />
     <None Remove="EFModel1.tt" />
-    <None Remove="Migrations\Placeholder.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,7 +30,6 @@
       <LastGenOutput>EFModel1.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </Content>
-    <Content Include="Migrations\Placeholder.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +38,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -63,6 +62,10 @@
     <None Update="EFModel1.efmodel.diagramx">
       <DependentUpon>EFModel1.efmodel</DependentUpon>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

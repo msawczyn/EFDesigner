@@ -22,13 +22,15 @@ using Microsoft.EntityFrameworkCore;
 namespace Testing
 {
    /// <inheritdoc/>
-   public partial class EFModel1 
+   public partial class EFModel1
    {
       public EFModel1() { }
 
-      partial void CustomInit(DbContextOptionsBuilder optionsBuilder)
+      public static void ConfigureOptions(DbContextOptionsBuilder optionsBuilder)
       {
          optionsBuilder.UseSqlServer(ConnectionString);
       }
+
+      partial void CustomInit(DbContextOptionsBuilder optionsBuilder) => ConfigureOptions(optionsBuilder);
    }
 }

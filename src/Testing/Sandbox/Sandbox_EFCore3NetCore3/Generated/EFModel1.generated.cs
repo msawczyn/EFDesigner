@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.1.0
+//     Produced by Entity Framework Visual Editor v3.0.1.1
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -66,12 +66,13 @@ namespace Testing
                      .HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.Entity1>()
                      .Property(t => t.Id)
-                     .IsRequired()
-                     .ValueGeneratedOnAdd();
+                     .ValueGeneratedOnAdd()
+                     .IsRequired();
          modelBuilder.Entity<global::Testing.Entity1>()
                      .HasOne<global::Testing.EntityImplementation>(p => p.EntityImplementation)
                      .WithOne(p => p.Entity1)
-                     .HasForeignKey("Entity1", "EntityImplementationId");
+                     .HasForeignKey("Entity1", "EntityImplementationId")
+                     .OnDelete(DeleteBehavior.Cascade);
          modelBuilder.Entity<global::Testing.Entity1>().Navigation(e => e.EntityImplementation).IsRequired();
 
          modelBuilder.Entity<global::Testing.EntityAbstract>()
@@ -79,20 +80,32 @@ namespace Testing
                      .HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.EntityAbstract>()
                      .Property(t => t.Id)
-                     .IsRequired()
-                     .ValueGeneratedOnAdd();
+                     .ValueGeneratedOnAdd()
+                     .IsRequired();
 
          modelBuilder.Entity<global::Testing.EntityImplementation>()
+                     .ToTable("EntityImplementation");
+         modelBuilder.Entity<global::Testing.EntityImplementation>()
                      .Property(t => t.Test)
-                     .HasMaxLength(255);
+                     .HasMaxLength(255)
+                     .HasDefaultValue("default string");
+         modelBuilder.Entity<global::Testing.EntityImplementation>()
+                     .Property(t => t.Property1)
+                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
+         modelBuilder.Entity<global::Testing.EntityImplementation>()
+                     .Property(t => t.Property11)
+                     .HasDefaultValue(3);
+         modelBuilder.Entity<global::Testing.EntityImplementation>()
+                     .Property(t => t.Property12)
+                     .HasDefaultValue(true);
 
          modelBuilder.Entity<global::Testing.EntityRelated>()
                      .ToTable("EntityRelated")
                      .HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.EntityRelated>()
                      .Property(t => t.Id)
-                     .IsRequired()
-                     .ValueGeneratedOnAdd();
+                     .ValueGeneratedOnAdd()
+                     .IsRequired();
          modelBuilder.Entity<global::Testing.EntityRelated>()
                      .HasOne<global::Testing.EntityAbstract>(p => p.EntityAbstract)
                      .WithMany(p => p.EntityRelated)

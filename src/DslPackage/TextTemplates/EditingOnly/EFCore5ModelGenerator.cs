@@ -135,9 +135,9 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                   if (association.Dependent == association.Target)
                   {
-                     if (association.TargetDeleteAction == DeleteAction.None)
+                     if (association.SourceDeleteAction == DeleteAction.None)
                         segments.Add("OnDelete(DeleteBehavior.NoAction)");
-                     else if (association.TargetDeleteAction == DeleteAction.Cascade)
+                     else if (association.SourceDeleteAction == DeleteAction.Cascade)
                         segments.Add("OnDelete(DeleteBehavior.Cascade)");
 
                      if (targetRequired)
@@ -145,9 +145,9 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   }
                   else if (association.Dependent == association.Source)
                   {
-                     if (association.SourceDeleteAction == DeleteAction.None)
+                     if (association.TargetDeleteAction == DeleteAction.None)
                         segments.Add("OnDelete(DeleteBehavior.NoAction)");
-                     else if (association.SourceDeleteAction == DeleteAction.Cascade)
+                     else if (association.TargetDeleteAction == DeleteAction.Cascade)
                         segments.Add("OnDelete(DeleteBehavior.Cascade)");
 
                      if (sourceRequired)
@@ -370,18 +370,19 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                   if (association.Dependent == association.Target)
                   {
-                     if (association.TargetDeleteAction == DeleteAction.None)
+                     if (association.SourceDeleteAction == DeleteAction.None)
                         segments.Add("OnDelete(DeleteBehavior.NoAction)");
-                     else if (association.TargetDeleteAction == DeleteAction.Cascade)
+                     else if (association.SourceDeleteAction == DeleteAction.Cascade)
                         segments.Add("OnDelete(DeleteBehavior.Cascade)");
+
                      if (targetRequired)
                         segments.Add("IsRequired()");
                   }
                   else if (association.Dependent == association.Source)
                   {
-                     if (association.SourceDeleteAction == DeleteAction.None)
+                     if (association.TargetDeleteAction == DeleteAction.None)
                         segments.Add("OnDelete(DeleteBehavior.NoAction)");
-                     else if (association.SourceDeleteAction == DeleteAction.Cascade)
+                     else if (association.TargetDeleteAction == DeleteAction.Cascade)
                         segments.Add("OnDelete(DeleteBehavior.Cascade)");
 
                      if (sourceRequired)

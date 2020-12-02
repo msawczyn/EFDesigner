@@ -6,7 +6,12 @@ namespace Testing
    {
       static void Main(string[] args)
       {
-         Console.WriteLine("Hello World!");
+         using (EFModel1 context = new EFModel1())
+         {
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            context.Database.Migrate();
+         }
       }
    }
 }
