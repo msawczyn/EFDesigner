@@ -53,7 +53,12 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**3.0**
+3.0.1
+   - Fixed an issue where EFCore5 code was generating cascade delete commands in the wrong place (see https://github.com/msawczyn/EFDesigner/issues/243)
+
+<details>
+<summary><b>3.0</b></summary>
+
    - Now supports EFCore5.X 
       - Added `System.Net.IPAddress` and `System.Net.NetworkInformation.PhysicalAddress` to the list of available property types
       - Added ability to specify both default database collation and a collation override at the property level 
@@ -77,6 +82,8 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
         If customized T4 templates have been added to a project, they'll still work, but enhancements will continue to be made only to the new, more 
         object-oriented, T4 structure. Updating the model's .tt file to use the new template structure is quite simple; details will be in the documentation 
         at https://msawczyn.github.io/EFDesigner/Customizing.html
+
+</details>
 
 <details>
 <summary><b>2.0.5.7</b></summary>

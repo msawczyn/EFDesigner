@@ -1,4 +1,4 @@
-3.1 (next release)
+3.0.1
    - Fixed an issue where EFCore5 code was generating cascade delete commands in the wrong place (see https://github.com/msawczyn/EFDesigner/issues/243)
 
 3.0
