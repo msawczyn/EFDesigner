@@ -11,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.1.2
+      // EFDesigner v3.0.1.3
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -237,7 +237,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             }
 
             if (!string.IsNullOrWhiteSpace(modelAttribute.DisplayText))
-               Output($"[Display(Name=\"{modelAttribute.DisplayText}\")]");
+               Output($"[Display(Name=\"{modelAttribute.DisplayText.Replace("\"", "\\\"")}\")]");
+
+            if (!string.IsNullOrWhiteSpace(modelAttribute.Summary))
+               Output($"[Description(\"{modelAttribute.Summary.Replace("\"", "\\\"")}\")]"); 
          }
 
          protected abstract List<string> GetAdditionalUsingStatements();
@@ -433,6 +436,9 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
             if (!string.IsNullOrWhiteSpace(modelClass.CustomAttributes))
                Output($"[{modelClass.CustomAttributes.Trim('[', ']')}]");
+
+            if (!string.IsNullOrWhiteSpace(modelClass.Summary))
+               Output($"[Description(\"{modelClass.Summary.Replace("\"", "\\\"")}\")]");
 
             Output(baseClass.Length > 0
                       ? $"public {isAbstract}partial class {modelClass.Name}: {baseClass}"
@@ -832,6 +838,9 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             if (!string.IsNullOrWhiteSpace(modelEnum.CustomAttributes))
                Output($"[{modelEnum.CustomAttributes.Trim('[', ']')}]");
 
+            if (!string.IsNullOrWhiteSpace(modelEnum.Summary))
+               Output($"[Description(\"{modelEnum.Summary.Replace("\"", "\\\"")}\")]");
+
             Output($"public enum {modelEnum.Name} : {modelEnum.ValueType}");
             Output("{");
 
@@ -856,8 +865,11 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                if (!string.IsNullOrWhiteSpace(values[index].CustomAttributes))
                   Output($"[{values[index].CustomAttributes.Trim('[', ']')}]");
 
+               if (!string.IsNullOrWhiteSpace(values[index].Summary))
+                  Output($"[Description(\"{values[index].Summary.Replace("\"", "\\\"")}\")]");
+
                if (!string.IsNullOrWhiteSpace(values[index].DisplayText))
-                  Output($"[System.ComponentModel.DataAnnotations.Display(Name=\"{values[index].DisplayText}\")]");
+                  Output($"[System.ComponentModel.DataAnnotations.Display(Name=\"{values[index].DisplayText.Replace("\"", "\\\"")}\")]");
 
                Output(string.IsNullOrEmpty(values[index].Value)
                          ? $"{values[index].Name}{(index < values.Length - 1 ? "," : string.Empty)}"
@@ -933,8 +945,11 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                if (!string.IsNullOrWhiteSpace(navigationProperty.CustomAttributes))
                   Output($"[{navigationProperty.CustomAttributes.Trim('[', ']')}]");
 
+               if (!string.IsNullOrWhiteSpace(navigationProperty.Summary))
+                  Output($"[Description(\"{navigationProperty.Summary.Replace("\"", "\\\"")}\")]");
+
                if (!string.IsNullOrWhiteSpace(navigationProperty.DisplayText))
-                  Output($"[Display(Name=\"{navigationProperty.DisplayText}\")]");
+                  Output($"[Display(Name=\"{navigationProperty.DisplayText.Replace("\"", "\\\"")}\")]");
 
                if (navigationProperty.IsAutoProperty)
                {
@@ -1143,7 +1158,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             }
          }
       }
-
       #endregion Template
    }
 }

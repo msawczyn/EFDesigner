@@ -1,5 +1,6 @@
 3.0.1
    - Fixed an issue where EFCore5 code was generating cascade delete commands in the wrong place (see https://github.com/msawczyn/EFDesigner/issues/243)
+   - Added [Description] attribute (to classes, properties, enums and enum values where summary was non-blank) to facilitate tooling use
 
 3.0
    - Now supports EFCore5.X 

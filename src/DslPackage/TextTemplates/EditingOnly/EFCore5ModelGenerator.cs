@@ -8,7 +8,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.1.2
+      // EFDesigner v3.0.1.3
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -22,21 +22,38 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
             if (!string.IsNullOrEmpty(modelAttribute.InitialValue))
             {
-               switch (modelAttribute.Type)
+               if (modelAttribute.InitialValue.Contains(".")) // enum
                {
-                  case "String":
-                     segments.Add($"HasDefaultValue(\"{modelAttribute.InitialValue.Trim(' ', '"')}\")");
-                     break;
-                  case "Char":
-                     segments.Add($"HasDefaultValue('{modelAttribute.InitialValue.Trim(' ', '\'')}')");
-                     break;
-                  case "DateTime":
-                     if (modelAttribute.InitialValue == "DateTime.UtcNow")
-                        segments.Add("HasDefaultValueSql(\"CURRENT_TIMESTAMP\")");
-                     break;
-                  default:
-                     segments.Add($"HasDefaultValue({modelAttribute.InitialValue})");
-                     break;
+                  string enumName = modelAttribute.InitialValue.Split('.').First();
+                  string enumValue = modelAttribute.InitialValue.Split('.').Last();
+                  string enumFQN = modelAttribute.ModelClass.ModelRoot.Enums.FirstOrDefault(e => e.Name == enumName).FullName;
+                  segments.Add($"HasDefaultValue({enumFQN}.{enumValue.Trim()})");
+               }
+               else
+               {
+                  switch (modelAttribute.Type)
+                  {
+                     case "String":
+                        segments.Add($"HasDefaultValue(\"{modelAttribute.InitialValue.Trim(' ', '"')}\")");
+
+                        break;
+
+                     case "Char":
+                        segments.Add($"HasDefaultValue('{modelAttribute.InitialValue.Trim(' ', '\'')}')");
+
+                        break;
+
+                     case "DateTime":
+                        if (modelAttribute.InitialValue == "DateTime.UtcNow")
+                           segments.Add("HasDefaultValueSql(\"CURRENT_TIMESTAMP\")");
+
+                        break;
+
+                     default:
+                        segments.Add($"HasDefaultValue({modelAttribute.InitialValue})");
+
+                        break;
+                  }
                }
             }
 

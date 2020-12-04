@@ -1,5 +1,5 @@
 #region Template
-// EFDesigner v3.0.1.2
+// EFDesigner v3.0.1.3
 // Copyright (c) 2017-2020 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
