@@ -351,6 +351,12 @@
             <xsd:documentation>If true, a DbContextFactory-derived class will be generated for the project</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: EntityDefaultConstructorVisibilityDefault -->
+        <xsd:attribute name="entityDefaultConstructorVisibilityDefault" type="TypeAccessModifierExt" >
+          <xsd:annotation>
+            <xsd:documentation>Defines the visibility of an entity&apos;s default constructor. Normally, those are public unless there are required properties or associations, then they generate as protected.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -590,6 +596,18 @@
         <xsd:attribute name="viewName" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>The name of the database view persisting this class</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: DefaultConstructorVisibility -->
+        <xsd:attribute name="defaultConstructorVisibility" type="TypeAccessModifierExt" >
+          <xsd:annotation>
+            <xsd:documentation>By default, default (empty) constructors generate as public unless there are required properties or associations in the entity, then they generate as protected.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsDefaultConstructorVisibilityTracking -->
+        <xsd:attribute name="isDefaultConstructorVisibilityTracking" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, Model.DefaultConstructorVisibility tracks ModelRoot.EntityDefaultConstructorVisibilityDefault</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -2398,6 +2416,25 @@
           <xsd:documentation>Generated code will create and use this attribute as a .NET field</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum TypeAccessModifierExt -->
+  <xsd:simpleType name="TypeAccessModifierExt">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Internal">
+        <xsd:annotation>
+          <xsd:documentation>No description available</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Private"/>
+      <xsd:enumeration value="Protected">
+        <xsd:annotation>
+          <xsd:documentation>No description available</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Public"/>
+      <xsd:enumeration value="Default"/>
     </xsd:restriction>
   </xsd:simpleType>
   

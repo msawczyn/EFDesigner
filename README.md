@@ -53,12 +53,15 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
+*3.0.2 (next release)*
+   - Added setting on designer surface to set visibility defaults for entity default constructors, and overrides for that setting on the entities
+   - Fixes for code generation of new EFCore5 database collation options
+   - Fixed condition where sometimes generated code in entity default constructors would create infinitely recursive calls
+
 **3.0.1**
    - Added [Description] attribute (to classes, properties, enums and enum values where summary was non-blank) to facilitate tooling use
    - Fixed an issue where EFCore5 code was generating cascade delete commands in the wrong place (see https://github.com/msawczyn/EFDesigner/issues/243)
    - Editing class properties and enum values as text now retains properties that aren't available in the text syntax (see https://github.com/msawczyn/EFDesigner/issues/242)
-
-</details>
 
 <details>
 <summary><b>3.0</b></summary>

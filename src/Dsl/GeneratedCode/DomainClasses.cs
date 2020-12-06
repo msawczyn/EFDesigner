@@ -4154,6 +4154,97 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region EntityDefaultConstructorVisibilityDefault domain property code
+		
+		/// <summary>
+		/// EntityDefaultConstructorVisibilityDefault domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid EntityDefaultConstructorVisibilityDefaultDomainPropertyId = new global::System.Guid(0x063a93fd, 0x17c3, 0x4a44, 0xa0, 0xab, 0xd4, 0x7d, 0xf1, 0x2e, 0x8f, 0x9a);
+		
+		/// <summary>
+		/// Storage for EntityDefaultConstructorVisibilityDefault
+		/// </summary>
+		private TypeAccessModifierExt entityDefaultConstructorVisibilityDefaultPropertyStorage = TypeAccessModifierExt.Default;
+		
+		/// <summary>
+		/// Gets or sets the value of EntityDefaultConstructorVisibilityDefault domain property.
+		/// Defines the visibility of an entity's default constructor. Normally, those are
+		/// public unless there are required properties or associations, then they generate
+		/// as protected.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityDefaultConstructorVisibilityDefault.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityDefaultConstructorVisibilityDefault.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityDefaultConstructorVisibilityDefault.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(TypeAccessModifierExt.Default)]
+		[DslModeling::DomainObjectId("063a93fd-17c3-4a44-a0ab-d47df12e8f9a")]
+		public TypeAccessModifierExt EntityDefaultConstructorVisibilityDefault
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return entityDefaultConstructorVisibilityDefaultPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				EntityDefaultConstructorVisibilityDefaultPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.EntityDefaultConstructorVisibilityDefault domain property.
+		/// </summary>
+		internal sealed partial class EntityDefaultConstructorVisibilityDefaultPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, TypeAccessModifierExt>
+		{
+			private EntityDefaultConstructorVisibilityDefaultPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.EntityDefaultConstructorVisibilityDefault domain property value handler.
+			/// </summary>
+			public static readonly EntityDefaultConstructorVisibilityDefaultPropertyHandler Instance = new EntityDefaultConstructorVisibilityDefaultPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.EntityDefaultConstructorVisibilityDefault domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return EntityDefaultConstructorVisibilityDefaultDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed TypeAccessModifierExt GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.entityDefaultConstructorVisibilityDefaultPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, TypeAccessModifierExt newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				TypeAccessModifierExt oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.entityDefaultConstructorVisibilityDefaultPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>
@@ -6726,6 +6817,190 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.viewNamePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region DefaultConstructorVisibility domain property code
+		
+		/// <summary>
+		/// DefaultConstructorVisibility domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DefaultConstructorVisibilityDomainPropertyId = new global::System.Guid(0xde993ce1, 0x3cb4, 0x4108, 0xa4, 0xa4, 0xcd, 0xb9, 0x1b, 0x16, 0x50, 0xea);
+		
+		/// <summary>
+		/// Gets or sets the value of DefaultConstructorVisibility domain property.
+		/// By default, default (empty) constructors generate as public unless there are
+		/// required properties or associations in the entity, then they generate as
+		/// protected.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/DefaultConstructorVisibility.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/DefaultConstructorVisibility.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/DefaultConstructorVisibility.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(TypeAccessModifierExt.Default)]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("de993ce1-3cb4-4108-a4a4-cdb91b1650ea")]
+		public TypeAccessModifierExt DefaultConstructorVisibility
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return DefaultConstructorVisibilityPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DefaultConstructorVisibilityPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.DefaultConstructorVisibility domain property.
+		/// </summary>
+		internal sealed partial class DefaultConstructorVisibilityPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, TypeAccessModifierExt>
+		{
+			private DefaultConstructorVisibilityPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.DefaultConstructorVisibility domain property value handler.
+			/// </summary>
+			public static readonly DefaultConstructorVisibilityPropertyHandler Instance = new DefaultConstructorVisibilityPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.DefaultConstructorVisibility domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DefaultConstructorVisibilityDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed TypeAccessModifierExt GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for DefaultConstructorVisibility because its Kind is
+				// set to CustomStorage. Please provide the GetDefaultConstructorVisibilityValue()
+				// method on the domain class.
+				return element.GetDefaultConstructorVisibilityValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelClass element, TypeAccessModifierExt newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				TypeAccessModifierExt oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for DefaultConstructorVisibility because its Kind is
+					// set to CustomStorage. Please provide the SetDefaultConstructorVisibilityValue()
+					// method on the domain class.
+					element.SetDefaultConstructorVisibilityValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region IsDefaultConstructorVisibilityTracking domain property code
+		
+		/// <summary>
+		/// IsDefaultConstructorVisibilityTracking domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsDefaultConstructorVisibilityTrackingDomainPropertyId = new global::System.Guid(0x52231828, 0xeb28, 0x4dc3, 0xa6, 0x71, 0x7a, 0x6b, 0x26, 0x98, 0xa2, 0xb2);
+		
+		/// <summary>
+		/// Storage for IsDefaultConstructorVisibilityTracking
+		/// </summary>
+		private global::System.Boolean isDefaultConstructorVisibilityTrackingPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of IsDefaultConstructorVisibilityTracking domain property.
+		/// If true, Model.DefaultConstructorVisibility tracks
+		/// ModelRoot.EntityDefaultConstructorVisibilityDefault
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsDefaultConstructorVisibilityTracking.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsDefaultConstructorVisibilityTracking.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("52231828-eb28-4dc3-a671-7a6b2698a2b2")]
+		public global::System.Boolean IsDefaultConstructorVisibilityTracking
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isDefaultConstructorVisibilityTrackingPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsDefaultConstructorVisibilityTrackingPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.IsDefaultConstructorVisibilityTracking domain property.
+		/// </summary>
+		internal sealed partial class IsDefaultConstructorVisibilityTrackingPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.Boolean>
+		{
+			private IsDefaultConstructorVisibilityTrackingPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.IsDefaultConstructorVisibilityTracking domain property value handler.
+			/// </summary>
+			public static readonly IsDefaultConstructorVisibilityTrackingPropertyHandler Instance = new IsDefaultConstructorVisibilityTrackingPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.IsDefaultConstructorVisibilityTracking domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsDefaultConstructorVisibilityTrackingDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isDefaultConstructorVisibilityTrackingPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelClass element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isDefaultConstructorVisibilityTrackingPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
@@ -12542,8 +12817,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
 namespace Sawczyn.EFDesigner.EFModel
 {
+   /// <summary>
+   /// Current designer version
+   /// </summary>
 	partial class ModelRoot
 	{
-		public const string DSLVersion = "3.0.1.3";
+		public const string DSLVersion = "3.0.1.4";
 	}
 }

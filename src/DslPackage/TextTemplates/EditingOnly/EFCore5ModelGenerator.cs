@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.1.3
+      // EFDesigner v3.0.1.4
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -57,9 +56,41 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                }
             }
 
+            if (!string.IsNullOrEmpty(modelAttribute.DatabaseCollation) && modelAttribute.DatabaseCollation != "default")
+               segments.Add($"UseCollation({modelAttribute.DatabaseCollation})");
+
             return segments;
          }
 
+         protected override void WriteOnModelCreate(List<string> segments, ModelClass[] classesWithTables)
+         {
+            Output("partial void OnModelCreatingImpl(ModelBuilder modelBuilder);");
+            Output("partial void OnModelCreatedImpl(ModelBuilder modelBuilder);");
+            NL();
+
+            Output("/// <inheritdoc />");
+            Output("protected override void OnModelCreating(ModelBuilder modelBuilder)");
+            Output("{");
+            Output("base.OnModelCreating(modelBuilder);");
+            Output("OnModelCreatingImpl(modelBuilder);");
+            NL();
+
+            if (!string.IsNullOrEmpty(modelRoot.DatabaseSchema))
+               Output($"modelBuilder.HasDefaultSchema(\"{modelRoot.DatabaseSchema}\");");
+
+            if (modelRoot.DatabaseCollationDefault.ToLowerInvariant() != "default")
+               Output($"modelBuilder.UseCollation(\"{modelRoot.DatabaseCollationDefault}\");");
+
+            List<Association> visited = new List<Association>();
+            List<string> foreignKeyColumns = new List<string>();
+
+            ConfigureModelClasses(segments, classesWithTables, foreignKeyColumns, visited);
+
+            NL();
+
+            Output("OnModelCreatedImpl(modelBuilder);");
+            Output("}");
+         }
 
          [SuppressMessage("ReSharper", "RedundantNameQualifier")]
          protected override void ConfigureBidirectionalAssociations(ModelClass modelClass

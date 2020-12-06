@@ -902,6 +902,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // EntityDefaultConstructorVisibilityDefault
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribEntityDefaultConstructorVisibilityDefault = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "entityDefaultConstructorVisibilityDefault");
+	         if (attribEntityDefaultConstructorVisibilityDefault != null)
+	         {
+	            TypeAccessModifierExt valueOfEntityDefaultConstructorVisibilityDefault;
+	            if (DslModeling::SerializationUtilities.TryGetValue<TypeAccessModifierExt>(serializationContext, attribEntityDefaultConstructorVisibilityDefault, out valueOfEntityDefaultConstructorVisibilityDefault))
+	            {
+	               instanceOfModelRoot.EntityDefaultConstructorVisibilityDefault = valueOfEntityDefaultConstructorVisibilityDefault;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "entityDefaultConstructorVisibilityDefault", typeof(TypeAccessModifierExt), attribEntityDefaultConstructorVisibilityDefault);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -2116,6 +2133,19 @@ namespace Sawczyn.EFDesigner.EFModel
 	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "generateDbContextFactory", serializedPropValue);
 	         }
 	      }
+	      // EntityDefaultConstructorVisibilityDefault
+	      if (!serializationContext.Result.Failed)
+	      {
+	         TypeAccessModifierExt propValue = instanceOfModelRoot.EntityDefaultConstructorVisibilityDefault;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<TypeAccessModifierExt>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Default") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "entityDefaultConstructorVisibilityDefault", serializedPropValue);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -2831,6 +2861,40 @@ namespace Sawczyn.EFDesigner.EFModel
 	            else
 	            {   // Invalid property value, ignored.
 	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "viewName", typeof(global::System.String), attribViewName);
+	            }
+	         }
+	      }
+	      // DefaultConstructorVisibility
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribDefaultConstructorVisibility = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "defaultConstructorVisibility");
+	         if (attribDefaultConstructorVisibility != null)
+	         {
+	            TypeAccessModifierExt valueOfDefaultConstructorVisibility;
+	            if (DslModeling::SerializationUtilities.TryGetValue<TypeAccessModifierExt>(serializationContext, attribDefaultConstructorVisibility, out valueOfDefaultConstructorVisibility))
+	            {
+	               instanceOfModelClass.DefaultConstructorVisibility = valueOfDefaultConstructorVisibility;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "defaultConstructorVisibility", typeof(TypeAccessModifierExt), attribDefaultConstructorVisibility);
+	            }
+	         }
+	      }
+	      // IsDefaultConstructorVisibilityTracking
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribIsDefaultConstructorVisibilityTracking = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isDefaultConstructorVisibilityTracking");
+	         if (attribIsDefaultConstructorVisibilityTracking != null)
+	         {
+	            global::System.Boolean valueOfIsDefaultConstructorVisibilityTracking;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsDefaultConstructorVisibilityTracking, out valueOfIsDefaultConstructorVisibilityTracking))
+	            {
+	               instanceOfModelClass.IsDefaultConstructorVisibilityTracking = valueOfIsDefaultConstructorVisibilityTracking;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isDefaultConstructorVisibilityTracking", typeof(global::System.Boolean), attribIsDefaultConstructorVisibilityTracking);
 	            }
 	         }
 	      }
@@ -3810,6 +3874,32 @@ namespace Sawczyn.EFDesigner.EFModel
 	            if (!string.IsNullOrEmpty(propValue))
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "viewName", propValue);
 	
+	         }
+	      }
+	      // DefaultConstructorVisibility
+	      if (!serializationContext.Result.Failed)
+	      {
+	         TypeAccessModifierExt propValue = instanceOfModelClass.DefaultConstructorVisibility;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<TypeAccessModifierExt>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Default") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "defaultConstructorVisibility", serializedPropValue);
+	            }
+	         }
+	      }
+	      // IsDefaultConstructorVisibilityTracking
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelClass.IsDefaultConstructorVisibilityTracking;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isDefaultConstructorVisibilityTracking", serializedPropValue);
+	            }
 	         }
 	      }
 	   }

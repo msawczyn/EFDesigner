@@ -30,6 +30,11 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**3.0.2**
+   - **[NEW]** Added setting on designer surface to set visibility defaults for entity default constructors, and overrides for that setting on the entities
+   - Fixes for code generation of new EFCore5 database collation options
+   - Fixed condition where sometimes generated code in entity default constructors would create infinitely recursive calls
+
 **3.0.1**
    - **[NEW]** Added [Description] attribute (to classes, properties, enums and enum values where summary was non-blank) to facilitate tooling use
    - Fixed an issue where EFCore5 code was generating cascade delete commands in the wrong place (see https://github.com/msawczyn/EFDesigner/issues/243)

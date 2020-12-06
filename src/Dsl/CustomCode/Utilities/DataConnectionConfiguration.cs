@@ -1,4 +1,5 @@
 ﻿#pragma warning disable 1591
+#pragma warning disable CS3001 // Argument type is not CLS-compliant
 
 using System;
 using System.Collections.Generic;
@@ -7,9 +8,14 @@ using System.Xml.Linq;
 
 using Microsoft.Data.ConnectionUI;
 
+using Sawczyn.EFDesigner.EFModel.Annotations;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
-
+   /// <summary>
+   /// Configures connection strings for database
+   /// </summary>
+   [UsedImplicitly]
    public class DataConnectionConfiguration
    {
       // based on https://github.com/kjbartel/ConnectionDialog/blob/master/Source/Sample/DataConnectionConfiguration.cs   
@@ -84,8 +90,12 @@ namespace Sawczyn.EFDesigner.EFModel
          return null;
       }
 
+      // ReSharper disable once UnusedMember.Global
+      /// <summary>
+      /// Loads standard data sources and providers
+      /// </summary>
+      /// <param name="dialog"></param>
       public void LoadConfiguration(DataConnectionDialog dialog)
-
       {
          dialog.DataSources.Add(DataSource.SqlDataSource);
          dialog.DataSources.Add(DataSource.SqlFileDataSource);
@@ -130,7 +140,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
       // ReSharper disable once UnusedMember.Global
       public void SaveConfiguration(DataConnectionDialog dcd)
-
       {
          if (dcd.SaveSelection)
          {

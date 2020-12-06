@@ -681,6 +681,18 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;GenerateDbContextFactory&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityDefaultConstructorVisibilityDefault.Description" xml:space="preserve">
+    <value>Defines the visibility of an entity&apos;s default constructor. Normally, those are public unless there are required properties or associations, then they generate as protected.</value>
+    <comment>Description for DomainProperty &apos;EntityDefaultConstructorVisibilityDefault&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityDefaultConstructorVisibilityDefault.DisplayName" xml:space="preserve">
+    <value>Entity Default Constructor Visibility Default</value>
+    <comment>DisplayName for DomainProperty &apos;EntityDefaultConstructorVisibilityDefault&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityDefaultConstructorVisibilityDefault.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;EntityDefaultConstructorVisibilityDefault&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>
@@ -984,6 +996,26 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass/ViewName.Category" xml:space="preserve">
     <value>Database</value>
     <comment>Category for DomainProperty &apos;ViewName&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/DefaultConstructorVisibility.Description" xml:space="preserve">
+    <value>By default, default (empty) constructors generate as public unless there are required properties or associations in the entity, then they generate as protected.</value>
+    <comment>Description for DomainProperty &apos;DefaultConstructorVisibility&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/DefaultConstructorVisibility.DisplayName" xml:space="preserve">
+    <value>Default Constructor Visibility</value>
+    <comment>DisplayName for DomainProperty &apos;DefaultConstructorVisibility&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/DefaultConstructorVisibility.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;DefaultConstructorVisibility&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsDefaultConstructorVisibilityTracking.Description" xml:space="preserve">
+    <value>If true, Model.DefaultConstructorVisibility tracks ModelRoot.EntityDefaultConstructorVisibilityDefault</value>
+    <comment>Description for DomainProperty &apos;IsDefaultConstructorVisibilityTracking&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsDefaultConstructorVisibilityTracking.DisplayName" xml:space="preserve">
+    <value>Is Default Constructor Visibility Tracking</value>
+    <comment>DisplayName for DomainProperty &apos;IsDefaultConstructorVisibilityTracking&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
@@ -3372,6 +3404,46 @@
   <data name="Sawczyn.EFDesigner.EFModel.PropertyExposure/Field.Description" xml:space="preserve">
     <value>Generated code will create and use this attribute as a .NET field</value>
     <comment>Description for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PropertyExposure&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Internal.DisplayName" xml:space="preserve">
+    <value>Internal</value>
+    <comment>Display name for EnumerationLiteral &apos;Internal&apos; on DomainEnumeration &apos;TypeAccessModifierExt&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Internal.Description" xml:space="preserve">
+    <value>No description available</value>
+    <comment>Description for EnumerationLiteral &apos;Internal&apos; on DomainEnumeration &apos;TypeAccessModifierExt&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Private.DisplayName" xml:space="preserve">
+    <value>Private</value>
+    <comment>Display name for EnumerationLiteral &apos;Private&apos; on DomainEnumeration &apos;TypeAccessModifierExt&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Private.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for EnumerationLiteral &apos;Private&apos; on DomainEnumeration &apos;TypeAccessModifierExt&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Protected.DisplayName" xml:space="preserve">
+    <value>Protected</value>
+    <comment>Display name for EnumerationLiteral &apos;Protected&apos; on DomainEnumeration &apos;TypeAccessModifierExt&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Protected.Description" xml:space="preserve">
+    <value>No description available</value>
+    <comment>Description for EnumerationLiteral &apos;Protected&apos; on DomainEnumeration &apos;TypeAccessModifierExt&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Public.DisplayName" xml:space="preserve">
+    <value>Public</value>
+    <comment>Display name for EnumerationLiteral &apos;Public&apos; on DomainEnumeration &apos;TypeAccessModifierExt&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Public.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for EnumerationLiteral &apos;Public&apos; on DomainEnumeration &apos;TypeAccessModifierExt&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Default.DisplayName" xml:space="preserve">
+    <value>Default</value>
+    <comment>Display name for EnumerationLiteral &apos;Default&apos; on DomainEnumeration &apos;TypeAccessModifierExt&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Default.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt.Default</value>
+    <comment>Description for EnumerationLiteral &apos;Default&apos; on DomainEnumeration &apos;TypeAccessModifierExt&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape.Description" xml:space="preserve">
     <value></value>

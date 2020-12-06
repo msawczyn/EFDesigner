@@ -162,6 +162,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(ModelRoot), "PropertyAccessModeDefault", ModelRoot.PropertyAccessModeDefaultDomainPropertyId, typeof(ModelRoot.PropertyAccessModeDefaultPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelRoot), "UseTabs", ModelRoot.UseTabsDomainPropertyId, typeof(ModelRoot.UseTabsPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelRoot), "GenerateDbContextFactory", ModelRoot.GenerateDbContextFactoryDomainPropertyId, typeof(ModelRoot.GenerateDbContextFactoryPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "EntityDefaultConstructorVisibilityDefault", ModelRoot.EntityDefaultConstructorVisibilityDefaultDomainPropertyId, typeof(ModelRoot.EntityDefaultConstructorVisibilityDefaultPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "DatabaseSchema", ModelClass.DatabaseSchemaDomainPropertyId, typeof(ModelClass.DatabaseSchemaPropertyHandler)),
@@ -188,6 +189,8 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(ModelClass), "ExcludeFromMigrations", ModelClass.ExcludeFromMigrationsDomainPropertyId, typeof(ModelClass.ExcludeFromMigrationsPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "IsDatabaseView", ModelClass.IsDatabaseViewDomainPropertyId, typeof(ModelClass.IsDatabaseViewPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "ViewName", ModelClass.ViewNameDomainPropertyId, typeof(ModelClass.ViewNamePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "DefaultConstructorVisibility", ModelClass.DefaultConstructorVisibilityDomainPropertyId, typeof(ModelClass.DefaultConstructorVisibilityPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "IsDefaultConstructorVisibilityTracking", ModelClass.IsDefaultConstructorVisibilityTrackingDomainPropertyId, typeof(ModelClass.IsDefaultConstructorVisibilityTrackingPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "Type", ModelAttribute.TypeDomainPropertyId, typeof(ModelAttribute.TypePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "InitialValue", ModelAttribute.InitialValueDomainPropertyId, typeof(ModelAttribute.InitialValuePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "IsIdentity", ModelAttribute.IsIdentityDomainPropertyId, typeof(ModelAttribute.IsIdentityPropertyHandler)),
@@ -1599,5 +1602,44 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyExposure/Field.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		Field,
+	}
+}
+namespace Sawczyn.EFDesigner.EFModel
+{
+	/// <summary>
+	/// DomainEnumeration: TypeAccessModifierExt
+	/// Description for Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt
+	/// </summary>
+	[global::System.CLSCompliant(true)]
+	public enum TypeAccessModifierExt
+	{
+		/// <summary>
+		/// Internal
+		/// No description available
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Internal.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Internal = 3,
+		/// <summary>
+		/// Private
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Private.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Private = 1,
+		/// <summary>
+		/// Protected
+		/// No description available
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Protected.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Protected = 2,
+		/// <summary>
+		/// Public
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Public.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Public = 0,
+		/// <summary>
+		/// Default
+		/// Description for Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt.Default
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Default.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Default = 4,
 	}
 }

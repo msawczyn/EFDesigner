@@ -11,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.1.3
+      // EFDesigner v3.0.1.4
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -275,7 +275,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             return segments;
          }
 
-         protected void WriteDbContext()
+         protected virtual void WriteDbContext()
          {
             List<string> segments = new List<string>();
             ModelClass[] classesWithTables = null;
@@ -421,7 +421,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             NL();
          }
 
-         protected void WriteOnModelCreate(List<string> segments, ModelClass[] classesWithTables)
+         protected virtual void WriteOnModelCreate(List<string> segments, ModelClass[] classesWithTables)
          {
             Output("partial void OnModelCreatingImpl(ModelBuilder modelBuilder);");
             Output("partial void OnModelCreatedImpl(ModelBuilder modelBuilder);");

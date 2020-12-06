@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="3" Build="1" Revision="3" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="3" Build="1" Revision="4" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -335,6 +335,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="063a93fd-17c3-4a44-a0ab-d47df12e8f9a" Description="Defines the visibility of an entity's default constructor. Normally, those are public unless there are required properties or associations, then they generate as protected." Name="EntityDefaultConstructorVisibilityDefault" DisplayName="Entity Default Constructor Visibility Default" DefaultValue="Default" Category="Code Generation">
+          <Type>
+            <DomainEnumerationMoniker Name="TypeAccessModifierExt" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -533,6 +538,16 @@
         <DomainProperty Id="0b8d7bf1-3927-40e6-b0aa-81a8b7dddacb" Description="The name of the database view persisting this class" Name="ViewName" DisplayName="View Name" Category="Database">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="de993ce1-3cb4-4108-a4a4-cdb91b1650ea" Description="By default, default (empty) constructors generate as public unless there are required properties or associations in the entity, then they generate as protected." Name="DefaultConstructorVisibility" DisplayName="Default Constructor Visibility" DefaultValue="Default" Kind="CustomStorage" Category="Code Generation" IsBrowsable="false">
+          <Type>
+            <DomainEnumerationMoniker Name="TypeAccessModifierExt" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="52231828-eb28-4dc3-a671-7a6b2698a2b2" Description="If true, Model.DefaultConstructorVisibility tracks ModelRoot.EntityDefaultConstructorVisibilityDefault" Name="IsDefaultConstructorVisibilityTracking" DisplayName="Is Default Constructor Visibility Tracking" DefaultValue="true" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1720,6 +1735,15 @@
         <EnumerationLiteral Description="Generated code will create and use this attribute as a .NET field" Name="Field" Value="" />
       </Literals>
     </DomainEnumeration>
+    <DomainEnumeration Name="TypeAccessModifierExt" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt">
+      <Literals>
+        <EnumerationLiteral Description="No description available" Name="Internal" Value="3" />
+        <EnumerationLiteral Description="" Name="Private" Value="1" />
+        <EnumerationLiteral Description="No description available" Name="Protected" Value="2" />
+        <EnumerationLiteral Description="" Name="Public" Value="0" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt.Default" Name="Default" Value="4" />
+      </Literals>
+    </DomainEnumeration>
   </Types>
   <Shapes>
     <CompartmentShape Id="8055f08f-3d3a-435f-8b47-7afcd0e051bd" Description="" Name="ClassShape" DisplayName="Class Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Class Shape" TextColor="White" ExposesTextColor="true" FillColor="0, 122, 204" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="Rectangle">
@@ -2175,6 +2199,9 @@
           <XmlPropertyData XmlName="generateDbContextFactory">
             <DomainPropertyMoniker Name="ModelRoot/GenerateDbContextFactory" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="entityDefaultConstructorVisibilityDefault">
+            <DomainPropertyMoniker Name="ModelRoot/EntityDefaultConstructorVisibilityDefault" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelClass" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelClassMoniker" ElementName="modelClass" MonikerTypeName="ModelClassMoniker">
@@ -2272,6 +2299,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="viewName">
             <DomainPropertyMoniker Name="ModelClass/ViewName" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="defaultConstructorVisibility">
+            <DomainPropertyMoniker Name="ModelClass/DefaultConstructorVisibility" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isDefaultConstructorVisibilityTracking">
+            <DomainPropertyMoniker Name="ModelClass/IsDefaultConstructorVisibilityTracking" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

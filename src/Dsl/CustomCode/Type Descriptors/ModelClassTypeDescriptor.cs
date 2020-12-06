@@ -78,6 +78,16 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                    }));
 
             propertyDescriptors.Add(new TrackingPropertyDescriptor(modelClass
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelClass.DefaultConstructorVisibilityDomainPropertyId)
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelClass.IsDefaultConstructorVisibilityTrackingDomainPropertyId)
+                                                                 , new Attribute[]
+                                                                   {
+                                                                      new DisplayNameAttribute("Default Constructor Visibility")
+                                                                    , new DescriptionAttribute("By default, default (empty) constructors generate as public unless there are required properties or associations in the entity, then they generate as protected.")
+                                                                    , new CategoryAttribute("Code Generation")
+                                                                   }));
+
+            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelClass
                                                                  , storeDomainDataDirectory.GetDomainProperty(ModelClass.OutputDirectoryDomainPropertyId)
                                                                  , storeDomainDataDirectory.GetDomainProperty(ModelClass.IsOutputDirectoryTrackingDomainPropertyId)
                                                                  , new Attribute[]

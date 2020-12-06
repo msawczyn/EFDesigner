@@ -3,6 +3,9 @@
 
 namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
 {
+   /// <summary>
+   /// Current designer version
+   /// </summary>
 	partial class ModelRoot
 	{
 		public const string DSLVersion = "<#= this.Dsl.MajorVersion #>.<#= this.Dsl.MinorVersion #>.<#= this.Dsl.Build #>.<#= this.Dsl.Revision #>";

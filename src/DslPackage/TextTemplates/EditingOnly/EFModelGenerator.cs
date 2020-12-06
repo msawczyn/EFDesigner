@@ -11,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.1.3
+      // EFDesigner v3.0.1.4
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -495,11 +495,18 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
          protected string GetDefaultConstructorVisibility(ModelClass modelClass)
          {
-            bool hasRequiredParameters = GetRequiredParameters(modelClass, false).Any();
-            string visibility = (hasRequiredParameters || modelClass.IsAbstract) && !modelClass.IsDependentType
-                                   ? "protected"
-                                   : "public";
-            return visibility;
+            if (modelClass.DefaultConstructorVisibility == TypeAccessModifierExt.Default)
+            {
+               bool hasRequiredParameters = GetRequiredParameters(modelClass, false).Any();
+
+               string visibility = (hasRequiredParameters || modelClass.IsAbstract) && !modelClass.IsDependentType
+                                      ? "protected"
+                                      : "public";
+
+               return visibility;
+            }
+
+            return modelClass.DefaultConstructorVisibility.ToString().ToLowerInvariant();
          }
 
          protected void WriteConstructor(ModelClass modelClass)
@@ -790,7 +797,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
             foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()
                                                                         .Where(x => x.AssociationObject.Persistent
-                                                                                 && (modelRoot.IsEFCore5Plus || x.Required)
+                                                                                 && x.Required
                                                                                  && !x.IsCollection
                                                                                  && !x.ConstructorParameterOnly))
             {

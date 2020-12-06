@@ -16,13 +16,30 @@ namespace Sawczyn.EFDesigner.EFModel
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelClass : IModelElementWithCompartments, IDisplaysWarning, IHasStore
    {
+      /// <summary>
+      /// True if this is a normal entity type (not aggregated and not keyless), false otherwise
+      /// </summary>
+      /// <returns></returns>
       [Browsable(false)]
       public bool IsEntity() => !IsDependentType && !IsKeylessType();
+
+      /// <summary>
+      /// True if this is a dependent (aggregated) entity type, false otherwise
+      /// </summary>
+      /// <returns></returns>
       [Browsable(false)]
       public bool IsDependent() => IsDependentType;
+
+      /// <summary>
+      /// True if this is a keyless entity type (backed by a query or a view), false otherwise
+      /// </summary>
+      /// <returns></returns>
       [Browsable(false)]
       public bool IsKeyless() => IsKeylessType();
 
+      /// <summary>
+      /// The default namespace for this entity, based on its kind
+      /// </summary>
       [Browsable(false)]
       public string DefaultNamespace
       {
@@ -50,6 +67,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Where in the project code would normally be generated, based on the entity type
+      /// </summary>
       [Browsable(false)]
       public string DefaultOutputDirectory
       {
@@ -77,6 +97,10 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Human readable text for displaying this object
+      /// </summary>
+      /// <returns></returns>
       public string GetDisplayText() => Name;
 
       /// <summary>
@@ -93,6 +117,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Collection of all ModelClass classes making up the inheritance for this ModelClass
+      /// </summary>
       public List<ModelClass> AllSuperclasses
       {
          get
@@ -110,6 +137,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Collection of all ModelClass classes where this ModelClass is in its inheritance chain
+      /// </summary>
       public List<ModelClass> AllSubclasses
       {
          get
@@ -124,7 +154,7 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       /// <summary>
-      /// Names of all properties in the class
+      /// Names of all properties in the class, taking into account inheritance
       /// </summary>
       public IEnumerable<string> AllPropertyNames
       {
@@ -470,8 +500,6 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelClass baseClass = Store.ElementDirectory.FindElements<ModelClass>().FirstOrDefault(x => x.Name == newValue);
          Superclass?.Subclasses?.Remove(this);
          baseClass?.Subclasses?.Add(this);
-         //Superclass = null;
-         //Superclass = baseClass;
       }
 
       internal void MoveAttribute(ModelAttribute attribute, ModelClass destination)
@@ -690,6 +718,97 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion DatabaseSchema tracking property
+
+      #region DefaultConstructorVisibility tracking property
+
+      private TypeAccessModifierExt defaultConstructorVisibilityStorage;
+
+      private TypeAccessModifierExt GetDefaultConstructorVisibilityValue()
+      {
+         if (!this.IsLoading() && IsDefaultConstructorVisibilityTracking)
+         {
+            try
+            {
+               return Store.ModelRoot()?.EntityDefaultConstructorVisibilityDefault ?? TypeAccessModifierExt.Default;
+            }
+            catch (NullReferenceException)
+            {
+               return TypeAccessModifierExt.Default;
+            }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+
+               return TypeAccessModifierExt.Default;
+            }
+         }
+
+         return defaultConstructorVisibilityStorage;
+      }
+
+      private void SetDefaultConstructorVisibilityValue(TypeAccessModifierExt value)
+      {
+         defaultConstructorVisibilityStorage = value;
+
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
+            IsDefaultConstructorVisibilityTracking = false;
+      }
+
+      internal sealed partial class IsDefaultConstructorVisibilityTrackingPropertyHandler
+      {
+         /// <summary>
+         ///    Called after the IsDefaultConstructorVisibilityTracking property changes.
+         /// </summary>
+         /// <param name="element">The model element that has the property that changed. </param>
+         /// <param name="oldValue">The previous value of the property. </param>
+         /// <param name="newValue">The new value of the property. </param>
+         protected override void OnValueChanged(ModelClass element, bool oldValue, bool newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+            if (!element.Store.InUndoRedoOrRollback && newValue)
+            {
+               DomainPropertyInfo propInfo = element.Store.DomainDataDirectory.GetDomainProperty(DefaultConstructorVisibilityDomainPropertyId);
+               propInfo.NotifyValueChange(element);
+            }
+         }
+
+         /// <summary>Performs the reset operation for the IsDefaultConstructorVisibilityTracking property for a model element.</summary>
+         /// <param name="element">The model element that has the property to reset.</param>
+         internal void ResetValue(ModelClass element)
+         {
+            object calculatedValue = null;
+            ModelRoot modelRoot = element.Store.ModelRoot();
+
+            try
+            {
+               calculatedValue = modelRoot?.EntityDefaultConstructorVisibilityDefault;
+            }
+            catch (NullReferenceException) { }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+            }
+
+            if (calculatedValue != null && element.DefaultConstructorVisibility == (TypeAccessModifierExt)calculatedValue)
+               element.isDefaultConstructorVisibilityTrackingPropertyStorage = true;
+         }
+
+         /// <summary>
+         ///    Method to set IsDefaultConstructorVisibilityTracking to false so that this instance of this tracking property is not
+         ///    storage-based.
+         /// </summary>
+         /// <param name="element">
+         ///    The element on which to reset the property value.
+         /// </param>
+         internal void PreResetValue(ModelClass element) =>
+            // Force the IsDefaultConstructorVisibilityTracking property to false so that the value  
+            // of the DefaultConstructorVisibility property is retrieved from storage.  
+            element.isDefaultConstructorVisibilityTrackingPropertyStorage = false;
+      }
+
+      #endregion
 
       #region Namespace tracking property
 

@@ -9,9 +9,19 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-
+   /// <summary>
+   /// Methods to shortcut working with diagram views
+   /// </summary>
    public static class PresentationHelper
    {
+      /// <summary>
+      /// Redraws the association on every open diagram
+      /// </summary>
+      /// <param name="element"></param>
+      /// <param name="sourceDeleteAction"></param>
+      /// <param name="targetDeleteAction"></param>
+      /// <param name="sourceMultiplicity"></param>
+      /// <param name="targetMultiplicity"></param>
       public static void UpdateAssociationDisplay(Association element
                                                 , DeleteAction? sourceDeleteAction = null
                                                 , DeleteAction? targetDeleteAction = null
@@ -54,6 +64,12 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Redraws the association on every open diagram
+      /// </summary>
+      /// <param name="connector"></param>
+      /// <param name="sourceDeleteAction"></param>
+      /// <param name="targetDeleteAction"></param>
       public static void UpdateAssociationDisplay(AssociationConnector connector
                                                 , DeleteAction? sourceDeleteAction = null
                                                 , DeleteAction? targetDeleteAction = null)
@@ -123,6 +139,10 @@ namespace Sawczyn.EFDesigner.EFModel
          connector.StyleSet.OverridePen(DiagramPens.ConnectionLine, settings);
       }
 
+      /// <summary>
+      /// Redraws the class on every open diagram
+      /// </summary>
+      /// <param name="element"></param>
       public static void UpdateClassDisplay(ModelClass element)
       {
          if (element == null)

@@ -198,7 +198,6 @@
     <Compile Include="CustomCode\Utilities\Nuget\Models\TypeEnumConverter.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Models\Version.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\NuGetHelper.cs" />
-    <Compile Include="CustomCode\Utilities\PropertyDefaults.cs" />
     <Compile Include="CustomCode\Utilities\UIProxies\MessageDisplay.cs" />
     <Compile Include="CustomCode\Utilities\UIProxies\ModelDisplay.cs" />
     <Compile Include="CustomCode\Utilities\ModelMigration.cs" />
