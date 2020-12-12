@@ -541,7 +541,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             }
          }
       }
-
       #endregion Template
    }
 }

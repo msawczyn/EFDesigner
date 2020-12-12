@@ -252,7 +252,7 @@
                Output($"[Display(Name=\"{modelAttribute.DisplayText.Replace("\"", "\\\"")}\")]");
 
             if (!string.IsNullOrWhiteSpace(modelAttribute.Summary))
-               Output($"[Description(\"{modelAttribute.Summary.Replace("\"", "\\\"")}\")]"); 
+               Output($"[System.ComponentModel.Description(\"{modelAttribute.Summary.Replace("\"", "\\\"")}\")]"); 
          }
 
          protected abstract List<string> GetAdditionalUsingStatements();
@@ -450,7 +450,7 @@
                Output($"[{modelClass.CustomAttributes.Trim('[', ']')}]");
 
             if (!string.IsNullOrWhiteSpace(modelClass.Summary))
-               Output($"[Description(\"{modelClass.Summary.Replace("\"", "\\\"")}\")]");
+               Output($"[System.ComponentModel.Description(\"{modelClass.Summary.Replace("\"", "\\\"")}\")]");
 
             Output(baseClass.Length > 0
                       ? $"public {isAbstract}partial class {modelClass.Name}: {baseClass}"
@@ -858,7 +858,7 @@
                Output($"[{modelEnum.CustomAttributes.Trim('[', ']')}]");
 
             if (!string.IsNullOrWhiteSpace(modelEnum.Summary))
-               Output($"[Description(\"{modelEnum.Summary.Replace("\"", "\\\"")}\")]");
+               Output($"[System.ComponentModel.Description(\"{modelEnum.Summary.Replace("\"", "\\\"")}\")]");
 
             Output($"public enum {modelEnum.Name} : {modelEnum.ValueType}");
             Output("{");
@@ -885,7 +885,7 @@
                   Output($"[{values[index].CustomAttributes.Trim('[', ']')}]");
 
                if (!string.IsNullOrWhiteSpace(values[index].Summary))
-                  Output($"[Description(\"{values[index].Summary.Replace("\"", "\\\"")}\")]");
+                  Output($"[System.ComponentModel.Description(\"{values[index].Summary.Replace("\"", "\\\"")}\")]");
 
                if (!string.IsNullOrWhiteSpace(values[index].DisplayText))
                   Output($"[System.ComponentModel.DataAnnotations.Display(Name=\"{values[index].DisplayText.Replace("\"", "\\\"")}\")]");
@@ -919,10 +919,23 @@
 
                if (!navigationProperty.IsAutoProperty)
                {
+                  Output($"/// <summary>");
+                  Output($"/// Backing field for {{navigationProperty.PropertyName}}");
+                  Output($"/// </summary>");
                   Output($"protected {type} {navigationProperty.BackingFieldName};");
+                  NL();
+                  
                   if (!navigationProperty.IsCollection)
                   {
+                     Output("/// <summary>");
+                     Output($"/// When provided in a partial class, allows value of {navigationProperty.PropertyName} to be changed before setting.");
+                     Output("/// </summary>");
                      Output($"partial void Set{navigationProperty.PropertyName}({type} oldValue, ref {type} newValue);");
+                     NL();
+                     
+                     Output("/// <summary>");
+                     Output($"/// When provided in a partial class, allows value of {navigationProperty.PropertyName} to be changed before returning.");
+                     Output("/// </summary>");
                      Output($"partial void Get{navigationProperty.PropertyName}(ref {type} result);");
 
                      NL();

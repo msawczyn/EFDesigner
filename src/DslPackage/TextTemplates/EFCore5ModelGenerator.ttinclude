@@ -11,7 +11,7 @@
 #><#@ assembly name="EnvDTE"
 #><#@ assembly name="System.Xml"
 #><#@ assembly name="System.Xml.Linq"
-#><#@ import namespace="System"
+#><#@ import namespace="System" 
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Globalization"
 #><#@ import namespace="System.Linq"

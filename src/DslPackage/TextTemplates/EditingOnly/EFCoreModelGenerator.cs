@@ -85,11 +85,19 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             NL();
 
             BeginNamespace(modelRoot.Namespace);
+
+            Output("/// <summary>");
+            Output("/// A factory for creating derived DbContext instances. Implement this interface to enable design-time services for context ");
+            Output("/// types that do not have a public default constructor. At design-time, derived DbContext instances can be created in order ");
+            Output("/// to enable specific design-time experiences such as Migrations. Design-time services will automatically discover ");
+            Output("/// implementations of this interface that are in the startup assembly or the same assembly as the derived context.");
+            Output("/// </summary>");
+
             Output($"public class {modelRoot.EntityContainerName}Factory: IDesignTimeDbContextFactory<{modelRoot.EntityContainerName}>");
             Output("{");
             Output("/// <summary>Creates a new instance of a derived context.</summary>");
             Output("/// <param name=\"args\"> Arguments provided by the design-time service. </param>");
-            Output($"/// <returns> An instance of <typeparamref name=\"{modelRoot.Namespace}.{modelRoot.EntityContainerName}\" />.</returns>");
+            Output($"/// <returns> An instance of <see cref=\"{modelRoot.Namespace}.{modelRoot.EntityContainerName}\" />.</returns>");
             Output($"public {modelRoot.EntityContainerName} CreateDbContext(string[] args)");
             Output("{");
             Output($"DbContextOptionsBuilder<{modelRoot.EntityContainerName}> optionsBuilder = new DbContextOptionsBuilder<{modelRoot.EntityContainerName}>();");
@@ -904,7 +912,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                            : $"k => new {{ {result} }}";
 
                result = dependentClassDesignationRequired
-                           ? $"HasForeignKey<{association.Dependent.Name}>({result})"
+                           ? $"HasForeignKey<{association.Dependent.FullName}>({result})"
                            : $"HasForeignKey({result})";
             }
 
@@ -938,10 +946,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
             return result;
          }
-
       }
       #endregion Template
    }
 }
-
-
