@@ -30,11 +30,12 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>
       /// Short display text for this attribute
       /// </summary>
-      public string GetDisplayText()
-      {
-         return $"{ModelClass.Name}.{Name}";
-      }
+      public string GetDisplayText() => $"{ModelClass.Name}.{Name}";
 
+      /// <summary>
+      /// If true, this property is an exposed foreign key for an association.
+      /// </summary>
+      public bool IsForeignKeyProperty => IsForeignKeyFor != Guid.Empty;
 
       internal string BackingFieldNameDefault => string.IsNullOrEmpty(Name) ? string.Empty : $"_{Name.Substring(0, 1).ToLowerInvariant()}{Name.Substring(1)}";
 

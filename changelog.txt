@@ -1,5 +1,6 @@
 3.0.2
    - Added setting on designer surface to set visibility defaults for entity default constructors, and overrides for that setting on the entities
+   - Added `public bool ModelAttribute.IsForeignKeyProperty` for use by developers doing custom code generation from the model
    - Fixes for code generation of new EFCore5 database collation options
    - Fixed condition where sometimes generated code in entity default constructors would create infinitely recursive calls
    - Stopped escaping standard XML comment tags in summary and description fields (see https://github.com/msawczyn/EFDesigner/issues/248)

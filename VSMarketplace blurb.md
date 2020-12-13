@@ -32,8 +32,10 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **3.0.2**
    - **[NEW]** Added setting on designer surface to set visibility defaults for entity default constructors, and overrides for that setting on the entities
+   - **[NEW]** Added `public bool ModelAttribute.IsForeignKeyProperty` for use by developers doing custom code generation from the model
    - Fixes for code generation of new EFCore5 database collation options
    - Fixed condition where sometimes generated code in entity default constructors would create infinitely recursive calls
+   - Stopped escaping standard XML comment tags in summary and description fields (see https://github.com/msawczyn/EFDesigner/issues/248)
 
 **3.0.1**
    - **[NEW]** Added [Description] attribute (to classes, properties, enums and enum values where summary was non-blank) to facilitate tooling use
@@ -65,82 +67,6 @@ For comprehensive documentation, please visit [the project's documentation site]
         If customized T4 templates have been added to a project, they'll still work, but enhancements will continue to be made only to the new, more 
         object-oriented, T4 structure. Updating the model's .tt file to use the new template structure is quite simple; details will be in the documentation 
         at https://msawczyn.github.io/EFDesigner/Customizing.html
-
-**2.0.5.7**
-   - **[NEW]** Added ability to select tabs or spaces for indentation in generated code (Tools/Options/Entity Framework Visual Editor/Visual Editor Options) (See https://github.com/msawczyn/EFDesigner/issues/221)
-   - Fixed an issue with changing visual grid size on design surface.
-
-**2.0.5.6**
-   - The project item templates for the model file had wandered away. They're back again. (See https://github.com/msawczyn/EFDesigner/issues/216)
-   - Fixed a problem with existing models where class-level "AutoProperty: false" caused bad code generation. (See https://github.com/msawczyn/EFDesigner/issues/215)
-
-**2.0.5.5**
-   - Fix: Foreign key crashes when reference is on the derived table (See https://github.com/msawczyn/EFDesigner/issues/212)
-   - Fixed a edge condition where an error would be thrown when deleting an association
-
-**2.0.5.3**
-   - **[NEW]** Provide option to save diagrams as uncompressed XML to facilitate version control (in Tools/Options/Entity Framework Visual Editor)
-   - **[NEW]** Enhanced error reporting for assembly import errors
-   - **[NEW]** Assembly import can now process assemblies with more than one DbContext class
-   - Cleaned up some ambiguities in how copy/paste was handled with multiple diagrams
-   - Performance improvements
-
-**2.0.4.1**
-   - **[NEW]** Added ability to hide foreign key property names on association connectors in diagrams
-   - **[NEW]** Attribute glyphs (except for Warning glyphs) in diagrams are now reflected in Model Explorer
-   - **[NEW]** Sped up reverse engineering a compiled assembly. As a consequence, the diagram is no longer updated when the assembly is imported (but that tended to ruin the diagram anyway)
-   - Fix: Self-associations didn't appear when existing class is added to new diagram from the Model Explorer
-   - Fix: Diagram no longer loses focus after its saved
-   - Fix: Errors when copy/paste between diagrams in same model
-   - Fix: Generalization links weren't being handled property when reverse engineering a compiled assembly
-   - Fix: Under certain circumstances, declared foreign keys could erroneously be created for EF6 1-1 relationships. EF6 doesn't support this.
-   - Fix: ensure glyphs in association compartments are visible
-   - Fix: overly-aggressive pruning in foreign keys
-
-**2.0.3**
-   - **[NEW]** Added ability to hide foreign key property names on association connectors in diagrams
-   - **[NEW]** Attribute glyphs (except for Warning glyphs) in diagrams are now reflected in Model Explorer
-   - Fix: Self-associations didn't appear when existing class is added to new diagram from the Model Explorer
-   - Fix: Diagram no longer loses focus after its saved
-   - Fix: Errors when copy/paste between diagrams in same model
-
-**2.0.2**
-   - **[NEW]** Added count of elements in model explorer tree
-   - **[NEW]** Added ability to search the model explorer for class and attribute names
-   - **[NEW]** Comments can also be hidden like classes and enumerations
-   - Fix: Changing String Column Name Clears Max Length Property (See https://github.com/msawczyn/EFDesigner/issues/173)
-   - Fix: Dropping external files creates elements but not shapes on diagram (See https://github.com/msawczyn/EFDesigner/issues/150)
-   - Fix: VS Crash (See https://github.com/msawczyn/EFDesigner/issues/177)
-   - Fix: Attributes only show up on diagram where they were added (See https://github.com/msawczyn/EFDesigner/issues/179)
-   - Fix: EFDesigner 2.0.1 won't create entities in the efmodel for existing poco .cs files (See https://github.com/msawczyn/EFDesigner/issues/182)
-
-**2.0.0** 
-   - **Dropped support for Visual Studio 2017**; was getting to be too much to keep the tool viable for that Visual Studio version.
-   - **[NEW]** It's now possible to have multiple diagrams for the same model, each showing a different view and synchronized as the model changes. Perfect for helping to understand large models.
-   - **[NEW]** Added ability to specify foreign key properties  (See https://github.com/msawczyn/EFDesigner/issues/55)
-   - **[NEW]** Foreign key properties have a unique glyph so they can be easily picked out of the crowd
-   - **[NEW]** Foreign key properties that are primary keys also have a unique but different glyph
-   - **[NEW]** Completely restructured assembly parsers; they now cleanly handle all valid combinations of EF6/EFCore2/EFCore3 and .NETCore2/.NETCore3/.NETFramework
-   - **[NEW]** Modified assembly parsers to find declared foreign keys and add them to the model appropriately
-   - **[NEW]** Added options dialog (Tools/Options/Entity Framework Visual Editor)
-   - **[NEW]** Added use of [GraphViz](https://www.graphviz.org/) for model layout (if installed and path is added to "Tools/Options/Entity Framework Visual Editor")
-   - **[NEW]** Added switch to disable generation of classes and enumerations for those cases where they are coming from different assemblies but need to be in the model to avoid errors.
-   - **[NEW]** Added visual indicator on classes and enumerations where code generation is disabled
-   - **[NEW]** Added ability to override the base class of the generated DbContext to be something other than "DbContext"
-   - **[NEW]** Join tables in many-to-many associations can now have custom names (EF6 only, until EFCore supports many-to-many cardinalities)
-   - **[NEW]** Removing an enumeration removes all entity properties that use that enumeration, after displaying a warning.
-   - **[NEW]** Designer has optional visual grid with color, size and snap-to-grid options available
-   - Renamed toolbox category to "EF Model Diagrams"
-   - Enhanced display of model elements in the Visual Studio property window's object list
-   - Removed MSAGL layouts. No one understood them anyway.
-   - Removed tool automatically installing NuGet packages. Too volatile.
-   - Fix: OutputDirectory lost on reload (See https://github.com/msawczyn/EFDesigner/issues/144)
-   - Fix: Unidirectional Many-to-One Association missing Required (See https://github.com/msawczyn/EFDesigner/issues/145)
-   - Fix: Couldn't delete property initial value for Enum values (See https://github.com/msawczyn/EFDesigner/issues/148)
-   - Fix: Support for Empty / blank "File Name Marker" (See https://github.com/msawczyn/EFDesigner/issues/149)
-   - Fix: Now escaping XML comment text properly
-   - Fix: Issue with GeographyPoint: System.Data.Entities.Spatial not found for .Net Core 3.1 (See https://github.com/msawczyn/EFDesigner/issues/159)
-   - Fix: HasDefaultSchema doesn't work with MySql (See https://github.com/msawczyn/EFDesigner/issues/160)
 
 [Earlier changes](https://github.com/msawczyn/EFDesigner/blob/master/changelog.txt)
 

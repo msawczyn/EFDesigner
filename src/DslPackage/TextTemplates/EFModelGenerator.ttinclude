@@ -23,7 +23,7 @@
 #><#@ import namespace="System.Data.Entity.Design.PluralizationServices"
 #><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
 #><#+
-      // EFDesigner v3.0.1.4
+      // EFDesigner v3.0.1.5
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -92,6 +92,50 @@
 
       public abstract class EFModelGenerator
       {
+         protected static string[] xmlDocTags =
+         {
+            @"<([\s]*c[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*c[\s]*)>"
+          , @"<([\s]*code[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*code[\s]*)>"
+          , @"<([\s]*description[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*description[\s]*)>"
+          , @"<([\s]*example[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*example[\s]*)>"
+          , @"<([\s]*exception cref=""[^""]+""[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*exception[\s]*)>"
+          , @"<([\s]*include file='[^']+' path='tagpath\[@name=""[^""]+""\]'[\s]*/)>"
+          , @"<([\s]*inheritdoc/[\s]*)>"
+          , @"<([\s]*item[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*item[\s]*)>"
+          , @"<([\s]*list type=""[^""]+""[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*list[\s]*)>"
+          , @"<([\s]*listheader[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*listheader[\s]*)>"
+          , @"<([\s]*para[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*para[\s]*)>"
+          , @"<([\s]*param name=""[^""]+""[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*param[\s]*)>"
+          , @"<([\s]*paramref name=""[^""]+""/[\s]*)>"
+          , @"<([\s]*permission cref=""[^""]+""[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*permission[\s]*)>"
+          , @"<([\s]*remarks[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*remarks[\s]*)>"
+          , @"<([\s]*returns[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*returns[\s]*)>"
+          , @"<([\s]*see cref=""[^""]+""/[\s]*)>"
+          , @"<([\s]*seealso cref=""[^""]+""/[\s]*)>"
+          , @"<([\s]*summary[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*summary[\s]*)>"
+          , @"<([\s]*term[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*term[\s]*)>"
+          , @"<([\s]*typeparam name=""[^""]+""[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*typeparam[\s]*)>"
+          , @"<([\s]*typeparamref name=""[^""]+""/[\s]*)>"
+          , @"<([\s]*value[\s]*[/]?[\s]*)>"
+          , @"<(/[\s]*value[\s]*)>"
+         };
+
          protected EFModelGenerator(GeneratedTextTransformation host)
          {
             this.host = host;
@@ -252,10 +296,26 @@
                Output($"[Display(Name=\"{modelAttribute.DisplayText.Replace("\"", "\\\"")}\")]");
 
             if (!string.IsNullOrWhiteSpace(modelAttribute.Summary))
-               Output($"[System.ComponentModel.Description(\"{modelAttribute.Summary.Replace("\"", "\\\"")}\")]"); 
+               Output($"[System.ComponentModel.Description(\"{modelAttribute.Summary.Replace("\"", "\\\"")}\")]");
          }
 
          protected abstract List<string> GetAdditionalUsingStatements();
+
+         protected string GetDefaultConstructorVisibility(ModelClass modelClass)
+         {
+            if (modelClass.DefaultConstructorVisibility == TypeAccessModifierExt.Default)
+            {
+               bool hasRequiredParameters = GetRequiredParameters(modelClass, false).Any();
+
+               string visibility = (hasRequiredParameters || modelClass.IsAbstract) && !modelClass.IsDependentType
+                                      ? "protected"
+                                      : "public";
+
+               return visibility;
+            }
+
+            return modelClass.DefaultConstructorVisibility.ToString().ToLowerInvariant();
+         }
 
          protected string GetFullContainerName(string containerType, string payloadType)
          {
@@ -503,22 +563,6 @@
                   Output("/// " + SecurityElement.Escape(outputText));
                }
             }
-         }
-
-         protected string GetDefaultConstructorVisibility(ModelClass modelClass)
-         {
-            if (modelClass.DefaultConstructorVisibility == TypeAccessModifierExt.Default)
-            {
-               bool hasRequiredParameters = GetRequiredParameters(modelClass, false).Any();
-
-               string visibility = (hasRequiredParameters || modelClass.IsAbstract) && !modelClass.IsDependentType
-                                      ? "protected"
-                                      : "public";
-
-               return visibility;
-            }
-
-            return modelClass.DefaultConstructorVisibility.ToString().ToLowerInvariant();
          }
 
          protected void WriteConstructor(ModelClass modelClass)
@@ -821,6 +865,7 @@
                             ? $"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}();"
                             : $"{navigationProperty.PropertyName} = {navigationProperty.ClassType.FullName}.Create{navigationProperty.ClassType.Name}Unsafe();");
                }
+
                ++lineCount;
             }
 
@@ -919,12 +964,12 @@
 
                if (!navigationProperty.IsAutoProperty)
                {
-                  Output($"/// <summary>");
-                  Output($"/// Backing field for {{navigationProperty.PropertyName}}");
-                  Output($"/// </summary>");
+                  Output("/// <summary>");
+                  Output($"/// Backing field for {navigationProperty.PropertyName}");
+                  Output("/// </summary>");
                   Output($"protected {type} {navigationProperty.BackingFieldName};");
                   NL();
-                  
+
                   if (!navigationProperty.IsCollection)
                   {
                      Output("/// <summary>");
@@ -932,7 +977,7 @@
                      Output("/// </summary>");
                      Output($"partial void Set{navigationProperty.PropertyName}({type} oldValue, ref {type} newValue);");
                      NL();
-                     
+
                      Output("/// <summary>");
                      Output($"/// When provided in a partial class, allows value of {navigationProperty.PropertyName} to be changed before returning.");
                      Output("/// </summary>");
@@ -1004,7 +1049,7 @@
                   Output("}");
                   Output("}");
                }
-               else 
+               else
                {
                   Output($"public virtual {type} {navigationProperty.PropertyName}");
                   Output("{");
@@ -1190,5 +1235,6 @@
             }
          }
       }
+
       
 #>

@@ -7,7 +7,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.1.4
+      // EFDesigner v3.0.1.5
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -177,7 +177,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   }
 
                   string foreignKeySegment = CreateForeignKeySegment(association, foreignKeyColumns);
-                
+
                   if (!string.IsNullOrEmpty(foreignKeySegment))
                      segments.Add(foreignKeySegment);
 
@@ -228,110 +228,110 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   switch (association.TargetMultiplicity) // realized by property on source
                   {
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                     {
-                        segments.Add(baseSegment);
-                        segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                        segments.Add($"ToTable(\"{(string.IsNullOrEmpty(association.Target.TableName) ? association.Target.Name : association.Target.TableName)}\")");
-                        Output(segments);
+                        {
+                           segments.Add(baseSegment);
+                           segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
+                           segments.Add($"ToTable(\"{(string.IsNullOrEmpty(association.Target.TableName) ? association.Target.Name : association.Target.TableName)}\")");
+                           Output(segments);
 
-                        segments.Add(baseSegment);
-                        segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                        segments.Add($"WithOwner(\"{association.SourcePropertyName}\")");
-                        segments.Add($"HasForeignKey(\"{association.SourcePropertyName}Id\")");
-                        Output(segments);
+                           segments.Add(baseSegment);
+                           segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
+                           segments.Add($"WithOwner(\"{association.SourcePropertyName}\")");
+                           segments.Add($"HasForeignKey(\"{association.SourcePropertyName}Id\")");
+                           Output(segments);
 
-                        segments.Add(baseSegment);
-                        segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                        segments.Add("Property<int>(\"Id\")");
+                           segments.Add(baseSegment);
+                           segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
+                           segments.Add("Property<int>(\"Id\")");
 
-                        Output(segments);
+                           Output(segments);
 
-                        segments.Add(baseSegment);
-                        segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                        segments.Add("HasKey(\"Id\")");
+                           segments.Add(baseSegment);
+                           segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
+                           segments.Add("HasKey(\"Id\")");
 
-                        Output(segments);
+                           Output(segments);
 
-                        MakeDependentAssociations(association.Target, $"{baseSegment}.OwnsMany(p => p.{association.TargetPropertyName})");
+                           MakeDependentAssociations(association.Target, $"{baseSegment}.OwnsMany(p => p.{association.TargetPropertyName})");
 
-                        break;
-                     }
+                           break;
+                        }
 
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
-                     {
-                        segments.Add(baseSegment);
-                        segments.Add($"OwnsOne(p => p.{association.TargetPropertyName})");
-                        segments.Add($"WithOwner(p => p.{association.SourcePropertyName})");
-                        Output(segments);
-
-                        if (!string.IsNullOrEmpty(association.Target.TableName))
                         {
                            segments.Add(baseSegment);
                            segments.Add($"OwnsOne(p => p.{association.TargetPropertyName})");
-                           segments.Add($"ToTable(\"{association.Target.TableName}\")");
+                           segments.Add($"WithOwner(p => p.{association.SourcePropertyName})");
                            Output(segments);
-                        }
 
-                        foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
-                        {
-                           segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
-
-                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
-                              segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
-
-                           if (modelAttribute.Required)
-                              segments.Add("IsRequired()");
-
-                           if (segments.Count > 1)
+                           if (!string.IsNullOrEmpty(association.Target.TableName))
+                           {
+                              segments.Add(baseSegment);
+                              segments.Add($"OwnsOne(p => p.{association.TargetPropertyName})");
+                              segments.Add($"ToTable(\"{association.Target.TableName}\")");
                               Output(segments);
+                           }
 
-                           segments.Clear();
+                           foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
+                           {
+                              segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
+
+                              if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
+                                 segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
+
+                              if (modelAttribute.Required)
+                                 segments.Add("IsRequired()");
+
+                              if (segments.Count > 1)
+                                 Output(segments);
+
+                              segments.Clear();
+                           }
+
+                           segments.Add(baseSegment);
+                           segments.Add($"Navigation(p => p.{association.TargetPropertyName}).IsRequired()");
+                           Output(segments);
+
+                           MakeDependentAssociations(association.Target, $"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName})");
+
+                           break;
                         }
-
-                        segments.Add(baseSegment);
-                        segments.Add($"Navigation(p => p.{association.TargetPropertyName}).IsRequired()");
-                        Output(segments);
-
-                        MakeDependentAssociations(association.Target, $"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName})");
-
-                        break;
-                     }
 
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
-                     {
-                        segments.Add(baseSegment);
-                        segments.Add($"OwnsOne(p => p.{association.TargetPropertyName})");
-                        segments.Add($"WithOwner(p => p.{association.SourcePropertyName})");
-                        Output(segments);
-
-                        if (!string.IsNullOrEmpty(association.Target.TableName))
                         {
                            segments.Add(baseSegment);
                            segments.Add($"OwnsOne(p => p.{association.TargetPropertyName})");
-                           segments.Add($"ToTable(\"{association.Target.TableName}\")");
+                           segments.Add($"WithOwner(p => p.{association.SourcePropertyName})");
                            Output(segments);
-                        }
 
-                        foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
-                        {
-                           segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
-
-                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
-                              segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
-
-                           if (modelAttribute.Required)
-                              segments.Add("IsRequired()");
-
-                           if (segments.Count > 1)
+                           if (!string.IsNullOrEmpty(association.Target.TableName))
+                           {
+                              segments.Add(baseSegment);
+                              segments.Add($"OwnsOne(p => p.{association.TargetPropertyName})");
+                              segments.Add($"ToTable(\"{association.Target.TableName}\")");
                               Output(segments);
+                           }
 
-                           segments.Clear();
+                           foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
+                           {
+                              segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
+
+                              if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
+                                 segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
+
+                              if (modelAttribute.Required)
+                                 segments.Add("IsRequired()");
+
+                              if (segments.Count > 1)
+                                 Output(segments);
+
+                              segments.Clear();
+                           }
+
+                           MakeDependentAssociations(association.Target, $"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName})");
+
+                           break;
                         }
-
-                        MakeDependentAssociations(association.Target, $"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName})");
-
-                        break;
-                     }
                   }
                }
             }
@@ -469,73 +469,73 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   switch (association.TargetMultiplicity) // realized by property on source
                   {
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                     {
-                        segments.Add(baseSegment);
-                        segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                        segments.Add($"WithOwner(\"{association.Source.Name}_{association.TargetPropertyName}\")");
-                        segments.Add($"HasForeignKey(\"{association.Source.Name}_{association.TargetPropertyName}Id\")");
-                        Output(segments);
+                        {
+                           segments.Add(baseSegment);
+                           segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
+                           segments.Add($"WithOwner(\"{association.Source.Name}_{association.TargetPropertyName}\")");
+                           segments.Add($"HasForeignKey(\"{association.Source.Name}_{association.TargetPropertyName}Id\")");
+                           Output(segments);
 
-                        segments.Add(baseSegment);
-                        segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                        segments.Add("Property<int>(\"Id\")");
+                           segments.Add(baseSegment);
+                           segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
+                           segments.Add("Property<int>(\"Id\")");
 
-                        Output(segments);
+                           Output(segments);
 
-                        segments.Add(baseSegment);
-                        segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                        segments.Add("HasKey(\"Id\")");
+                           segments.Add(baseSegment);
+                           segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
+                           segments.Add("HasKey(\"Id\")");
 
-                        Output(segments);
+                           Output(segments);
 
-                        MakeDependentAssociations(association.Target, $"{baseSegment}.OwnsMany(p => p.{association.TargetPropertyName})");
+                           MakeDependentAssociations(association.Target, $"{baseSegment}.OwnsMany(p => p.{association.TargetPropertyName})");
 
-                        break;
-                     }
+                           break;
+                        }
 
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
-                     {
-                        foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
                         {
-                           segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
+                           foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
+                           {
+                              segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
 
-                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
-                              segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
+                              if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
+                                 segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
-                           if (modelAttribute.Required)
-                              segments.Add("IsRequired()");
+                              if (modelAttribute.Required)
+                                 segments.Add("IsRequired()");
 
+                              Output(segments);
+                           }
+
+                           segments.Add(baseSegment);
+                           segments.Add($"Navigation(p => p.{association.TargetPropertyName}).IsRequired()");
                            Output(segments);
+
+                           MakeDependentAssociations(association.Target, $"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName})");
+
+                           break;
                         }
-
-                        segments.Add(baseSegment);
-                        segments.Add($"Navigation(p => p.{association.TargetPropertyName}).IsRequired()");
-                        Output(segments);
-
-                        MakeDependentAssociations(association.Target, $"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName})");
-
-                        break;
-                     }
 
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
-                     {
-                        foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
                         {
-                           segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
+                           foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
+                           {
+                              segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
 
-                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
-                              segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
+                              if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
+                                 segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
-                           if (modelAttribute.Required)
-                              segments.Add("IsRequired()");
+                              if (modelAttribute.Required)
+                                 segments.Add("IsRequired()");
 
-                           Output(segments);
+                              Output(segments);
+                           }
+
+                           MakeDependentAssociations(association.Target, $"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName})");
+
+                           break;
                         }
-
-                        MakeDependentAssociations(association.Target, $"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName})");
-
-                        break;
-                     }
                   }
                }
             }

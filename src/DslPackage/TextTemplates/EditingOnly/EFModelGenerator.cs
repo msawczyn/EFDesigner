@@ -12,9 +12,9 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    // ReSharper disable once UnusedMember.Global
    public partial class GeneratedTextTransformation
    {
-#region Template
+      #region Template
 
-      // EFDesigner v3.0.1.4
+      // EFDesigner v3.0.1.5
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -136,6 +136,14 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          protected ModelRoot modelRoot { get; set; }
          protected GeneratedTextTransformation host { get; set; }
 
+         // implementations delegated to the surrounding GeneratedTextTransformation for backward compatability
+         protected void NL() { host.NL(); }
+         protected void Output(List<string> segments) { host.Output(segments); }
+         protected void Output(string text) { host.Output(text); }
+         protected void Output(string template, params object[] items) { host.Output(template, items); }
+         protected void OutputChopped(List<string> segments) { host.OutputChopped(segments); }
+         protected void ClearIndent() { host.ClearIndent(); }
+
          public static string[] NonNullableTypes
          {
             get
@@ -187,8 +195,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                Output("{");
             }
          }
-
-         protected void ClearIndent() { host.ClearIndent(); }
 
          [SuppressMessage("ReSharper", "ConvertIfStatementToReturnStatement")]
          protected static string CreateShadowPropertyName(Association association, List<string> foreignKeyColumns, ModelAttribute identityAttribute)
@@ -440,17 +446,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             return !modelAttribute.Required && !modelAttribute.IsIdentity && !modelAttribute.IsConcurrencyToken && !NonNullableTypes.Contains(modelAttribute.Type);
          }
 
-         // implementations delegated to the surrounding GeneratedTextTransformation for backward compatability
-         protected void NL() { host.NL(); }
-
-         protected void Output(List<string> segments) { host.Output(segments); }
-
-         protected void Output(string text) { host.Output(text); }
-
-         protected void Output(string template, params object[] items) { host.Output(template, items); }
-
-         protected void OutputChopped(List<string> segments) { host.OutputChopped(segments); }
-
          protected virtual void WriteClass(ModelClass modelClass)
          {
             Output("using System;");
@@ -481,7 +476,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                bases.Add(modelClass.Superclass.FullName);
 
             if (!string.IsNullOrEmpty(modelClass.CustomInterfaces))
-               bases.AddRange(modelClass.CustomInterfaces.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries));
+               bases.AddRange(modelClass.CustomInterfaces.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
 
             if (modelClass.ImplementNotify)
                bases.Add("INotifyPropertyChanged");
@@ -527,8 +522,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
          protected void WriteCommentBody(string comment)
          {
-            foreach (string xmlDocTag in xmlDocTags)
-               Regex.Replace(comment, xmlDocTag, "[[[$1]]]");
+            int chunkSize = 80;
 
             string[] parts = comment.Split(new[]
                                            {
@@ -538,8 +532,28 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                            }
                                          , StringSplitOptions.RemoveEmptyEntries);
 
-            foreach (string outputText in parts.Select(value => SecurityElement.Escape(value).Replace("[[[", "<").Replace("]]]", ">")))
-               Output("/// " + SecurityElement.Escape(outputText));
+            foreach (string value in parts)
+            {
+               string text = value;
+
+               while (text.Length > 0)
+               {
+                  string outputText = text;
+
+                  if (outputText.Length > chunkSize)
+                  {
+                     outputText = (text.IndexOf(' ', chunkSize) > 0
+                                      ? text.Substring(0, text.IndexOf(' ', chunkSize))
+                                      : text).Trim();
+
+                     text = text.Substring(outputText.Length).Trim();
+                  }
+                  else
+                     text = string.Empty;
+
+                  Output("/// " + SecurityElement.Escape(outputText));
+               }
+            }
          }
 
          protected void WriteConstructor(ModelClass modelClass)
@@ -1213,6 +1227,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          }
       }
 
-#endregion Template
+      #endregion Template
    }
 }
