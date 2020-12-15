@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security;
-using System.Text.RegularExpressions;
 
 // ReSharper disable RedundantNameQualifier
 
@@ -13,7 +12,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-
       // EFDesigner v3.0.1.5
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
@@ -296,7 +294,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          {
             if (modelClass.DefaultConstructorVisibility == TypeAccessModifierExt.Default)
             {
-               bool hasRequiredParameters = GetRequiredParameters(modelClass, false).Any();
+               bool hasRequiredParameters = GetRequiredParameters(modelClass, false, true).Any();
 
                string visibility = (hasRequiredParameters || modelClass.IsAbstract) && !modelClass.IsDependentType
                                       ? "protected"
@@ -370,41 +368,27 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             return string.Join(".", nsParts);
          }
 
-         protected List<string> GetRequiredParameterNames(ModelClass modelClass, bool? publicOnly = null)
+
+         protected List<string> GetRequiredParameterNames(ModelClass modelClass, bool publicOnly = false)
          {
-            List<string> requiredParameterNames = modelClass.AllRequiredAttributes
-                                                            .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
-                                                                     && !x.IsConcurrencyToken
-                                                                     && (x.SetterVisibility == SetterAccessModifier.Public || publicOnly != false)
-                                                                     && string.IsNullOrEmpty(x.InitialValue))
-                                                            .Select(x => x.Name.ToLower())
-                                                            .ToList();
-
-            requiredParameterNames.AddRange(modelClass.AllRequiredNavigationProperties()
-                                                      .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
-                                                                || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One)
-                                                      .Select(x => x.PropertyName.ToLower()));
-
-            requiredParameterNames.AddRange(modelClass.AllRequiredAttributes
-                                                      .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
-                                                               && !x.IsConcurrencyToken
-                                                               && (x.SetterVisibility == SetterAccessModifier.Public || publicOnly != false)
-                                                               && !string.IsNullOrEmpty(x.InitialValue))
-                                                      .Select(x => x.Name.ToLower()));
-
-            return requiredParameterNames;
+            return GetRequiredParameters(modelClass, null, publicOnly).Select(p => p.Split(' ')[1]).ToList();
          }
 
-         protected List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults, bool? publicOnly = null)
+         /// <summary>Gets the local required properties for the ModelClass in formal parameter format</summary>
+         /// <param name="modelClass">Source</param>
+         /// <param name="haveDefaults">If true, only return those with default values. If false, only return those without default values. If null, return both.</param>
+         /// <param name="publicOnly">If true, only return those with public setters. If false, only return those without public setters. If null, return both.</param>
+         protected List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults, bool publicOnly = false)
          {
             List<string> requiredParameters = new List<string>();
 
             if (haveDefaults != true)
             {
+               // false or null - get those without default values 
                requiredParameters.AddRange(modelClass.AllRequiredAttributes
                                                      .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
                                                               && !x.IsConcurrencyToken
-                                                              && (x.SetterVisibility == SetterAccessModifier.Public || publicOnly != false)
+                                                              && (x.SetterVisibility == SetterAccessModifier.Public || !publicOnly)
                                                               && string.IsNullOrEmpty(x.InitialValue))
                                                      .Select(x => $"{x.FQPrimitiveType} {x.Name.ToLower()}"));
 
@@ -417,10 +401,11 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
             if (haveDefaults != false)
             {
+               // true or null - get those with default values
                requiredParameters.AddRange(modelClass.AllRequiredAttributes
                                                      .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
                                                               && !x.IsConcurrencyToken
-                                                              && (x.SetterVisibility == SetterAccessModifier.Public || publicOnly != false)
+                                                              && (x.SetterVisibility == SetterAccessModifier.Public || !publicOnly)
                                                               && !string.IsNullOrEmpty(x.InitialValue))
                                                      .Select(x =>
                                                              {
@@ -520,17 +505,11 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             NL();
          }
 
-         protected void WriteCommentBody(string comment)
+         protected string[] GenerateCommentBody(string comment)
          {
+            List<string> result = new List<string>();
             int chunkSize = 80;
-
-            string[] parts = comment.Split(new[]
-                                           {
-                                              "\r\n"
-                                            , "\r"
-                                            , "\n"
-                                           }
-                                         , StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = comment.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string value in parts)
             {
@@ -551,9 +530,17 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   else
                      text = string.Empty;
 
-                  Output("/// " + SecurityElement.Escape(outputText));
+                  result.Add(SecurityElement.Escape(outputText));
                }
             }
+
+            return result.ToArray();
+         }
+
+         protected void WriteCommentBody(string comment)
+         {
+            foreach (string s in GenerateCommentBody(comment))
+                Output($"/// {s}");
          }
 
          protected void WriteConstructor(ModelClass modelClass)
@@ -565,7 +552,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             // Default constructor
             /***********************************************************************/
 
-            bool hasRequiredParameters = GetRequiredParameters(modelClass, false).Any();
+            bool hasRequiredParameters = GetRequiredParameters(modelClass, false, true).Any();
 
             bool hasOneToOneAssociations = modelClass.AllRequiredNavigationProperties()
                                                      .Any(np => np.AssociationObject.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One
@@ -670,7 +657,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                Output("/// </summary>");
 
                WriteConstructorComments(modelClass);
-               Output($"{visibility} {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass, null))})");
+               Output($"{visibility} {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass, null, true))})");
                Output("{");
 
                if (remarks.Count > 0)
@@ -761,19 +748,20 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   WriteConstructorComments(modelClass);
 
                   string newToken = string.Empty;
-                  List<string> requiredParameters = GetRequiredParameters(modelClass, null);
+                  List<string> requiredParameters = GetRequiredParameters(modelClass, null, true);
 
                   if (!AllSuperclassesAreNullOrAbstract(modelClass))
                   {
-                     List<string> superclassRequiredParameters = GetRequiredParameters(modelClass.Superclass, null);
+                     List<string> superclassRequiredParameters = GetRequiredParameters(modelClass.Superclass, null, true);
 
                      if (!requiredParameters.Except(superclassRequiredParameters).Any())
                         newToken = "new ";
                   }
 
-                  Output($"public static {newToken}{modelClass.Name} Create({string.Join(", ", GetRequiredParameters(modelClass, null))})");
+                  List<string> requiredParameterNames = GetRequiredParameterNames(modelClass, true);
+                  Output($"public static {newToken}{modelClass.Name} Create({string.Join(", ", requiredParameters)})");
                   Output("{");
-                  Output($"return new {modelClass.Name}({string.Join(", ", GetRequiredParameterNames(modelClass))});");
+                  Output($"return new {modelClass.Name}({string.Join(", ", requiredParameterNames)});");
                   Output("}");
                   NL();
                }
@@ -785,7 +773,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes.Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
                                                                                                   && !x.IsConcurrencyToken
                                                                                                   && x.SetterVisibility == SetterAccessModifier.Public))
-               Output($@"/// <param name=""{requiredAttribute.Name.ToLower()}"">{SecurityElement.Escape(requiredAttribute.Summary)}</param>");
+               Output($@"/// <param name=""{requiredAttribute.Name.ToLower()}"">{string.Join(" ", GenerateCommentBody(requiredAttribute.Summary))}</param>");
 
             // TODO: Add comment if available
             foreach (NavigationProperty requiredNavigationProperty in modelClass.AllRequiredNavigationProperties()
@@ -1170,7 +1158,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   Output("/// </remarks>");
                }
 
-               string setterVisibility = (modelAttribute.IsIdentity && modelAttribute.IdentityType != IdentityType.Manual) || modelAttribute.SetterVisibility == SetterAccessModifier.Protected
+               string setterVisibility = modelAttribute.SetterVisibility == SetterAccessModifier.Protected
                                             ? "protected "
                                             : modelAttribute.SetterVisibility == SetterAccessModifier.Internal
                                                ? "internal "
@@ -1226,7 +1214,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             }
          }
       }
-
       #endregion Template
    }
 }

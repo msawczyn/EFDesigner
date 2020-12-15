@@ -338,7 +338,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                WriteDbSets();
 
             WriteContextConstructors();
-            WriteOnConfiguring(segments);
+            if (!modelRoot.GenerateDbContextFactory)
+               WriteOnConfiguring(segments);
             WriteOnModelCreate(segments, classesWithTables);
 
             Output("}");

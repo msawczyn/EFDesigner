@@ -305,7 +305,7 @@
          {
             if (modelClass.DefaultConstructorVisibility == TypeAccessModifierExt.Default)
             {
-               bool hasRequiredParameters = GetRequiredParameters(modelClass, false).Any();
+               bool hasRequiredParameters = GetRequiredParameters(modelClass, false, true).Any();
 
                string visibility = (hasRequiredParameters || modelClass.IsAbstract) && !modelClass.IsDependentType
                                       ? "protected"
@@ -404,16 +404,21 @@
             return requiredParameterNames;
          }
 
-         protected List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults, bool? publicOnly = null)
+         /// <summary>Gets the local required properties for the ModelClass in formal parameter format</summary>
+         /// <param name="modelClass">Source</param>
+         /// <param name="haveDefaults">If true, only return those with default values. If false, only return those without default values. If null, return both.</param>
+         /// <param name="publicOnly">If true, only return those with public setters. If false, only return those without public setters. If null, return both.</param>
+         protected List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults, bool publicOnly = false)
          {
             List<string> requiredParameters = new List<string>();
 
             if (haveDefaults != true)
             {
+               // false or null - get those without default values 
                requiredParameters.AddRange(modelClass.AllRequiredAttributes
                                                      .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
                                                               && !x.IsConcurrencyToken
-                                                              && (x.SetterVisibility == SetterAccessModifier.Public || publicOnly != false)
+                                                              && (x.SetterVisibility == SetterAccessModifier.Public || !publicOnly)
                                                               && string.IsNullOrEmpty(x.InitialValue))
                                                      .Select(x => $"{x.FQPrimitiveType} {x.Name.ToLower()}"));
 
@@ -426,10 +431,11 @@
 
             if (haveDefaults != false)
             {
+               // true or null - get those with default values
                requiredParameters.AddRange(modelClass.AllRequiredAttributes
                                                      .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
                                                               && !x.IsConcurrencyToken
-                                                              && (x.SetterVisibility == SetterAccessModifier.Public || publicOnly != false)
+                                                              && (x.SetterVisibility == SetterAccessModifier.Public || !publicOnly)
                                                               && !string.IsNullOrEmpty(x.InitialValue))
                                                      .Select(x =>
                                                              {
@@ -529,17 +535,11 @@
             NL();
          }
 
-         protected void WriteCommentBody(string comment)
+         protected string[] GenerateCommentBody(string comment)
          {
+            List<string> result = new List<string>();
             int chunkSize = 80;
-
-            string[] parts = comment.Split(new[]
-                                           {
-                                              "\r\n"
-                                            , "\r"
-                                            , "\n"
-                                           }
-                                         , StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = comment.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string value in parts)
             {
@@ -560,9 +560,17 @@
                   else
                      text = string.Empty;
 
-                  Output("/// " + SecurityElement.Escape(outputText));
+                  result.Add(SecurityElement.Escape(outputText));
                }
             }
+
+            return result.ToArray();
+         }
+
+         protected void WriteCommentBody(string comment)
+         {
+            foreach (string s in GenerateCommentBody(comment))
+                Output($"/// {s}");
          }
 
          protected void WriteConstructor(ModelClass modelClass)
@@ -574,7 +582,7 @@
             // Default constructor
             /***********************************************************************/
 
-            bool hasRequiredParameters = GetRequiredParameters(modelClass, false).Any();
+            bool hasRequiredParameters = GetRequiredParameters(modelClass, false, true).Any();
 
             bool hasOneToOneAssociations = modelClass.AllRequiredNavigationProperties()
                                                      .Any(np => np.AssociationObject.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One
@@ -679,7 +687,7 @@
                Output("/// </summary>");
 
                WriteConstructorComments(modelClass);
-               Output($"{visibility} {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass, null))})");
+               Output($"{visibility} {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass, null, true))})");
                Output("{");
 
                if (remarks.Count > 0)
@@ -770,19 +778,20 @@
                   WriteConstructorComments(modelClass);
 
                   string newToken = string.Empty;
-                  List<string> requiredParameters = GetRequiredParameters(modelClass, null);
+                  List<string> requiredParameters = GetRequiredParameters(modelClass, null, true);
 
                   if (!AllSuperclassesAreNullOrAbstract(modelClass))
                   {
-                     List<string> superclassRequiredParameters = GetRequiredParameters(modelClass.Superclass, null);
+                     List<string> superclassRequiredParameters = GetRequiredParameters(modelClass.Superclass, null, true);
 
                      if (!requiredParameters.Except(superclassRequiredParameters).Any())
                         newToken = "new ";
                   }
 
-                  Output($"public static {newToken}{modelClass.Name} Create({string.Join(", ", GetRequiredParameters(modelClass, null))})");
+                  List<string> requiredParameterNames = requiredParameters.Select(p => p.Split(new[] {' '})[1]).ToList();
+                  Output($"public static {newToken}{modelClass.Name} Create({string.Join(", ", requiredParameters)})");
                   Output("{");
-                  Output($"return new {modelClass.Name}({string.Join(", ", GetRequiredParameterNames(modelClass))});");
+                  Output($"return new {modelClass.Name}({string.Join(", ", requiredParameterNames)});");
                   Output("}");
                   NL();
                }
@@ -794,7 +803,7 @@
             foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes.Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
                                                                                                   && !x.IsConcurrencyToken
                                                                                                   && x.SetterVisibility == SetterAccessModifier.Public))
-               Output($@"/// <param name=""{requiredAttribute.Name.ToLower()}"">{SecurityElement.Escape(requiredAttribute.Summary)}</param>");
+               Output($@"/// <param name=""{requiredAttribute.Name.ToLower()}"">{string.Join(" ", GenerateCommentBody(requiredAttribute.Summary))}</param>");
 
             // TODO: Add comment if available
             foreach (NavigationProperty requiredNavigationProperty in modelClass.AllRequiredNavigationProperties()
@@ -1179,7 +1188,7 @@
                   Output("/// </remarks>");
                }
 
-               string setterVisibility = (modelAttribute.IsIdentity && modelAttribute.IdentityType != IdentityType.Manual) || modelAttribute.SetterVisibility == SetterAccessModifier.Protected
+               string setterVisibility = modelAttribute.SetterVisibility == SetterAccessModifier.Protected
                                             ? "protected "
                                             : modelAttribute.SetterVisibility == SetterAccessModifier.Internal
                                                ? "internal "

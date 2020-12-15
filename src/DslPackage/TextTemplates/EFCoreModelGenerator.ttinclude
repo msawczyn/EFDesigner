@@ -350,7 +350,8 @@
                WriteDbSets();
 
             WriteContextConstructors();
-            WriteOnConfiguring(segments);
+            if (!modelRoot.GenerateDbContextFactory)
+               WriteOnConfiguring(segments);
             WriteOnModelCreate(segments, classesWithTables);
 
             Output("}");
