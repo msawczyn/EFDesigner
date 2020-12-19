@@ -33,10 +33,12 @@ For comprehensive documentation, please visit [the project's documentation site]
 **3.0.2**
    - **[NEW]** Added setting on designer surface to set visibility defaults for entity default constructors, and overrides for that setting on the entities
    - **[NEW]** Added `public bool ModelAttribute.IsForeignKeyProperty` for use by developers doing custom code generation from the model
+   - **[NEW]** Added option for turning off DbSet and table name pluralization (see https://github.com/msawczyn/EFDesigner/issues/246)
+   - **[NEW]** Added option for how to name foreign key shadow properties - either with or without underscores (see https://github.com/msawczyn/EFDesigner/issues/250)
+   - **[NEW]** Added option to generate DbContextFactory class, for use in context pooling. Asking for DbContext factory method generation disables generating OnCreating method, since they don't play well together.
    - Fixes for code generation of new EFCore5 database collation options
    - Fixed condition where sometimes generated code in entity default constructors would create infinitely recursive calls
    - Stopped escaping standard XML comment tags in summary and description fields (see https://github.com/msawczyn/EFDesigner/issues/248)
-   - Asking for context factory method generation disables generation of OnCreating, since they don't play well together
    - Due to the new seeding needs in EFCore5, setters for identity properties are now public even if set to be auto-generated
 
 **3.0.1**

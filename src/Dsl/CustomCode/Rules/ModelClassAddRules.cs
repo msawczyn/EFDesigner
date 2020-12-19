@@ -59,13 +59,8 @@ namespace Sawczyn.EFDesigner.EFModel
             element.Attributes.Add(concurrencyToken);
          }
 
-         element.DbSetName = ModelRoot.PluralizationService?.IsSingular(element.Name) == true
-                                ? ModelRoot.PluralizationService.Pluralize(element.Name)
-                                : element.Name;
-
-         element.TableName = ModelRoot.PluralizationService?.IsSingular(element.Name) == true
-                                ? ModelRoot.PluralizationService.Pluralize(element.Name)
-                                : element.Name;
+         element.DbSetName = element.GetDefaultDbSetName(element.ModelRoot.PluralizeDbSetNames);
+         element.TableName = element.GetDefaultTableName(element.ModelRoot.PluralizeTableNames);
       }
    }
 }

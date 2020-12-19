@@ -9,7 +9,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 namespace Sawczyn.EFDesigner.EFModel
 {
    [RuleOn(typeof(ModelEnumValue), FireTime = TimeToFire.TopLevelCommit)]
-   public class ModelEnumValueChangeRules : ChangeRule
+   internal class ModelEnumValueChangeRules : ChangeRule
    {
       public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
       {
@@ -48,29 +48,21 @@ namespace Sawczyn.EFDesigner.EFModel
                   errorMessage = $"{modelEnum.Name}.{newName}: Name must be a valid .NET identifier";
                else if (modelEnum.Values.Except(new[] {element}).Any(v => v.Name == newName))
                   errorMessage = $"{modelEnum.Name}.{newName}: Name already in use";
-               else if (!string.IsNullOrWhiteSpace((string)e.OldValue))
+               else 
                {
                   // find ModelAttributes where the default value is this ModelEnumValue and change it to the new name
-                  string oldInitialValue = $"{modelEnum.Name}.{e.OldValue}";
-                  string newInitialValue = $"{modelEnum.Name}.{e.NewValue}";
-
-                  foreach (ModelAttribute modelAttribute in store.GetAll<ModelAttribute>().Where(a => a.InitialValue == oldInitialValue))
-                     modelAttribute.InitialValue = newInitialValue;
+                  foreach (ModelAttribute modelAttribute in store.GetAll<ModelAttribute>().Where(a => a.InitialValue == $"{modelEnum.Name}.{(string)e.OldValue}"))
+                  {
+                        string[] parts = modelAttribute.InitialValue.Split('.');
+                        parts[1] = newName;
+                        modelAttribute.InitialValue = string.Join(".", parts);
+                  }
                }
 
                break;
 
             case "Value":
                string newValue = (string)e.NewValue;
-
-               //if (modelEnum.IsFlags)
-               //{
-               //   int index = modelEnum.Values.IndexOf(element);
-               //   int properValue = (int)Math.Pow(2, index);
-               //   if (newValue != properValue.ToString())
-               //      current.Rollback();
-               //   return;
-               //}
 
                if (newValue != null)
                {

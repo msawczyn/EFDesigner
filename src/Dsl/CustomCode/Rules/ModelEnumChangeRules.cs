@@ -21,7 +21,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
          Store store = element.Store;
          Transaction currentTransaction = store.TransactionManager.CurrentTransaction;
-         ModelRoot modelRoot = store.ModelRoot();
 
          if (currentTransaction.IsSerializing)
             return;
@@ -48,7 +47,16 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   // rename type names for ModelAttributes that reference this enum
                   foreach (ModelAttribute modelAttribute in store.GetAll<ModelAttribute>().Where(a => a.Type == (string)e.OldValue))
+                  {
                      modelAttribute.Type = element.Name;
+
+                     if (!string.IsNullOrEmpty(modelAttribute.InitialValue))
+                     {
+                        string[] parts = modelAttribute.InitialValue.Split('.');
+                        parts[0] = (string)e.NewValue;
+                        modelAttribute.InitialValue = string.Join(".", parts);
+                     }
+                  }
                }
 
                break;

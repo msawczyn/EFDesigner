@@ -163,6 +163,9 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(ModelRoot), "UseTabs", ModelRoot.UseTabsDomainPropertyId, typeof(ModelRoot.UseTabsPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelRoot), "GenerateDbContextFactory", ModelRoot.GenerateDbContextFactoryDomainPropertyId, typeof(ModelRoot.GenerateDbContextFactoryPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelRoot), "EntityDefaultConstructorVisibilityDefault", ModelRoot.EntityDefaultConstructorVisibilityDefaultDomainPropertyId, typeof(ModelRoot.EntityDefaultConstructorVisibilityDefaultPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "PluralizeDbSetNames", ModelRoot.PluralizeDbSetNamesDomainPropertyId, typeof(ModelRoot.PluralizeDbSetNamesPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "PluralizeTableNames", ModelRoot.PluralizeTableNamesDomainPropertyId, typeof(ModelRoot.PluralizeTableNamesPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "ShadowKeyNamePattern", ModelRoot.ShadowKeyNamePatternDomainPropertyId, typeof(ModelRoot.ShadowKeyNamePatternPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "DatabaseSchema", ModelClass.DatabaseSchemaDomainPropertyId, typeof(ModelClass.DatabaseSchemaPropertyHandler)),
@@ -1641,5 +1644,28 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Default.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		Default = 4,
+	}
+}
+namespace Sawczyn.EFDesigner.EFModel
+{
+	/// <summary>
+	/// DomainEnumeration: ShadowKeyPattern
+	/// How to generate foreign key shadow property names
+	/// </summary>
+	[global::System.CLSCompliant(true)]
+	public enum ShadowKeyPattern
+	{
+		/// <summary>
+		/// TableAndColumn
+		/// Generate as [Foreign Table][Key Column]
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ShadowKeyPattern/TableAndColumn.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		TableAndColumn = 1,
+		/// <summary>
+		/// TableUnderscoreColumn
+		/// Generate as [Foreign Table]_[Key Column]
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ShadowKeyPattern/TableUnderscoreColumn.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		TableUnderscoreColumn,
 	}
 }

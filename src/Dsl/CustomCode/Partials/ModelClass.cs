@@ -103,6 +103,21 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns></returns>
       public string GetDisplayText() => Name;
 
+      public string GetDefaultDbSetName(bool shouldPluralize)
+      {
+         return ModelRoot.PluralizationService?.IsSingular(Name) == true && shouldPluralize
+                                ? ModelRoot.PluralizationService.Pluralize(Name)
+                                : Name;
+      }
+
+      public string GetDefaultTableName(bool shouldPluralize)
+      {
+         return ModelRoot.PluralizationService?.IsSingular(Name) == true && shouldPluralize
+                   ? ModelRoot.PluralizationService.Pluralize(Name)
+                   : Name;
+      }
+
+
       /// <summary>
       /// All attributes in the class, including those inherited from base classes
       /// </summary>

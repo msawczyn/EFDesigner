@@ -9,9 +9,8 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   /// <inheritdoc />
    [RuleOn(typeof(Association), FireTime = TimeToFire.TopLevelCommit)]
-   public class AssociationChangedRules : ChangeRule
+   internal class AssociationChangedRules : ChangeRule
    {
       // matches [Display(Name="*")] and [System.ComponentModel.DataAnnotations.Display(Name="*")]
       private static readonly Regex DisplayAttributeRegex = new Regex("^(.*)\\[(System\\.ComponentModel\\.DataAnnotations\\.)?Display\\(Name=\"([^\"]+)\"\\)\\](.*)$", RegexOptions.Compiled);

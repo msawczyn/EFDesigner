@@ -357,6 +357,24 @@
             <xsd:documentation>Defines the visibility of an entity&apos;s default constructor. Normally, those are public unless there are required properties or associations, then they generate as protected.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: PluralizeDbSetNames -->
+        <xsd:attribute name="pluralizeDbSetNames" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, DbSet names will default to the plural value of the class name. If false, they&apos;ll be the same as the class name</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: PluralizeTableNames -->
+        <xsd:attribute name="pluralizeTableNames" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, table names will default to the plural value of the class name. If false, they&apos;ll be the same as the class name</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: ShadowKeyNamePattern -->
+        <xsd:attribute name="shadowKeyNamePattern" type="ShadowKeyPattern" >
+          <xsd:annotation>
+            <xsd:documentation>The pattern to use for generating shadow foreign key property names</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -2435,6 +2453,25 @@
       </xsd:enumeration>
       <xsd:enumeration value="Public"/>
       <xsd:enumeration value="Default"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum ShadowKeyPattern -->
+  <xsd:simpleType name="ShadowKeyPattern">
+    <xsd:annotation>
+      <xsd:documentation>How to generate foreign key shadow property names</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="TableAndColumn">
+        <xsd:annotation>
+          <xsd:documentation>Generate as [Foreign Table][Key Column]</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="TableUnderscoreColumn">
+        <xsd:annotation>
+          <xsd:documentation>Generate as [Foreign Table]_[Key Column]</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
     </xsd:restriction>
   </xsd:simpleType>
   

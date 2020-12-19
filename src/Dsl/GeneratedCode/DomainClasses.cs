@@ -4245,6 +4245,275 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region PluralizeDbSetNames domain property code
+		
+		/// <summary>
+		/// PluralizeDbSetNames domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid PluralizeDbSetNamesDomainPropertyId = new global::System.Guid(0x0c487b9f, 0xc39b, 0x4286, 0xbe, 0x45, 0xd1, 0xc2, 0x76, 0x69, 0x7f, 0xb1);
+		
+		/// <summary>
+		/// Storage for PluralizeDbSetNames
+		/// </summary>
+		private global::System.Boolean pluralizeDbSetNamesPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of PluralizeDbSetNames domain property.
+		/// If true, DbSet names will default to the plural value of the class name. If
+		/// false, they'll be the same as the class name
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/PluralizeDbSetNames.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/PluralizeDbSetNames.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/PluralizeDbSetNames.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[DslModeling::DomainObjectId("0c487b9f-c39b-4286-be45-d1c276697fb1")]
+		public global::System.Boolean PluralizeDbSetNames
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return pluralizeDbSetNamesPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				PluralizeDbSetNamesPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.PluralizeDbSetNames domain property.
+		/// </summary>
+		internal sealed partial class PluralizeDbSetNamesPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private PluralizeDbSetNamesPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.PluralizeDbSetNames domain property value handler.
+			/// </summary>
+			public static readonly PluralizeDbSetNamesPropertyHandler Instance = new PluralizeDbSetNamesPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.PluralizeDbSetNames domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return PluralizeDbSetNamesDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.pluralizeDbSetNamesPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.pluralizeDbSetNamesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region PluralizeTableNames domain property code
+		
+		/// <summary>
+		/// PluralizeTableNames domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid PluralizeTableNamesDomainPropertyId = new global::System.Guid(0xf068a70d, 0xfa8f, 0x4a1c, 0x82, 0x17, 0xc8, 0x9d, 0x58, 0x32, 0xbb, 0x84);
+		
+		/// <summary>
+		/// Storage for PluralizeTableNames
+		/// </summary>
+		private global::System.Boolean pluralizeTableNamesPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of PluralizeTableNames domain property.
+		/// If true, table names will default to the plural value of the class name. If
+		/// false, they'll be the same as the class name
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/PluralizeTableNames.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/PluralizeTableNames.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/PluralizeTableNames.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[DslModeling::DomainObjectId("f068a70d-fa8f-4a1c-8217-c89d5832bb84")]
+		public global::System.Boolean PluralizeTableNames
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return pluralizeTableNamesPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				PluralizeTableNamesPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.PluralizeTableNames domain property.
+		/// </summary>
+		internal sealed partial class PluralizeTableNamesPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private PluralizeTableNamesPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.PluralizeTableNames domain property value handler.
+			/// </summary>
+			public static readonly PluralizeTableNamesPropertyHandler Instance = new PluralizeTableNamesPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.PluralizeTableNames domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return PluralizeTableNamesDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.pluralizeTableNamesPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.pluralizeTableNamesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region ShadowKeyNamePattern domain property code
+		
+		/// <summary>
+		/// ShadowKeyNamePattern domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ShadowKeyNamePatternDomainPropertyId = new global::System.Guid(0xfd958c03, 0x206e, 0x4d4c, 0x8e, 0x69, 0x6b, 0x30, 0x00, 0x10, 0xe6, 0x65);
+		
+		/// <summary>
+		/// Storage for ShadowKeyNamePattern
+		/// </summary>
+		private ShadowKeyPattern shadowKeyNamePatternPropertyStorage = ShadowKeyPattern.TableAndColumn;
+		
+		/// <summary>
+		/// Gets or sets the value of ShadowKeyNamePattern domain property.
+		/// The pattern to use for generating shadow foreign key property names
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShadowKeyNamePattern.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShadowKeyNamePattern.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShadowKeyNamePattern.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(ShadowKeyPattern.TableAndColumn)]
+		[DslModeling::DomainObjectId("fd958c03-206e-4d4c-8e69-6b300010e665")]
+		public ShadowKeyPattern ShadowKeyNamePattern
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return shadowKeyNamePatternPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ShadowKeyNamePatternPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.ShadowKeyNamePattern domain property.
+		/// </summary>
+		internal sealed partial class ShadowKeyNamePatternPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, ShadowKeyPattern>
+		{
+			private ShadowKeyNamePatternPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.ShadowKeyNamePattern domain property value handler.
+			/// </summary>
+			public static readonly ShadowKeyNamePatternPropertyHandler Instance = new ShadowKeyNamePatternPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.ShadowKeyNamePattern domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ShadowKeyNamePatternDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed ShadowKeyPattern GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.shadowKeyNamePatternPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, ShadowKeyPattern newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				ShadowKeyPattern oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.shadowKeyNamePatternPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

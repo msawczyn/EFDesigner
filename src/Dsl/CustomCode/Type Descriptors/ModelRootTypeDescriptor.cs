@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Data.Entity.Design.PluralizationServices;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -36,8 +37,13 @@ namespace Sawczyn.EFDesigner.EFModel
             }
 
             if (!modelRoot.ShowGrid)
-            {
                propertyDescriptors.Remove("GridColor");
+
+            // if there's no pluralization service, don't ask if we should pluralize
+            if (ModelRoot.PluralizationService == null)
+            {
+               propertyDescriptors.Remove("PluralizeDbSetNames");
+               propertyDescriptors.Remove("PluralizeTableNames");
             }
 
             //Add in extra custom properties here...

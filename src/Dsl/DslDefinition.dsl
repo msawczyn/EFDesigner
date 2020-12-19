@@ -340,6 +340,21 @@
             <DomainEnumerationMoniker Name="TypeAccessModifierExt" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="0c487b9f-c39b-4286-be45-d1c276697fb1" Description="If true, DbSet names will default to the plural value of the class name. If false, they'll be the same as the class name" Name="PluralizeDbSetNames" DisplayName="Pluralize DbSet Names" DefaultValue="true" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="f068a70d-fa8f-4a1c-8217-c89d5832bb84" Description="If true, table names will default to the plural value of the class name. If false, they'll be the same as the class name" Name="PluralizeTableNames" DisplayName="Pluralize Table Names" DefaultValue="true" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="fd958c03-206e-4d4c-8e69-6b300010e665" Description="The pattern to use for generating shadow foreign key property names" Name="ShadowKeyNamePattern" DisplayName="Shadow Key Name Pattern" DefaultValue="TableAndColumn" Category="Database">
+          <Type>
+            <DomainEnumerationMoniker Name="ShadowKeyPattern" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1744,6 +1759,12 @@
         <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt.Default" Name="Default" Value="4" />
       </Literals>
     </DomainEnumeration>
+    <DomainEnumeration Name="ShadowKeyPattern" Namespace="Sawczyn.EFDesigner.EFModel" Description="How to generate foreign key shadow property names">
+      <Literals>
+        <EnumerationLiteral Description="Generate as [Foreign Table][Key Column]" Name="TableAndColumn" Value="1" />
+        <EnumerationLiteral Description="Generate as [Foreign Table]_[Key Column]" Name="TableUnderscoreColumn" Value="" />
+      </Literals>
+    </DomainEnumeration>
   </Types>
   <Shapes>
     <CompartmentShape Id="8055f08f-3d3a-435f-8b47-7afcd0e051bd" Description="" Name="ClassShape" DisplayName="Class Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Class Shape" TextColor="White" ExposesTextColor="true" FillColor="0, 122, 204" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="Rectangle">
@@ -2201,6 +2222,15 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="entityDefaultConstructorVisibilityDefault">
             <DomainPropertyMoniker Name="ModelRoot/EntityDefaultConstructorVisibilityDefault" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="pluralizeDbSetNames">
+            <DomainPropertyMoniker Name="ModelRoot/PluralizeDbSetNames" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="pluralizeTableNames">
+            <DomainPropertyMoniker Name="ModelRoot/PluralizeTableNames" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="shadowKeyNamePattern">
+            <DomainPropertyMoniker Name="ModelRoot/ShadowKeyNamePattern" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.Modeling;
 namespace Sawczyn.EFDesigner.EFModel
 {
    [RuleOn(typeof(ModelDiagramData), FireTime = TimeToFire.TopLevelCommit)]
-   public class ModelDiagramDataDeleteRules : DeleteRule
+   internal class ModelDiagramDataDeleteRules : DeleteRule
    {
       /// <summary>
       /// public virtual method for the client to have his own user-defined delete rule class

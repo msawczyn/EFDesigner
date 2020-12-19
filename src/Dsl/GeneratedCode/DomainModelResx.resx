@@ -693,6 +693,42 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;EntityDefaultConstructorVisibilityDefault&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/PluralizeDbSetNames.Description" xml:space="preserve">
+    <value>If true, DbSet names will default to the plural value of the class name. If false, they&apos;ll be the same as the class name</value>
+    <comment>Description for DomainProperty &apos;PluralizeDbSetNames&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/PluralizeDbSetNames.DisplayName" xml:space="preserve">
+    <value>Pluralize DbSet Names</value>
+    <comment>DisplayName for DomainProperty &apos;PluralizeDbSetNames&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/PluralizeDbSetNames.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;PluralizeDbSetNames&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/PluralizeTableNames.Description" xml:space="preserve">
+    <value>If true, table names will default to the plural value of the class name. If false, they&apos;ll be the same as the class name</value>
+    <comment>Description for DomainProperty &apos;PluralizeTableNames&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/PluralizeTableNames.DisplayName" xml:space="preserve">
+    <value>Pluralize Table Names</value>
+    <comment>DisplayName for DomainProperty &apos;PluralizeTableNames&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/PluralizeTableNames.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;PluralizeTableNames&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ShadowKeyNamePattern.Description" xml:space="preserve">
+    <value>The pattern to use for generating shadow foreign key property names</value>
+    <comment>Description for DomainProperty &apos;ShadowKeyNamePattern&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ShadowKeyNamePattern.DisplayName" xml:space="preserve">
+    <value>Shadow Key Name Pattern</value>
+    <comment>DisplayName for DomainProperty &apos;ShadowKeyNamePattern&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ShadowKeyNamePattern.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;ShadowKeyNamePattern&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>
@@ -3444,6 +3480,22 @@
   <data name="Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt/Default.Description" xml:space="preserve">
     <value>Description for Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt.Default</value>
     <comment>Description for EnumerationLiteral &apos;Default&apos; on DomainEnumeration &apos;TypeAccessModifierExt&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ShadowKeyPattern/TableAndColumn.DisplayName" xml:space="preserve">
+    <value>TableAndColumn</value>
+    <comment>Display name for EnumerationLiteral &apos;TableAndColumn&apos; on DomainEnumeration &apos;ShadowKeyPattern&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ShadowKeyPattern/TableAndColumn.Description" xml:space="preserve">
+    <value>Generate as [Foreign Table][Key Column]</value>
+    <comment>Description for EnumerationLiteral &apos;TableAndColumn&apos; on DomainEnumeration &apos;ShadowKeyPattern&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ShadowKeyPattern/TableUnderscoreColumn.DisplayName" xml:space="preserve">
+    <value>TableUnderscoreColumn</value>
+    <comment>Display name for EnumerationLiteral &apos;TableUnderscoreColumn&apos; on DomainEnumeration &apos;ShadowKeyPattern&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ShadowKeyPattern/TableUnderscoreColumn.Description" xml:space="preserve">
+    <value>Generate as [Foreign Table]_[Key Column]</value>
+    <comment>Description for EnumerationLiteral &apos;TableUnderscoreColumn&apos; on DomainEnumeration &apos;ShadowKeyPattern&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape.Description" xml:space="preserve">
     <value></value>

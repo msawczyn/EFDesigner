@@ -179,7 +179,28 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "Namespace":
                errorMessages.Add(CommonRules.ValidateNamespace((string)e.NewValue, CodeGenerator.IsValidLanguageIndependentIdentifier));
+               break;
 
+            case "PluralizeDbSetNames":
+               if (ModelRoot.PluralizationService != null)
+               {
+                  foreach (ModelClass modelClass in element.Classes)
+                  {
+                     if (modelClass.DbSetName == modelClass.GetDefaultDbSetName((bool)e.OldValue))
+                        modelClass.DbSetName = modelClass.GetDefaultDbSetName((bool)e.NewValue);
+                  }
+               }
+               break;
+
+            case "PluralizeTableNames":
+               if (ModelRoot.PluralizationService != null)
+               {
+                  foreach (ModelClass modelClass in element.Classes)
+                  {
+                     if (modelClass.TableName == modelClass.GetDefaultTableName((bool)e.OldValue))
+                        modelClass.TableName = modelClass.GetDefaultTableName((bool)e.NewValue);
+                  }
+               }
                break;
 
             case "ShowCascadeDeletes":

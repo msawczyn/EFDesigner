@@ -919,6 +919,57 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // PluralizeDbSetNames
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribPluralizeDbSetNames = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "pluralizeDbSetNames");
+	         if (attribPluralizeDbSetNames != null)
+	         {
+	            global::System.Boolean valueOfPluralizeDbSetNames;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribPluralizeDbSetNames, out valueOfPluralizeDbSetNames))
+	            {
+	               instanceOfModelRoot.PluralizeDbSetNames = valueOfPluralizeDbSetNames;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "pluralizeDbSetNames", typeof(global::System.Boolean), attribPluralizeDbSetNames);
+	            }
+	         }
+	      }
+	      // PluralizeTableNames
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribPluralizeTableNames = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "pluralizeTableNames");
+	         if (attribPluralizeTableNames != null)
+	         {
+	            global::System.Boolean valueOfPluralizeTableNames;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribPluralizeTableNames, out valueOfPluralizeTableNames))
+	            {
+	               instanceOfModelRoot.PluralizeTableNames = valueOfPluralizeTableNames;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "pluralizeTableNames", typeof(global::System.Boolean), attribPluralizeTableNames);
+	            }
+	         }
+	      }
+	      // ShadowKeyNamePattern
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribShadowKeyNamePattern = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "shadowKeyNamePattern");
+	         if (attribShadowKeyNamePattern != null)
+	         {
+	            ShadowKeyPattern valueOfShadowKeyNamePattern;
+	            if (DslModeling::SerializationUtilities.TryGetValue<ShadowKeyPattern>(serializationContext, attribShadowKeyNamePattern, out valueOfShadowKeyNamePattern))
+	            {
+	               instanceOfModelRoot.ShadowKeyNamePattern = valueOfShadowKeyNamePattern;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "shadowKeyNamePattern", typeof(ShadowKeyPattern), attribShadowKeyNamePattern);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -2143,6 +2194,45 @@ namespace Sawczyn.EFDesigner.EFModel
 	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Default") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "entityDefaultConstructorVisibilityDefault", serializedPropValue);
+	            }
+	         }
+	      }
+	      // PluralizeDbSetNames
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelRoot.PluralizeDbSetNames;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "pluralizeDbSetNames", serializedPropValue);
+	            }
+	         }
+	      }
+	      // PluralizeTableNames
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelRoot.PluralizeTableNames;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "pluralizeTableNames", serializedPropValue);
+	            }
+	         }
+	      }
+	      // ShadowKeyNamePattern
+	      if (!serializationContext.Result.Failed)
+	      {
+	         ShadowKeyPattern propValue = instanceOfModelRoot.ShadowKeyNamePattern;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<ShadowKeyPattern>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "TableAndColumn") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "shadowKeyNamePattern", serializedPropValue);
 	            }
 	         }
 	      }

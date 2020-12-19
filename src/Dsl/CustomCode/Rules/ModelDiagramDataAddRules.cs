@@ -7,7 +7,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 namespace Sawczyn.EFDesigner.EFModel
 {
    [RuleOn(typeof(ModelDiagramData), FireTime = TimeToFire.LocalCommit)]
-   public class ModelDiagramDataAddRules : AddRule
+   internal class ModelDiagramDataAddRules : AddRule
    {
       public override void ElementAdded(ElementAddedEventArgs e)
       {
