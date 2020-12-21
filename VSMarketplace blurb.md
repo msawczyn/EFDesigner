@@ -36,6 +36,7 @@ For comprehensive documentation, please visit [the project's documentation site]
    - **[NEW]** Added option for turning off DbSet and table name pluralization (see https://github.com/msawczyn/EFDesigner/issues/246)
    - **[NEW]** Added option for how to name foreign key shadow properties - either with or without underscores (see https://github.com/msawczyn/EFDesigner/issues/250)
    - **[NEW]** Added option to generate DbContextFactory class, for use in context pooling. Asking for DbContext factory method generation disables generating OnCreating method, since they don't play well together.
+   - Changed property editor for custom attributes to be multiline, to ease editing (see https://github.com/msawczyn/EFDesigner/issues/251)
    - Fixes for code generation of new EFCore5 database collation options
    - Fixed condition where sometimes generated code in entity default constructors would create infinitely recursive calls
    - Stopped escaping standard XML comment tags in summary and description fields (see https://github.com/msawczyn/EFDesigner/issues/248)

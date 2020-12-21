@@ -197,15 +197,17 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          [SuppressMessage("ReSharper", "ConvertIfStatementToReturnStatement")]
          protected static string CreateShadowPropertyName(Association association, List<string> foreignKeyColumns, ModelAttribute identityAttribute)
          {
+            string separator = identityAttribute.ModelClass.ModelRoot.ShadowKeyNamePattern == ShadowKeyPattern.TableColumn ? "" : "_";
+
             string GetShadowPropertyName(string nameBase)
             {
-               if (association.SourceRole == EndpointRole.Dependent)
-                  return $"{nameBase}{identityAttribute.Name}";
+               //if (association.SourceRole == EndpointRole.Dependent)
+               //   return $"{nameBase}{identityAttribute.Name}";
 
-               if (association is BidirectionalAssociation)
-                  return $"{nameBase}{identityAttribute.Name}";
+               //if (association is BidirectionalAssociation)
+               //   return $"{nameBase}{identityAttribute.Name}";
 
-               return $"{nameBase}_{identityAttribute.Name}";
+               return $"{nameBase}{separator}{identityAttribute.Name}";
             }
 
             string GetShadowPropertyNameBase()
@@ -216,7 +218,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                if (association is BidirectionalAssociation b)
                   return b.SourcePropertyName;
 
-               return $"{association.Source.Name}_{association.TargetPropertyName}";
+               return $"{association.Source.Name}{separator}{association.TargetPropertyName}";
             }
 
             string shadowNameBase = GetShadowPropertyNameBase();

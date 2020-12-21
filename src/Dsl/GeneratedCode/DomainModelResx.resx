@@ -3481,13 +3481,13 @@
     <value>Description for Sawczyn.EFDesigner.EFModel.TypeAccessModifierExt.Default</value>
     <comment>Description for EnumerationLiteral &apos;Default&apos; on DomainEnumeration &apos;TypeAccessModifierExt&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ShadowKeyPattern/TableAndColumn.DisplayName" xml:space="preserve">
-    <value>TableAndColumn</value>
-    <comment>Display name for EnumerationLiteral &apos;TableAndColumn&apos; on DomainEnumeration &apos;ShadowKeyPattern&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.ShadowKeyPattern/TableColumn.DisplayName" xml:space="preserve">
+    <value>TableColumn</value>
+    <comment>Display name for EnumerationLiteral &apos;TableColumn&apos; on DomainEnumeration &apos;ShadowKeyPattern&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ShadowKeyPattern/TableAndColumn.Description" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.ShadowKeyPattern/TableColumn.Description" xml:space="preserve">
     <value>Generate as [Foreign Table][Key Column]</value>
-    <comment>Description for EnumerationLiteral &apos;TableAndColumn&apos; on DomainEnumeration &apos;ShadowKeyPattern&apos;</comment>
+    <comment>Description for EnumerationLiteral &apos;TableColumn&apos; on DomainEnumeration &apos;ShadowKeyPattern&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ShadowKeyPattern/TableUnderscoreColumn.DisplayName" xml:space="preserve">
     <value>TableUnderscoreColumn</value>

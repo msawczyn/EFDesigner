@@ -1656,11 +1656,11 @@ namespace Sawczyn.EFDesigner.EFModel
 	public enum ShadowKeyPattern
 	{
 		/// <summary>
-		/// TableAndColumn
+		/// TableColumn
 		/// Generate as [Foreign Table][Key Column]
 		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ShadowKeyPattern/TableAndColumn.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		TableAndColumn = 1,
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ShadowKeyPattern/TableColumn.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		TableColumn = 1,
 		/// <summary>
 		/// TableUnderscoreColumn
 		/// Generate as [Foreign Table]_[Key Column]

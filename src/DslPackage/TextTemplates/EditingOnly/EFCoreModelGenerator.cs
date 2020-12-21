@@ -579,6 +579,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   visited.Add(association);
 
                   List<string> segments = new List<string>();
+                  string separator = sourceInstance.ModelRoot.ShadowKeyNamePattern == ShadowKeyPattern.TableColumn ? "" : "_";
 
                   switch (association.TargetMultiplicity) // realized by property on source
                   {
@@ -592,7 +593,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                            segments.Add(baseSegment);
                            segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
                            segments.Add($"WithOwner(\"{association.SourcePropertyName}\")");
-                           segments.Add($"HasForeignKey(\"{association.SourcePropertyName}Id\")");
+                           segments.Add($"HasForeignKey(\"{association.SourcePropertyName}{separator}Id\")");
                            Output(segments);
 
                            segments.Add(baseSegment);
@@ -813,6 +814,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   visited.Add(association);
 
                   List<string> segments = new List<string>();
+                  string separator = sourceInstance.ModelRoot.ShadowKeyNamePattern == ShadowKeyPattern.TableColumn ? "" : "_";
 
                   switch (association.TargetMultiplicity) // realized by property on source
                   {
@@ -821,7 +823,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                            segments.Add(baseSegment);
                            segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
                            segments.Add($"WithOwner(\"{association.Source.Name}_{association.TargetPropertyName}\")");
-                           segments.Add($"HasForeignKey(\"{association.Source.Name}_{association.TargetPropertyName}Id\")");
+                           segments.Add($"HasForeignKey(\"{association.Source.Name}_{association.TargetPropertyName}{separator}Id\")");
                            Output(segments);
 
                            segments.Add(baseSegment);

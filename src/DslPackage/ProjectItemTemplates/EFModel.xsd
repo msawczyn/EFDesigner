@@ -2462,7 +2462,7 @@
       <xsd:documentation>How to generate foreign key shadow property names</xsd:documentation>
     </xsd:annotation>
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="TableAndColumn">
+      <xsd:enumeration value="TableColumn">
         <xsd:annotation>
           <xsd:documentation>Generate as [Foreign Table][Key Column]</xsd:documentation>
         </xsd:annotation>

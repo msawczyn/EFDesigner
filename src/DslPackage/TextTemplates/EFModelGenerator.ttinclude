@@ -208,15 +208,17 @@
          [SuppressMessage("ReSharper", "ConvertIfStatementToReturnStatement")]
          protected static string CreateShadowPropertyName(Association association, List<string> foreignKeyColumns, ModelAttribute identityAttribute)
          {
+            string separator = identityAttribute.ModelClass.ModelRoot.ShadowKeyNamePattern == ShadowKeyPattern.TableColumn ? "" : "_";
+
             string GetShadowPropertyName(string nameBase)
             {
-               if (association.SourceRole == EndpointRole.Dependent)
-                  return $"{nameBase}{identityAttribute.Name}";
+               //if (association.SourceRole == EndpointRole.Dependent)
+               //   return $"{nameBase}{identityAttribute.Name}";
 
-               if (association is BidirectionalAssociation)
-                  return $"{nameBase}{identityAttribute.Name}";
+               //if (association is BidirectionalAssociation)
+               //   return $"{nameBase}{identityAttribute.Name}";
 
-               return $"{nameBase}_{identityAttribute.Name}";
+               return $"{nameBase}{separator}{identityAttribute.Name}";
             }
 
             string GetShadowPropertyNameBase()
@@ -227,7 +229,7 @@
                if (association is BidirectionalAssociation b)
                   return b.SourcePropertyName;
 
-               return $"{association.Source.Name}_{association.TargetPropertyName}";
+               return $"{association.Source.Name}{separator}{association.TargetPropertyName}";
             }
 
             string shadowNameBase = GetShadowPropertyNameBase();
@@ -377,31 +379,9 @@
             nsParts.Add("Migrations");
 
             return string.Join(".", nsParts);
-         }
-
-         protected List<string> GetRequiredParameterNames(ModelClass modelClass, bool? publicOnly = null)
+         }         protected List<string> GetRequiredParameterNames(ModelClass modelClass, bool publicOnly = false)
          {
-            List<string> requiredParameterNames = modelClass.AllRequiredAttributes
-                                                            .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
-                                                                     && !x.IsConcurrencyToken
-                                                                     && (x.SetterVisibility == SetterAccessModifier.Public || publicOnly != false)
-                                                                     && string.IsNullOrEmpty(x.InitialValue))
-                                                            .Select(x => x.Name.ToLower())
-                                                            .ToList();
-
-            requiredParameterNames.AddRange(modelClass.AllRequiredNavigationProperties()
-                                                      .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
-                                                                || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One)
-                                                      .Select(x => x.PropertyName.ToLower()));
-
-            requiredParameterNames.AddRange(modelClass.AllRequiredAttributes
-                                                      .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
-                                                               && !x.IsConcurrencyToken
-                                                               && (x.SetterVisibility == SetterAccessModifier.Public || publicOnly != false)
-                                                               && !string.IsNullOrEmpty(x.InitialValue))
-                                                      .Select(x => x.Name.ToLower()));
-
-            return requiredParameterNames;
+            return GetRequiredParameters(modelClass, null, publicOnly).Select(p => p.Split(' ')[1]).ToList();
          }
 
          /// <summary>Gets the local required properties for the ModelClass in formal parameter format</summary>
@@ -788,7 +768,7 @@
                         newToken = "new ";
                   }
 
-                  List<string> requiredParameterNames = requiredParameters.Select(p => p.Split(new[] {' '})[1]).ToList();
+                  List<string> requiredParameterNames = GetRequiredParameterNames(modelClass, true);
                   Output($"public static {newToken}{modelClass.Name} Create({string.Join(", ", requiredParameters)})");
                   Output("{");
                   Output($"return new {modelClass.Name}({string.Join(", ", requiredParameterNames)});");
@@ -1244,6 +1224,5 @@
             }
          }
       }
-
       
 #>

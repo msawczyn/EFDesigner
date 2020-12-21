@@ -350,7 +350,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="fd958c03-206e-4d4c-8e69-6b300010e665" Description="The pattern to use for generating shadow foreign key property names" Name="ShadowKeyNamePattern" DisplayName="Shadow Key Name Pattern" DefaultValue="TableAndColumn" Category="Database">
+        <DomainProperty Id="fd958c03-206e-4d4c-8e69-6b300010e665" Description="The pattern to use for generating shadow foreign key property names" Name="ShadowKeyNamePattern" DisplayName="Shadow Key Name Pattern" DefaultValue="TableColumn" Category="Database">
           <Type>
             <DomainEnumerationMoniker Name="ShadowKeyPattern" />
           </Type>
@@ -516,6 +516,14 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="cae77164-7b85-4c67-8fa4-88f945353e92" Description="Any custom attributes to be generated for this element.  Will be passed through as entered." Name="CustomAttributes" DisplayName="Custom Attributes" Category="Code Generation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -752,6 +760,14 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="c54c284f-10d6-4a49-8fc1-0bcf4bab8c6f" Description="Any custom attributes to be generated for this element.  Will be passed through as entered." Name="CustomAttributes" DisplayName="Custom Attributes" Category="Code Generation">
+           <Attributes>
+              <ClrAttribute Name="System.ComponentModel.Editor">
+                 <Parameters>
+                    <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                    <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+                 </Parameters>
+              </ClrAttribute>
+           </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -915,6 +931,14 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="d4b2ab6e-54f5-4b70-94b0-403025b01541" Description="Any custom attributes to be generated for this element. Will be passed through as entered." Name="CustomAttributes" DisplayName="Custom Attributes" Category="Code Generation">
+           <Attributes>
+              <ClrAttribute Name="System.ComponentModel.Editor">
+                 <Parameters>
+                    <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                    <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+                 </Parameters>
+              </ClrAttribute>
+           </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -984,6 +1008,14 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="f01f16bc-6d9b-4b19-ad24-182b32379961" Description="Any custom attributes to be generated for this element. Will be passed through as entered." Name="CustomAttributes" DisplayName="Custom Attributes" Category="Code Generation">
+           <Attributes>
+              <ClrAttribute Name="System.ComponentModel.Editor">
+                 <Parameters>
+                    <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                    <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+                 </Parameters>
+              </ClrAttribute>
+           </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1143,6 +1175,14 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="a667dd36-ac5c-4c98-b368-b84778bdcd56" Description="Any custom attributes to be generated for the target property. Will be passed through as entered." Name="TargetCustomAttributes" DisplayName="End2 Custom Attributes" Category="End 2">
+           <Attributes>
+              <ClrAttribute Name="System.ComponentModel.Editor">
+                 <Parameters>
+                    <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                    <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+                 </Parameters>
+              </ClrAttribute>
+           </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1343,6 +1383,14 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="124bb49e-c952-4a7f-801a-a7af0a985fc4" Description="Any custom attributes to be generated for the source property. Will be passed through as entered." Name="SourceCustomAttributes" DisplayName="End1 Custom Attributes" Category="End 1">
+           <Attributes>
+              <ClrAttribute Name="System.ComponentModel.Editor">
+                 <Parameters>
+                    <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                    <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+                 </Parameters>
+              </ClrAttribute>
+           </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1761,7 +1809,7 @@
     </DomainEnumeration>
     <DomainEnumeration Name="ShadowKeyPattern" Namespace="Sawczyn.EFDesigner.EFModel" Description="How to generate foreign key shadow property names">
       <Literals>
-        <EnumerationLiteral Description="Generate as [Foreign Table][Key Column]" Name="TableAndColumn" Value="1" />
+        <EnumerationLiteral Description="Generate as [Foreign Table][Key Column]" Name="TableColumn" Value="1" />
         <EnumerationLiteral Description="Generate as [Foreign Table]_[Key Column]" Name="TableUnderscoreColumn" Value="" />
       </Literals>
     </DomainEnumeration>
