@@ -489,14 +489,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #region DatabaseCollation
 
-      private string databaseCollation;
+      private string databaseCollationStorage;
 
       /// <summary>
       /// Getter for DatabaseCollation custom storage property
       /// </summary>
       public string GetDatabaseCollationValue()
       {
-         if (!this.IsLoading() && IsAutoPropertyTracking)
+         if (!this.IsLoading() && IsDatabaseCollationTracking)
          {
             try
             {
@@ -511,8 +511,7 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
 
-         return databaseCollation;
-
+         return databaseCollationStorage ?? "default";
       }
 
       /// <summary>
@@ -521,11 +520,10 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="value"></param>
       public void SetDatabaseCollationValue(string value)
       {
-         databaseCollation = value;
+         databaseCollationStorage = string.IsNullOrEmpty(value) ? null : value;
 
          if (!Store.InUndoRedoOrRollback && !this.IsLoading())
-            IsDatabaseCollationTracking = (databaseCollation == (ModelClass?.ModelRoot?.DatabaseCollationDefault ?? "default"));
-
+            IsDatabaseCollationTracking = ((databaseCollationStorage ?? "default") == "default");
       }
 
       #endregion

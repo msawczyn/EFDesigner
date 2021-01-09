@@ -1,3 +1,6 @@
+3.0.3
+   - Fix to ensure database collation overrides don't get applied to the wrong column types
+
 3.0.2
    - Added setting on designer surface to set visibility defaults for entity default constructors, and overrides for that setting on the entities
    - Added `public bool ModelAttribute.IsForeignKeyProperty` for use by developers doing custom code generation from the model

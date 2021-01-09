@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.2.0
+//     Produced by Entity Framework Visual Editor v3.0.2.1
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -33,8 +33,6 @@ namespace Sandbox_EFCore5NetCore3_Test
       /// </summary>
       public Entity1()
       {
-         Entity2 = new System.Collections.Generic.HashSet<global::Sandbox_EFCore5NetCore3_Test.Entity2>();
-
          Init();
       }
 
@@ -51,11 +49,11 @@ namespace Sandbox_EFCore5NetCore3_Test
       [System.ComponentModel.Description("Unique identifier")]
       public long Id { get; set; }
 
-      /*************************************************************************
-       * Navigation properties
-       *************************************************************************/
+      public string StringProperty { get; set; }
 
-      public virtual ICollection<global::Sandbox_EFCore5NetCore3_Test.Entity2> Entity2 { get; private set; }
+      public Guid? GuidProperty { get; set; }
+
+      public int? IntProperty { get; set; }
 
    }
 }

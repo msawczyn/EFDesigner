@@ -12,8 +12,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.2.0
-      // Copyright (c) 2017-2020 Michael Sawczyn
+      // EFDesigner v3.0.2.1
+      // Copyright (c) 2017-2021 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
       protected void NL()
@@ -131,8 +131,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             modelRoot = host.ModelRoot;
          }
 
+#pragma warning disable IDE1006 // Naming Styles
          protected ModelRoot modelRoot { get; set; }
          protected GeneratedTextTransformation host { get; set; }
+#pragma warning restore IDE1006 // Naming Styles
 
          // implementations delegated to the surrounding GeneratedTextTransformation for backward compatability
          protected void NL() { host.NL(); }
@@ -194,7 +196,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             }
          }
 
-         [SuppressMessage("ReSharper", "ConvertIfStatementToReturnStatement")]
          protected static string CreateShadowPropertyName(Association association, List<string> foreignKeyColumns, ModelAttribute identityAttribute)
          {
             string separator = identityAttribute.ModelClass.ModelRoot.ShadowKeyNamePattern == ShadowKeyPattern.TableColumn ? "" : "_";
@@ -979,7 +980,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   Output("/// <summary>");
 
                   if (!string.IsNullOrEmpty(comment) && !string.IsNullOrEmpty(navigationProperty.Summary))
-                     comment = comment + "<br/>";
+                     comment += "<br/>";
 
                   if (!string.IsNullOrEmpty(comment))
                      WriteCommentBody(comment);

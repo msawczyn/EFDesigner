@@ -25,8 +25,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
       #region Template
 
-      // EFDesigner v3.0.2.0
-      // Copyright (c) 2017-2020 Michael Sawczyn
+      // EFDesigner v3.0.2.1
+      // Copyright (c) 2017-2021 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
       public void GenerateEF6(Manager manager, ModelRoot modelRoot)

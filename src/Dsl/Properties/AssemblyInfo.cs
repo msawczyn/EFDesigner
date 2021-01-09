@@ -13,12 +13,12 @@ using System.Runtime.ConstrainedExecution;
 #endif
 [assembly: AssemblyCompany("Michael Sawczyn")]
 [assembly: AssemblyProduct("EFDesigner")]
-[assembly: AssemblyCopyright("Copyright © Michael Sawczyn 2017-2020")]
+[assembly: AssemblyCopyright("Copyright © Michael Sawczyn 2017-2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("3.0.2.0")]
-[assembly: AssemblyFileVersion("3.0.2.0")]
+[assembly: AssemblyVersion("3.0.2.1")]
+[assembly: AssemblyFileVersion("3.0.2.1")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 [assembly: ReliabilityContract(Consistency.MayCorruptProcess, Cer.None)]

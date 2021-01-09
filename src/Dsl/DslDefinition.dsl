@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="3" Build="2" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="3" Build="2" Revision="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -760,14 +760,14 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="c54c284f-10d6-4a49-8fc1-0bcf4bab8c6f" Description="Any custom attributes to be generated for this element.  Will be passed through as entered." Name="CustomAttributes" DisplayName="Custom Attributes" Category="Code Generation">
-           <Attributes>
-              <ClrAttribute Name="System.ComponentModel.Editor">
-                 <Parameters>
-                    <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
-                    <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
-                 </Parameters>
-              </ClrAttribute>
-           </Attributes>
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -931,14 +931,14 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="d4b2ab6e-54f5-4b70-94b0-403025b01541" Description="Any custom attributes to be generated for this element. Will be passed through as entered." Name="CustomAttributes" DisplayName="Custom Attributes" Category="Code Generation">
-           <Attributes>
-              <ClrAttribute Name="System.ComponentModel.Editor">
-                 <Parameters>
-                    <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
-                    <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
-                 </Parameters>
-              </ClrAttribute>
-           </Attributes>
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1008,14 +1008,14 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="f01f16bc-6d9b-4b19-ad24-182b32379961" Description="Any custom attributes to be generated for this element. Will be passed through as entered." Name="CustomAttributes" DisplayName="Custom Attributes" Category="Code Generation">
-           <Attributes>
-              <ClrAttribute Name="System.ComponentModel.Editor">
-                 <Parameters>
-                    <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
-                    <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
-                 </Parameters>
-              </ClrAttribute>
-           </Attributes>
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1175,14 +1175,14 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="a667dd36-ac5c-4c98-b368-b84778bdcd56" Description="Any custom attributes to be generated for the target property. Will be passed through as entered." Name="TargetCustomAttributes" DisplayName="End2 Custom Attributes" Category="End 2">
-           <Attributes>
-              <ClrAttribute Name="System.ComponentModel.Editor">
-                 <Parameters>
-                    <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
-                    <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
-                 </Parameters>
-              </ClrAttribute>
-           </Attributes>
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1383,14 +1383,14 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="124bb49e-c952-4a7f-801a-a7af0a985fc4" Description="Any custom attributes to be generated for the source property. Will be passed through as entered." Name="SourceCustomAttributes" DisplayName="End1 Custom Attributes" Category="End 1">
-           <Attributes>
-              <ClrAttribute Name="System.ComponentModel.Editor">
-                 <Parameters>
-                    <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
-                    <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
-                 </Parameters>
-              </ClrAttribute>
-           </Attributes>
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>

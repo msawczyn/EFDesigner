@@ -68,7 +68,7 @@ namespace Sawczyn.EFDesigner.EFModel
             if (bidirectionalAssociation != null && bidirectionalAssociation.SourceImplementNotify)
                propertyDescriptors.Remove("SourceAutoProperty");
 
-            // we're only allowing ..1 and ..0-1 associations to not be autoproperties
+            // we're only allowing ..1 and ..0-1 associations to have backing fields
             if (association.TargetMultiplicity == Multiplicity.ZeroMany)
                propertyDescriptors.Remove("TargetAutoProperty");
             if (bidirectionalAssociation != null && bidirectionalAssociation.SourceMultiplicity == Multiplicity.ZeroMany)

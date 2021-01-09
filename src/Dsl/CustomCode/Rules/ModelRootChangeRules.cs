@@ -47,6 +47,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
                break;
 
+            case "DatabaseCollationDefault":
+
+               if (string.IsNullOrEmpty(element.DatabaseCollationDefault))
+                  element.DatabaseCollationDefault = "default";
+
+               break;
+
             case "EntityFrameworkPackageVersion":
 
                if (element.EntityFrameworkVersion == EFVersion.EFCore)

@@ -11,8 +11,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.2.0
-      // Copyright (c) 2017-2020 Michael Sawczyn
+      // EFDesigner v3.0.2.1
+      // Copyright (c) 2017-2021 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
       public abstract class EFCoreModelGenerator : EFModelGenerator
@@ -598,7 +598,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                            segments.Add(baseSegment);
                            segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                           segments.Add("Property<int>(\"Id\")");
+                           segments.Add($"Property<{modelRoot.DefaultIdentityType}>(\"Id\")");
 
                            Output(segments);
 
@@ -828,7 +828,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                            segments.Add(baseSegment);
                            segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                           segments.Add("Property<int>(\"Id\")");
+                           segments.Add($"Property<{modelRoot.DefaultIdentityType}>(\"Id\")");
 
                            Output(segments);
 
@@ -922,8 +922,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             return result;
          }
 
-         [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
-         [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
          protected virtual IEnumerable<string> GetForeignKeys(Association association, List<string> foreignKeyColumns)
          {
             // final collection of foreign key property names, real or shadow

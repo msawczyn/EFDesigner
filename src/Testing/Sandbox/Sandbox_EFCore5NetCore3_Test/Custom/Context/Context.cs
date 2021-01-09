@@ -12,8 +12,8 @@ namespace Sandbox_EFCore5NetCore3_Test
       public Context() { }
       partial void CustomInit(DbContextOptionsBuilder optionsBuilder)
       {
-         optionsBuilder.UseInMemoryDatabase("Sandbox");
-         //optionsBuilder.UseSqlServer(ConnectionString);
+         //optionsBuilder.UseInMemoryDatabase("Sandbox");
+         optionsBuilder.UseSqlServer(ConnectionString);
       }
    }
 }

@@ -7,8 +7,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.2.0
-      // Copyright (c) 2017-2020 Michael Sawczyn
+      // EFDesigner v3.0.2.1
+      // Copyright (c) 2017-2021 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
       public class EFCore5ModelGenerator : EFCore3ModelGenerator
@@ -56,8 +56,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                }
             }
 
-            if (!string.IsNullOrEmpty(modelAttribute.DatabaseCollation) && modelAttribute.DatabaseCollation != "default")
-               segments.Add($"UseCollation({modelAttribute.DatabaseCollation})");
+            if (!string.IsNullOrEmpty(modelAttribute.DatabaseCollation)
+             && modelAttribute.DatabaseCollation != modelRoot.DatabaseCollationDefault
+             && modelAttribute.Type == "String")
+               segments.Add($"UseCollation(\"{modelAttribute.DatabaseCollation.Trim('"')}\")");
 
             return segments;
          }
@@ -76,10 +78,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             NL();
 
             if (!string.IsNullOrEmpty(modelRoot.DatabaseSchema))
-               Output($"modelBuilder.HasDefaultSchema(\"{modelRoot.DatabaseSchema}\");");
+               Output($"modelBuilder.HasDefaultSchema(\"{modelRoot.DatabaseSchema.Trim('"')}\");");
 
             if (modelRoot.DatabaseCollationDefault.ToLowerInvariant() != "default")
-               Output($"modelBuilder.UseCollation(\"{modelRoot.DatabaseCollationDefault}\");");
+               Output($"modelBuilder.UseCollation(\"{modelRoot.DatabaseCollationDefault.Trim('"')}\");");
 
             List<Association> visited = new List<Association>();
             List<string> foreignKeyColumns = new List<string>();
@@ -156,7 +158,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                                    ? $"{association.Target.Name}_{association.SourcePropertyName}_x_{association.Source.Name}_{association.TargetPropertyName}"
                                                    : association.JoinTableName;
 
-                              segments.Add($"UsingEntity(x => x.ToTable(\"{tableMap}\"))");
+                              segments.Add($"UsingEntity(x => x.ToTable(\"{tableMap.Trim('"')}\"))");
                            }
 
                            break;
@@ -244,7 +246,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                            segments.Add(baseSegment);
                            segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                           segments.Add("Property<int>(\"Id\")");
+                           segments.Add($"Property<{modelRoot.DefaultIdentityType}>(\"Id\")");
 
                            Output(segments);
 
@@ -439,10 +441,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                         segments.Add("IsRequired()");
                   }
 
+                  Output(segments);
+
                   if (association.Principal == association.Target && targetRequired)
                      Output($"modelBuilder.Entity<{association.Source.FullName}>().Navigation(e => e.{association.TargetPropertyName}).IsRequired();");
-
-                  Output(segments);
 
                   if (!association.TargetAutoProperty)
                   {
@@ -482,7 +484,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                            segments.Add(baseSegment);
                            segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                           segments.Add("Property<int>(\"Id\")");
+                           segments.Add($"Property<{modelRoot.DefaultIdentityType}>(\"Id\")");
 
                            Output(segments);
 
