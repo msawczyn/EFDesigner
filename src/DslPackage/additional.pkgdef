@@ -1,3 +1,5 @@
 [$RootKey$\TextTemplating\IncludeFolders]
 [$RootKey$\TextTemplating\IncludeFolders\.tt]
 "IncludeEFDsl"="$PackageFolder$\TextTemplates"
+[$RootKey$\ShellFileAssociations\.efmodel]
+"DefaultIconMoniker"="KnownMonikers.UMLModel"
