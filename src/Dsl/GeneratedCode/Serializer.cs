@@ -10204,6 +10204,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // TargetAutoInclude
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribTargetAutoInclude = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "targetAutoInclude");
+	         if (attribTargetAutoInclude != null)
+	         {
+	            global::System.Boolean valueOfTargetAutoInclude;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribTargetAutoInclude, out valueOfTargetAutoInclude))
+	            {
+	               instanceOfAssociation.TargetAutoInclude = valueOfTargetAutoInclude;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "targetAutoInclude", typeof(global::System.Boolean), attribTargetAutoInclude);
+	            }
+	         }
+	      }
 	   }
 	
 	   #region TryCreateInstance & TryCreateDerivedInstance
@@ -10818,6 +10835,16 @@ namespace Sawczyn.EFDesigner.EFModel
 	         if (!serializationContext.Result.Failed)
 	         {
 	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isTargetAbstract", serializedPropValue);
+	         }
+	      }
+	      // TargetAutoInclude
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfAssociation.TargetAutoInclude;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "targetAutoInclude", serializedPropValue);
 	         }
 	      }
 	   }
@@ -14422,6 +14449,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // SourceAutoInclude
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribSourceAutoInclude = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "sourceAutoInclude");
+	         if (attribSourceAutoInclude != null)
+	         {
+	            global::System.Boolean valueOfSourceAutoInclude;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribSourceAutoInclude, out valueOfSourceAutoInclude))
+	            {
+	               instanceOfBidirectionalAssociation.SourceAutoInclude = valueOfSourceAutoInclude;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "sourceAutoInclude", typeof(global::System.Boolean), attribSourceAutoInclude);
+	            }
+	         }
+	      }
 	   }
 	
 	   #region TryCreateInstance & TryCreateDerivedInstance
@@ -15020,6 +15064,16 @@ namespace Sawczyn.EFDesigner.EFModel
 	         if (!serializationContext.Result.Failed)
 	         {
 	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isSourceAbstract", serializedPropValue);
+	         }
+	      }
+	      // SourceAutoInclude
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfBidirectionalAssociation.SourceAutoInclude;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "sourceAutoInclude", serializedPropValue);
 	         }
 	      }
 	   }

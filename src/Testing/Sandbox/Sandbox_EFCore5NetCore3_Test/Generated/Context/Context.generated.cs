@@ -26,6 +26,7 @@ namespace Sandbox_EFCore5NetCore3_Test
    {
       #region DbSets
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore5NetCore3_Test.Entity1> Entity1 { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore5NetCore3_Test.Entity2> Entity2 { get; set; }
 
       #endregion DbSets
 
@@ -60,7 +61,11 @@ namespace Sandbox_EFCore5NetCore3_Test
 
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity1>().ToTable("Entity1").HasKey(t => t.Id);
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity1>().Property(t => t.Id).ValueGeneratedOnAdd().IsRequired();
-         modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity1>().Property(t => t.StringProperty).UseCollation("SQL_Latin1_General_CP1_CI_AS");
+         modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity1>().HasMany<global::Sandbox_EFCore5NetCore3_Test.Entity2>(p => p.Entity2).WithOne().HasForeignKey("Entity1Entity2Id");
+
+         modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().ToTable("Entity2").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().Property(t => t.Id).ValueGeneratedOnAdd().IsRequired();
+         modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().Property(t => t.Property1).IsRequired();
 
          OnModelCreatedImpl(modelBuilder);
       }

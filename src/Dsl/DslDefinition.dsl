@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="3" Build="2" Revision="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="3" Build="3" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -1254,6 +1254,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="5eaf5db2-b617-46f6-b2b5-586bc563ed61" Description="If true, the property at End1 will be automatically included in queries" Name="TargetAutoInclude" DisplayName="Auto Include End1" Category="End 2">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <Source>
         <DomainRole Id="d2edf927-64c2-4fe3-8d4e-c44e87142c4c" Description="" Name="Source" DisplayName="Source" PropertyName="Targets" PropertyDisplayName="Targets">
@@ -1443,6 +1448,11 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="1efba570-fa00-474d-bc74-24fcb518411a" Description="If true, the property for this end will be abstract" Name="IsSourceAbstract" DisplayName="End2 Is Abstract" Category="End 1">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="395328e3-aaf0-4b71-8982-c4e1435506d7" Description="If true, the property at End2 will be automatically included in queries" Name="SourceAutoInclude" DisplayName="Auto Include End2" Category="End 1">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -2099,6 +2109,9 @@
           <XmlPropertyData XmlName="isTargetAbstract">
             <DomainPropertyMoniker Name="Association/IsTargetAbstract" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="targetAutoInclude">
+            <DomainPropertyMoniker Name="Association/TargetAutoInclude" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ClassHasAttributes" MonikerAttributeName="" SerializeId="true" MonikerElementName="classHasAttributesMoniker" ElementName="classHasAttributes" MonikerTypeName="ClassHasAttributesMoniker">
@@ -2560,6 +2573,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isSourceAbstract">
             <DomainPropertyMoniker Name="BidirectionalAssociation/IsSourceAbstract" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="sourceAutoInclude">
+            <DomainPropertyMoniker Name="BidirectionalAssociation/SourceAutoInclude" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

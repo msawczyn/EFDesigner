@@ -117,16 +117,15 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       public virtual string GetDisplayText()
       {
-         return $"{Source.Name}.{TargetPropertyName} --> {Target.Name}";
+         string targetAutoIncluded = TargetAutoInclude ? " (AutoInclude)" : string.Empty;
+         return $"{Source.Name}.{TargetPropertyName}{targetAutoIncluded} --> {Target.Name}";
       }
 
       internal string TargetBackingFieldNameDefault => string.IsNullOrEmpty(TargetPropertyName) ? string.Empty : $"_{TargetPropertyName.Substring(0, 1).ToLowerInvariant()}{TargetPropertyName.Substring(1)}";
 
-#pragma warning disable 1591
       internal string _targetBackingFieldName;
       protected string GetTargetBackingFieldNameValue() => string.IsNullOrEmpty(_targetBackingFieldName) ? TargetBackingFieldNameDefault : _targetBackingFieldName;
       protected void SetTargetBackingFieldNameValue(string value) => _targetBackingFieldName = value;
-#pragma warning restore 1591
 
       private string GetNameValue()
       {
@@ -244,6 +243,7 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       [ValidationMethod(ValidationCategories.Save | ValidationCategories.Menu)]
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validatioin")]
       // ReSharper disable once UnusedMember.Local
       private void ValidateMultiplicity(ValidationContext context)
       {
@@ -253,6 +253,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validatioin")]
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
          if (Source?.ModelRoot == null) return;
@@ -268,6 +269,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validatioin")]
       private void TPCEndpointsOnlyOnLeafNodes(ValidationContext context)
       {
          if (Source?.ModelRoot == null) return;
@@ -280,6 +282,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       [ValidationMethod(ValidationCategories.Save | ValidationCategories.Load | ValidationCategories.Menu)]
       [UsedImplicitly]
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validatioin")]
       private void MustDetermineEndpointRoles(ValidationContext context)
       {
          if (Source?.ModelRoot == null)
@@ -295,6 +298,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       [ValidationMethod(ValidationCategories.Save | ValidationCategories.Load | ValidationCategories.Menu)]
       [UsedImplicitly]
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validatioin")]
       private void FKPropertiesCannotBeStoreGeneratedIdentifiers(ValidationContext context)
       {
 
@@ -358,7 +362,7 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       [ValidationMethod(ValidationCategories.Save | ValidationCategories.Load | ValidationCategories.Menu)]
-      [UsedImplicitly]
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validatioin")]
       private void FKPropertiesInvalidWithoutDependentEnd(ValidationContext context)
       {
          if (string.IsNullOrWhiteSpace(FKPropertyName))
@@ -373,7 +377,7 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       [ValidationMethod(ValidationCategories.Save | ValidationCategories.Load | ValidationCategories.Menu)]
-      [UsedImplicitly]
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validatioin")]
       private void FKPropertiesMatchIdentityProperties(ValidationContext context)
       {
          if (string.IsNullOrWhiteSpace(FKPropertyName) || Principal == null)

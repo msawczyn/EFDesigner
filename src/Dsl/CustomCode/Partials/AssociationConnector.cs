@@ -157,6 +157,14 @@ namespace Sawczyn.EFDesigner.EFModel
             case "TargetMultiplicity":
                PresentationHelper.UpdateAssociationDisplay(this);
                break;
+
+            case "SourceAutoInclude":
+               PresentationHelper.UpdateAssociationDisplay(this);
+               break;
+
+            case "TargetAutoInclude":
+               PresentationHelper.UpdateAssociationDisplay(this);
+               break;
          }
 
          base.OnAssociatedPropertyChanged(e);

@@ -33,6 +33,8 @@ namespace Sandbox_EFCore5NetCore3_Test
       /// </summary>
       public Entity1()
       {
+         Entity2 = new System.Collections.Generic.HashSet<global::Sandbox_EFCore5NetCore3_Test.Entity2>();
+
          Init();
       }
 
@@ -49,11 +51,11 @@ namespace Sandbox_EFCore5NetCore3_Test
       [System.ComponentModel.Description("Unique identifier")]
       public long Id { get; set; }
 
-      public string StringProperty { get; set; }
+      /*************************************************************************
+       * Navigation properties
+       *************************************************************************/
 
-      public Guid? GuidProperty { get; set; }
-
-      public int? IntProperty { get; set; }
+      public virtual ICollection<global::Sandbox_EFCore5NetCore3_Test.Entity2> Entity2 { get; private set; }
 
    }
 }

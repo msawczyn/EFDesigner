@@ -1,5 +1,10 @@
 3.0.3
+   - Added VS UML icon for model file in solution explorer (thanks to https://github.com/dcastenholz for the change)
+   - Added ability to specify that an association should be automatically included in any queries that use it (EFCore5 only).
+   - Updated association tooltip to indicate which, if any, end is auto-included
    - Fix to ensure database collation overrides don't get applied to the wrong column types
+   - Fix to allow 1..1 association to owned types in EFCore5 (see https://github.com/msawczyn/EFDesigner/issues/252)
+   - Fix to calculate EF version number correctly when "Latest" was specified in designer (see https://github.com/msawczyn/EFDesigner/issues/254)
 
 3.0.2
    - Added setting on designer surface to set visibility defaults for entity default constructors, and overrides for that setting on the entities

@@ -20,6 +20,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validatioin")]
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
          if (Source?.ModelRoot == null) return;
@@ -38,7 +39,10 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       public override string GetDisplayText()
       {
-         return $"{Source.Name}.{TargetPropertyName} <--> {Target.Name}.{SourcePropertyName}";
+         string sourceAutoIncluded = SourceAutoInclude ? " (AutoInclude)" : string.Empty;
+         string targetAutoIncluded = TargetAutoInclude ? " (AutoInclude)" : string.Empty;
+
+         return $"{Source.Name}.{TargetPropertyName}{targetAutoIncluded} <--> {Target.Name}.{SourcePropertyName}{sourceAutoIncluded}";
       }
 
       internal string SourceBackingFieldNameDefault => string.IsNullOrEmpty(SourcePropertyName) ? string.Empty : $"_{SourcePropertyName.Substring(0, 1).ToLowerInvariant()}{SourcePropertyName.Substring(1)}";

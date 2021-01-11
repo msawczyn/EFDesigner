@@ -24,9 +24,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="targetMultiplicity"></param>
       public static void UpdateAssociationDisplay(Association element
                                                 , DeleteAction? sourceDeleteAction = null
-                                                , DeleteAction? targetDeleteAction = null
-                                                , Multiplicity? sourceMultiplicity = null
-                                                , Multiplicity? targetMultiplicity = null)
+                                                , DeleteAction? targetDeleteAction = null)
       {
          // redraw on every diagram
          foreach (AssociationConnector connector in PresentationViewsSubject.GetPresentation(element).OfType<AssociationConnector>().Distinct())
@@ -130,11 +128,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private static void SetConnectorWidth(AssociationConnector connector)
       {
+         if (!(connector?.ModelElement is Association element))
+            return;
+
+         BidirectionalAssociation bidirectionalElement = connector.ModelElement as BidirectionalAssociation;
          PenSettings settings = connector.StyleSet.GetOverriddenPenSettings(DiagramPens.ConnectionLine) ?? new PenSettings();
 
-         settings.Width = connector.ManuallyRouted
-                             ? 0.02f
-                             : 0.01f;
+         bool hasAutoInclude = element.TargetAutoInclude || (bidirectionalElement?.SourceAutoInclude == true);
+         settings.Width = hasAutoInclude ? 0.04f : 0.01f;
 
          connector.StyleSet.OverridePen(DiagramPens.ConnectionLine, settings);
       }

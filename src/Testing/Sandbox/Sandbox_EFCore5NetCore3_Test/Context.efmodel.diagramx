@@ -3,14 +3,30 @@
 <eFModelDiagram dslVersion="1.0.0.0" Id="1d42d669-a54d-4056-b4ae-766239464299" type="Sawczyn.EFDesigner.EFModel.EFModelDiagram" absoluteBounds="0, 0, 11, 8.5" name="Context">
   <modelRootMoniker Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" />
   <nestedChildShapes>
-    <classShape Id="36c8b413-4f28-45dc-885c-debb48202023" absoluteBounds="2.2187501589457193, 2.2708332538604736, 2.4583333333333335, 1.9473746744791658" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" outlineThickness="0.01">
+    <classShape Id="36c8b413-4f28-45dc-885c-debb48202023" absoluteBounds="2.9479168256123862, 2.2708332538604736, 2.4583333333333335, 1.5627718098958332" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" outlineThickness="0.01">
       <modelClassMoniker Id="e021eafb-4f22-4026-bf40-6d37a6169e8a" />
       <nestedChildShapes>
-        <elementListCompartment Id="20738ea2-7295-43bf-bcf3-22172d2eeca5" absoluteBounds="2.2337501589457194, 2.5808332538604737, 2.4283333333333332, 1.0185953776041665" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
-        <elementListCompartment Id="07c349d4-eb20-46eb-a24e-7022dceee210" absoluteBounds="2.2337501589457194, 3.60942863146464, 2.4283333333333332, 0.2493896484375" name="AssociationsCompartment" titleTextColor="Black" itemTextColor="Black" />
-        <elementListCompartment Id="45a5d3a1-540c-4956-861b-c7ac1c7bfd25" absoluteBounds="2.2337501589457194, 3.8688182799021402, 2.4283333333333332, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="20738ea2-7295-43bf-bcf3-22172d2eeca5" absoluteBounds="2.9629168256123863, 2.5808332538604737, 2.4283333333333332, 0.44169108072916663" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="07c349d4-eb20-46eb-a24e-7022dceee210" absoluteBounds="2.9629168256123863, 3.03252433458964, 2.4283333333333332, 0.44169108072916663" name="AssociationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="45a5d3a1-540c-4956-861b-c7ac1c7bfd25" absoluteBounds="2.9629168256123863, 3.4842154153188067, 2.4283333333333332, 0.24938964843750022" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="56c0a9ee-dc5d-4437-877a-d1910ab65b05" absoluteBounds="6.5520834922790527, 2.2708332538604736, 1.5, 1.5627718098958332" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" outlineThickness="0.01">
+      <modelClassMoniker Id="b7b1a341-1b3b-438d-a9c4-c34ba087205d" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9abb270a-02de-49e0-a181-664c9de5c201" absoluteBounds="6.5670834922790524, 2.5808332538604737, 1.4700000000000002, 0.63399251302083326" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="23872fea-28e9-47a5-8a3c-f473753c8379" absoluteBounds="6.5670834922790524, 3.224825766881307, 1.4700000000000002, 0.2493896484375" name="AssociationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="10fbb5bf-59a4-430a-87e3-a1b05f72949c" absoluteBounds="6.5670834922790524, 3.4842154153188067, 1.4700000000000002, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <unidirectionalConnector Id="c7fc447f-b03d-452b-adfa-d8058b2ce35d" edgePoints="[(5.40625015894572 : 3.05221915880839); (6.55208349227905 : 3.05221915880839)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="113, 111, 110" dashStyle="Solid">
+      <unidirectionalAssociationMoniker Id="8103575b-4b0a-4482-9b2e-e11e3026f2b8" />
+      <relativeChildShapes />
+      <nodes>
+        <classShapeMoniker Id="36c8b413-4f28-45dc-885c-debb48202023" />
+        <classShapeMoniker Id="56c0a9ee-dc5d-4437-877a-d1910ab65b05" />
+      </nodes>
+    </unidirectionalConnector>
   </nestedChildShapes>
 </eFModelDiagram>
 </eFModelDiagrams>

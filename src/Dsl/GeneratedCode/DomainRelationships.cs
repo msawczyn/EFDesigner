@@ -2618,6 +2618,94 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region TargetAutoInclude domain property code
+		
+		/// <summary>
+		/// TargetAutoInclude domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid TargetAutoIncludeDomainPropertyId = new global::System.Guid(0x5eaf5db2, 0xb617, 0x46f6, 0xb2, 0xb5, 0x58, 0x6b, 0xc5, 0x63, 0xed, 0x61);
+		
+		/// <summary>
+		/// Storage for TargetAutoInclude
+		/// </summary>
+		private global::System.Boolean targetAutoIncludePropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of TargetAutoInclude domain property.
+		/// If true, the property at End1 will be automatically included in queries
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Association/TargetAutoInclude.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.Association/TargetAutoInclude.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association/TargetAutoInclude.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("5eaf5db2-b617-46f6-b2b5-586bc563ed61")]
+		public global::System.Boolean TargetAutoInclude
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return targetAutoIncludePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				TargetAutoIncludePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the Association.TargetAutoInclude domain property.
+		/// </summary>
+		internal sealed partial class TargetAutoIncludePropertyHandler : DslModeling::DomainPropertyValueHandler<Association, global::System.Boolean>
+		{
+			private TargetAutoIncludePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the Association.TargetAutoInclude domain property value handler.
+			/// </summary>
+			public static readonly TargetAutoIncludePropertyHandler Instance = new TargetAutoIncludePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the Association.TargetAutoInclude domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return TargetAutoIncludeDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(Association element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.targetAutoIncludePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(Association element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.targetAutoIncludePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Source link accessor
 		/// <summary>
 		/// Get the list of Association links to a ModelClass.
@@ -5014,6 +5102,94 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.isSourceAbstractPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region SourceAutoInclude domain property code
+		
+		/// <summary>
+		/// SourceAutoInclude domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid SourceAutoIncludeDomainPropertyId = new global::System.Guid(0x395328e3, 0xaaf0, 0x4b71, 0x89, 0x82, 0xc4, 0xe1, 0x43, 0x55, 0x06, 0xd7);
+		
+		/// <summary>
+		/// Storage for SourceAutoInclude
+		/// </summary>
+		private global::System.Boolean sourceAutoIncludePropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of SourceAutoInclude domain property.
+		/// If true, the property at End2 will be automatically included in queries
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceAutoInclude.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceAutoInclude.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceAutoInclude.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("395328e3-aaf0-4b71-8982-c4e1435506d7")]
+		public global::System.Boolean SourceAutoInclude
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return sourceAutoIncludePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				SourceAutoIncludePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the BidirectionalAssociation.SourceAutoInclude domain property.
+		/// </summary>
+		internal sealed partial class SourceAutoIncludePropertyHandler : DslModeling::DomainPropertyValueHandler<BidirectionalAssociation, global::System.Boolean>
+		{
+			private SourceAutoIncludePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the BidirectionalAssociation.SourceAutoInclude domain property value handler.
+			/// </summary>
+			public static readonly SourceAutoIncludePropertyHandler Instance = new SourceAutoIncludePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the BidirectionalAssociation.SourceAutoInclude domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return SourceAutoIncludeDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(BidirectionalAssociation element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.sourceAutoIncludePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(BidirectionalAssociation element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.sourceAutoIncludePropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

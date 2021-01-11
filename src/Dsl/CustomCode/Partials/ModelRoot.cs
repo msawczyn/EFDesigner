@@ -11,8 +11,6 @@ using Microsoft.VisualStudio.Modeling.Validation;
 
 using Sawczyn.EFDesigner.EFModel.Extensions;
 
-#pragma warning disable 1591
-
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
@@ -304,7 +302,12 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public double GetEntityFrameworkPackageVersionNum()
       {
-         string[] parts = EntityFrameworkPackageVersion.Split('.');
+         string packageVersion = EntityFrameworkPackageVersion;
+
+         if (packageVersion.EndsWith("Latest"))
+            packageVersion = NuGetHelper.EFPackageVersions[EntityFrameworkVersion].Where(x => !x.EndsWith("Latest")).OrderByDescending(x => x).FirstOrDefault();
+
+         string[] parts = (packageVersion ?? "").Split('.');
 
          string resultString = parts.Length > 1
                                   ? $"{parts[0]}.{parts[1]}"
@@ -320,7 +323,7 @@ namespace Sawczyn.EFDesigner.EFModel
       #region Validation methods
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      // ReSharper disable once UnusedMember.Local
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validatioin")]
       private void ConnectionStringMustExist(ValidationContext context)
       {
          if (!Classes.Any() && !Enums.Any())
@@ -334,7 +337,7 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      // ReSharper disable once UnusedMember.Local
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validatioin")]
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
          if (string.IsNullOrWhiteSpace(Summary) && WarnOnMissingDocumentation)

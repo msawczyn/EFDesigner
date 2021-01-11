@@ -7,7 +7,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.2.1
+      // EFDesigner v3.0.3
       // Copyright (c) 2017-2021 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -210,6 +210,11 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                      Output($"modelBuilder.Entity<{association.Source.FullName}>().Navigation(e => e.{association.TargetPropertyName}).IsRequired();");
                   else if (association.Principal == association.Source && sourceRequired)
                      Output($"modelBuilder.Entity<{association.Target.FullName}>().Navigation(e => e.{association.SourcePropertyName}).IsRequired();");
+
+                  if (association.TargetAutoInclude)
+                     Output($"modelBuilder.Entity<{association.Source.FullName}>().Navigation(e => e.{association.TargetPropertyName}).AutoInclude();");
+                  else if (association.SourceAutoInclude)
+                     Output($"modelBuilder.Entity<{association.Target.FullName}>().Navigation(e => e.{association.SourcePropertyName}).AutoInclude();");
                }
             }
 
@@ -445,6 +450,9 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                   if (association.Principal == association.Target && targetRequired)
                      Output($"modelBuilder.Entity<{association.Source.FullName}>().Navigation(e => e.{association.TargetPropertyName}).IsRequired();");
+
+                  if (association.TargetAutoInclude)
+                     Output($"modelBuilder.Entity<{association.Source.FullName}>().Navigation(e => e.{association.TargetPropertyName}).AutoInclude();");
 
                   if (!association.TargetAutoProperty)
                   {
