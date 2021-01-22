@@ -58,6 +58,7 @@ namespace Sandbox_EFCore5NetCore3_Test
          this.Entity1 = entity1;
          entity1.Entity2.Add(this);
 
+
          Init();
       }
 

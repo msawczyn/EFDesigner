@@ -698,25 +698,25 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                             : $"this.{modelAttribute.Name} = {quote}{FullyQualified(modelAttribute.InitialValue)}{quote};");
                }
 
+               // all required navigation properties that aren't a 1..1 relationship
                foreach (NavigationProperty requiredNavigationProperty in modelClass.AllRequiredNavigationProperties()
                                                                                    .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
                                                                                              || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
                {
+                  NavigationProperty otherSide = requiredNavigationProperty.OtherSide;
                   string parameterName = requiredNavigationProperty.PropertyName.ToLower();
                   Output($"if ({parameterName} == null) throw new ArgumentNullException(nameof({parameterName}));");
 
-                  if (requiredNavigationProperty.IsCollection)
-                     Output($"{requiredNavigationProperty.PropertyName}.Add({parameterName});");
-                  else if (requiredNavigationProperty.ConstructorParameterOnly)
-                  {
-                     UnidirectionalAssociation association = requiredNavigationProperty.AssociationObject as UnidirectionalAssociation;
+                  Output(requiredNavigationProperty.IsCollection
+                            ? $"{requiredNavigationProperty.PropertyName}.Add({parameterName});"
+                            : $"this.{requiredNavigationProperty.PropertyName} = {parameterName};");
 
-                     Output(association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
-                               ? $"{requiredNavigationProperty.PropertyName}.{association.TargetPropertyName}.Add(this);"
-                               : $"{requiredNavigationProperty.PropertyName}.{association.TargetPropertyName} = this;");
+                  if (!string.IsNullOrEmpty(otherSide.PropertyName))
+                  {
+                     Output(otherSide.IsCollection 
+                               ? $"{parameterName}.{otherSide.PropertyName}.Add(this);" 
+                               : $"{parameterName}.{otherSide.PropertyName} = this;");
                   }
-                  else
-                     Output($"this.{requiredNavigationProperty.PropertyName} = {parameterName};");
 
                   NL();
                }
@@ -726,16 +726,15 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                                                                     && (x.IsCollection || x.ClassType.IsDependentType)
                                                                                     && !x.ConstructorParameterOnly))
                {
-                  if (!navigationProperty.IsCollection)
+                  if (!navigationProperty.IsCollection && navigationProperty.ClassType.IsDependentType)
                      Output($"this.{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}();");
-                  else
+                  else if (navigationProperty.IsCollection)
                   {
                      string collectionType = GetFullContainerName(navigationProperty.AssociationObject.CollectionClass, navigationProperty.ClassType.FullName);
                      Output($"this.{navigationProperty.PropertyName} = new {collectionType}();");
                   }
                }
 
-               NL();
                Output("Init();");
                Output("}");
                NL();

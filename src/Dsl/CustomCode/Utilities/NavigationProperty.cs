@@ -117,7 +117,7 @@
       public bool Required => Cardinality == Multiplicity.One /*|| Cardinality == Multiplicity.OneMany*/;
 
       /// <summary>
-      /// True if the property is only used as a constructor parameter (i.e., not usable in the owning class), false otherwise
+      /// True if the property is only used as a constructor parameter (i.e., not a property in the owning class). False otherwise.
       /// </summary>
       public bool ConstructorParameterOnly { get; set; }
 
