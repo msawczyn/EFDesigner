@@ -11,8 +11,9 @@ namespace Sandbox_EFCore5NetCore3_Test
    {
       public Context() : base(Options)
       {
-         System.Diagnostics.Debugger.Launch();
+         //System.Diagnostics.Debugger.Launch();
       }
+
       partial void CustomInit(DbContextOptionsBuilder optionsBuilder)
       {
          //optionsBuilder.UseInMemoryDatabase("Sandbox");

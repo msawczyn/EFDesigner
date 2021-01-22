@@ -5,6 +5,86 @@
    /// </summary>
    public class NavigationProperty
    {
+      /// <summary>
+      /// Creates a new NavigationProperty object representing the other end of the association
+      /// </summary>
+      public NavigationProperty OtherSide
+      {
+         get
+         {
+            if (PointsToSource)
+               return LinkToTarget(AssociationObject);
+
+            if (AssociationObject is BidirectionalAssociation bidirectionalAssociation)
+               return LinkToSource(bidirectionalAssociation);
+
+            return LinkToSource((UnidirectionalAssociation)AssociationObject);
+         }
+      }
+
+      public static NavigationProperty LinkToSource(BidirectionalAssociation association)
+      {
+         return new NavigationProperty
+                {
+                   Cardinality = association.SourceMultiplicity
+                 , ClassType = association.Source
+                 , AssociationObject = association
+                 , PropertyName = association.SourcePropertyName
+                 , Summary = association.SourceSummary
+                 , Description = association.SourceDescription
+                 , CustomAttributes = association.SourceCustomAttributes
+                 , DisplayText = association.SourceDisplayText
+                 , IsAutoProperty = association.SourceAutoProperty
+                 , BackingFieldName = association.SourceAutoProperty ? null : association.SourceBackingFieldName
+                 , BackingFieldPropertyAccessMode = association.SourceAutoProperty ? null : association.SourcePropertyAccessMode.ToString()
+                 , ImplementNotify = association.SourceImplementNotify
+                 , FKPropertyName = association.SourceRole == EndpointRole.Principal ? association.FKPropertyName : null
+                 , PointsToSource = true
+                };
+      }
+
+      public static NavigationProperty LinkToSource(UnidirectionalAssociation association)
+      {
+         return new NavigationProperty
+                {
+                   Cardinality = association.SourceMultiplicity
+                 , ClassType = association.Source
+                 , AssociationObject = association
+                 , FKPropertyName = association.SourceRole == EndpointRole.Principal ? association.FKPropertyName : null
+                 , PointsToSource = true
+                };
+      }
+
+      public static NavigationProperty LinkToTarget(Association association)
+      {
+         return new NavigationProperty
+                {
+                   Cardinality = association.TargetMultiplicity
+                 , ClassType = association.Target
+                 , AssociationObject = association
+                 , PropertyName = association.TargetPropertyName
+                 , Summary = association.TargetSummary
+                 , Description = association.TargetDescription
+                 , CustomAttributes = association.TargetCustomAttributes
+                 , DisplayText = association.TargetDisplayText
+                 , IsAutoProperty = association.TargetAutoProperty
+                 , BackingFieldName = association.TargetAutoProperty ? null : association.TargetBackingFieldName
+                 , BackingFieldPropertyAccessMode = association.TargetAutoProperty ? null : association.TargetPropertyAccessMode.ToString()
+                 , ImplementNotify = association.TargetImplementNotify
+                 , FKPropertyName = association.TargetRole == EndpointRole.Principal ? association.FKPropertyName : null
+                 , PointsToTarget = true
+                };
+      }
+
+      /// <summary>
+      /// If true, the navigation is a property on the source object that points to the target object
+      /// </summary>
+      public bool PointsToTarget { get; set; }
+
+      /// <summary>
+      /// If true, the navigation is a property on the target object that points to the source object
+      /// </summary>
+      public bool PointsToSource { get; set; }
 
       /// <summary>
       /// Association this is based on

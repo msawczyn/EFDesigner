@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-using System;
+﻿using System;
 using System.Linq;
 
 namespace Sandbox_EFCore5NetCore3_Test
@@ -32,10 +30,10 @@ namespace Sandbox_EFCore5NetCore3_Test
             Entity1 e1 = new Entity1();
             Entity2[] e2 = new[] { new Entity2("Foo", e1), new Entity2("Bar", e1), new Entity2("Zoom", e1) };
 
-            //e2.ToList().ForEach(x => e1.Entity2.Add(x));
-            //context.Entity1.Add(e1);
-
+            context.Entity1.Add(e1);
+            context.Entity2.AddRange(e2);
             context.SaveChanges();
+
             Console.WriteLine("In context 1");
             context.Entity1.SelectMany(x => x.Entity2.Select(y => y.Property1)).ToList().ForEach(s => Console.WriteLine(s));
          }

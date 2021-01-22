@@ -531,5 +531,33 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion Namespace tracking property
+
+      #region AutoPropertyDefault tracking property
+
+      /// <summary>
+      /// Updates tracking properties when the IsImplementNotify value changes
+      /// </summary>
+      /// <param name="oldValue">Prior value</param>
+      /// <param name="newValue">Current value</param>
+      protected virtual void OnAutoPropertyDefaultChanged(bool oldValue, bool newValue)
+      {
+         TrackingHelper.UpdateTrackingCollectionProperty(Store,
+                                                         Classes,
+                                                         ModelClass.AutoPropertyDefaultDomainPropertyId,
+                                                         ModelClass.IsAutoPropertyDefaultTrackingDomainPropertyId);
+      }
+
+      internal sealed partial class AutoPropertyDefaultPropertyHandler
+      {
+         protected override void OnValueChanged(ModelRoot element, bool oldValue, bool newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+
+            if (!element.Store.InUndoRedoOrRollback)
+               element.OnAutoPropertyDefaultChanged(oldValue, newValue);
+         }
+      }
+
+      #endregion AutoPropertyDefault tracking property
    }
 }

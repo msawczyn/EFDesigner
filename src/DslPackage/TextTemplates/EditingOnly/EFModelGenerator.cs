@@ -830,6 +830,16 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                ++lineCount;
             }
 
+            WriteRequiredNavigationsInConstructorBody(modelClass, ref lineCount);
+
+            if (lineCount > 0)
+               NL();
+
+            Output("Init();");
+         }
+
+         protected virtual void WriteRequiredNavigationsInConstructorBody(ModelClass modelClass, ref int lineCount)
+         {
             foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()
                                                                         .Where(x => x.AssociationObject.Persistent
                                                                                  && x.Required
@@ -847,11 +857,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                ++lineCount;
             }
-
-            if (lineCount > 0)
-               NL();
-
-            Output("Init();");
          }
 
          protected void WriteEnum(ModelEnum modelEnum)

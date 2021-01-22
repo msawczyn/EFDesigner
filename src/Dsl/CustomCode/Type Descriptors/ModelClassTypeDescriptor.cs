@@ -58,6 +58,16 @@ namespace Sawczyn.EFDesigner.EFModel
             //Add the descriptors for the tracking properties 
 
             propertyDescriptors.Add(new TrackingPropertyDescriptor(modelClass
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelClass.AutoPropertyDefaultDomainPropertyId)
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelClass.IsAutoPropertyDefaultTrackingDomainPropertyId)
+                                                                 , new Attribute[]
+                                                                   {
+                                                                      new DisplayNameAttribute("AutoProperty Default")
+                                                                    , new DescriptionAttribute("Overrides default autoproperty default setting")
+                                                                    , new CategoryAttribute("Code Generation")
+                                                                   }));
+
+            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelClass
                                                                  , storeDomainDataDirectory.GetDomainProperty(ModelClass.DatabaseSchemaDomainPropertyId)
                                                                  , storeDomainDataDirectory.GetDomainProperty(ModelClass.IsDatabaseSchemaTrackingDomainPropertyId)
                                                                  , new Attribute[]

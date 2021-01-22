@@ -970,6 +970,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // AutoPropertyDefault
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribAutoPropertyDefault = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "autoPropertyDefault");
+	         if (attribAutoPropertyDefault != null)
+	         {
+	            global::System.Boolean valueOfAutoPropertyDefault;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribAutoPropertyDefault, out valueOfAutoPropertyDefault))
+	            {
+	               instanceOfModelRoot.AutoPropertyDefault = valueOfAutoPropertyDefault;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "autoPropertyDefault", typeof(global::System.Boolean), attribAutoPropertyDefault);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -2236,6 +2253,19 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // AutoPropertyDefault
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelRoot.AutoPropertyDefault;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "autoPropertyDefault", serializedPropValue);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -2985,6 +3015,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            else
 	            {   // Invalid property value, ignored.
 	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isDefaultConstructorVisibilityTracking", typeof(global::System.Boolean), attribIsDefaultConstructorVisibilityTracking);
+	            }
+	         }
+	      }
+	      // IsAutoPropertyDefaultTracking
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribIsAutoPropertyDefaultTracking = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isAutoPropertyDefaultTracking");
+	         if (attribIsAutoPropertyDefaultTracking != null)
+	         {
+	            global::System.Boolean valueOfIsAutoPropertyDefaultTracking;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsAutoPropertyDefaultTracking, out valueOfIsAutoPropertyDefaultTracking))
+	            {
+	               instanceOfModelClass.IsAutoPropertyDefaultTracking = valueOfIsAutoPropertyDefaultTracking;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isAutoPropertyDefaultTracking", typeof(global::System.Boolean), attribIsAutoPropertyDefaultTracking);
 	            }
 	         }
 	      }
@@ -3887,7 +3934,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
-	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, string.Empty) != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "autoPropertyDefault", serializedPropValue);
 	            }
@@ -3989,6 +4036,19 @@ namespace Sawczyn.EFDesigner.EFModel
 	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isDefaultConstructorVisibilityTracking", serializedPropValue);
+	            }
+	         }
+	      }
+	      // IsAutoPropertyDefaultTracking
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelClass.IsAutoPropertyDefaultTracking;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isAutoPropertyDefaultTracking", serializedPropValue);
 	            }
 	         }
 	      }

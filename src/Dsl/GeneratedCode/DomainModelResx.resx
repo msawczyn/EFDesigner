@@ -729,6 +729,18 @@
     <value>Database</value>
     <comment>Category for DomainProperty &apos;ShadowKeyNamePattern&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/AutoPropertyDefault.Description" xml:space="preserve">
+    <value>Default value for attribute AutoProperty setting</value>
+    <comment>Description for DomainProperty &apos;AutoPropertyDefault&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/AutoPropertyDefault.DisplayName" xml:space="preserve">
+    <value>AutoProperty Default</value>
+    <comment>DisplayName for DomainProperty &apos;AutoPropertyDefault&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/AutoPropertyDefault.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;AutoPropertyDefault&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>
@@ -1052,6 +1064,14 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsDefaultConstructorVisibilityTracking.DisplayName" xml:space="preserve">
     <value>Is Default Constructor Visibility Tracking</value>
     <comment>DisplayName for DomainProperty &apos;IsDefaultConstructorVisibilityTracking&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsAutoPropertyDefaultTracking.Description" xml:space="preserve">
+    <value>If true, ModelClass.AutoPropertyDefault tracks ModelRoot.AutoPropertyDefault</value>
+    <comment>Description for DomainProperty &apos;IsAutoPropertyDefaultTracking&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsAutoPropertyDefaultTracking.DisplayName" xml:space="preserve">
+    <value>Is Auto Property Default Tracking</value>
+    <comment>DisplayName for DomainProperty &apos;IsAutoPropertyDefaultTracking&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
@@ -2058,7 +2078,7 @@
     <comment>DisplayName for DomainProperty &apos;IsTargetAbstract&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association/IsTargetAbstract.Category" xml:space="preserve">
-    <value>End2</value>
+    <value>End 2</value>
     <comment>Category for DomainProperty &apos;IsTargetAbstract&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association/TargetAutoInclude.Description" xml:space="preserve">

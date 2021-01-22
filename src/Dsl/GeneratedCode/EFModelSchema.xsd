@@ -375,6 +375,12 @@
             <xsd:documentation>The pattern to use for generating shadow foreign key property names</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: AutoPropertyDefault -->
+        <xsd:attribute name="autoPropertyDefault" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>Default value for attribute AutoProperty setting</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -626,6 +632,12 @@
         <xsd:attribute name="isDefaultConstructorVisibilityTracking" type="xsd:boolean" >
           <xsd:annotation>
             <xsd:documentation>If true, Model.DefaultConstructorVisibility tracks ModelRoot.EntityDefaultConstructorVisibilityDefault</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsAutoPropertyDefaultTracking -->
+        <xsd:attribute name="isAutoPropertyDefaultTracking" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, ModelClass.AutoPropertyDefault tracks ModelRoot.AutoPropertyDefault</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>

@@ -63,7 +63,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EFCore3NetFramework", "EFCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox_EF6_Test", "Sandbox\Sandbox_EF6_Test\Sandbox_EF6_Test.csproj", "{94DF701A-1F1E-46F6-95AF-FC0E059A759A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox_EFCore5NetCore3_Test", "Sandbox\Sandbox_EFCore5NetCore3_Test\Sandbox_EFCore5NetCore3_Test.csproj", "{C3688F38-4C6C-4E9C-BB37-F8D490262254}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox_EFCore5Net5_Test", "Sandbox\Sandbox_EFCore5NetCore3_Test\Sandbox_EFCore5Net5_Test.csproj", "{C3688F38-4C6C-4E9C-BB37-F8D490262254}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCore5Net5", "EFCoreV5\EFCore5Net5\EFCore5Net5.csproj", "{B2F26FB8-0492-4117-AC94-9FD640900AFE}"
 EndProject

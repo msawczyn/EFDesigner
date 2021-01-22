@@ -118,18 +118,15 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                     , new CategoryAttribute("Database")
                                                                    }));
 
-            if (!modelAttribute.ImplementNotify)
-            {
-               propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute
-                                                                    , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.AutoPropertyDomainPropertyId)
-                                                                    , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsAutoPropertyTrackingDomainPropertyId)
-                                                                    , new Attribute[]
-                                                                      {
-                                                                         new DisplayNameAttribute("AutoProperty")
-                                                                       , new DescriptionAttribute("Overrides default autoproperty setting")
-                                                                       , new CategoryAttribute("Code Generation")
-                                                                      }));
-            }
+            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.AutoPropertyDomainPropertyId)
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsAutoPropertyTrackingDomainPropertyId)
+                                                                 , new Attribute[]
+                                                                   {
+                                                                      new DisplayNameAttribute("AutoProperty")
+                                                                    , new DescriptionAttribute("Overrides default autoproperty setting")
+                                                                    , new CategoryAttribute("Code Generation")
+                                                                   }));
 
             propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute
                                                                  , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.ImplementNotifyDomainPropertyId)

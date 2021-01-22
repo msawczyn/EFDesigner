@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.2.1
+//     Produced by Entity Framework Visual Editor
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -48,15 +48,15 @@ namespace Sandbox_EFCore5NetCore3_Test
       /// Public constructor with required data
       /// </summary>
       /// <param name="property1"></param>
-      /// <param name="_entity10"></param>
-      public Entity2(string property1, global::Sandbox_EFCore5NetCore3_Test.Entity1 _entity10)
+      /// <param name="entity1"></param>
+      public Entity2(string property1, global::Sandbox_EFCore5NetCore3_Test.Entity1 entity1)
       {
          if (string.IsNullOrEmpty(property1)) throw new ArgumentNullException(nameof(property1));
          this.Property1 = property1;
 
-         if (_entity10 == null) throw new ArgumentNullException(nameof(_entity10));
-         _entity10.Entity2.Add(this);
-
+         if (entity1 == null) throw new ArgumentNullException(nameof(entity1));
+         this.Entity1 = entity1;
+         entity1.Entity2.Add(this);
 
          Init();
       }
@@ -65,10 +65,10 @@ namespace Sandbox_EFCore5NetCore3_Test
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="property1"></param>
-      /// <param name="_entity10"></param>
-      public static Entity2 Create(string property1, global::Sandbox_EFCore5NetCore3_Test.Entity1 _entity10)
+      /// <param name="entity1"></param>
+      public static Entity2 Create(string property1, global::Sandbox_EFCore5NetCore3_Test.Entity1 entity1)
       {
-         return new Entity2(property1, _entity10);
+         return new Entity2(property1, entity1);
       }
 
       /*************************************************************************
@@ -93,6 +93,11 @@ namespace Sandbox_EFCore5NetCore3_Test
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
+
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::Sandbox_EFCore5NetCore3_Test.Entity1 Entity1 { get; set; }
 
    }
 }

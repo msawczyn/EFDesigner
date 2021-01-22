@@ -4514,6 +4514,95 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region AutoPropertyDefault domain property code
+		
+		/// <summary>
+		/// AutoPropertyDefault domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid AutoPropertyDefaultDomainPropertyId = new global::System.Guid(0xcfe875fc, 0x11d2, 0x4c6a, 0xa6, 0xc3, 0x6e, 0x86, 0x36, 0x54, 0xcd, 0x6d);
+		
+		/// <summary>
+		/// Storage for AutoPropertyDefault
+		/// </summary>
+		private global::System.Boolean autoPropertyDefaultPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of AutoPropertyDefault domain property.
+		/// Default value for attribute AutoProperty setting
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/AutoPropertyDefault.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/AutoPropertyDefault.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/AutoPropertyDefault.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[DslModeling::DomainObjectId("cfe875fc-11d2-4c6a-a6c3-6e863654cd6d")]
+		public global::System.Boolean AutoPropertyDefault
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return autoPropertyDefaultPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				AutoPropertyDefaultPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.AutoPropertyDefault domain property.
+		/// </summary>
+		internal sealed partial class AutoPropertyDefaultPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private AutoPropertyDefaultPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.AutoPropertyDefault domain property value handler.
+			/// </summary>
+			public static readonly AutoPropertyDefaultPropertyHandler Instance = new AutoPropertyDefaultPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.AutoPropertyDefault domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return AutoPropertyDefaultDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.autoPropertyDefaultPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.autoPropertyDefaultPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>
@@ -6480,25 +6569,21 @@ namespace Sawczyn.EFDesigner.EFModel
 		public static readonly global::System.Guid AutoPropertyDefaultDomainPropertyId = new global::System.Guid(0xaae9a58c, 0xdf8c, 0x4557, 0x82, 0x6a, 0xf0, 0xa6, 0x6b, 0xb7, 0x5d, 0x66);
 		
 		/// <summary>
-		/// Storage for AutoPropertyDefault
-		/// </summary>
-		private global::System.Boolean autoPropertyDefaultPropertyStorage = true;
-		
-		/// <summary>
 		/// Gets or sets the value of AutoPropertyDefault domain property.
 		/// Default value for this class's attribute AutoProperty setting
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/AutoPropertyDefault.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/AutoPropertyDefault.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/AutoPropertyDefault.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(true)]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
 		[DslModeling::DomainObjectId("aae9a58c-df8c-4557-826a-f0a66bb75d66")]
 		public global::System.Boolean AutoPropertyDefault
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return autoPropertyDefaultPropertyStorage;
+				return AutoPropertyDefaultPropertyHandler.Instance.GetValue(this);
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
@@ -6538,7 +6623,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			public override sealed global::System.Boolean GetValue(ModelClass element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.autoPropertyDefaultPropertyStorage;
+				// There is no storage for AutoPropertyDefault because its Kind is
+				// set to CustomStorage. Please provide the GetAutoPropertyDefaultValue()
+				// method on the domain class.
+				return element.GetAutoPropertyDefaultValue();
 			}
 		
 			/// <summary>
@@ -6554,8 +6642,11 @@ namespace Sawczyn.EFDesigner.EFModel
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.autoPropertyDefaultPropertyStorage = newValue;
-					ValueChanged(element, oldValue, newValue);
+					// There is no storage for AutoPropertyDefault because its Kind is
+					// set to CustomStorage. Please provide the SetAutoPropertyDefaultValue()
+					// method on the domain class.
+					element.SetAutoPropertyDefaultValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
 				}
 			}
 		}
@@ -7271,6 +7362,95 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.isDefaultConstructorVisibilityTrackingPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region IsAutoPropertyDefaultTracking domain property code
+		
+		/// <summary>
+		/// IsAutoPropertyDefaultTracking domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsAutoPropertyDefaultTrackingDomainPropertyId = new global::System.Guid(0x711f369a, 0x38d3, 0x4e2e, 0x81, 0x2d, 0x96, 0x54, 0xef, 0x72, 0xc1, 0xd6);
+		
+		/// <summary>
+		/// Storage for IsAutoPropertyDefaultTracking
+		/// </summary>
+		private global::System.Boolean isAutoPropertyDefaultTrackingPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of IsAutoPropertyDefaultTracking domain property.
+		/// If true, ModelClass.AutoPropertyDefault tracks ModelRoot.AutoPropertyDefault
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsAutoPropertyDefaultTracking.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsAutoPropertyDefaultTracking.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("711f369a-38d3-4e2e-812d-9654ef72c1d6")]
+		public global::System.Boolean IsAutoPropertyDefaultTracking
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isAutoPropertyDefaultTrackingPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsAutoPropertyDefaultTrackingPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.IsAutoPropertyDefaultTracking domain property.
+		/// </summary>
+		internal sealed partial class IsAutoPropertyDefaultTrackingPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.Boolean>
+		{
+			private IsAutoPropertyDefaultTrackingPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.IsAutoPropertyDefaultTracking domain property value handler.
+			/// </summary>
+			public static readonly IsAutoPropertyDefaultTrackingPropertyHandler Instance = new IsAutoPropertyDefaultTrackingPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.IsAutoPropertyDefaultTracking domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsAutoPropertyDefaultTrackingDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isAutoPropertyDefaultTrackingPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelClass element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isAutoPropertyDefaultTrackingPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
@@ -13095,6 +13275,6 @@ namespace Sawczyn.EFDesigner.EFModel
    /// </summary>
 	partial class ModelRoot
 	{
-		public const string DSLVersion = "3.0.3.0";
+		public const string DSLVersion = "3.0.3.1";
 	}
 }

@@ -379,60 +379,19 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          List<NavigationProperty> sourceProperties = Association.GetLinksToTargets(this)
                                                                 .Except(ignore)
-                                                                .Select(x => new NavigationProperty
-                                                                             {
-                                                                                Cardinality = x.TargetMultiplicity
-                                                                              , ClassType = x.Target
-                                                                              , AssociationObject = x
-                                                                              , PropertyName = x.TargetPropertyName
-                                                                              , Summary = x.TargetSummary
-                                                                              , Description = x.TargetDescription
-                                                                              , CustomAttributes = x.TargetCustomAttributes
-                                                                              , DisplayText = x.TargetDisplayText
-                                                                              , IsAutoProperty = x.TargetAutoProperty
-                                                                              , BackingFieldName = x.TargetAutoProperty ? null : x.TargetBackingFieldName
-                                                                              , BackingFieldPropertyAccessMode =  x.TargetAutoProperty ? null : x.TargetPropertyAccessMode.ToString()
-                                                                              , ImplementNotify = x.TargetImplementNotify
-                                                                              , FKPropertyName = x.TargetRole == EndpointRole.Principal ? x.FKPropertyName : null
-                                                                             })
+                                                                .Select(NavigationProperty.LinkToTarget)
                                                                 .ToList();
 
          List<NavigationProperty> targetProperties = Association.GetLinksToSources(this)
                                                                 .Except(ignore)
                                                                 .OfType<BidirectionalAssociation>()
-                                                                .Select(x => new NavigationProperty
-                                                                             {
-                                                                                Cardinality = x.SourceMultiplicity
-                                                                              , ClassType = x.Source
-                                                                              , AssociationObject = x
-                                                                              , PropertyName = x.SourcePropertyName
-                                                                              , Summary = x.SourceSummary
-                                                                              , Description = x.SourceDescription
-                                                                              , CustomAttributes = x.SourceCustomAttributes
-                                                                              , DisplayText = x.SourceDisplayText
-                                                                              , IsAutoProperty = x.SourceAutoProperty
-                                                                              , BackingFieldName = x.SourceAutoProperty ? null : x.SourceBackingFieldName
-                                                                              , BackingFieldPropertyAccessMode =  x.SourceAutoProperty ? null : x.SourcePropertyAccessMode.ToString()
-                                                                              , ImplementNotify = x.SourceImplementNotify
-                                                                              , FKPropertyName = x.SourceRole == EndpointRole.Principal ? x.FKPropertyName : null
-                                                                             })
+                                                                .Select(NavigationProperty.LinkToSource)
                                                                 .ToList();
 
          targetProperties.AddRange(Association.GetLinksToSources(this)
                                               .Except(ignore)
                                               .OfType<UnidirectionalAssociation>()
-                                              .Select(x => new NavigationProperty
-                                              {
-                                                 Cardinality = x.SourceMultiplicity
-                                                            ,
-                                                 ClassType = x.Source
-                                                            ,
-                                                 AssociationObject = x
-                                                            ,
-                                                 PropertyName = null
-                                                            ,
-                                                 FKPropertyName = x.SourceRole == EndpointRole.Principal ? x.FKPropertyName : null
-                                              }));
+                                              .Select(NavigationProperty.LinkToSource));
          int suffix = 0;
          foreach (NavigationProperty navigationProperty in targetProperties.Where(x => x.PropertyName == null))
          {
@@ -461,14 +420,14 @@ namespace Sawczyn.EFDesigner.EFModel
       /// Finds the association named by the value specified in the parameter
       /// </summary>
       /// <param name="identifier">Association property name to find.</param>
-      /// <returns>The object representing the association, if could</returns>
+      /// <returns>The object representing the association, if found</returns>
       public NavigationProperty FindAssociationNamed(string identifier) => AllNavigationProperties().FirstOrDefault(x => x.PropertyName == identifier);
 
       /// <summary>
       /// Finds the attribute named by the value specified in the parameter 
       /// </summary>
       /// <param name="identifier">Attribute name to find.</param>
-      /// <returns>The object representing the attribute, if could</returns>
+      /// <returns>The object representing the attribute, if found</returns>
       public ModelAttribute FindAttributeNamed(string identifier) => AllAttributes.FirstOrDefault(x => x.Name == identifier);
 
       /// <summary>
@@ -481,16 +440,16 @@ namespace Sawczyn.EFDesigner.EFModel
       public bool HasAssociationNamed(string identifier) => FindAssociationNamed(identifier) != null;
 
       /// <summary>
-      /// Determines whether [has attribute named] [the specified identifier].
+      /// Determines whether the generated code will have a scalar property with the name specified in the parameter
       /// </summary>
-      /// <param name="identifier">The identifier.</param>
+      /// <param name="identifier">Property name to find.</param>
       /// <returns>
-      ///   <c>true</c> if [has attribute named] [the specified identifier]; otherwise, <c>false</c>.
+      ///   <c>true</c> if the class will have this property; otherwise, <c>false</c>.
       /// </returns>
       public bool HasAttributeNamed(string identifier) => FindAttributeNamed(identifier) != null;
 
       /// <summary>
-      /// Determines whether the generated code will have a property with the name specified in the parameter
+      /// Determines whether the generated code will have any property with the name specified in the parameter
       /// </summary>
       /// <param name="identifier">Property name to find.</param>
       /// <returns>
@@ -1031,8 +990,49 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #region AutoPropertyDefault tracking property
 
+      // this property is both a tracking property (dependent on ModelRoot.AutoPropertyDefault)
+      // and a tracked property (ModelAttribute.AutoProperty, Association.TargetAutoProperty and BidirectionalAssociation.SourceAutoProperty depends on it)
+
+      private bool autoPropertyDefaultStorage;
+
+      /// <summary>Gets the storage for the AutoPropertyDefault property.</summary>
+      /// <returns>The AutoPropertyDefault value.</returns>
+      public bool GetAutoPropertyDefaultValue()
+      {
+         if (!this.IsLoading() && IsAutoPropertyDefaultTracking)
+         {
+            try
+            {
+               return ModelRoot?.AutoPropertyDefault ?? true;
+            }
+            catch (NullReferenceException)
+            {
+               return true;
+            }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+
+               return true;
+            }
+         }
+
+         return autoPropertyDefaultStorage;
+      }
+
+      /// <summary>Sets the storage for the AutoPropertyDefault property.</summary>
+      /// <param name="value">The AutoPropertyDefault value.</param>
+      public void SetAutoPropertyDefaultValue(bool value)
+      {
+         autoPropertyDefaultStorage = value;
+
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
+            IsAutoPropertyDefaultTracking = (autoPropertyDefaultStorage == (ModelRoot?.AutoPropertyDefault ?? true));
+      }
+
       /// <summary>
-      /// Updates tracking properties when the IsImplementNotify value changes
+      /// Updates tracking properties when the AutoPropertyDefault value changes
       /// </summary>
       /// <param name="oldValue">Prior value</param>
       /// <param name="newValue">Current value</param>

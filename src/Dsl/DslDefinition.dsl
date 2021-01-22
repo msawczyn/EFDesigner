@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="3" Build="3" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="3" Build="3" Revision="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -355,6 +355,11 @@
             <DomainEnumerationMoniker Name="ShadowKeyPattern" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="cfe875fc-11d2-4c6a-a6c3-6e863654cd6d" Description="Default value for attribute AutoProperty setting" Name="AutoPropertyDefault" DisplayName="AutoProperty Default" DefaultValue="true" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -528,7 +533,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="aae9a58c-df8c-4557-826a-f0a66bb75d66" Description="Default value for this class's attribute AutoProperty setting" Name="AutoPropertyDefault" DisplayName="AutoProperty Default" DefaultValue="true" Category="Code Generation">
+        <DomainProperty Id="aae9a58c-df8c-4557-826a-f0a66bb75d66" Description="Default value for this class's attribute AutoProperty setting" Name="AutoPropertyDefault" DisplayName="AutoProperty Default" DefaultValue="" Kind="CustomStorage" Category="Code Generation" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -569,6 +574,11 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="52231828-eb28-4dc3-a671-7a6b2698a2b2" Description="If true, Model.DefaultConstructorVisibility tracks ModelRoot.EntityDefaultConstructorVisibilityDefault" Name="IsDefaultConstructorVisibilityTracking" DisplayName="Is Default Constructor Visibility Tracking" DefaultValue="true" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="711f369a-38d3-4e2e-812d-9654ef72c1d6" Description="If true, ModelClass.AutoPropertyDefault tracks ModelRoot.AutoPropertyDefault" Name="IsAutoPropertyDefaultTracking" DisplayName="Is Auto Property Default Tracking" DefaultValue="true" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -1249,7 +1259,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="c264b738-eb47-4cdf-9ee2-65bd0ca445a0" Description="If true, the property for this end will be abstract" Name="IsTargetAbstract" DisplayName="End1 Is Abstract" Category="End2">
+        <DomainProperty Id="c264b738-eb47-4cdf-9ee2-65bd0ca445a0" Description="If true, the property for this end will be abstract" Name="IsTargetAbstract" DisplayName="End1 Is Abstract" Category="End 2">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -2293,6 +2303,9 @@
           <XmlPropertyData XmlName="shadowKeyNamePattern">
             <DomainPropertyMoniker Name="ModelRoot/ShadowKeyNamePattern" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="autoPropertyDefault">
+            <DomainPropertyMoniker Name="ModelRoot/AutoPropertyDefault" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelClass" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelClassMoniker" ElementName="modelClass" MonikerTypeName="ModelClassMoniker">
@@ -2396,6 +2409,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isDefaultConstructorVisibilityTracking">
             <DomainPropertyMoniker Name="ModelClass/IsDefaultConstructorVisibilityTracking" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isAutoPropertyDefaultTracking">
+            <DomainPropertyMoniker Name="ModelClass/IsAutoPropertyDefaultTracking" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

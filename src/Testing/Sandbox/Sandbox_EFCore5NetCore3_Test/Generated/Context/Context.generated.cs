@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.2.1
+//     Produced by Entity Framework Visual Editor
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -45,6 +45,8 @@ namespace Sandbox_EFCore5NetCore3_Test
       /// <inheritdoc />
       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
+         optionsBuilder.UseLazyLoadingProxies();
+
          CustomInit(optionsBuilder);
       }
 
@@ -61,7 +63,8 @@ namespace Sandbox_EFCore5NetCore3_Test
 
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity1>().ToTable("Entity1").HasKey(t => t.Id);
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity1>().Property(t => t.Id).ValueGeneratedOnAdd().IsRequired();
-         modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity1>().HasMany<global::Sandbox_EFCore5NetCore3_Test.Entity2>(p => p.Entity2).WithOne().HasForeignKey("Entity1Entity2Id");
+         modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity1>().HasMany<global::Sandbox_EFCore5NetCore3_Test.Entity2>(p => p.Entity2).WithOne(p => p.Entity1).HasForeignKey("Entity1Id");
+         modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().Navigation(e => e.Entity1).IsRequired();
 
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().ToTable("Entity2").HasKey(t => t.Id);
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().Property(t => t.Id).ValueGeneratedOnAdd().IsRequired();

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Sandbox_EFCore5NetCore3_Test.Migrations
+namespace Sandbox_EFCore5Net5_Test.Migrations
 {
     public partial class Initial : Migration
     {
@@ -30,25 +30,25 @@ namespace Sandbox_EFCore5NetCore3_Test.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Property1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Entity1Entity2Id = table.Column<long>(type: "bigint", nullable: true)
+                    Entity1Id = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Entity2", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Entity2_Entity1_Entity1Entity2Id",
-                        column: x => x.Entity1Entity2Id,
+                        name: "FK_Entity2_Entity1_Entity1Id",
+                        column: x => x.Entity1Id,
                         principalSchema: "dbo",
                         principalTable: "Entity1",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Entity2_Entity1Entity2Id",
+                name: "IX_Entity2_Entity1Id",
                 schema: "dbo",
                 table: "Entity2",
-                column: "Entity1Entity2Id");
+                column: "Entity1Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

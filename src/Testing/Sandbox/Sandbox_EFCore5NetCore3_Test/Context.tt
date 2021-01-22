@@ -29,7 +29,7 @@
       Output("//     Manual changes to this file may cause unexpected behavior in your application.");
       Output("//     Manual changes to this file will be overwritten if the code is regenerated.");
       Output("//");
-      Output("//     Produced by Entity Framework Visual Editor v" + ModelRoot.DSLVersion);
+      Output("//     Produced by Entity Framework Visual Editor");
       Output("//     Source:                    https://github.com/msawczyn/EFDesigner");
       Output("//     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner");
       Output("//     Documentation:             https://msawczyn.github.io/EFDesigner/");
