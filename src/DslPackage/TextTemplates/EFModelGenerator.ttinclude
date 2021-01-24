@@ -474,9 +474,6 @@
             if (!string.IsNullOrEmpty(modelClass.CustomInterfaces))
                bases.AddRange(modelClass.CustomInterfaces.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
 
-            if (modelClass.ImplementNotify)
-               bases.Add("INotifyPropertyChanged");
-
             string baseClass = string.Join(", ", bases.Select(x => x.Trim()));
 
             if (!string.IsNullOrEmpty(modelClass.Summary))
@@ -508,7 +505,6 @@
             WriteConstructor(modelClass);
             WriteProperties(modelClass);
             WriteNavigationProperties(modelClass);
-            WriteNotifyPropertyChanged(modelClass);
 
             Output("}");
 
@@ -1069,24 +1065,6 @@
                   Output("}");
                }
 
-               NL();
-            }
-         }
-
-         protected void WriteNotifyPropertyChanged(ModelClass modelClass)
-         {
-            if (modelClass.ImplementNotify || modelClass.LocalNavigationProperties().Any(x => x.ImplementNotify) || modelClass.Attributes.Any(x => x.ImplementNotify))
-            {
-               string modifier = modelClass.Superclass != null && modelClass.Superclass.ImplementNotify
-                                    ? "override"
-                                    : "virtual";
-
-               Output($"public {modifier} event PropertyChangedEventHandler PropertyChanged;");
-               NL();
-               Output($"protected {modifier} void OnPropertyChanged([CallerMemberName] string propertyName = null)");
-               Output("{");
-               Output("PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));");
-               Output("}");
                NL();
             }
          }

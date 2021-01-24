@@ -19,7 +19,7 @@
         <elementListCompartment Id="10fbb5bf-59a4-430a-87e3-a1b05f72949c" absoluteBounds="6.5670834922790524, 3.4842154153188067, 1.4700000000000002, 0.44169108072916663" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <bidirectionalConnector Id="2e3ed26d-89c0-4079-bd2e-12438931ece0" edgePoints="[(5.40625015894572 : 3.05221915880839); (6.55208349227905 : 3.05221915880839)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="113, 111, 110" dashStyle="Solid">
+    <bidirectionalConnector Id="2e3ed26d-89c0-4079-bd2e-12438931ece0" edgePoints="[(5.40625015894572 : 3.05221915880839); (6.55208349227905 : 3.05221915880839)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="113, 111, 110" dashStyle="Solid">
       <bidirectionalAssociationMoniker Id="d4a764ac-cc6e-48b8-8a22-034f01c52876" />
       <relativeChildShapes />
       <nodes>

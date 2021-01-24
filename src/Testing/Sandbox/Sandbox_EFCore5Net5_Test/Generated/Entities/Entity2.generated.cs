@@ -49,15 +49,13 @@ namespace Sandbox_EFCore5NetCore3_Test
       /// </summary>
       /// <param name="property1"></param>
       /// <param name="entity1"></param>
-      public Entity2(string property1, global::Sandbox_EFCore5NetCore3_Test.Entity1 entity1)
+      public Entity2(long property1, global::Sandbox_EFCore5NetCore3_Test.Entity1 entity1)
       {
-         if (string.IsNullOrEmpty(property1)) throw new ArgumentNullException(nameof(property1));
          this.Property1 = property1;
 
          if (entity1 == null) throw new ArgumentNullException(nameof(entity1));
          this.Entity1 = entity1;
          entity1.Entity2.Add(this);
-
 
          Init();
       }
@@ -67,7 +65,7 @@ namespace Sandbox_EFCore5NetCore3_Test
       /// </summary>
       /// <param name="property1"></param>
       /// <param name="entity1"></param>
-      public static Entity2 Create(string property1, global::Sandbox_EFCore5NetCore3_Test.Entity1 entity1)
+      public static Entity2 Create(long property1, global::Sandbox_EFCore5NetCore3_Test.Entity1 entity1)
       {
          return new Entity2(property1, entity1);
       }
@@ -89,7 +87,7 @@ namespace Sandbox_EFCore5NetCore3_Test
       /// Required
       /// </summary>
       [Required]
-      public string Property1 { get; set; }
+      public long Property1 { get; set; }
 
       /*************************************************************************
        * Navigation properties

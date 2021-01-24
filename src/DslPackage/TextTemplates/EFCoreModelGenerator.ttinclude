@@ -175,22 +175,7 @@
                      segments.Add($"ToSqlQuery(Get{modelClass.Name}SqlQuery())");
                   }
                   else
-                  {
-                     if (!string.IsNullOrEmpty(modelClass.TableName))
-                     {
-                        segments.Add(string.IsNullOrEmpty(modelClass.DatabaseSchema) || modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema
-                                        ? $"ToTable(\"{modelClass.TableName}\")"
-                                        : $"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
-                     }
-
-                     // primary key code segments must be output last, since HasKey returns a different type
-                     List<ModelAttribute> identityAttributes = modelClass.IdentityAttributes.ToList();
-
-                     if (identityAttributes.Count == 1)
-                        segments.Add($"HasKey(t => t.{identityAttributes[0].Name})");
-                     else if (identityAttributes.Count > 1)
-                        segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
-                  }
+                     ConfigureTable(segments, modelClass);
                }
 
                if (segments.Count > 1 || modelClass.IsDependentType)
@@ -223,6 +208,22 @@
                   ConfigureBidirectionalAssociations(modelClass, visited, foreignKeyColumns, declaredShadowProperties);
                }
             }
+         }
+
+         protected virtual void ConfigureTable(List<string> segments, ModelClass modelClass)
+         {
+            string tableName = string.IsNullOrEmpty(modelClass.TableName) ? modelClass.Name : modelClass.TableName;
+            string schema = string.IsNullOrEmpty(modelClass.DatabaseSchema) || modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema ? string.Empty : ", \"{modelClass.DatabaseSchema}\"";
+
+            segments.Add($"ToTable(\"{tableName}\"{schema})");
+
+            // primary key code segments must be output last, since HasKey returns a different type
+            List<ModelAttribute> identityAttributes = modelClass.IdentityAttributes.ToList();
+
+            if (identityAttributes.Count == 1)
+               segments.Add($"HasKey(t => t.{identityAttributes[0].Name})");
+            else if (identityAttributes.Count > 1)
+               segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
          }
 
          protected virtual void ConfigureModelAttributes(List<string> segments, ModelClass modelClass)

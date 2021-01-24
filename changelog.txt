@@ -6,6 +6,8 @@
    - Fix to allow 1..1 association to owned types in EFCore5 (see https://github.com/msawczyn/EFDesigner/issues/252)
    - Fix to calculate EF version number correctly when "Latest" was specified in designer (see https://github.com/msawczyn/EFDesigner/issues/254)
    - Fix to generate correct DeleteBehavior enum values in EFCore < v3 (see https://github.com/msawczyn/EFDesigner/issues/257)
+   - Removed INotifyPropertyChanged option from designer. Implementers wanting this interface can add it to a partial class file as any other interface; there's really nothing special about it compared to other interfaces
+   - Generated code now honors the ExcludeFromMigration setting for a class
 
 3.0.2
    - Added setting on designer surface to set visibility defaults for entity default constructors, and overrides for that setting on the entities
