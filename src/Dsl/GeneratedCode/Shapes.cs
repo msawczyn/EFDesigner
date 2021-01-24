@@ -385,6 +385,11 @@ namespace Sawczyn.EFDesigner.EFModel
 			DslDiagrams::Decorator decorator9 = new DslDiagrams::ShapeDecorator(field9, DslDiagrams::ShapeDecoratorPosition.InnerTopLeft, DslDiagrams::PointD.Empty);
 			decorators.Add(decorator9);
 				
+			DslDiagrams::ImageField field10 = new DslDiagrams::ImageField("Interface");
+			field10.DefaultImage = DslDiagrams::ImageHelper.GetImage(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetObject("ClassShapeInterfaceDefaultImage"));
+			DslDiagrams::Decorator decorator10 = new DslDiagrams::ShapeDecorator(field10, DslDiagrams::ShapeDecoratorPosition.OuterTopLeft, new DslDiagrams::PointD(0.2, 0.1));
+			decorators.Add(decorator10);
+				
 		}
 		
 		/// <summary>

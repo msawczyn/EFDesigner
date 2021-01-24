@@ -381,6 +381,12 @@
             <xsd:documentation>Default value for attribute AutoProperty setting</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: ShowInterfaceIndicators -->
+        <xsd:attribute name="showInterfaceIndicators" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, will display a UML interface glyph on classes that have custom interfaces defined</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

@@ -53,7 +53,21 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**3.0.2**
+**3.0.3**
+   - Added VS UML icon for model file in solution explorer (thanks to https://github.com/dcastenholz for the change)
+   - Classes with custom interfaces can now display an indicator with a tooltip indicating the interface type(s). This glyph is enabled/disabled at model level.
+   - Added ability to specify that an association should be automatically included in any queries that use it (EFCore5 only). The association connector will appear bolder if at least one end is auto-included.
+   - Updated association tooltip to indicate which, if any, end is auto-included
+   - Fix to ensure database collation overrides don't get applied to the wrong column types
+   - Fix to allow 1..1 association to owned types in EFCore5 (see https://github.com/msawczyn/EFDesigner/issues/252)
+   - Fix to calculate EF version number correctly when "Latest" was specified in designer (see https://github.com/msawczyn/EFDesigner/issues/254)
+   - Fix to generate correct DeleteBehavior enum values in EFCore < v3 (see https://github.com/msawczyn/EFDesigner/issues/257)
+   - Removed INotifyPropertyChanged option from designer. Implementers wanting this interface can add it to a partial class file as any other interface, as there's really nothing special about it.
+   - Generated code now honors the ExcludeFromMigration setting for a class
+
+<details>
+<summary><b>3.0.2</b></summary>
+
    - Added setting on designer surface to set visibility defaults for entity default constructors, and overrides for that setting on the entities
    - Added `public bool ModelAttribute.IsForeignKeyProperty` for use by developers doing custom code generation from the model
    - Added option for turning off DbSet and table name pluralization (see https://github.com/msawczyn/EFDesigner/issues/246)
@@ -64,6 +78,7 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - Fixed condition where sometimes generated code in entity default constructors would create infinitely recursive calls
    - Stopped escaping standard XML comment tags in summary and description fields (see https://github.com/msawczyn/EFDesigner/issues/248)
    - Due to the new seeding needs in EFCore5, setters for identity properties are now public even if set to be auto-generated
+</details>
 
 <details>
 <summary><b>3.0.1</b></summary>

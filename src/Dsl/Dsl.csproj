@@ -415,6 +415,7 @@
     <Content Include="Resources\ForeignKey.png" />
     <Content Include="Resources\ForeignKeyIdentity.png" />
     <Content Include="Resources\Identity.png" />
+    <Content Include="Resources\Interface.png" />
     <Content Include="Resources\Internal.png" />
     <Content Include="Resources\KeyRight_left_16x.png" />
     <Content Include="Resources\No.png" />

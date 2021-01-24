@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="3" Build="3" Revision="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="3" Build="3" Revision="2" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -360,6 +360,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="7cd4b0cd-84e3-4363-a71d-bac6fae5b39f" Description="If true, will display a UML interface glyph on classes that have custom interfaces defined" Name="ShowInterfaceIndicators" DisplayName="Show Interface Indicators" Category="Designer">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -579,6 +584,11 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="711f369a-38d3-4e2e-812d-9654ef72c1d6" Description="If true, ModelClass.AutoPropertyDefault tracks ModelRoot.AutoPropertyDefault" Name="IsAutoPropertyDefaultTracking" DisplayName="Is Auto Property Default Tracking" DefaultValue="true" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="51846d70-8b42-4cef-843b-57cd97af3b91" Description="Used internally to determine whether an interface glyph should be shown on the diagram for the class" Name="ShouldShowInterfaceGlyph" DisplayName="Should Show Interface Glyph" Kind="Calculated" SetterAccessModifier="Private" IsBrowsable="false" IsUIReadOnly="true">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -1895,6 +1905,9 @@
       <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
         <IconDecorator Name="SQLGlyph" DisplayName="Query Type" DefaultIcon="Resources\SQL.png" />
       </ShapeHasDecorators>
+      <ShapeHasDecorators Position="OuterTopLeft" HorizontalOffset="0.2" VerticalOffset="0.1">
+        <IconDecorator Name="Interface" DisplayName="Interface" DefaultIcon="Resources\Interface.png" />
+      </ShapeHasDecorators>
       <Compartment Name="AttributesCompartment" Title="Properties" />
       <Compartment Name="AssociationsCompartment" Title="Association Targets" />
       <Compartment Name="SourcesCompartment" Title="Association Sources" />
@@ -2306,6 +2319,9 @@
           <XmlPropertyData XmlName="autoPropertyDefault">
             <DomainPropertyMoniker Name="ModelRoot/AutoPropertyDefault" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="showInterfaceIndicators">
+            <DomainPropertyMoniker Name="ModelRoot/ShowInterfaceIndicators" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelClass" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelClassMoniker" ElementName="modelClass" MonikerTypeName="ModelClassMoniker">
@@ -2412,6 +2428,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isAutoPropertyDefaultTracking">
             <DomainPropertyMoniker Name="ModelClass/IsAutoPropertyDefaultTracking" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="shouldShowInterfaceGlyph" Representation="Ignore">
+            <DomainPropertyMoniker Name="ModelClass/ShouldShowInterfaceGlyph" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -3029,6 +3048,16 @@
             <DomainPropertyMoniker Name="ModelClass/GlyphType" />
             <PropertyFilters>
               <PropertyFilter FilteringValue="DictionaryGlyph" />
+            </PropertyFilters>
+          </VisibilityPropertyPath>
+        </DecoratorMap>
+        <DecoratorMap>
+          <IconDecoratorMoniker Name="ClassShape/Interface" />
+          <VisibilityPropertyPath>
+            <DomainPropertyMoniker Name="ModelClass/ShouldShowInterfaceGlyph" />
+            <DomainPath />
+            <PropertyFilters>
+              <PropertyFilter FilteringValue="True" />
             </PropertyFilters>
           </VisibilityPropertyPath>
         </DecoratorMap>

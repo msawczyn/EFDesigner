@@ -291,6 +291,14 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       /// <summary>
+      /// If true, diagram should show an interface lollipop on the class if it has a custom interface
+      /// </summary>
+      protected bool GetShouldShowInterfaceGlyphValue()
+      {
+         return ModelRoot.ShowInterfaceIndicators && !string.IsNullOrEmpty(CustomInterfaces);
+      }
+
+      /// <summary>
       /// Gets the glyph type value for display
       /// </summary>
       /// <returns>The type of glyph that should be displayed</returns>

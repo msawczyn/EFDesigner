@@ -183,7 +183,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                // properties are in unidirectional associations. Principal and Dependent define where the foreign keys go in 
                // the persistence mechanism.
 
-               // What matters to code generation is the Principal and Dependent classifications, so we docus on those. 
+               // What matters to code generation is the Principal and Dependent classifications, so we focus on those. 
                // In the case of 1-1 or 0/1-0/1, it's situational, so the user has to tell us.
                // In all other cases, we can tell by the cardinalities of the associations.
 
@@ -915,7 +915,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             {
                // foreign keys are shadow properties
                result = dependentClassDesignationRequired
-                           ? $"HasForeignKey({'"'}{association.Dependent.Name}{'"'}, {result})"
+                           ? $"HasForeignKey(\"{association.Dependent.Name}\", {result})"
                            : $"HasForeignKey({result})";
             }
             else
@@ -947,7 +947,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             if (principal != null && dependent != null)
             {
                if (string.IsNullOrWhiteSpace(association.FKPropertyName))
-                  result = principal.AllIdentityAttributes.Select(identity => $"{'"'}{CreateShadowPropertyName(association, foreignKeyColumns, identity)}{'"'}").ToList();
+                  result = principal.AllIdentityAttributes.Select(identity => $"\"{CreateShadowPropertyName(association, foreignKeyColumns, identity)}\"").ToList();
                else
                {
                   // defined properties

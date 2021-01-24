@@ -411,6 +411,10 @@ namespace Sawczyn.EFDesigner.EFModel
 		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GlyphTypeDomainPropertyId);
 		      propertyInfo.FilteringValues.Add("DictionaryGlyph");
 		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "DictionaryGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
+		
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.ShouldShowInterfaceGlyphDomainPropertyId);
+		      propertyInfo.FilteringValues.Add("True");
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "Interface").AssociateVisibilityWith(shape.Store, propertyInfo);
 		   }
 		}
 		

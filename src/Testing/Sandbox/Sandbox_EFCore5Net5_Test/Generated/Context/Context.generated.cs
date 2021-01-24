@@ -65,6 +65,7 @@ namespace Sandbox_EFCore5NetCore3_Test
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity1>().Property(t => t.Id).ValueGeneratedOnAdd().IsRequired();
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity1>().HasMany<global::Sandbox_EFCore5NetCore3_Test.Entity2>(p => p.Entity2).WithOne(p => p.Entity1).HasForeignKey("Entity1Id");
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().Navigation(e => e.Entity1).IsRequired();
+         modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().Navigation(e => e.Entity1).AutoInclude();
 
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().ToTable("Entity2").HasKey(t => t.Id);
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().Property(t => t.Id).ValueGeneratedOnAdd().IsRequired();

@@ -225,6 +225,11 @@ namespace Sawczyn.EFDesigner.EFModel
                   diagram.ShowGrid = (bool)e.NewValue;
 
                redraw = true;
+               
+               break;
+
+            case "ShowInterfaceIndicators":
+               redraw = true;
 
                break;
 

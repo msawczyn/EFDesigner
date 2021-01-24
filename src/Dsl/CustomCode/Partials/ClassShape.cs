@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 
 using Sawczyn.EFDesigner.EFModel.Extensions;
@@ -11,15 +12,18 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 namespace Sawczyn.EFDesigner.EFModel
 {
 
-   //internal class ColorCache
-   //{
-   //   public Color FillColor { get; set; }
-   //   public Color TextColor { get; set; }
-   //}
-
    public partial class ClassShape : IHighlightFromModelExplorer, IMouseActionTarget
    {
-      //internal ColorCache ColorCache = null;
+      /// <summary>
+      /// Initializes style set resources for this shape type
+      /// </summary>
+      /// <param name="classStyleSet">The style set for this shape class</param>
+      protected override void InitializeResources(StyleSet classStyleSet)
+      {
+         base.InitializeResources(classStyleSet);
+
+         AssociateValueWith(Store, ModelRoot.ShowInterfaceIndicatorsDomainPropertyId);
+      }
 
       internal static readonly Dictionary<bool, Dictionary<SetterAccessModifier, Bitmap>> AttributeGlyphs =
          new Dictionary<bool, Dictionary<SetterAccessModifier, Bitmap>>
@@ -116,6 +120,10 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
 
+         // is this the interface lollipop?
+         if (item.Shape is DecoratorHostShape && item.Field?.Name == "Interface")
+            return ((ModelClass)ModelElement).CustomInterfaces;
+
          return base.GetToolTipText(item);  
       }  
 
@@ -193,6 +201,41 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          return Resources.Spacer;
+      }
+
+      /// <summary>
+      /// OnBeforePaint is called at the start of the ShapeElement's painting.
+      /// It provides an opportunity for developers to update and override resources
+      /// before they're used in painting.
+      /// </summary>
+      /// <remarks>
+      /// You can override existing resources by calling StyleSet.OverrideXXX and
+      /// changing the specific setting that you would like.
+      /// </remarks>
+      protected override void OnBeforePaint()
+      {
+         if (ModelElement is ModelClass element && (element.IsAbstract || element.IsDependentType))
+         {
+            PenSettings penSettings = StyleSet.GetOverriddenPenSettings(DiagramPens.ConnectionLine) ?? new PenSettings();
+
+            if (element.IsAbstract)
+            {
+               penSettings.Color = Color.OrangeRed;
+               penSettings.Width = 0.03f;
+               penSettings.DashStyle = DashStyle.Dot;
+            }
+            else if (element.IsDependentType)
+            {
+               penSettings.Color = Color.ForestGreen;
+               penSettings.Width = 0.03f;
+               penSettings.DashStyle = DashStyle.Dot;
+            }
+
+            StyleSet.OverridePen(DiagramPens.ShapeOutline, penSettings);
+         }
+         else
+            StyleSet.ClearPenOverride(DiagramPens.ShapeOutline);
+
       }
 
       /// <summary>

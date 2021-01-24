@@ -741,6 +741,18 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;AutoPropertyDefault&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ShowInterfaceIndicators.Description" xml:space="preserve">
+    <value>If true, will display a UML interface glyph on classes that have custom interfaces defined</value>
+    <comment>Description for DomainProperty &apos;ShowInterfaceIndicators&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ShowInterfaceIndicators.DisplayName" xml:space="preserve">
+    <value>Show Interface Indicators</value>
+    <comment>DisplayName for DomainProperty &apos;ShowInterfaceIndicators&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ShowInterfaceIndicators.Category" xml:space="preserve">
+    <value>Designer</value>
+    <comment>Category for DomainProperty &apos;ShowInterfaceIndicators&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>
@@ -1072,6 +1084,14 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsAutoPropertyDefaultTracking.DisplayName" xml:space="preserve">
     <value>Is Auto Property Default Tracking</value>
     <comment>DisplayName for DomainProperty &apos;IsAutoPropertyDefaultTracking&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/ShouldShowInterfaceGlyph.Description" xml:space="preserve">
+    <value>Used internally to determine whether an interface glyph should be shown on the diagram for the class</value>
+    <comment>Description for DomainProperty &apos;ShouldShowInterfaceGlyph&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/ShouldShowInterfaceGlyph.DisplayName" xml:space="preserve">
+    <value>Should Show Interface Glyph</value>
+    <comment>DisplayName for DomainProperty &apos;ShouldShowInterfaceGlyph&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
@@ -4104,6 +4124,10 @@ A DomainClass can be serialized as a moniker only if
   </data>
   <data name="ClassShapeSQLGlyphDefaultImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\Resources\SQL.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Icon decorator default image</comment>
+  </data>
+  <data name="ClassShapeInterfaceDefaultImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\Interface.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Icon decorator default image</comment>
   </data>
   <data name="EnumShapeEnumGlyphDefaultImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">

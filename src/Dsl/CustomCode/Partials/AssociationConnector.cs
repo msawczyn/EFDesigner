@@ -22,6 +22,8 @@ namespace Sawczyn.EFDesigner.EFModel
          AssociateValueWith(Store, Association.FKPropertyNameDomainPropertyId);
          AssociateValueWith(Store, Association.PersistentDomainPropertyId);
          AssociateValueWith(Store, ModelRoot.ShowForeignKeyPropertyNamesDomainPropertyId);
+         AssociateValueWith(Store, ModelRoot.EntityFrameworkVersionDomainPropertyId);
+         AssociateValueWith(Store, ModelRoot.EntityFrameworkPackageVersionDomainPropertyId);
       }
 
       public override bool HasToolTip => true;
@@ -38,7 +40,6 @@ namespace Sawczyn.EFDesigner.EFModel
                    : string.Empty;
       }
 
-
       /// <summary>
       /// Gets or sets the decorator on the From end of the relationship.
       /// </summary>
@@ -51,12 +52,12 @@ namespace Sawczyn.EFDesigner.EFModel
 
             if (association.Target.IsDependentType)
             {
-               LinkDecorator decorator = association.SourceMultiplicity == Multiplicity.One 
-                                            ? LinkDecorator.DecoratorFilledDiamond 
+               LinkDecorator decorator = association.SourceMultiplicity == Multiplicity.One
+                                            ? LinkDecorator.DecoratorFilledDiamond
                                             : LinkDecorator.DecoratorEmptyDiamond;
 
                if (base.DecoratorFrom != decorator)
-                  SetDecorators(decorator, new SizeD(0.15,0.15), base.DecoratorTo, DefaultDecoratorSize, true);
+                  SetDecorators(decorator, new SizeD(0.15, 0.15), base.DecoratorTo, DefaultDecoratorSize, true);
             }
             else
             {
@@ -76,7 +77,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// Gets or sets the decorator on the To end of the relationship.
       /// </summary>
       /// <value>LinkDecorator representing the decorator on this end on the BinaryLinkShape</value>
-      public override LinkDecorator DecoratorTo 
+      public override LinkDecorator DecoratorTo
       {
          get
          {
@@ -84,12 +85,12 @@ namespace Sawczyn.EFDesigner.EFModel
 
             if (association.Source.IsDependentType)
             {
-               LinkDecorator decorator = association.TargetMultiplicity == Multiplicity.One 
-                                            ? LinkDecorator.DecoratorFilledDiamond 
+               LinkDecorator decorator = association.TargetMultiplicity == Multiplicity.One
+                                            ? LinkDecorator.DecoratorFilledDiamond
                                             : LinkDecorator.DecoratorEmptyDiamond;
-             
+
                if (base.DecoratorTo != decorator)
-                  SetDecorators(base.DecoratorFrom, DefaultDecoratorSize, decorator, new SizeD(0.15,0.15), true);
+                  SetDecorators(base.DecoratorFrom, DefaultDecoratorSize, decorator, new SizeD(0.15, 0.15), true);
             }
             else
             {
@@ -168,6 +169,35 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          base.OnAssociatedPropertyChanged(e);
+      }
+
+      /// <summary>
+      /// OnBeforePaint is called at the start of the ShapeElement's painting.
+      /// It provides an opportunity for developers to update and override resources
+      /// before they're used in painting.
+      /// </summary>
+      /// <remarks>
+      /// You can override existing resources by calling StyleSet.OverrideXXX and
+      /// changing the specific setting that you would like.
+      /// </remarks>
+      protected override void OnBeforePaint()
+      {
+         if (ModelElement is Association element)
+         {
+            BidirectionalAssociation bidirectionalElement = ModelElement as BidirectionalAssociation;
+            bool hasAutoInclude = element.Source.ModelRoot.IsEFCore5Plus && (element.TargetAutoInclude || bidirectionalElement?.SourceAutoInclude == true);
+
+            if (hasAutoInclude)
+            {
+               PenSettings settings = StyleSet.GetOverriddenPenSettings(DiagramPens.ConnectionLine) ?? new PenSettings();
+               settings.Width = 0.05f;
+               StyleSet.OverridePen(DiagramPens.ConnectionLine, settings);
+            }
+            else
+               StyleSet.ClearPenOverride(DiagramPens.ConnectionLine);
+         }
+         else
+            StyleSet.ClearPenOverride(DiagramPens.ConnectionLine);
       }
 
       /// <summary>

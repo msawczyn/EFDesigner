@@ -987,6 +987,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // ShowInterfaceIndicators
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribShowInterfaceIndicators = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "showInterfaceIndicators");
+	         if (attribShowInterfaceIndicators != null)
+	         {
+	            global::System.Boolean valueOfShowInterfaceIndicators;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribShowInterfaceIndicators, out valueOfShowInterfaceIndicators))
+	            {
+	               instanceOfModelRoot.ShowInterfaceIndicators = valueOfShowInterfaceIndicators;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "showInterfaceIndicators", typeof(global::System.Boolean), attribShowInterfaceIndicators);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -2264,6 +2281,16 @@ namespace Sawczyn.EFDesigner.EFModel
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "autoPropertyDefault", serializedPropValue);
 	            }
+	         }
+	      }
+	      // ShowInterfaceIndicators
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelRoot.ShowInterfaceIndicators;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "showInterfaceIndicators", serializedPropValue);
 	         }
 	      }
 	   }

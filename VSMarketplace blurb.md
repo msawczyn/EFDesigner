@@ -30,6 +30,18 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**3.0.3**
+   - **[NEW]** Added VS UML icon for model file in solution explorer (thanks to https://github.com/dcastenholz for the change)
+   - **[NEW]** Classes with custom interfaces can now display an indicator with a tooltip indicating the interface type(s). This glyph is enabled/disabled at model level.
+   - **[NEW]** Added ability to specify that an association should be automatically included in any queries that use it (EFCore5 only). The association connector will appear bolder if at least one end is auto-included.
+   - **[NEW]** Updated association tooltip to indicate which, if any, end is auto-included
+   - Fix to ensure database collation overrides don't get applied to the wrong column types
+   - Fix to allow 1..1 association to owned types in EFCore5 (see https://github.com/msawczyn/EFDesigner/issues/252)
+   - Fix to calculate EF version number correctly when "Latest" was specified in designer (see https://github.com/msawczyn/EFDesigner/issues/254)
+   - Fix to generate correct DeleteBehavior enum values in EFCore < v3 (see https://github.com/msawczyn/EFDesigner/issues/257)
+   - Removed `INotifyPropertyChanged` option from designer. Implementers wanting this interface can add it to a partial class file as any other interface, as there's really nothing special about it.
+   - Generated code now honors the `ExcludeFromMigration` setting for a class
+
 **3.0.2**
    - **[NEW]** Added setting on designer surface to set visibility defaults for entity default constructors, and overrides for that setting on the entities
    - **[NEW]** Added `public bool ModelAttribute.IsForeignKeyProperty` for use by developers doing custom code generation from the model

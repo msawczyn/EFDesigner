@@ -94,13 +94,11 @@ namespace Sawczyn.EFDesigner.EFModel
                      && (targetDeleteAction == DeleteAction.Cascade
                       || sourceDeleteAction == DeleteAction.Cascade);
 
-         Color black = Color.FromArgb(255, 113, 111, 110);
-
          Color lineColor = !persistent
                               ? Color.SlateGray
                               : cascade
                                  ? Color.Red
-                                 : black;
+                                 : Color.FromArgb(255, 113, 111, 110);
 
          DashStyle lineStyle = cascade
                                   ? DashStyle.Dash
@@ -108,7 +106,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          using (Transaction trans = element.Store.TransactionManager.BeginTransaction("Display associations"))
          {
-            SetConnectorWidth(connector);
+            //SetConnectorWidth(connector);
 
             if (connector.Color != lineColor)
             {
@@ -126,19 +124,19 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      private static void SetConnectorWidth(AssociationConnector connector)
-      {
-         if (!(connector?.ModelElement is Association element))
-            return;
+      //private static void SetConnectorWidth(AssociationConnector connector)
+      //{
+      //   if (!(connector?.ModelElement is Association element))
+      //      return;
 
-         BidirectionalAssociation bidirectionalElement = connector.ModelElement as BidirectionalAssociation;
-         PenSettings settings = connector.StyleSet.GetOverriddenPenSettings(DiagramPens.ConnectionLine) ?? new PenSettings();
+      //   BidirectionalAssociation bidirectionalElement = connector.ModelElement as BidirectionalAssociation;
+      //   PenSettings settings = connector.StyleSet.GetOverriddenPenSettings(DiagramPens.ConnectionLine) ?? new PenSettings();
 
-         bool hasAutoInclude = element.TargetAutoInclude || (bidirectionalElement?.SourceAutoInclude == true);
-         settings.Width = hasAutoInclude ? 0.04f : 0.01f;
+      //   bool hasAutoInclude = element.TargetAutoInclude || (bidirectionalElement?.SourceAutoInclude == true);
+      //   settings.Width = hasAutoInclude ? 0.04f : 0.01f;
 
-         connector.StyleSet.OverridePen(DiagramPens.ConnectionLine, settings);
-      }
+      //   connector.StyleSet.OverridePen(DiagramPens.ConnectionLine, settings);
+      //}
 
       /// <summary>
       /// Redraws the class on every open diagram
@@ -150,35 +148,35 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          // update on every diagram
-         foreach (ClassShape classShape in PresentationViewsSubject
-                                          .GetPresentation(element)
-                                          .OfType<ClassShape>())
-         {
-            if (element.IsAbstract)
-            {
-               classShape.OutlineColor = Color.OrangeRed;
-               classShape.OutlineThickness = 0.03f;
-               classShape.OutlineDashStyle = DashStyle.Dot;
-            }
-            else if (element.IsDependentType)
-            {
-               classShape.OutlineColor = Color.ForestGreen;
-               classShape.OutlineThickness = 0.03f;
-               classShape.OutlineDashStyle = DashStyle.Dot;
-            }
-            else if (element.ImplementNotify)
-            {
-               classShape.OutlineColor = Color.CornflowerBlue;
-               classShape.OutlineThickness = 0.03f;
-               classShape.OutlineDashStyle = DashStyle.Dot;
-            }
-            else
-            {
-               classShape.OutlineColor = Color.Black;
-               classShape.OutlineThickness = 0.01f;
-               classShape.OutlineDashStyle = DashStyle.Solid;
-            }
-         }
+         //foreach (ClassShape classShape in PresentationViewsSubject
+         //                                 .GetPresentation(element)
+         //                                 .OfType<ClassShape>())
+         //{
+         //   if (element.IsAbstract)
+         //   {
+         //      classShape.OutlineColor = Color.OrangeRed;
+         //      classShape.OutlineThickness = 0.03f;
+         //      classShape.OutlineDashStyle = DashStyle.Dot;
+         //   }
+         //   else if (element.IsDependentType)
+         //   {
+         //      classShape.OutlineColor = Color.ForestGreen;
+         //      classShape.OutlineThickness = 0.03f;
+         //      classShape.OutlineDashStyle = DashStyle.Dot;
+         //   }
+         //   else if (element.ImplementNotify)
+         //   {
+         //      classShape.OutlineColor = Color.CornflowerBlue;
+         //      classShape.OutlineThickness = 0.03f;
+         //      classShape.OutlineDashStyle = DashStyle.Dot;
+         //   }
+         //   else
+         //   {
+         //      classShape.OutlineColor = Color.Black;
+         //      classShape.OutlineThickness = 0.01f;
+         //      classShape.OutlineDashStyle = DashStyle.Solid;
+         //   }
+         //}
 
          // ensure foreign key attributes have the proper setting to surface the right glyph
          foreach (var data in element.Store.ElementDirectory.AllElements

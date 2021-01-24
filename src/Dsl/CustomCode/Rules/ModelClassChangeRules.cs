@@ -38,6 +38,14 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                if (element.IsDependentType)
                   errorMessages.Add($"Can't give {element.Name} a base class since it's a dependent type");
+               
+               break;
+            }
+
+            case "CustomInterfaces":
+            {
+               if (modelRoot.ShowInterfaceIndicators)
+                  PresentationHelper.UpdateClassDisplay(element);
 
                break;
             }

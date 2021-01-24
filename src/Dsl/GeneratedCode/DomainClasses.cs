@@ -4603,6 +4603,95 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region ShowInterfaceIndicators domain property code
+		
+		/// <summary>
+		/// ShowInterfaceIndicators domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ShowInterfaceIndicatorsDomainPropertyId = new global::System.Guid(0x7cd4b0cd, 0x84e3, 0x4363, 0xa7, 0x1d, 0xba, 0xc6, 0xfa, 0xe5, 0xb3, 0x9f);
+		
+		/// <summary>
+		/// Storage for ShowInterfaceIndicators
+		/// </summary>
+		private global::System.Boolean showInterfaceIndicatorsPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of ShowInterfaceIndicators domain property.
+		/// If true, will display a UML interface glyph on classes that have custom
+		/// interfaces defined
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShowInterfaceIndicators.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShowInterfaceIndicators.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShowInterfaceIndicators.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("7cd4b0cd-84e3-4363-a71d-bac6fae5b39f")]
+		public global::System.Boolean ShowInterfaceIndicators
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return showInterfaceIndicatorsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ShowInterfaceIndicatorsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.ShowInterfaceIndicators domain property.
+		/// </summary>
+		internal sealed partial class ShowInterfaceIndicatorsPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private ShowInterfaceIndicatorsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.ShowInterfaceIndicators domain property value handler.
+			/// </summary>
+			public static readonly ShowInterfaceIndicatorsPropertyHandler Instance = new ShowInterfaceIndicatorsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.ShowInterfaceIndicators domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ShowInterfaceIndicatorsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.showInterfaceIndicatorsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.showInterfaceIndicatorsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>
@@ -7455,6 +7544,73 @@ namespace Sawczyn.EFDesigner.EFModel
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
+		}
+		
+		#endregion
+		#region ShouldShowInterfaceGlyph domain property code
+		
+		/// <summary>
+		/// ShouldShowInterfaceGlyph domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ShouldShowInterfaceGlyphDomainPropertyId = new global::System.Guid(0x51846d70, 0x8b42, 0x4cef, 0x84, 0x3b, 0x57, 0xcd, 0x97, 0xaf, 0x3b, 0x91);
+		
+		/// <summary>
+		/// Gets or sets the value of ShouldShowInterfaceGlyph domain property.
+		/// Used internally to determine whether an interface glyph should be shown on the
+		/// diagram for the class
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/ShouldShowInterfaceGlyph.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/ShouldShowInterfaceGlyph.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[global::System.ComponentModel.ReadOnly(true)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.Calculated)]
+		[DslModeling::DomainObjectId("51846d70-8b42-4cef-843b-57cd97af3b91")]
+		public global::System.Boolean ShouldShowInterfaceGlyph
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return ShouldShowInterfaceGlyphPropertyHandler.Instance.GetValue(this);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.ShouldShowInterfaceGlyph domain property.
+		/// </summary>
+		internal sealed partial class ShouldShowInterfaceGlyphPropertyHandler : DslModeling::CalculatedPropertyValueHandler<ModelClass, global::System.Boolean>
+		{
+			private ShouldShowInterfaceGlyphPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.ShouldShowInterfaceGlyph domain property value handler.
+			/// </summary>
+			public static readonly ShouldShowInterfaceGlyphPropertyHandler Instance = new ShouldShowInterfaceGlyphPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.ShouldShowInterfaceGlyph domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ShouldShowInterfaceGlyphDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for ShouldShowInterfaceGlyph because its Kind is
+				// set to Calculated. Please provide the GetShouldShowInterfaceGlyphValue()
+				// method on the domain class.
+				return element.GetShouldShowInterfaceGlyphValue();
+			}
+		
 		}
 		
 		#endregion
@@ -13276,6 +13432,6 @@ namespace Sawczyn.EFDesigner.EFModel
    /// </summary>
 	partial class ModelRoot
 	{
-		public const string DSLVersion = "3.0.3.1";
+		public const string DSLVersion = "3.0.3.2";
 	}
 }
