@@ -147,37 +147,6 @@ namespace Sawczyn.EFDesigner.EFModel
          if (element == null)
             return;
 
-         // update on every diagram
-         //foreach (ClassShape classShape in PresentationViewsSubject
-         //                                 .GetPresentation(element)
-         //                                 .OfType<ClassShape>())
-         //{
-         //   if (element.IsAbstract)
-         //   {
-         //      classShape.OutlineColor = Color.OrangeRed;
-         //      classShape.OutlineThickness = 0.03f;
-         //      classShape.OutlineDashStyle = DashStyle.Dot;
-         //   }
-         //   else if (element.IsDependentType)
-         //   {
-         //      classShape.OutlineColor = Color.ForestGreen;
-         //      classShape.OutlineThickness = 0.03f;
-         //      classShape.OutlineDashStyle = DashStyle.Dot;
-         //   }
-         //   else if (element.ImplementNotify)
-         //   {
-         //      classShape.OutlineColor = Color.CornflowerBlue;
-         //      classShape.OutlineThickness = 0.03f;
-         //      classShape.OutlineDashStyle = DashStyle.Dot;
-         //   }
-         //   else
-         //   {
-         //      classShape.OutlineColor = Color.Black;
-         //      classShape.OutlineThickness = 0.01f;
-         //      classShape.OutlineDashStyle = DashStyle.Solid;
-         //   }
-         //}
-
          // ensure foreign key attributes have the proper setting to surface the right glyph
          foreach (var data in element.Store.ElementDirectory.AllElements
                                      .OfType<Association>()
@@ -190,6 +159,12 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                                                        , Attr = element.Attributes.FirstOrDefault(attr => attr.Name == propertyName)
                                                                                                    })))
             data.Attr.IsForeignKeyFor = data.Assoc.Id;
+
+         // update on every diagram
+         foreach (ClassShape classShape in PresentationViewsSubject
+                                          .GetPresentation(element)
+                                          .OfType<ClassShape>())
+            classShape.Invalidate();
 
          // ensure any associations have the correct end for composition ownership
          foreach (AssociationConnector connector in element.Store.ElementDirectory
