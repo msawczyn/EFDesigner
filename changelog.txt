@@ -1,3 +1,6 @@
+3.0.4
+   - Added ability to align class, enum and comment elements by top, bottom, left and right sides via context menu.
+
 3.0.3
    - Added VS UML icon for model file in solution explorer (thanks to https://github.com/dcastenholz for the change)
    - Classes with custom interfaces can now display an indicator with a tooltip indicating the interface type(s). This glyph is enabled/disabled at model level.
