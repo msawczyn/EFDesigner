@@ -282,6 +282,24 @@
             </Strings>
          </Button>
 
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignHCenter" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidAlign"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Align Centers Horiz</ButtonText>
+               <CommandName>AlignHCenter</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignVCenter" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidAlign"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Align Centers Vert</ButtonText>
+               <CommandName>AlignVCenter</CommandName>
+            </Strings>
+         </Button>
+
          <!-- Model explorer menu -->
 
          <Button guid="guidMenuExplorerCmdSet" id="cmdidGoToCode" priority="0x0901" type="Button">
@@ -357,6 +375,8 @@
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAlignRight"        context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAlignTop"          context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAlignBottom"       context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAlignHCenter"      context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAlignVCenter"      context="guidEditor"/>
    </VisibilityConstraints>
 
    <Symbols>
@@ -406,6 +426,8 @@
          <IDSymbol name="cmdidAlignRight"                value="0x00107"/>
          <IDSymbol name="cmdidAlignTop"                  value="0x00108"/>
          <IDSymbol name="cmdidAlignBottom"               value="0x00109"/>
+         <IDSymbol name="cmdidAlignHCenter"              value="0x0010A"/>
+         <IDSymbol name="cmdidAlignVCenter"              value="0x0010B"/>
       </GuidSymbol>
    </Symbols>
 </CommandTable>

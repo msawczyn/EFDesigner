@@ -57,6 +57,8 @@ namespace Sawczyn.EFDesigner.EFModel
       private const int cmdidAlignRight = 0x0107;
       private const int cmdidAlignTop = 0x0108;
       private const int cmdidAlignBottom = 0x0109;
+      private const int cmdidAlignHCenter = 0x010A;
+      private const int cmdidAlignVCenter = 0x010B;
 
       // Model Explorer menu items
 
@@ -217,7 +219,17 @@ namespace Sawczyn.EFDesigner.EFModel
             new DynamicStatusMenuCommand(OnStatusAlignBottom, OnMenuAlignBottom, new CommandID(guidEFDiagramMenuCmdSet, cmdidAlignBottom));
          commands.Add(alignBottomCommand);
          #endregion
-       
+         #region alignHCenterCommand
+         DynamicStatusMenuCommand alignHCenterCommand =
+            new DynamicStatusMenuCommand(OnStatusAlignHCenter, OnMenuAlignHCenter, new CommandID(guidEFDiagramMenuCmdSet, cmdidAlignHCenter));
+         commands.Add(alignHCenterCommand);
+         #endregion
+         #region alignVCenterCommand
+         DynamicStatusMenuCommand alignVCenterCommand =
+            new DynamicStatusMenuCommand(OnStatusAlignVCenter, OnMenuAlignVCenter, new CommandID(guidEFDiagramMenuCmdSet, cmdidAlignVCenter));
+         commands.Add(alignVCenterCommand);
+         #endregion
+
          // Additional commands go here.  
          return commands;
       }
@@ -243,8 +255,8 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            return CurrentSelection == null 
-                      ? new NodeShape[0] 
+            return CurrentSelection == null
+                      ? new NodeShape[0]
                       : CurrentSelection.OfType<ClassShape>().Cast<NodeShape>()
                                         .Union(CurrentSelection.OfType<EnumShape>())
                                         .Union(CurrentSelection.OfType<CommentBoxShape>())
@@ -1140,8 +1152,8 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             foreach (NodeShape nodeShape in selected)
             {
-               double distance = rightEdge - (nodeShape.AbsoluteBounds.X + nodeShape.AbsoluteBounds.Width);
-               nodeShape.AbsoluteBounds = new RectangleD(nodeShape.AbsoluteBounds.X + distance,
+               double delta = rightEdge - (nodeShape.AbsoluteBounds.X + nodeShape.AbsoluteBounds.Width);
+               nodeShape.AbsoluteBounds = new RectangleD(nodeShape.AbsoluteBounds.X + delta,
                                                          nodeShape.AbsoluteBounds.Y,
                                                          nodeShape.AbsoluteBounds.Width,
                                                          nodeShape.AbsoluteBounds.Height);
@@ -1221,9 +1233,103 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             foreach (NodeShape nodeShape in selected)
             {
-               double distance = bottomEdge - (nodeShape.AbsoluteBounds.Y + nodeShape.AbsoluteBounds.Height);
+               double delta = bottomEdge - (nodeShape.AbsoluteBounds.Y + nodeShape.AbsoluteBounds.Height);
                nodeShape.AbsoluteBounds = new RectangleD(nodeShape.AbsoluteBounds.X,
-                                                         nodeShape.AbsoluteBounds.Y + distance,
+                                                         nodeShape.AbsoluteBounds.Y + delta,
+                                                         nodeShape.AbsoluteBounds.Width,
+                                                         nodeShape.AbsoluteBounds.Height);
+               nodeShape.Invalidate();
+            }
+
+            tx.Commit();
+         }
+
+      }
+
+      #endregion
+
+      #region Align Horiz Center
+
+      private void OnStatusAlignHCenter(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            Store store = CurrentDocData.Store;
+            ModelRoot modelRoot = store.ModelRoot();
+            command.Visible = true;
+
+            command.Enabled = modelRoot != null &&
+                              CurrentDocData is EFModelDocData &&
+                              SelectedNodeShapes.Length > 1;
+         }
+      }
+
+      private void OnMenuAlignHCenter(object sender, EventArgs e)
+      {
+         Store store = CurrentDocData.Store;
+         NodeShape[] selected = SelectedNodeShapes;
+
+         if (!selected.Any())
+            return;
+
+         // use the middle hCenter
+         var temp = selected.Select(n => new { Node = n, CenterX = n.AbsoluteBounds.X + n.AbsoluteBounds.Width / 2 }).OrderBy(x => x.CenterX).ToArray();
+         double centerX = temp[(int)(temp.Length / 2.0 + .5)].CenterX;
+
+         using (Transaction tx = store.TransactionManager.BeginTransaction("AlignHCenter"))
+         {
+            foreach (NodeShape nodeShape in selected)
+            {
+               double delta = centerX - (nodeShape.AbsoluteBounds.X + nodeShape.AbsoluteBounds.Width / 2);
+               nodeShape.AbsoluteBounds = new RectangleD(nodeShape.AbsoluteBounds.X + delta,
+                                                         nodeShape.AbsoluteBounds.Y,
+                                                         nodeShape.AbsoluteBounds.Width,
+                                                         nodeShape.AbsoluteBounds.Height);
+               nodeShape.Invalidate();
+            }
+
+            tx.Commit();
+         }
+
+      }
+
+      #endregion
+
+      #region Align Vert Center
+
+      private void OnStatusAlignVCenter(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            Store store = CurrentDocData.Store;
+            ModelRoot modelRoot = store.ModelRoot();
+            command.Visible = true;
+
+            command.Enabled = modelRoot != null &&
+                              CurrentDocData is EFModelDocData &&
+                              SelectedNodeShapes.Length > 1;
+         }
+      }
+
+      private void OnMenuAlignVCenter(object sender, EventArgs e)
+      {
+         Store store = CurrentDocData.Store;
+         NodeShape[] selected = SelectedNodeShapes;
+
+         if (!selected.Any())
+            return;
+
+         // use the middle vCenter
+         var temp = selected.Select(n => new { Node = n, CenterY = n.AbsoluteBounds.Y + n.AbsoluteBounds.Height / 2 }).OrderBy(x => x.CenterY).ToArray();
+         double centerY = temp[(int)(temp.Length / 2.0 + .5)].CenterY;
+
+         using (Transaction tx = store.TransactionManager.BeginTransaction("AlignHCenter"))
+         {
+            foreach (NodeShape nodeShape in selected)
+            {
+               double delta = centerY - (nodeShape.AbsoluteBounds.Y + nodeShape.AbsoluteBounds.Height / 2);
+               nodeShape.AbsoluteBounds = new RectangleD(nodeShape.AbsoluteBounds.X,
+                                                         nodeShape.AbsoluteBounds.Y + delta,
                                                          nodeShape.AbsoluteBounds.Width,
                                                          nodeShape.AbsoluteBounds.Height);
                nodeShape.Invalidate();
