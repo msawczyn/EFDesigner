@@ -1,5 +1,5 @@
 3.0.4
-   - Added ability to align class, enum and comment elements by top, bottom, left and right sides via context menu.
+   - Added context menu choice to visually align node elements on diagrams.
 
 3.0.3
    - Added VS UML icon for model file in solution explorer (thanks to https://github.com/dcastenholz for the change)
