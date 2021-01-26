@@ -53,6 +53,10 @@ namespace Sawczyn.EFDesigner.EFModel
       private const int cmdidSelectAssocs = 0x0103;
       private const int cmdidSelectUnidir = 0x0104;
       private const int cmdidSelectBidir = 0x0105;
+      private const int cmdidAlignLeft = 0x0106;
+      private const int cmdidAlignRight = 0x0107;
+      private const int cmdidAlignTop = 0x0108;
+      private const int cmdidAlignBottom = 0x0109;
 
       // Model Explorer menu items
 
@@ -69,111 +73,151 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          IList<MenuCommand> commands = base.GetMenuCommands();
 
+         #region findCommand
          DynamicStatusMenuCommand findCommand =
             new DynamicStatusMenuCommand(OnStatusFind, OnMenuFind, new CommandID(guidEFDiagramMenuCmdSet, cmdidFind));
 
          commands.Add(findCommand);
-
+         #endregion
+         #region addAttributesCommand
          DynamicStatusMenuCommand addAttributesCommand =
             new DynamicStatusMenuCommand(OnStatusAddProperties, OnMenuAddProperties, new CommandID(guidEFDiagramMenuCmdSet, cmdidAddCodeProperties));
 
          commands.Add(addAttributesCommand);
-
+         #endregion
+         #region addValuesCommand
          DynamicStatusMenuCommand addValuesCommand =
             new DynamicStatusMenuCommand(OnStatusAddValues, OnMenuAddValues, new CommandID(guidEFDiagramMenuCmdSet, cmdidAddCodeValues));
 
          commands.Add(addValuesCommand);
-
+         #endregion
+         #region layoutDiagramCommand
          DynamicStatusMenuCommand layoutDiagramCommand =
             new DynamicStatusMenuCommand(OnStatusLayoutDiagram, OnMenuLayoutDiagram, new CommandID(guidEFDiagramMenuCmdSet, cmdidLayoutDiagram));
 
          commands.Add(layoutDiagramCommand);
-
+         #endregion
+         #region hideShapeCommand
          DynamicStatusMenuCommand hideShapeCommand =
             new DynamicStatusMenuCommand(OnStatusHideShape, OnMenuHideShape, new CommandID(guidEFDiagramMenuCmdSet, cmdidHideShape));
 
          commands.Add(hideShapeCommand);
-
+         #endregion
+         #region showShapeCommand
          DynamicStatusMenuCommand showShapeCommand =
             new DynamicStatusMenuCommand(OnStatusShowShape, OnMenuShowShape, new CommandID(guidEFDiagramMenuCmdSet, cmdidShowShape));
 
          commands.Add(showShapeCommand);
-
+         #endregion
+         #region removeShapeCommand
          DynamicStatusMenuCommand removeShapeCommand =
             new DynamicStatusMenuCommand(OnStatusRemoveShape, OnMenuRemoveShape, new CommandID(guidEFDiagramMenuCmdSet, cmdidRemoveShape));
 
          commands.Add(removeShapeCommand);
-
+         #endregion
+         #region addForeignKeysCommand
          DynamicStatusMenuCommand addForeignKeysCommand =
             new DynamicStatusMenuCommand(OnStatusAddForeignKeys, OnMenuAddForeignKeys, new CommandID(guidEFDiagramMenuCmdSet, cmdidAddForeignKeys));
 
          commands.Add(addForeignKeysCommand);
-
+         #endregion
+         #region removeForeignKeysCommand
          DynamicStatusMenuCommand removeForeignKeysCommand =
             new DynamicStatusMenuCommand(OnStatusRemoveForeignKeys, OnMenuRemoveForeignKeys, new CommandID(guidEFDiagramMenuCmdSet, cmdidDelForeignKeys));
 
          commands.Add(removeForeignKeysCommand);
-
+         #endregion
+         #region generateCodeCommand
          DynamicStatusMenuCommand generateCodeCommand =
             new DynamicStatusMenuCommand(OnStatusGenerateCode, OnMenuGenerateCode, new CommandID(guidEFDiagramMenuCmdSet, cmdidGenerateCode));
 
          commands.Add(generateCodeCommand);
-
+         #endregion
+         #region saveAsImageCommand
          DynamicStatusMenuCommand saveAsImageCommand =
             new DynamicStatusMenuCommand(OnStatusSaveAsImage, OnMenuSaveAsImage, new CommandID(guidEFDiagramMenuCmdSet, cmdidSaveAsImage));
 
          commands.Add(saveAsImageCommand);
-
-#pragma warning disable 612
+         #endregion
+         #region loadNuGetCommand
          DynamicStatusMenuCommand loadNuGetCommand =
             new DynamicStatusMenuCommand(OnStatusLoadNuGet, OnMenuLoadNuGet, new CommandID(guidEFDiagramMenuCmdSet, cmdidLoadNuGet));
-#pragma warning restore 612
 
          commands.Add(loadNuGetCommand);
-
+         #endregion
+         #region selectClassesCommand
          DynamicStatusMenuCommand selectClassesCommand =
             new DynamicStatusMenuCommand(OnStatusSelectClasses, OnMenuSelectClasses, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectClasses));
 
          commands.Add(selectClassesCommand);
-
+         #endregion
+         #region selectEnumsCommand
          DynamicStatusMenuCommand selectEnumsCommand =
             new DynamicStatusMenuCommand(OnStatusSelectEnums, OnMenuSelectEnums, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectEnums));
 
          commands.Add(selectEnumsCommand);
-
+         #endregion
+         #region selectAssocsCommand
          DynamicStatusMenuCommand selectAssocsCommand =
             new DynamicStatusMenuCommand(OnStatusSelectAssocs, OnMenuSelectAssocs, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectAssocs));
 
          commands.Add(selectAssocsCommand);
-
+         #endregion
+         #region selectUnidirCommand
          DynamicStatusMenuCommand selectUnidirCommand =
             new DynamicStatusMenuCommand(OnStatusSelectUnidir, OnMenuSelectUnidir, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectUnidir));
 
          commands.Add(selectUnidirCommand);
-
+         #endregion
+         #region selectBidirCommand
          DynamicStatusMenuCommand selectBidirCommand =
             new DynamicStatusMenuCommand(OnStatusSelectBidir, OnMenuSelectBidir, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectBidir));
 
          commands.Add(selectBidirCommand);
-
+         #endregion
+         #region expandSelectedCommand
          DynamicStatusMenuCommand expandSelectedCommand =
             new DynamicStatusMenuCommand(OnStatusExpandSelected, OnMenuExpandSelected, new CommandID(guidEFDiagramMenuCmdSet, cmdidExpandSelected));
 
          commands.Add(expandSelectedCommand);
-
+         #endregion
+         #region collapseSelectedCommand
          DynamicStatusMenuCommand collapseSelectedCommand =
             new DynamicStatusMenuCommand(OnStatusCollapseSelected, OnMenuCollapseSelected, new CommandID(guidEFDiagramMenuCmdSet, cmdidCollapseSelected));
 
          commands.Add(collapseSelectedCommand);
-
+         #endregion
+         #region mergeAssociationsCommand
          DynamicStatusMenuCommand mergeAssociationsCommand =
             new DynamicStatusMenuCommand(OnStatusMergeAssociations, OnMenuMergeAssociations, new CommandID(guidEFDiagramMenuCmdSet, cmdidMergeAssociations));
          commands.Add(mergeAssociationsCommand);
-
+         #endregion
+         #region splitAssociationCommand
          DynamicStatusMenuCommand splitAssociationCommand =
             new DynamicStatusMenuCommand(OnStatusSplitAssociation, OnMenuSplitAssociation, new CommandID(guidEFDiagramMenuCmdSet, cmdidSplitAssociation));
          commands.Add(splitAssociationCommand);
-
+         #endregion
+         #region alignLeftCommand
+         DynamicStatusMenuCommand alignLeftCommand =
+            new DynamicStatusMenuCommand(OnStatusAlignLeft, OnMenuAlignLeft, new CommandID(guidEFDiagramMenuCmdSet, cmdidAlignLeft));
+         commands.Add(alignLeftCommand);
+         #endregion
+         #region alignRightCommand
+         DynamicStatusMenuCommand alignRightCommand =
+            new DynamicStatusMenuCommand(OnStatusAlignRight, OnMenuAlignRight, new CommandID(guidEFDiagramMenuCmdSet, cmdidAlignRight));
+         commands.Add(alignRightCommand);
+         #endregion
+         #region alignTopCommand
+         DynamicStatusMenuCommand alignTopCommand =
+            new DynamicStatusMenuCommand(OnStatusAlignTop, OnMenuAlignTop, new CommandID(guidEFDiagramMenuCmdSet, cmdidAlignTop));
+         commands.Add(alignTopCommand);
+         #endregion
+         #region alignLeftCommand
+         DynamicStatusMenuCommand alignBottomCommand =
+            new DynamicStatusMenuCommand(OnStatusAlignBottom, OnMenuAlignBottom, new CommandID(guidEFDiagramMenuCmdSet, cmdidAlignBottom));
+         commands.Add(alignBottomCommand);
+         #endregion
+       
          // Additional commands go here.  
          return commands;
       }
@@ -193,6 +237,19 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          base.ProcessOnMenuDeleteCommand();
+      }
+
+      private NodeShape[] SelectedNodeShapes
+      {
+         get
+         {
+            return CurrentSelection == null 
+                      ? new NodeShape[0] 
+                      : CurrentSelection.OfType<ClassShape>().Cast<NodeShape>()
+                                        .Union(CurrentSelection.OfType<EnumShape>())
+                                        .Union(CurrentSelection.OfType<CommentBoxShape>())
+                                        .ToArray();
+         }
       }
 
       #region Find
@@ -224,6 +281,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (sender is MenuCommand command)
          {
+            // don't make this always visible -- only when there are classes but no enums selected. See On...AddValues.
             command.Visible = CurrentSelection.OfType<ClassShape>().Any() && !CurrentSelection.OfType<EnumShape>().Any();
             command.Enabled = CurrentSelection.OfType<ClassShape>().Count() == 1;
          }
@@ -323,6 +381,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (sender is MenuCommand command)
          {
+            // don't make this always visible -- only when there are enums but no classes selected. See On...AddProperties.
             command.Visible = CurrentSelection.OfType<EnumShape>().Any() && !CurrentSelection.OfType<ClassShape>().Any();
             command.Enabled = CurrentSelection.OfType<EnumShape>().Count() == 1;
          }
@@ -349,7 +408,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      {
                         string[] parts = codeFormLine.Replace(",", string.Empty)
                                                      .Replace(";", string.Empty)
-                                                     .Split(new []{"="}, StringSplitOptions.RemoveEmptyEntries)
+                                                     .Split(new[] { "=" }, StringSplitOptions.RemoveEmptyEntries)
                                                      .Select(x => x.Trim())
                                                      .ToArray();
 
@@ -428,7 +487,8 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             Store store = CurrentEFModelDocData.Store;
 
-            command.Visible = true;
+            // TODO: Need to implement this
+            command.Visible = false;
 
             IEnumerable<Association> associations = store.ElementDirectory.AllElements
                                                          .OfType<Association>()
@@ -452,8 +512,6 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             using (Transaction tx = store.TransactionManager.BeginTransaction("Add Foreign Keys"))
             {
-               foreach (Association association in associations)
-                  association.FKPropertyName = string.Join(",", association.GetForeignKeyPropertyNames());
 
                tx.Commit();
             }
@@ -470,8 +528,6 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             command.Visible = true;
             Store store = CurrentEFModelDocData.Store;
-
-            command.Visible = true;
 
             IEnumerable<Association> associations = store.ElementDirectory.AllElements
                                                          .OfType<Association>()
@@ -1017,5 +1073,167 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion Find
+
+      #region Align Left
+
+      private void OnStatusAlignLeft(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            Store store = CurrentDocData.Store;
+            ModelRoot modelRoot = store.ModelRoot();
+            command.Visible = true;
+
+            command.Enabled = modelRoot != null &&
+                              CurrentDocData is EFModelDocData &&
+                              SelectedNodeShapes.Length > 1;
+         }
+      }
+
+      private void OnMenuAlignLeft(object sender, EventArgs e)
+      {
+         Store store = CurrentDocData.Store;
+         NodeShape[] selected = SelectedNodeShapes;
+         double leftEdge = selected.Min(n => n.AbsoluteBounds.Left);
+
+         using (Transaction tx = store.TransactionManager.BeginTransaction("AlignLeft"))
+         {
+            foreach (NodeShape nodeShape in selected)
+            {
+               nodeShape.AbsoluteBounds = new RectangleD(leftEdge,
+                                                         nodeShape.AbsoluteBounds.Y,
+                                                         nodeShape.AbsoluteBounds.Width,
+                                                         nodeShape.AbsoluteBounds.Height);
+               nodeShape.Invalidate();
+            }
+
+            tx.Commit();
+         }
+
+      }
+
+      #endregion
+
+      #region Align Right
+
+      private void OnStatusAlignRight(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            Store store = CurrentDocData.Store;
+            ModelRoot modelRoot = store.ModelRoot();
+            command.Visible = true;
+
+            command.Enabled = modelRoot != null &&
+                              CurrentDocData is EFModelDocData &&
+                              SelectedNodeShapes.Length > 1;
+         }
+      }
+
+      private void OnMenuAlignRight(object sender, EventArgs e)
+      {
+         Store store = CurrentDocData.Store;
+         NodeShape[] selected = SelectedNodeShapes;
+         double rightEdge = selected.Max(n => n.AbsoluteBounds.Right);
+
+         using (Transaction tx = store.TransactionManager.BeginTransaction("AlignRight"))
+         {
+            foreach (NodeShape nodeShape in selected)
+            {
+               double distance = rightEdge - (nodeShape.AbsoluteBounds.X + nodeShape.AbsoluteBounds.Width);
+               nodeShape.AbsoluteBounds = new RectangleD(nodeShape.AbsoluteBounds.X + distance,
+                                                         nodeShape.AbsoluteBounds.Y,
+                                                         nodeShape.AbsoluteBounds.Width,
+                                                         nodeShape.AbsoluteBounds.Height);
+               nodeShape.Invalidate();
+            }
+
+            tx.Commit();
+         }
+
+      }
+
+      #endregion
+
+      #region Align Top
+
+      private void OnStatusAlignTop(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            Store store = CurrentDocData.Store;
+            ModelRoot modelRoot = store.ModelRoot();
+            command.Visible = true;
+
+            command.Enabled = modelRoot != null &&
+                              CurrentDocData is EFModelDocData &&
+                              SelectedNodeShapes.Length > 1;
+         }
+      }
+
+      private void OnMenuAlignTop(object sender, EventArgs e)
+      {
+         Store store = CurrentDocData.Store;
+         NodeShape[] selected = SelectedNodeShapes;
+         double topEdge = selected.Min(n => n.AbsoluteBounds.Top);
+
+         using (Transaction tx = store.TransactionManager.BeginTransaction("AlignTop"))
+         {
+            foreach (NodeShape nodeShape in selected)
+            {
+               nodeShape.AbsoluteBounds = new RectangleD(nodeShape.AbsoluteBounds.X,
+                                                         topEdge,
+                                                         nodeShape.AbsoluteBounds.Width,
+                                                         nodeShape.AbsoluteBounds.Height);
+               nodeShape.Invalidate();
+            }
+
+            tx.Commit();
+         }
+
+      }
+
+      #endregion
+
+      #region Align Bottom
+
+      private void OnStatusAlignBottom(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            Store store = CurrentDocData.Store;
+            ModelRoot modelRoot = store.ModelRoot();
+            command.Visible = true;
+
+            command.Enabled = modelRoot != null &&
+                              CurrentDocData is EFModelDocData &&
+                              SelectedNodeShapes.Length > 1;
+         }
+      }
+
+      private void OnMenuAlignBottom(object sender, EventArgs e)
+      {
+         Store store = CurrentDocData.Store;
+         NodeShape[] selected = SelectedNodeShapes;
+         double bottomEdge = selected.Max(n => n.AbsoluteBounds.Bottom);
+
+         using (Transaction tx = store.TransactionManager.BeginTransaction("AlignBottom"))
+         {
+            foreach (NodeShape nodeShape in selected)
+            {
+               double distance = bottomEdge - (nodeShape.AbsoluteBounds.Y + nodeShape.AbsoluteBounds.Height);
+               nodeShape.AbsoluteBounds = new RectangleD(nodeShape.AbsoluteBounds.X,
+                                                         nodeShape.AbsoluteBounds.Y + distance,
+                                                         nodeShape.AbsoluteBounds.Width,
+                                                         nodeShape.AbsoluteBounds.Height);
+               nodeShape.Invalidate();
+            }
+
+            tx.Commit();
+         }
+
+      }
+
+      #endregion
    }
 }

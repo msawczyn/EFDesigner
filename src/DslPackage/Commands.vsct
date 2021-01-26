@@ -28,6 +28,16 @@
             </Strings>
          </Menu>
 
+         <Menu guid="guidEFDiagramMenuCmdSet" id="menuidAlign" priority="0x100" type="Menu">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram" />
+            <CommandFlag>AlwaysCreate</CommandFlag>
+            <Strings>
+               <CommandName>Align</CommandName>
+               <ButtonText>Align...</ButtonText>
+               <MenuText>Align...</MenuText>
+            </Strings>
+         </Menu>
+
       </Menus>
 
       <Groups>
@@ -38,6 +48,10 @@
 
          <Group guid="guidEFDiagramMenuCmdSet" id="grpidSelect" priority="0x0000">
             <Parent guid="guidEFDiagramMenuCmdSet" id="menuidSelect"/>
+         </Group>
+
+         <Group guid="guidEFDiagramMenuCmdSet" id="grpidAlign" priority="0x0000">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="menuidAlign"/>
          </Group>
       </Groups>
 
@@ -232,6 +246,42 @@
             </Strings>
          </Button>
 
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignLeft" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidAlign"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Align Left Sides</ButtonText>
+               <CommandName>AlignLeft</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignRight" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidAlign"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Align Right Sides</ButtonText>
+               <CommandName>AlignRight</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignTop" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidAlign"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Align Tops</ButtonText>
+               <CommandName>AlignTop</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignBottom" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidAlign"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Align Bottoms</ButtonText>
+               <CommandName>AlignBottom</CommandName>
+            </Strings>
+         </Button>
+
          <!-- Model explorer menu -->
 
          <Button guid="guidMenuExplorerCmdSet" id="cmdidGoToCode" priority="0x0901" type="Button">
@@ -265,15 +315,19 @@
    </Commands>
 
    <KeyBindings>
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidFind"              editor="guidEditor" key1="F"         mod1="CONTROL" />
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidLayoutDiagram"     editor="guidEditor" key1="L"         mod1="CONTROL" />
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidRemoveShape"       editor="guidEditor" key1="VK_DELETE" mod1="CONTROL" />
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidHideShape"         editor="guidEditor" key1="H"         mod1="CONTROL ALT" />
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidShowShape"         editor="guidEditor" key1="S"         mod1="CONTROL ALT" />
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidGenerateCode"      editor="guidEditor" key1="G"         mod1="CONTROL" />
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidLoadNuGet"         editor="guidEditor" key1="N"         mod1="CONTROL ALT" />
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties" editor="guidEditor" key1="C"         mod1="CONTROL ALT" />
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidSaveAsImage"       editor="guidEditor" key1="I"         mod1="CONTROL" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidFind"                editor="guidEditor" key1="F"         mod1="CONTROL" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidLayoutDiagram"       editor="guidEditor" key1="L"         mod1="CONTROL" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidRemoveShape"         editor="guidEditor" key1="VK_DELETE" mod1="CONTROL" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidHideShape"           editor="guidEditor" key1="H"         mod1="CONTROL ALT" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidShowShape"           editor="guidEditor" key1="S"         mod1="CONTROL ALT" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidGenerateCode"        editor="guidEditor" key1="G"         mod1="CONTROL" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidLoadNuGet"           editor="guidEditor" key1="N"         mod1="CONTROL ALT" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties"   editor="guidEditor" key1="C"         mod1="CONTROL ALT" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidSaveAsImage"         editor="guidEditor" key1="I"         mod1="CONTROL" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAlignLeft"           editor="guidEditor" key1="VK_LEFT"   mod1="CONTROL SHIFT" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAlignRight"          editor="guidEditor" key1="VK_RIGHT"  mod1="CONTROL SHIFT" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAlignTop"            editor="guidEditor" key1="VK_UP"     mod1="CONTROL SHIFT" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAlignBottom"         editor="guidEditor" key1="VK_DOWN"   mod1="CONTROL SHIFT" />
    </KeyBindings>
 
    <VisibilityConstraints>
@@ -294,6 +348,15 @@
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidSplitAssociation"  context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAddForeignKeys"    context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidDelForeignKeys"    context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidSelectClasses"     context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidSelectEnums"       context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidSelectAssocs"      context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidSelectUnidir"      context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidSelectBidir"       context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAlignLeft"         context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAlignRight"        context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAlignTop"          context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAlignBottom"       context="guidEditor"/>
    </VisibilityConstraints>
 
    <Symbols>
@@ -308,9 +371,6 @@
       <!-- Diagram menu -->
 
       <GuidSymbol name="guidEFDiagramMenuCmdSet"         value="{31178ecb-5da7-46cc-bd4a-ce4e5420bd3e}" >
-         <IDSymbol name="grpidEFDiagram"                 value="0x01001"/>
-         <IDSymbol name="grpidEFDiagram"                 value="0x01001"/>
-
          <IDSymbol name="grpidEFDiagram"                 value="0x01001"/>
 
          <IDSymbol name="cmdidFind"                      value="0x00011"/>
@@ -332,12 +392,20 @@
 
          <IDSymbol name="menuidSelect"                   value="0x01100"/>
          <IDSymbol name="grpidSelect"                    value="0x01150"/>
-    
+
          <IDSymbol name="cmdidSelectClasses"             value="0x00101"/>
          <IDSymbol name="cmdidSelectEnums"               value="0x00102"/>
          <IDSymbol name="cmdidSelectAssocs"              value="0x00103"/>
          <IDSymbol name="cmdidSelectUnidir"              value="0x00104"/>
          <IDSymbol name="cmdidSelectBidir"               value="0x00105"/>
+
+         <IDSymbol name="menuidAlign"                    value="0x01200"/>
+         <IDSymbol name="grpidAlign"                     value="0x01250"/>
+    
+         <IDSymbol name="cmdidAlignLeft"                 value="0x00106"/>
+         <IDSymbol name="cmdidAlignRight"                value="0x00107"/>
+         <IDSymbol name="cmdidAlignTop"                  value="0x00108"/>
+         <IDSymbol name="cmdidAlignBottom"               value="0x00109"/>
       </GuidSymbol>
    </Symbols>
 </CommandTable>
