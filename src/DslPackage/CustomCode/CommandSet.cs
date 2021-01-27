@@ -29,42 +29,44 @@ namespace Sawczyn.EFDesigner.EFModel
       // Designer menu items
 
       // ReSharper disable once UnusedMember.Local
-      private const int grpidEFDiagram = 0x01001;
+      private const int grpidEFDiagram         = 0x01001;
 
-      private const int cmdidFind = 0x0011;
-      private const int cmdidLayoutDiagram = 0x0012;
-      private const int cmdidHideShape = 0x0013;
-      private const int cmdidShowShape = 0x0014;
-      private const int cmdidGenerateCode = 0x0015;
+      private const int cmdidFind              = 0x0011;
+      private const int cmdidLayoutDiagram     = 0x0012;
+      private const int cmdidHideShape         = 0x0013;
+      private const int cmdidShowShape         = 0x0014;
+      private const int cmdidGenerateCode      = 0x0015;
       private const int cmdidAddCodeProperties = 0x0016;
-      private const int cmdidSaveAsImage = 0x0017;
-      private const int cmdidLoadNuGet = 0x0018;
-      private const int cmdidAddCodeValues = 0x0019;
-      private const int cmdidExpandSelected = 0x001A;
-      private const int cmdidCollapseSelected = 0x001B;
+      private const int cmdidSaveAsImage       = 0x0017;
+      private const int cmdidLoadNuGet         = 0x0018;
+      private const int cmdidAddCodeValues     = 0x0019;
+      private const int cmdidExpandSelected    = 0x001A;
+      private const int cmdidCollapseSelected  = 0x001B;
       private const int cmdidMergeAssociations = 0x001C;
-      private const int cmdidSplitAssociation = 0x001D;
-      private const int cmdidRemoveShape = 0x001E;
-      private const int cmdidAddForeignKeys = 0x001F;
-      private const int cmdidDelForeignKeys = 0x0020;
+      private const int cmdidSplitAssociation  = 0x001D;
+      private const int cmdidRemoveShape       = 0x001E;
+      private const int cmdidAddForeignKeys    = 0x001F;
+      private const int cmdidDelForeignKeys    = 0x0020;
 
-      private const int cmdidSelectClasses = 0x0101;
-      private const int cmdidSelectEnums = 0x0102;
-      private const int cmdidSelectAssocs = 0x0103;
-      private const int cmdidSelectUnidir = 0x0104;
-      private const int cmdidSelectBidir = 0x0105;
-      private const int cmdidAlignLeft = 0x0106;
-      private const int cmdidAlignRight = 0x0107;
-      private const int cmdidAlignTop = 0x0108;
-      private const int cmdidAlignBottom = 0x0109;
-      private const int cmdidAlignHCenter = 0x010A;
-      private const int cmdidAlignVCenter = 0x010B;
+      private const int cmdidSelectClasses     = 0x0101;
+      private const int cmdidSelectEnums       = 0x0102;
+      private const int cmdidSelectAssocs      = 0x0103;
+      private const int cmdidSelectUnidir      = 0x0104;
+      private const int cmdidSelectBidir       = 0x0105;
+      private const int cmdidAlignLeft         = 0x0106;
+      private const int cmdidAlignRight        = 0x0107;
+      private const int cmdidAlignTop          = 0x0108;
+      private const int cmdidAlignBottom       = 0x0109;
+      private const int cmdidAlignHCenter      = 0x010A;
+      private const int cmdidAlignVCenter      = 0x010B;
+      private const int cmdidResizeWidest      = 0x010C;
+      private const int cmdidResizeNarrowest   = 0x010D;
 
       // Model Explorer menu items
 
-      internal const int cmdidExpandAll = 0x0201;
-      internal const int cmdidCollapseAll = 0x0202;
-      internal const int cmdidGoToCode = 0x0203;
+      internal const int cmdidExpandAll        = 0x0201;
+      internal const int cmdidCollapseAll      = 0x0202;
+      internal const int cmdidGoToCode         = 0x0203;
 
       internal static readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
       internal static readonly Guid guidMenuExplorerCmdSet = new Guid("922EC20C-4054-4E96-8C10-2405A1F91486");
@@ -76,158 +78,264 @@ namespace Sawczyn.EFDesigner.EFModel
          IList<MenuCommand> commands = base.GetMenuCommands();
 
          #region findCommand
+
          DynamicStatusMenuCommand findCommand =
             new DynamicStatusMenuCommand(OnStatusFind, OnMenuFind, new CommandID(guidEFDiagramMenuCmdSet, cmdidFind));
 
          commands.Add(findCommand);
+
          #endregion
+
          #region addAttributesCommand
+
          DynamicStatusMenuCommand addAttributesCommand =
             new DynamicStatusMenuCommand(OnStatusAddProperties, OnMenuAddProperties, new CommandID(guidEFDiagramMenuCmdSet, cmdidAddCodeProperties));
 
          commands.Add(addAttributesCommand);
+
          #endregion
+
          #region addValuesCommand
+
          DynamicStatusMenuCommand addValuesCommand =
             new DynamicStatusMenuCommand(OnStatusAddValues, OnMenuAddValues, new CommandID(guidEFDiagramMenuCmdSet, cmdidAddCodeValues));
 
          commands.Add(addValuesCommand);
+
          #endregion
+
          #region layoutDiagramCommand
+
          DynamicStatusMenuCommand layoutDiagramCommand =
             new DynamicStatusMenuCommand(OnStatusLayoutDiagram, OnMenuLayoutDiagram, new CommandID(guidEFDiagramMenuCmdSet, cmdidLayoutDiagram));
 
          commands.Add(layoutDiagramCommand);
+
          #endregion
+
          #region hideShapeCommand
+
          DynamicStatusMenuCommand hideShapeCommand =
             new DynamicStatusMenuCommand(OnStatusHideShape, OnMenuHideShape, new CommandID(guidEFDiagramMenuCmdSet, cmdidHideShape));
 
          commands.Add(hideShapeCommand);
+
          #endregion
+
          #region showShapeCommand
+
          DynamicStatusMenuCommand showShapeCommand =
             new DynamicStatusMenuCommand(OnStatusShowShape, OnMenuShowShape, new CommandID(guidEFDiagramMenuCmdSet, cmdidShowShape));
 
          commands.Add(showShapeCommand);
+
          #endregion
+
          #region removeShapeCommand
+
          DynamicStatusMenuCommand removeShapeCommand =
             new DynamicStatusMenuCommand(OnStatusRemoveShape, OnMenuRemoveShape, new CommandID(guidEFDiagramMenuCmdSet, cmdidRemoveShape));
 
          commands.Add(removeShapeCommand);
+
          #endregion
+
          #region addForeignKeysCommand
+
          DynamicStatusMenuCommand addForeignKeysCommand =
             new DynamicStatusMenuCommand(OnStatusAddForeignKeys, OnMenuAddForeignKeys, new CommandID(guidEFDiagramMenuCmdSet, cmdidAddForeignKeys));
 
          commands.Add(addForeignKeysCommand);
+
          #endregion
+
          #region removeForeignKeysCommand
+
          DynamicStatusMenuCommand removeForeignKeysCommand =
             new DynamicStatusMenuCommand(OnStatusRemoveForeignKeys, OnMenuRemoveForeignKeys, new CommandID(guidEFDiagramMenuCmdSet, cmdidDelForeignKeys));
 
          commands.Add(removeForeignKeysCommand);
+
          #endregion
+
          #region generateCodeCommand
+
          DynamicStatusMenuCommand generateCodeCommand =
             new DynamicStatusMenuCommand(OnStatusGenerateCode, OnMenuGenerateCode, new CommandID(guidEFDiagramMenuCmdSet, cmdidGenerateCode));
 
          commands.Add(generateCodeCommand);
+
          #endregion
+
          #region saveAsImageCommand
+
          DynamicStatusMenuCommand saveAsImageCommand =
             new DynamicStatusMenuCommand(OnStatusSaveAsImage, OnMenuSaveAsImage, new CommandID(guidEFDiagramMenuCmdSet, cmdidSaveAsImage));
 
          commands.Add(saveAsImageCommand);
+
          #endregion
+
          #region loadNuGetCommand
+
          DynamicStatusMenuCommand loadNuGetCommand =
             new DynamicStatusMenuCommand(OnStatusLoadNuGet, OnMenuLoadNuGet, new CommandID(guidEFDiagramMenuCmdSet, cmdidLoadNuGet));
 
          commands.Add(loadNuGetCommand);
+
          #endregion
+
          #region selectClassesCommand
+
          DynamicStatusMenuCommand selectClassesCommand =
             new DynamicStatusMenuCommand(OnStatusSelectClasses, OnMenuSelectClasses, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectClasses));
 
          commands.Add(selectClassesCommand);
+
          #endregion
+
          #region selectEnumsCommand
+
          DynamicStatusMenuCommand selectEnumsCommand =
             new DynamicStatusMenuCommand(OnStatusSelectEnums, OnMenuSelectEnums, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectEnums));
 
          commands.Add(selectEnumsCommand);
+
          #endregion
+
          #region selectAssocsCommand
+
          DynamicStatusMenuCommand selectAssocsCommand =
             new DynamicStatusMenuCommand(OnStatusSelectAssocs, OnMenuSelectAssocs, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectAssocs));
 
          commands.Add(selectAssocsCommand);
+
          #endregion
+
          #region selectUnidirCommand
+
          DynamicStatusMenuCommand selectUnidirCommand =
             new DynamicStatusMenuCommand(OnStatusSelectUnidir, OnMenuSelectUnidir, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectUnidir));
 
          commands.Add(selectUnidirCommand);
+
          #endregion
+
          #region selectBidirCommand
+
          DynamicStatusMenuCommand selectBidirCommand =
             new DynamicStatusMenuCommand(OnStatusSelectBidir, OnMenuSelectBidir, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectBidir));
 
          commands.Add(selectBidirCommand);
+
          #endregion
+
          #region expandSelectedCommand
+
          DynamicStatusMenuCommand expandSelectedCommand =
             new DynamicStatusMenuCommand(OnStatusExpandSelected, OnMenuExpandSelected, new CommandID(guidEFDiagramMenuCmdSet, cmdidExpandSelected));
 
          commands.Add(expandSelectedCommand);
+
          #endregion
+
          #region collapseSelectedCommand
+
          DynamicStatusMenuCommand collapseSelectedCommand =
             new DynamicStatusMenuCommand(OnStatusCollapseSelected, OnMenuCollapseSelected, new CommandID(guidEFDiagramMenuCmdSet, cmdidCollapseSelected));
 
          commands.Add(collapseSelectedCommand);
+
          #endregion
+
          #region mergeAssociationsCommand
+
          DynamicStatusMenuCommand mergeAssociationsCommand =
             new DynamicStatusMenuCommand(OnStatusMergeAssociations, OnMenuMergeAssociations, new CommandID(guidEFDiagramMenuCmdSet, cmdidMergeAssociations));
+
          commands.Add(mergeAssociationsCommand);
+
          #endregion
+
          #region splitAssociationCommand
+
          DynamicStatusMenuCommand splitAssociationCommand =
             new DynamicStatusMenuCommand(OnStatusSplitAssociation, OnMenuSplitAssociation, new CommandID(guidEFDiagramMenuCmdSet, cmdidSplitAssociation));
+
          commands.Add(splitAssociationCommand);
+
          #endregion
+
          #region alignLeftCommand
+
          DynamicStatusMenuCommand alignLeftCommand =
             new DynamicStatusMenuCommand(OnStatusAlignLeft, OnMenuAlignLeft, new CommandID(guidEFDiagramMenuCmdSet, cmdidAlignLeft));
+
          commands.Add(alignLeftCommand);
+
          #endregion
+
          #region alignRightCommand
+
          DynamicStatusMenuCommand alignRightCommand =
             new DynamicStatusMenuCommand(OnStatusAlignRight, OnMenuAlignRight, new CommandID(guidEFDiagramMenuCmdSet, cmdidAlignRight));
+
          commands.Add(alignRightCommand);
+
          #endregion
+
          #region alignTopCommand
+
          DynamicStatusMenuCommand alignTopCommand =
             new DynamicStatusMenuCommand(OnStatusAlignTop, OnMenuAlignTop, new CommandID(guidEFDiagramMenuCmdSet, cmdidAlignTop));
+
          commands.Add(alignTopCommand);
+
          #endregion
+
          #region alignLeftCommand
+
          DynamicStatusMenuCommand alignBottomCommand =
             new DynamicStatusMenuCommand(OnStatusAlignBottom, OnMenuAlignBottom, new CommandID(guidEFDiagramMenuCmdSet, cmdidAlignBottom));
+
          commands.Add(alignBottomCommand);
+
          #endregion
+
          #region alignHCenterCommand
+
          DynamicStatusMenuCommand alignHCenterCommand =
             new DynamicStatusMenuCommand(OnStatusAlignHCenter, OnMenuAlignHCenter, new CommandID(guidEFDiagramMenuCmdSet, cmdidAlignHCenter));
+
          commands.Add(alignHCenterCommand);
+
          #endregion
+
          #region alignVCenterCommand
+
          DynamicStatusMenuCommand alignVCenterCommand =
             new DynamicStatusMenuCommand(OnStatusAlignVCenter, OnMenuAlignVCenter, new CommandID(guidEFDiagramMenuCmdSet, cmdidAlignVCenter));
+
          commands.Add(alignVCenterCommand);
+
+         #endregion
+
+         #region resizeWidestCommand
+
+         DynamicStatusMenuCommand resizeWidestCommand =
+            new DynamicStatusMenuCommand(OnStatusResizeWidest, OnMenuResizeWidest, new CommandID(guidEFDiagramMenuCmdSet, cmdidResizeWidest));
+
+         commands.Add(resizeWidestCommand);
+
+         #endregion
+
+         #region resizeNarrowestCommand
+
+         DynamicStatusMenuCommand resizeNarrowestCommand =
+            new DynamicStatusMenuCommand(OnStatusResizeNarrowest, OnMenuResizeNarrowest, new CommandID(guidEFDiagramMenuCmdSet, cmdidResizeNarrowest));
+
+         commands.Add(resizeNarrowestCommand);
+
          #endregion
 
          // Additional commands go here.  
@@ -262,6 +370,15 @@ namespace Sawczyn.EFDesigner.EFModel
                                         .Union(CurrentSelection.OfType<CommentBoxShape>())
                                         .ToArray();
          }
+      }
+
+      private void EnableCommandIfMultipleNodesSelected(MenuCommand command)
+      {
+         Store store = CurrentDocData.Store;
+         ModelRoot modelRoot = store.ModelRoot();
+         command.Visible = true;
+
+         command.Enabled = modelRoot != null && CurrentDocData is EFModelDocData && SelectedNodeShapes.Length > 1;
       }
 
       #region Find
@@ -1091,15 +1208,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnStatusAlignLeft(object sender, EventArgs e)
       {
          if (sender is MenuCommand command)
-         {
-            Store store = CurrentDocData.Store;
-            ModelRoot modelRoot = store.ModelRoot();
-            command.Visible = true;
-
-            command.Enabled = modelRoot != null &&
-                              CurrentDocData is EFModelDocData &&
-                              SelectedNodeShapes.Length > 1;
-         }
+            EnableCommandIfMultipleNodesSelected(command);
       }
 
       private void OnMenuAlignLeft(object sender, EventArgs e)
@@ -1131,15 +1240,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnStatusAlignRight(object sender, EventArgs e)
       {
          if (sender is MenuCommand command)
-         {
-            Store store = CurrentDocData.Store;
-            ModelRoot modelRoot = store.ModelRoot();
-            command.Visible = true;
-
-            command.Enabled = modelRoot != null &&
-                              CurrentDocData is EFModelDocData &&
-                              SelectedNodeShapes.Length > 1;
-         }
+            EnableCommandIfMultipleNodesSelected(command);
       }
 
       private void OnMenuAlignRight(object sender, EventArgs e)
@@ -1172,15 +1273,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnStatusAlignTop(object sender, EventArgs e)
       {
          if (sender is MenuCommand command)
-         {
-            Store store = CurrentDocData.Store;
-            ModelRoot modelRoot = store.ModelRoot();
-            command.Visible = true;
-
-            command.Enabled = modelRoot != null &&
-                              CurrentDocData is EFModelDocData &&
-                              SelectedNodeShapes.Length > 1;
-         }
+            EnableCommandIfMultipleNodesSelected(command);
       }
 
       private void OnMenuAlignTop(object sender, EventArgs e)
@@ -1212,15 +1305,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnStatusAlignBottom(object sender, EventArgs e)
       {
          if (sender is MenuCommand command)
-         {
-            Store store = CurrentDocData.Store;
-            ModelRoot modelRoot = store.ModelRoot();
-            command.Visible = true;
-
-            command.Enabled = modelRoot != null &&
-                              CurrentDocData is EFModelDocData &&
-                              SelectedNodeShapes.Length > 1;
-         }
+            EnableCommandIfMultipleNodesSelected(command);
       }
 
       private void OnMenuAlignBottom(object sender, EventArgs e)
@@ -1253,15 +1338,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnStatusAlignHCenter(object sender, EventArgs e)
       {
          if (sender is MenuCommand command)
-         {
-            Store store = CurrentDocData.Store;
-            ModelRoot modelRoot = store.ModelRoot();
-            command.Visible = true;
-
-            command.Enabled = modelRoot != null &&
-                              CurrentDocData is EFModelDocData &&
-                              SelectedNodeShapes.Length > 1;
-         }
+            EnableCommandIfMultipleNodesSelected(command);
       }
 
       private void OnMenuAlignHCenter(object sender, EventArgs e)
@@ -1300,15 +1377,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnStatusAlignVCenter(object sender, EventArgs e)
       {
          if (sender is MenuCommand command)
-         {
-            Store store = CurrentDocData.Store;
-            ModelRoot modelRoot = store.ModelRoot();
-            command.Visible = true;
-
-            command.Enabled = modelRoot != null &&
-                              CurrentDocData is EFModelDocData &&
-                              SelectedNodeShapes.Length > 1;
-         }
+            EnableCommandIfMultipleNodesSelected(command);
       }
 
       private void OnMenuAlignVCenter(object sender, EventArgs e)
@@ -1323,7 +1392,7 @@ namespace Sawczyn.EFDesigner.EFModel
          var temp = selected.Select(n => new { Node = n, CenterY = n.AbsoluteBounds.Y + n.AbsoluteBounds.Height / 2 }).OrderBy(x => x.CenterY).ToArray();
          double centerY = temp[(int)(temp.Length / 2.0 + .5)].CenterY;
 
-         using (Transaction tx = store.TransactionManager.BeginTransaction("AlignHCenter"))
+         using (Transaction tx = store.TransactionManager.BeginTransaction("AlignVCenter"))
          {
             foreach (NodeShape nodeShape in selected)
             {
@@ -1331,6 +1400,78 @@ namespace Sawczyn.EFDesigner.EFModel
                nodeShape.AbsoluteBounds = new RectangleD(nodeShape.AbsoluteBounds.X,
                                                          nodeShape.AbsoluteBounds.Y + delta,
                                                          nodeShape.AbsoluteBounds.Width,
+                                                         nodeShape.AbsoluteBounds.Height);
+               nodeShape.Invalidate();
+            }
+
+            tx.Commit();
+         }
+
+      }
+
+      #endregion
+
+      #region Resize Widest
+
+      private void OnStatusResizeWidest(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+            EnableCommandIfMultipleNodesSelected(command);
+      }
+
+      private void OnMenuResizeWidest(object sender, EventArgs e)
+      {
+         Store store = CurrentDocData.Store;
+         NodeShape[] selected = SelectedNodeShapes;
+
+         if (!selected.Any())
+            return;
+
+         double widest = selected.Max(n => n.AbsoluteBounds.Width);
+
+         using (Transaction tx = store.TransactionManager.BeginTransaction("ResizeWidest"))
+         {
+            foreach (NodeShape nodeShape in selected)
+            {
+               nodeShape.AbsoluteBounds = new RectangleD(nodeShape.AbsoluteBounds.X,
+                                                         nodeShape.AbsoluteBounds.Y,
+                                                         widest,
+                                                         nodeShape.AbsoluteBounds.Height);
+               nodeShape.Invalidate();
+            }
+
+            tx.Commit();
+         }
+
+      }
+
+      #endregion
+
+      #region Resize Narrowest
+
+      private void OnStatusResizeNarrowest(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+            EnableCommandIfMultipleNodesSelected(command);
+      }
+
+      private void OnMenuResizeNarrowest(object sender, EventArgs e)
+      {
+         Store store = CurrentDocData.Store;
+         NodeShape[] selected = SelectedNodeShapes;
+
+         if (!selected.Any())
+            return;
+
+         double narrowest = selected.Min(n => n.AbsoluteBounds.Width);
+
+         using (Transaction tx = store.TransactionManager.BeginTransaction("ResizeNarrowest"))
+         {
+            foreach (NodeShape nodeShape in selected)
+            {
+               nodeShape.AbsoluteBounds = new RectangleD(nodeShape.AbsoluteBounds.X,
+                                                         nodeShape.AbsoluteBounds.Y,
+                                                         narrowest,
                                                          nodeShape.AbsoluteBounds.Height);
                nodeShape.Invalidate();
             }

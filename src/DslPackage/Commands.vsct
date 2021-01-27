@@ -4,7 +4,7 @@
    <!-- This file contains custom command definitions. -->
    <!-- -->
    <!-- NOTE: Each time commands are added or changed, the "version" parameter to the -->
-   <!-- ProvideMenuResource attribute in Shell\Package.tt should be incremented. -->
+   <!--   attribute in Shell\Package.tt should be incremented. -->
    <!-- This causes Visual Studio to re-merge the menu definitions for the package. -->
    <!-- Otherwise, changes won't take effect until the next time devenv /setup is run. -->
    <!-- -->
@@ -32,9 +32,9 @@
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram" />
             <CommandFlag>AlwaysCreate</CommandFlag>
             <Strings>
-               <CommandName>Align</CommandName>
-               <ButtonText>Align...</ButtonText>
-               <MenuText>Align...</MenuText>
+               <CommandName>Align / Resize</CommandName>
+               <ButtonText>Align / Resize...</ButtonText>
+               <MenuText>Align / Resize...</MenuText>
             </Strings>
          </Menu>
 
@@ -51,6 +51,10 @@
          </Group>
 
          <Group guid="guidEFDiagramMenuCmdSet" id="grpidAlign" priority="0x0000">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="menuidAlign"/>
+         </Group>
+
+         <Group guid="guidEFDiagramMenuCmdSet" id="grpidResize" priority="0x0000">
             <Parent guid="guidEFDiagramMenuCmdSet" id="menuidAlign"/>
          </Group>
       </Groups>
@@ -300,6 +304,24 @@
             </Strings>
          </Button>
 
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidResizeWidest" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidResize"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Resize to Widest</ButtonText>
+               <CommandName>ResizeWidest</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidResizeNarrowest" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidResize"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Resize to Narrowest</ButtonText>
+               <CommandName>ResizeNarrowest</CommandName>
+            </Strings>
+         </Button>
+         
          <!-- Model explorer menu -->
 
          <Button guid="guidMenuExplorerCmdSet" id="cmdidGoToCode" priority="0x0901" type="Button">
@@ -346,6 +368,8 @@
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAlignRight"          editor="guidEditor" key1="VK_RIGHT"  mod1="CONTROL SHIFT" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAlignTop"            editor="guidEditor" key1="VK_UP"     mod1="CONTROL SHIFT" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAlignBottom"         editor="guidEditor" key1="VK_DOWN"   mod1="CONTROL SHIFT" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidResizeWidest"        editor="guidEditor" key1="VK_RIGHT"  mod1="CONTROL ALT" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidResizeNarrowest"     editor="guidEditor" key1="VK_LEFT"   mod1="CONTROL ALT" />
    </KeyBindings>
 
    <VisibilityConstraints>
@@ -377,6 +401,8 @@
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAlignBottom"       context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAlignHCenter"      context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAlignVCenter"      context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidResizeWidest"      context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidResizeNarrowest"   context="guidEditor"/>
    </VisibilityConstraints>
 
    <Symbols>
@@ -421,13 +447,16 @@
 
          <IDSymbol name="menuidAlign"                    value="0x01200"/>
          <IDSymbol name="grpidAlign"                     value="0x01250"/>
-    
+         <IDSymbol name="grpidResize"                    value="0x01251"/>  
+
          <IDSymbol name="cmdidAlignLeft"                 value="0x00106"/>
          <IDSymbol name="cmdidAlignRight"                value="0x00107"/>
          <IDSymbol name="cmdidAlignTop"                  value="0x00108"/>
          <IDSymbol name="cmdidAlignBottom"               value="0x00109"/>
          <IDSymbol name="cmdidAlignHCenter"              value="0x0010A"/>
          <IDSymbol name="cmdidAlignVCenter"              value="0x0010B"/>
+         <IDSymbol name="cmdidResizeWidest"              value="0x0010C"/>
+         <IDSymbol name="cmdidResizeNarrowest"           value="0x0010D"/>
       </GuidSymbol>
    </Symbols>
 </CommandTable>
