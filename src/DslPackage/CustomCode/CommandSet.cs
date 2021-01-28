@@ -29,44 +29,46 @@ namespace Sawczyn.EFDesigner.EFModel
       // Designer menu items
 
       // ReSharper disable once UnusedMember.Local
-      private const int grpidEFDiagram         = 0x01001;
+      private const int grpidEFDiagram = 0x01001;
 
-      private const int cmdidFind              = 0x0011;
-      private const int cmdidLayoutDiagram     = 0x0012;
-      private const int cmdidHideShape         = 0x0013;
-      private const int cmdidShowShape         = 0x0014;
-      private const int cmdidGenerateCode      = 0x0015;
+      private const int cmdidFind = 0x0011;
+      private const int cmdidLayoutDiagram = 0x0012;
+      private const int cmdidHideShape = 0x0013;
+      private const int cmdidShowShape = 0x0014;
+      private const int cmdidGenerateCode = 0x0015;
       private const int cmdidAddCodeProperties = 0x0016;
-      private const int cmdidSaveAsImage       = 0x0017;
-      private const int cmdidLoadNuGet         = 0x0018;
-      private const int cmdidAddCodeValues     = 0x0019;
-      private const int cmdidExpandSelected    = 0x001A;
-      private const int cmdidCollapseSelected  = 0x001B;
+      private const int cmdidSaveAsImage = 0x0017;
+      private const int cmdidLoadNuGet = 0x0018;
+      private const int cmdidAddCodeValues = 0x0019;
+      private const int cmdidExpandSelected = 0x001A;
+      private const int cmdidCollapseSelected = 0x001B;
       private const int cmdidMergeAssociations = 0x001C;
-      private const int cmdidSplitAssociation  = 0x001D;
-      private const int cmdidRemoveShape       = 0x001E;
-      private const int cmdidAddForeignKeys    = 0x001F;
-      private const int cmdidDelForeignKeys    = 0x0020;
+      private const int cmdidSplitAssociation = 0x001D;
+      private const int cmdidRemoveShape = 0x001E;
+      private const int cmdidAddForeignKeys = 0x001F;
+      private const int cmdidDelForeignKeys = 0x0020;
 
-      private const int cmdidSelectClasses     = 0x0101;
-      private const int cmdidSelectEnums       = 0x0102;
-      private const int cmdidSelectAssocs      = 0x0103;
-      private const int cmdidSelectUnidir      = 0x0104;
-      private const int cmdidSelectBidir       = 0x0105;
-      private const int cmdidAlignLeft         = 0x0106;
-      private const int cmdidAlignRight        = 0x0107;
-      private const int cmdidAlignTop          = 0x0108;
-      private const int cmdidAlignBottom       = 0x0109;
-      private const int cmdidAlignHCenter      = 0x010A;
-      private const int cmdidAlignVCenter      = 0x010B;
-      private const int cmdidResizeWidest      = 0x010C;
-      private const int cmdidResizeNarrowest   = 0x010D;
+      private const int cmdidSelectClasses = 0x0101;
+      private const int cmdidSelectEnums = 0x0102;
+      private const int cmdidSelectAssocs = 0x0103;
+      private const int cmdidSelectUnidir = 0x0104;
+      private const int cmdidSelectBidir = 0x0105;
+      private const int cmdidAlignLeft = 0x0106;
+      private const int cmdidAlignRight = 0x0107;
+      private const int cmdidAlignTop = 0x0108;
+      private const int cmdidAlignBottom = 0x0109;
+      private const int cmdidAlignHCenter = 0x010A;
+      private const int cmdidAlignVCenter = 0x010B;
+      private const int cmdidResizeWidest = 0x010C;
+      private const int cmdidResizeNarrowest = 0x010D;
+      private const int cmdidEqualSpaceHoriz = 0x010E;
+      private const int cmdidEqualSpaceVert = 0x010F;
 
       // Model Explorer menu items
 
-      internal const int cmdidExpandAll        = 0x0201;
-      internal const int cmdidCollapseAll      = 0x0202;
-      internal const int cmdidGoToCode         = 0x0203;
+      internal const int cmdidExpandAll = 0x0201;
+      internal const int cmdidCollapseAll = 0x0202;
+      internal const int cmdidGoToCode = 0x0203;
 
       internal static readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
       internal static readonly Guid guidMenuExplorerCmdSet = new Guid("922EC20C-4054-4E96-8C10-2405A1F91486");
@@ -178,8 +180,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
          #region loadNuGetCommand
 
+#pragma warning disable 612
          DynamicStatusMenuCommand loadNuGetCommand =
             new DynamicStatusMenuCommand(OnStatusLoadNuGet, OnMenuLoadNuGet, new CommandID(guidEFDiagramMenuCmdSet, cmdidLoadNuGet));
+#pragma warning restore 612
 
          commands.Add(loadNuGetCommand);
 
@@ -338,6 +342,24 @@ namespace Sawczyn.EFDesigner.EFModel
 
          #endregion
 
+         #region equalSpaceHorizCommand
+
+         DynamicStatusMenuCommand equalSpaceHorizCommand =
+            new DynamicStatusMenuCommand(OnStatusEqualSpaceHoriz, OnMenuEqualSpaceHoriz, new CommandID(guidEFDiagramMenuCmdSet, cmdidEqualSpaceHoriz));
+
+         commands.Add(equalSpaceHorizCommand);
+
+         #endregion
+
+         #region equalSpaceVertCommand
+
+         DynamicStatusMenuCommand equalSpaceVertCommand =
+            new DynamicStatusMenuCommand(OnStatusEqualSpaceVert, OnMenuEqualSpaceVert, new CommandID(guidEFDiagramMenuCmdSet, cmdidEqualSpaceVert));
+
+         commands.Add(equalSpaceVertCommand);
+
+         #endregion
+
          // Additional commands go here.  
          return commands;
       }
@@ -363,7 +385,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            return CurrentSelection == null
+            return CurrentSelection.Count == 0
                       ? new NodeShape[0]
                       : CurrentSelection.OfType<ClassShape>().Cast<NodeShape>()
                                         .Union(CurrentSelection.OfType<EnumShape>())
@@ -1479,6 +1501,106 @@ namespace Sawczyn.EFDesigner.EFModel
             tx.Commit();
          }
 
+      }
+
+      #endregion
+
+      #region Equal Spacing Horiz
+
+      private void OnStatusEqualSpaceHoriz(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            Store store = CurrentDocData.Store;
+            ModelRoot modelRoot = store.ModelRoot();
+            NodeShape[] selected = SelectedNodeShapes;
+
+            command.Visible = true;
+            command.Enabled = modelRoot != null && CurrentDocData is EFModelDocData && selected.Length > 2;
+         }
+      }
+
+      private void OnMenuEqualSpaceHoriz(object sender, EventArgs e)
+      {
+         Store store = CurrentDocData.Store;
+         NodeShape[] selected = SelectedNodeShapes.OrderBy(n => n.AbsoluteBounds.X).ToArray();
+
+         double spacing = CalculateEqualHSpace(selected);
+
+         using (Transaction tx = store.TransactionManager.BeginTransaction("EqualSpaceHoriz"))
+         {
+            for (int i = 1; i < selected.Length; ++i)
+            {
+               selected[i].AbsoluteBounds = new RectangleD(selected[i - 1].AbsoluteBounds.Right + spacing,
+                                                           selected[i].AbsoluteBounds.Y,
+                                                           selected[i].AbsoluteBounds.Width,
+                                                           selected[i].AbsoluteBounds.Height);
+               selected[i].Invalidate();
+            }
+
+            tx.Commit();
+         }
+
+      }
+
+      private static double CalculateEqualHSpace(NodeShape[] selected)
+      {
+         double left = selected.Min(n => n.AbsoluteBounds.Left);
+         double right = selected.Max(n => n.AbsoluteBounds.Right);
+         double usedSpace = selected.Sum(n => n.AbsoluteBounds.Width);
+         double spacing = (right - left - usedSpace) / (selected.Length - 1);
+
+         return spacing;
+      }
+
+      #endregion
+
+      #region Equal Spacing Vert
+
+      private void OnStatusEqualSpaceVert(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            Store store = CurrentDocData.Store;
+            ModelRoot modelRoot = store.ModelRoot();
+            NodeShape[] selected = SelectedNodeShapes;
+
+            command.Visible = true;
+            command.Enabled = modelRoot != null && CurrentDocData is EFModelDocData && selected.Length > 2;
+         }
+      }
+
+      private void OnMenuEqualSpaceVert(object sender, EventArgs e)
+      {
+         Store store = CurrentDocData.Store;
+         NodeShape[] selected = SelectedNodeShapes.OrderBy(n => n.AbsoluteBounds.X).ToArray();
+
+         double spacing = CalculateEqualVSpace(selected);
+
+         using (Transaction tx = store.TransactionManager.BeginTransaction("EqualSpaceHoriz"))
+         {
+            for (int i = 1; i < selected.Length; ++i)
+            {
+               selected[i].AbsoluteBounds = new RectangleD(selected[i].AbsoluteBounds.X,
+                                                           selected[i - 1].AbsoluteBounds.Bottom + spacing,
+                                                           selected[i].AbsoluteBounds.Width,
+                                                           selected[i].AbsoluteBounds.Height);
+               selected[i].Invalidate();
+            }
+
+            tx.Commit();
+         }
+
+      }
+
+      private static double CalculateEqualVSpace(NodeShape[] selected)
+      {
+         double top = selected.Min(n => n.AbsoluteBounds.Top);
+         double bottom = selected.Max(n => n.AbsoluteBounds.Bottom);
+         double usedSpace = selected.Sum(n => n.AbsoluteBounds.Height);
+         double spacing = (bottom - top - usedSpace) / (selected.Length - 1);
+
+         return spacing;
       }
 
       #endregion

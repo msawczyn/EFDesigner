@@ -322,6 +322,24 @@
             </Strings>
          </Button>
          
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidEqualSpaceHoriz" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidResize"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Equalize Spacing Horizontally</ButtonText>
+               <CommandName>EqualSpaceHoriz</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidEqualSpaceVert" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidResize"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Equalize Spacing Vertically</ButtonText>
+               <CommandName>EqualSpaceVert</CommandName>
+            </Strings>
+         </Button>
+         
          <!-- Model explorer menu -->
 
          <Button guid="guidMenuExplorerCmdSet" id="cmdidGoToCode" priority="0x0901" type="Button">
@@ -403,6 +421,8 @@
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAlignVCenter"      context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidResizeWidest"      context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidResizeNarrowest"   context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidEqualSpaceHoriz"   context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidEqualSpaceVert"    context="guidEditor"/>
    </VisibilityConstraints>
 
    <Symbols>
@@ -457,6 +477,8 @@
          <IDSymbol name="cmdidAlignVCenter"              value="0x0010B"/>
          <IDSymbol name="cmdidResizeWidest"              value="0x0010C"/>
          <IDSymbol name="cmdidResizeNarrowest"           value="0x0010D"/>
+         <IDSymbol name="cmdidEqualSpaceHoriz"           value="0x0010E"/>
+         <IDSymbol name="cmdidEqualSpaceVert"            value="0x0010F"/>
       </GuidSymbol>
    </Symbols>
 </CommandTable>
