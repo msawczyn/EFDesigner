@@ -71,6 +71,16 @@ namespace Sawczyn.EFDesigner.EFModel {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AbstractEntityGlyphVisible {
+            get {
+                object obj = ResourceManager.GetObject("AbstractEntityGlyphVisible", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] AttributeGrammar {
@@ -203,6 +213,36 @@ namespace Sawczyn.EFDesigner.EFModel {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap EntityGlyph {
+            get {
+                object obj = ResourceManager.GetObject("EntityGlyph", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EntityGlyphVisible {
+            get {
+                object obj = ResourceManager.GetObject("EntityGlyphVisible", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Enumerator_16x {
+            get {
+                object obj = ResourceManager.GetObject("Enumerator_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap EnumValue {
             get {
                 object obj = ResourceManager.GetObject("EnumValue", resourceCulture);
@@ -323,9 +363,29 @@ namespace Sawczyn.EFDesigner.EFModel {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap SQLVisible {
+            get {
+                object obj = ResourceManager.GetObject("SQLVisible", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap TransientClass {
             get {
                 object obj = ResourceManager.GetObject("TransientClass", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TransientClassVisible {
+            get {
+                object obj = ResourceManager.GetObject("TransientClassVisible", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

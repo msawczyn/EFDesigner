@@ -11,12 +11,13 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
    {
       internal static bool IsVisible(this ModelElement modelElement, Diagram diagram = null)
       {
-         return modelElement.GetShapeElement(diagram).IsVisible(diagram);
+         return modelElement.GetShapeElement(diagram)?.IsVisible(diagram) == true;
       }
 
       internal static bool IsVisible(this ShapeElement shapeElement, Diagram diagram = null)
       {
-         return shapeElement.Diagram == (diagram ?? EFModel.ModelRoot.GetCurrentDiagram()) && shapeElement.IsVisible;
+         Diagram targetDiagram = diagram ?? EFModel.ModelRoot.GetCurrentDiagram();
+         return targetDiagram != null && shapeElement.Diagram == targetDiagram && shapeElement.IsVisible;
       }
 
       private static ShapeElement GetShapeElement(this ModelElement element, Diagram diagram = null)
@@ -40,11 +41,6 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
          }
 
          return result;
-      }
-
-      public static string GetDisplayText(this ModelElement element)
-      {
-         return element.ToString();
       }
 
       private static ModelElement GetCompartmentElementFirstParentElement(this ModelElement modelElement)
@@ -109,12 +105,6 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
       public static IEnumerable<T> GetAll<T>(this Store store)
       {
          return store?.ElementDirectory?.AllElements?.OfType<T>() ?? new T[0];
-      }
-
-      public static bool LocateInDiagram(this ModelElement element)
-      {
-         DiagramView diagramView = element.GetShapeElement()?.Diagram?.ActiveDiagramView;
-         return diagramView != null && diagramView.SelectModelElement(element);
       }
 
       public static ShapeElement GetFirstShapeElement(this ModelElement element)

@@ -299,7 +299,7 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       /// <summary>
-      /// Gets the glyph type value for display
+      /// Gets the glyph type value for the diagram. This determines the visibilities of the class shape decorators
       /// </summary>
       /// <returns>The type of glyph that should be displayed</returns>
       protected string GetGlyphTypeValue()

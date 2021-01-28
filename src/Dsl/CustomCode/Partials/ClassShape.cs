@@ -98,9 +98,9 @@ namespace Sawczyn.EFDesigner.EFModel
       /// Return the tooltip text for the specified item  
       /// </summary>  
       /// <param name="item">A DiagramItem for the selected shape. This could be the shape, or a nested child shape or field.</param>  
-      public override string GetToolTipText(DiagramItem item)  
-      {  
-    
+      public override string GetToolTipText(DiagramItem item)
+      {
+
          // Work out which shape is selected - is it this ClassShape, or  
          // is it one of the comparment shapes it contains?  
          if (item.Shape is ElementListCompartment compartment)
@@ -124,8 +124,8 @@ namespace Sawczyn.EFDesigner.EFModel
          if (item.Shape is DecoratorHostShape && item.Field?.Name == "Interface")
             return ((ModelClass)ModelElement).CustomInterfaces;
 
-         return base.GetToolTipText(item);  
-      }  
+         return base.GetToolTipText(item);
+      }
 
       /// <inheritdoc />
       protected override CompartmentMapping[] GetCompartmentMappings(Type melType)
@@ -135,36 +135,52 @@ namespace Sawczyn.EFDesigner.EFModel
          // Each item in the each compartment will call the appropriate method to determine its icon.
          // This happens any time the element's presentation element invalidates.
          foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>())
-            mapping.ImageGetter = GetPropertyImage; 
+            mapping.ImageGetter = GetPropertyImage;
 
          return mappings;
       }
 
-      public static ReadOnlyDictionary<string, Image> PropertyImages =
-            new ReadOnlyDictionary<string, Image>(new Dictionary<string, Image>
-                   {
-                      {nameof(Resources.Warning)                            , Resources.Warning}
-                    , {nameof(Resources.ForeignKeyIdentity)                 , Resources.ForeignKeyIdentity}
-                    , {nameof(Resources.Identity)                           , Resources.Identity}
-                    , {nameof(Resources.ForeignKey)                         , Resources.ForeignKey}
-                    , {nameof(Resources.Spacer)                             , Resources.Spacer}
-                    , {$"[{true}][{SetterAccessModifier.Internal}]"         , AttributeGlyphs[true][SetterAccessModifier.Internal]}
-                    , {$"[{true}][{SetterAccessModifier.Protected}]"        , AttributeGlyphs[true][SetterAccessModifier.Protected]}
-                    , {$"[{true}][{SetterAccessModifier.Public}]"           , AttributeGlyphs[true][SetterAccessModifier.Public]}
-                    , {$"[{false}][{SetterAccessModifier.Internal}]"        , AttributeGlyphs[false][SetterAccessModifier.Internal]}
-                    , {$"[{false}][{SetterAccessModifier.Protected}]"       , AttributeGlyphs[false][SetterAccessModifier.Protected]}
-                    , {$"[{false}][{SetterAccessModifier.Public}]"          , AttributeGlyphs[false][SetterAccessModifier.Public]}
-                    , {$"[{Multiplicity.One}][{Multiplicity.One}]"          , AssociationGlyphs[Multiplicity.One][Multiplicity.One]}
-                    , {$"[{Multiplicity.ZeroMany}][{Multiplicity.One}]"     , AssociationGlyphs[Multiplicity.ZeroMany][Multiplicity.One]}
-                    , {$"[{Multiplicity.ZeroOne}][{Multiplicity.One}]"      , AssociationGlyphs[Multiplicity.ZeroOne][Multiplicity.One]}
-                    , {$"[{Multiplicity.One}][{Multiplicity.ZeroMany}]"     , AssociationGlyphs[Multiplicity.One][Multiplicity.ZeroMany]}
-                    , {$"[{Multiplicity.ZeroMany}][{Multiplicity.ZeroMany}]", AssociationGlyphs[Multiplicity.ZeroMany][Multiplicity.ZeroMany]}
-                    , {$"[{Multiplicity.ZeroOne}][{Multiplicity.ZeroMany}]" , AssociationGlyphs[Multiplicity.ZeroOne][Multiplicity.ZeroMany]}
-                    , {$"[{Multiplicity.One}][{Multiplicity.ZeroOne}]"      , AssociationGlyphs[Multiplicity.One][Multiplicity.ZeroOne]}
-                    , {$"[{Multiplicity.ZeroMany}][{Multiplicity.ZeroOne}]" , AssociationGlyphs[Multiplicity.ZeroMany][Multiplicity.ZeroOne]}
-                    , {$"[{Multiplicity.ZeroOne}][{Multiplicity.ZeroOne}]"  , AssociationGlyphs[Multiplicity.ZeroOne][Multiplicity.ZeroOne]}
-                   });
+      public static ReadOnlyDictionary<string, Image> ClassImages =
+         new ReadOnlyDictionary<string, Image>(new Dictionary<string, Image>
+                                               {
+                                                  {nameof(Resources.EntityGlyph), Resources.EntityGlyph}
+                                                , {nameof(Resources.EntityGlyphVisible), Resources.EntityGlyphVisible}
+                                                , {nameof(Resources.SQL), Resources.SQL}
+                                                , {nameof(Resources.SQLVisible), Resources.SQLVisible}
+                                                , {nameof(Resources.AbstractEntityGlyph), Resources.AbstractEntityGlyph}
+                                                , {nameof(Resources.AbstractEntityGlyphVisible), Resources.AbstractEntityGlyphVisible}
+                                               });
 
+      public static ReadOnlyDictionary<string, Image> PropertyImages =
+         new ReadOnlyDictionary<string, Image>(new Dictionary<string, Image>
+                                               {
+                                                  {nameof(Resources.Warning), Resources.Warning}
+                                                , {nameof(Resources.ForeignKeyIdentity), Resources.ForeignKeyIdentity}
+                                                , {nameof(Resources.Identity), Resources.Identity}
+                                                , {nameof(Resources.ForeignKey), Resources.ForeignKey}
+                                                , {nameof(Resources.Spacer), Resources.Spacer}
+                                                , {$"[{true}][{SetterAccessModifier.Internal}]", AttributeGlyphs[true][SetterAccessModifier.Internal]}
+                                                , {$"[{true}][{SetterAccessModifier.Protected}]", AttributeGlyphs[true][SetterAccessModifier.Protected]}
+                                                , {$"[{true}][{SetterAccessModifier.Public}]", AttributeGlyphs[true][SetterAccessModifier.Public]}
+                                                , {$"[{false}][{SetterAccessModifier.Internal}]", AttributeGlyphs[false][SetterAccessModifier.Internal]}
+                                                , {$"[{false}][{SetterAccessModifier.Protected}]", AttributeGlyphs[false][SetterAccessModifier.Protected]}
+                                                , {$"[{false}][{SetterAccessModifier.Public}]", AttributeGlyphs[false][SetterAccessModifier.Public]}
+                                                , {$"[{Multiplicity.One}][{Multiplicity.One}]", AssociationGlyphs[Multiplicity.One][Multiplicity.One]}
+                                                , {$"[{Multiplicity.ZeroMany}][{Multiplicity.One}]", AssociationGlyphs[Multiplicity.ZeroMany][Multiplicity.One]}
+                                                , {$"[{Multiplicity.ZeroOne}][{Multiplicity.One}]", AssociationGlyphs[Multiplicity.ZeroOne][Multiplicity.One]}
+                                                , {$"[{Multiplicity.One}][{Multiplicity.ZeroMany}]", AssociationGlyphs[Multiplicity.One][Multiplicity.ZeroMany]}
+                                                , {$"[{Multiplicity.ZeroMany}][{Multiplicity.ZeroMany}]", AssociationGlyphs[Multiplicity.ZeroMany][Multiplicity.ZeroMany]}
+                                                , {$"[{Multiplicity.ZeroOne}][{Multiplicity.ZeroMany}]", AssociationGlyphs[Multiplicity.ZeroOne][Multiplicity.ZeroMany]}
+                                                , {$"[{Multiplicity.One}][{Multiplicity.ZeroOne}]", AssociationGlyphs[Multiplicity.One][Multiplicity.ZeroOne]}
+                                                , {$"[{Multiplicity.ZeroMany}][{Multiplicity.ZeroOne}]", AssociationGlyphs[Multiplicity.ZeroMany][Multiplicity.ZeroOne]}
+                                                , {$"[{Multiplicity.ZeroOne}][{Multiplicity.ZeroOne}]", AssociationGlyphs[Multiplicity.ZeroOne][Multiplicity.ZeroOne]}
+                                               });
+
+      /// <summary>
+      /// Determines which image to display for a property on the diagram only. Model explorer uses GetExplorerPropertyImageName instead.
+      /// </summary>
+      /// <param name="element"></param>
+      /// <returns></returns>
       public static Image GetPropertyImage(ModelElement element)
       {
          ModelRoot modelRoot = element.Store.ModelRoot();
@@ -239,14 +255,14 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       /// <summary>
-      /// Provides the well-known name of the resource image for the Model Explorer
+      /// Provides the well-known name of the resource image for the Model Explorer. Note that these are not directly the resource names in
+      /// Dsl::Resources.resx, but rather a) for diagrams, a key to a dictionary containing the glyphs
+      /// or b) for the model explorer, the names of the glyphs registered with its image list
       /// </summary>
       /// <param name="element">ModelElement the explorer node is representing</param>
       /// <returns>Well-known name of the resource image for the Model Explorer</returns>
       public static string GetExplorerPropertyImageName(ModelElement element)
       {
-         ModelRoot modelRoot = element.Store.ModelRoot();
-
          // note: model explorer doesn't show warning nodes
          switch (element)
          {
@@ -268,6 +284,14 @@ namespace Sawczyn.EFDesigner.EFModel
                   return nameof(Resources.ForeignKey);
 
                return $"[{attribute.Persistent}][{attribute.SetterVisibility}]";
+
+            case ModelClass modelClass:
+               if (modelClass.IsQueryType)
+                  return modelClass.IsVisible() ? nameof(Resources.SQLVisible) : nameof(Resources.SQL);
+               if (modelClass.IsAbstract)
+                  return modelClass.IsVisible() ? nameof(Resources.AbstractEntityGlyphVisible) : nameof(Resources.AbstractEntityGlyph);
+
+               return modelClass.IsVisible() ? nameof(Resources.EntityGlyphVisible) : nameof(Resources.EntityGlyph);
          }
 
          return nameof(Resources.Spacer);
@@ -391,7 +415,7 @@ namespace Sawczyn.EFDesigner.EFModel
          foreach (ElementListCompartment compartment in NestedChildShapes.OfType<ElementListCompartment>())
          {
             compartment.HasItemToolTips = true;
-         
+
             compartment.MouseDown += Compartment_MouseDown;
             compartment.MouseUp += Compartment_MouseUp;
             compartment.MouseMove += Compartment_MouseMove;

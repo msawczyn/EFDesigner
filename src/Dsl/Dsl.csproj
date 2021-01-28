@@ -396,6 +396,7 @@
       <LastGenOutput>SynchronizationHelper.cs</LastGenOutput>
     </Content>
     <Content Include="Resources\AbstractEntityGlyph.png" />
+    <Content Include="Resources\AbstractEntityGlyphVisible.png" />
     <Content Include="Resources\Calculated.png" />
     <Content Include="Resources\CalculatedInternal.png" />
     <Content Include="Resources\CalculatedProtected.png" />
@@ -409,6 +410,7 @@
     <Content Include="Resources\cardinality-many-1.png" />
     <Content Include="Resources\cardinality-many-many.png" />
     <Content Include="Resources\Dictionary_16x.png" />
+    <Content Include="Resources\EntityGlyphVisible.bmp" />
     <Content Include="Resources\Enumerator_16x.png" />
     <Content Include="Resources\EnumItem_16x.png" />
     <Content Include="Resources\EnumValue.png" />
@@ -424,9 +426,10 @@
     <Content Include="Resources\ShowDiagramPane_16x.png" />
     <Content Include="Resources\Spacer.png" />
     <Content Include="Resources\SQL.png" />
+    <None Include="Resources\SQLVisible.png" />
     <Content Include="Resources\TransientClass.png" />
+    <Content Include="Resources\TransientClassVisible.png" />
     <Content Include="Resources\Warning.png" />
-    <Content Include="Resources\ForeignKeyIdentity.pdn" />
     <None Include="Templates\MonikerAmbiguityValidation.tt" />
     <None Include="Templates\Diagram.tt" />
     <None Include="Templates\DomainClassSerializer.tt" />
