@@ -33,7 +33,7 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
             result = diagram.Store.GetAll<ShapeElement>().FirstOrDefault(x => x.ModelElement == element && x.Diagram == diagram);
 
             // If the model element is in a compartment the result should be null? Check for Compartment type just in case
-            if (result == null || result is Compartment)
+            if (result is Compartment)
             {
                ModelElement parentElement = element.GetCompartmentElementFirstParentElement();
                result = parentElement?.GetShapeElement(diagram);

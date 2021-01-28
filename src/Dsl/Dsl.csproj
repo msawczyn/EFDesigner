@@ -412,6 +412,7 @@
     <Content Include="Resources\Dictionary_16x.png" />
     <Content Include="Resources\EntityGlyphVisible.bmp" />
     <Content Include="Resources\Enumerator_16x.png" />
+    <Content Include="Resources\Enumerator_16xVisible.png" />
     <Content Include="Resources\EnumItem_16x.png" />
     <Content Include="Resources\EnumValue.png" />
     <Content Include="Resources\ForeignKey.png" />

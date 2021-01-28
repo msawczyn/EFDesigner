@@ -14,6 +14,8 @@ using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    internal partial class EFModelExplorer : IVsWindowSearch
@@ -392,9 +394,11 @@ namespace Sawczyn.EFDesigner.EFModel
       partial void Init()
       {
          // this sets up the images for use in the model explorer. They don't come out of Dsl::Resources.resx directly, but are named the same
-         // See EFModelElementTreeNode.GetExplorerPropertyImageName for how this happens.
+         // See EFModelElementTreeNode.GetExplorerNodeImageName (below) for how this happens.
          foreach (KeyValuePair<string, Image> image in ClassShape.PropertyImages.Union(ClassShape.ClassImages))
             ObjectModelBrowser.ImageList.Images.Add(image.Key, image.Value);
+         ObjectModelBrowser.ImageList.Images.Add(nameof(Resources.Enumerator_16x), Resources.Enumerator_16x);
+         ObjectModelBrowser.ImageList.Images.Add(nameof(Resources.Enumerator_16xVisible), Resources.Enumerator_16xVisible);
 
          // shoehorn the search widget into the list
          SuspendLayout();
@@ -615,9 +619,11 @@ namespace Sawczyn.EFDesigner.EFModel
             // we're using the images determined by the shape class to keep the explorer and diagram glyphs in sync
             // available images are determined in EFModelExplorer.Init()
             if (RepresentedElement is ModelAttribute modelAttribute)
-               ThreadHelper.Generic.BeginInvoke(() => { SelectedImageKey = ImageKey = ClassShape.GetExplorerPropertyImageName(modelAttribute); });
+               ThreadHelper.Generic.BeginInvoke(() => { SelectedImageKey = ImageKey = ClassShape.GetExplorerNodeImageName(modelAttribute); });
             else if (RepresentedElement is ModelClass modelClass)
-               ThreadHelper.Generic.BeginInvoke(() => { SelectedImageKey = ImageKey = ClassShape.GetExplorerPropertyImageName(modelClass); });
+               ThreadHelper.Generic.BeginInvoke(() => { SelectedImageKey = ImageKey = ClassShape.GetExplorerNodeImageName(modelClass); });
+            else if (RepresentedElement is ModelEnum modelEnum)
+               ThreadHelper.Generic.BeginInvoke(() => { SelectedImageKey = ImageKey = (modelEnum.IsVisible() ? nameof(Resources.Enumerator_16xVisible) : nameof(Resources.Enumerator_16x)); });
          }
       }
    }

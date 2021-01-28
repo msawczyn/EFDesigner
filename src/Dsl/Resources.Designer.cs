@@ -243,6 +243,16 @@ namespace Sawczyn.EFDesigner.EFModel {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Enumerator_16xVisible {
+            get {
+                object obj = ResourceManager.GetObject("Enumerator_16xVisible", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap EnumValue {
             get {
                 object obj = ResourceManager.GetObject("EnumValue", resourceCulture);

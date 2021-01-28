@@ -177,7 +177,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                });
 
       /// <summary>
-      /// Determines which image to display for a property on the diagram only. Model explorer uses GetExplorerPropertyImageName instead.
+      /// Determines which image to display for a property on the diagram only. Model explorer uses GetExplorerNodeImageName instead.
       /// </summary>
       /// <param name="element"></param>
       /// <returns></returns>
@@ -261,7 +261,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       /// <param name="element">ModelElement the explorer node is representing</param>
       /// <returns>Well-known name of the resource image for the Model Explorer</returns>
-      public static string GetExplorerPropertyImageName(ModelElement element)
+      public static string GetExplorerNodeImageName(ModelElement element)
       {
          // note: model explorer doesn't show warning nodes
          switch (element)
