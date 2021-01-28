@@ -410,6 +410,7 @@
     <Content Include="Resources\cardinality-many-1.png" />
     <Content Include="Resources\cardinality-many-many.png" />
     <Content Include="Resources\Dictionary_16x.png" />
+    <Content Include="Resources\EntityGlyph.png" />
     <Content Include="Resources\EntityGlyphVisible.bmp" />
     <Content Include="Resources\Enumerator_16x.png" />
     <Content Include="Resources\Enumerator_16xVisible.png" />
@@ -516,7 +517,6 @@
     <Content Include="Resources\Attribute.bmp" />
     <Content Include="Resources\CommentLinkTool.bmp" />
     <Content Include="Resources\CommentTool.bmp" />
-    <Content Include="Resources\EntityGlyph.bmp" />
     <Content Include="Resources\EnumTool.bmp" />
     <Content Include="Resources\File.ico" />
     <Content Include="Resources\GeneralizationTool.bmp" />
