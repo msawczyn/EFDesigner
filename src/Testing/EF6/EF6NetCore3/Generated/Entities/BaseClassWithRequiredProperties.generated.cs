@@ -48,7 +48,6 @@ namespace Testing
          if (string.IsNullOrEmpty(property0)) throw new ArgumentNullException(nameof(property0));
          this.Property0 = property0;
 
-
          Init();
       }
 
@@ -91,7 +90,7 @@ namespace Testing
             GetId(ref value);
             return (_id = value);
          }
-         protected set
+         set
          {
             int oldValue = _id;
             SetId(oldValue, ref value);

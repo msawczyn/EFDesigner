@@ -59,13 +59,14 @@ namespace Testing
 
          if (bparentrequired == null) throw new ArgumentNullException(nameof(bparentrequired));
          this.BParentRequired = bparentrequired;
+         bparentrequired.BChildOptional = this;
 
          if (bparentrequired_2 == null) throw new ArgumentNullException(nameof(bparentrequired_2));
          this.BParentRequired_2 = bparentrequired_2;
+         bparentrequired_2.BChildCollection.Add(this);
 
          this.BParentCollection = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
          this.BParentCollection_2 = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
-
          Init();
       }
 
@@ -109,7 +110,7 @@ namespace Testing
             GetId(ref value);
             return (_id = value);
          }
-         protected set
+         set
          {
             int oldValue = _id;
             SetId(oldValue, ref value);

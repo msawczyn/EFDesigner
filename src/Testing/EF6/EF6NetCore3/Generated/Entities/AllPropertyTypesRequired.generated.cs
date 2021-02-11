@@ -87,7 +87,6 @@ namespace Testing
          if (string.IsNullOrEmpty(stringattr)) throw new ArgumentNullException(nameof(stringattr));
          this.StringAttr = stringattr;
 
-
          Init();
       }
 
@@ -143,7 +142,7 @@ namespace Testing
             GetId(ref value);
             return (_id = value);
          }
-         protected set
+         set
          {
             int oldValue = _id;
             SetId(oldValue, ref value);

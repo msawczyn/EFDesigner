@@ -22,7 +22,8 @@ namespace Testing
    /// <summary>
    /// x
    /// </summary>
-   public partial class UParentOptional: global::Testing.HiddenEntity, INotifyPropertyChanged
+   [System.ComponentModel.Description("x")]
+   public partial class UParentOptional: global::Testing.HiddenEntity
    {
       partial void Init();
 
@@ -57,7 +58,6 @@ namespace Testing
          this.UChildRequired = uchildrequired;
 
          this.UChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.UChild>();
-
          Init();
       }
 
@@ -113,13 +113,25 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
+      /// <summary>
+      /// Backing field for UChildOptional
+      /// </summary>
       protected global::Testing.UChild _uChildOptional;
+
+      /// <summary>
+      /// When provided in a partial class, allows value of UChildOptional to be changed before setting.
+      /// </summary>
       partial void SetUChildOptional(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);
+
+      /// <summary>
+      /// When provided in a partial class, allows value of UChildOptional to be changed before returning.
+      /// </summary>
       partial void GetUChildOptional(ref global::Testing.UChild result);
 
       /// <summary>
       /// x
       /// </summary>
+      [Description("x")]
       public virtual global::Testing.UChild UChildOptional
       {
          get
@@ -139,10 +151,15 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for UChildCollection
+      /// </summary>
       protected ICollection<global::Testing.UChild> _uChildCollection;
+
       /// <summary>
       /// h
       /// </summary>
+      [Description("h")]
       public virtual ICollection<global::Testing.UChild> UChildCollection
       {
          get
@@ -155,8 +172,19 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for UChildRequired
+      /// </summary>
       protected global::Testing.UChild _uChildRequired;
+
+      /// <summary>
+      /// When provided in a partial class, allows value of UChildRequired to be changed before setting.
+      /// </summary>
       partial void SetUChildRequired(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);
+
+      /// <summary>
+      /// When provided in a partial class, allows value of UChildRequired to be changed before returning.
+      /// </summary>
       partial void GetUChildRequired(ref global::Testing.UChild result);
 
       /// <summary>
@@ -179,13 +207,6 @@ namespace Testing
                _uChildRequired = value;
             }
          }
-      }
-
-      public virtual event PropertyChangedEventHandler PropertyChanged;
-
-      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-      {
-         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }
 
    }

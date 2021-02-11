@@ -47,7 +47,6 @@ namespace Testing
          this.Id1 = id1;
 
          this.OwnedType = new global::Testing.OwnedType();
-
          Init();
       }
 
@@ -90,7 +89,7 @@ namespace Testing
             GetId(ref value);
             return (_id = value);
          }
-         protected set
+         set
          {
             int oldValue = _id;
             SetId(oldValue, ref value);
@@ -596,8 +595,19 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
+      /// <summary>
+      /// Backing field for OwnedType
+      /// </summary>
       protected global::Testing.OwnedType _ownedType;
+
+      /// <summary>
+      /// When provided in a partial class, allows value of OwnedType to be changed before setting.
+      /// </summary>
       partial void SetOwnedType(global::Testing.OwnedType oldValue, ref global::Testing.OwnedType newValue);
+
+      /// <summary>
+      /// When provided in a partial class, allows value of OwnedType to be changed before returning.
+      /// </summary>
       partial void GetOwnedType(ref global::Testing.OwnedType result);
 
       public virtual global::Testing.OwnedType OwnedType

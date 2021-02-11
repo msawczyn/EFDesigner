@@ -50,12 +50,12 @@ namespace Testing
       {
          if (parent == null) throw new ArgumentNullException(nameof(parent));
          this.Parent = parent;
+         parent.Children.Add(this);
 
          if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
          _master0.Children.Add(this);
 
          this.Children = new System.Collections.Generic.HashSet<global::Testing.Child>();
-
          Init();
       }
 
@@ -99,7 +99,7 @@ namespace Testing
             GetId(ref value);
             return (_id = value);
          }
-         protected set
+         set
          {
             int oldValue = _id;
             SetId(oldValue, ref value);

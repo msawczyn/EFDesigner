@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.0.5
+//     Produced by Entity Framework Visual Editor v3.0.4.5
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -45,12 +45,13 @@ namespace Sandbox_EF6_Test
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; protected set; }
+      public int Id { get; set; }
 
       /// <summary>
       /// Indexed
       /// Foreign key for Entity1.Entity2 &lt;--&gt; Entity2.Entity1. 
       /// </summary>
+      [System.ComponentModel.Description("Foreign key for Entity1.Entity2 <--> Entity2.Entity1. ")]
       public int? FK { get; set; }
 
       /*************************************************************************

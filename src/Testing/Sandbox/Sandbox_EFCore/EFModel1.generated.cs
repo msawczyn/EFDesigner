@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.1.0
+//     Produced by Entity Framework Visual Editor v3.0.4.5
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -47,6 +47,8 @@ namespace EFDesignerCoreTest
       /// <inheritdoc />
       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
+         optionsBuilder.UseLazyLoadingProxies();
+
          CustomInit(optionsBuilder);
       }
 
@@ -66,12 +68,13 @@ namespace EFDesignerCoreTest
                      .HasKey(t => t.Id);
          modelBuilder.Entity<global::EFDesignerCoreTest.Entity1>()
                      .Property(t => t.Id)
-                     .IsRequired()
-                     .ValueGeneratedOnAdd();
+                     .ValueGeneratedOnAdd()
+                     .IsRequired();
          modelBuilder.Entity<global::EFDesignerCoreTest.Entity1>()
                      .HasOne<global::EFDesignerCoreTest.EntityImplementation>(p => p.EntityImplementation)
                      .WithOne(p => p.Entity1)
-                     .HasForeignKey("Entity1", "EntityImplementationId");
+                     .HasForeignKey("Entity1", "EntityImplementationId")
+                     .OnDelete(DeleteBehavior.Cascade);
          modelBuilder.Entity<global::EFDesignerCoreTest.Entity1>().Navigation(e => e.EntityImplementation).IsRequired();
 
          modelBuilder.Entity<global::EFDesignerCoreTest.EntityAbstract>()
@@ -79,8 +82,8 @@ namespace EFDesignerCoreTest
                      .HasKey(t => t.Id);
          modelBuilder.Entity<global::EFDesignerCoreTest.EntityAbstract>()
                      .Property(t => t.Id)
-                     .IsRequired()
-                     .ValueGeneratedOnAdd();
+                     .ValueGeneratedOnAdd()
+                     .IsRequired();
 
          modelBuilder.Entity<global::EFDesignerCoreTest.EntityImplementation>()
                      .Property(t => t.Test)
@@ -91,8 +94,8 @@ namespace EFDesignerCoreTest
                      .HasKey(t => t.Id);
          modelBuilder.Entity<global::EFDesignerCoreTest.EntityRelated>()
                      .Property(t => t.Id)
-                     .IsRequired()
-                     .ValueGeneratedOnAdd();
+                     .ValueGeneratedOnAdd()
+                     .IsRequired();
          modelBuilder.Entity<global::EFDesignerCoreTest.EntityRelated>()
                      .HasOne<global::EFDesignerCoreTest.EntityAbstract>(p => p.EntityAbstract)
                      .WithMany(p => p.EntityRelated)

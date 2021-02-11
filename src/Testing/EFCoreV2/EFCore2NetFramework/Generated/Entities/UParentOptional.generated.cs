@@ -53,7 +53,6 @@ namespace Testing
          this.UChildRequired = uchildrequired;
 
          this.UChildCollection = new System.Collections.Generic.HashSet<global::Testing.UChild>();
-
          Init();
       }
 

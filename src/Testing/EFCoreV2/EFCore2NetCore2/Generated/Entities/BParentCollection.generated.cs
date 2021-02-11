@@ -48,7 +48,7 @@ namespace Testing
       {
          if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
          this.BChildRequired = bchildrequired;
-
+         bchildrequired.BParentCollection.Add(this);
 
          Init();
       }
@@ -92,7 +92,7 @@ namespace Testing
             GetId(ref value);
             return (_id = value);
          }
-         protected set
+         set
          {
             int oldValue = _id;
             SetId(oldValue, ref value);
@@ -107,8 +107,19 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
+      /// <summary>
+      /// Backing field for BChildRequired
+      /// </summary>
       protected global::Testing.BChild _bChildRequired;
+
+      /// <summary>
+      /// When provided in a partial class, allows value of BChildRequired to be changed before setting.
+      /// </summary>
       partial void SetBChildRequired(global::Testing.BChild oldValue, ref global::Testing.BChild newValue);
+
+      /// <summary>
+      /// When provided in a partial class, allows value of BChildRequired to be changed before returning.
+      /// </summary>
       partial void GetBChildRequired(ref global::Testing.BChild result);
 
       /// <summary>
@@ -133,8 +144,19 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for BChildOptional
+      /// </summary>
       protected global::Testing.BChild _bChildOptional;
+
+      /// <summary>
+      /// When provided in a partial class, allows value of BChildOptional to be changed before setting.
+      /// </summary>
       partial void SetBChildOptional(global::Testing.BChild oldValue, ref global::Testing.BChild newValue);
+
+      /// <summary>
+      /// When provided in a partial class, allows value of BChildOptional to be changed before returning.
+      /// </summary>
       partial void GetBChildOptional(ref global::Testing.BChild result);
 
       public virtual global::Testing.BChild BChildOptional

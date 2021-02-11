@@ -28,7 +28,6 @@ namespace Testing
       protected Child()
       {
          Children = new System.Collections.Generic.HashSet<global::Testing.Child>();
-         Parent = global::Testing.Child.CreateChildUnsafe();
 
          Init();
       }
@@ -50,12 +49,12 @@ namespace Testing
       {
          if (parent == null) throw new ArgumentNullException(nameof(parent));
          this.Parent = parent;
+         parent.Children.Add(this);
 
          if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
          _master0.Children.Add(this);
 
          this.Children = new System.Collections.Generic.HashSet<global::Testing.Child>();
-
          Init();
       }
 
@@ -99,7 +98,7 @@ namespace Testing
             GetId(ref value);
             return (_id = value);
          }
-         protected set
+         set
          {
             int oldValue = _id;
             SetId(oldValue, ref value);
@@ -114,7 +113,11 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
+      /// <summary>
+      /// Backing field for Children
+      /// </summary>
       protected ICollection<global::Testing.Child> _children;
+
       public virtual ICollection<global::Testing.Child> Children
       {
          get

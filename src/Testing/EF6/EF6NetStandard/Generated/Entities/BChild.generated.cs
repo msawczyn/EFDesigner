@@ -61,14 +61,15 @@ namespace Testing
 
          if (bparentrequired == null) throw new ArgumentNullException(nameof(bparentrequired));
          this.BParentRequired = bparentrequired;
+         bparentrequired.BChildOptional = this;
 
          if (bparentrequired_2 == null) throw new ArgumentNullException(nameof(bparentrequired_2));
          this.BParentRequired_2 = bparentrequired_2;
+         bparentrequired_2.BChildCollection.Add(this);
 
          this.BParentCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BParentCollection>();
          this.BParentCollection_1 = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BParentCollection>();
          this.BParentCollection_2 = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BParentCollection>();
-
          Init();
       }
 
@@ -87,231 +88,42 @@ namespace Testing
        *************************************************************************/
 
       /// <summary>
-      /// Backing field for Id
-      /// </summary>
-      internal int _id;
-      /// <summary>
-      /// When provided in a partial class, allows value of Id to be changed before setting.
-      /// </summary>
-      partial void SetId(int oldValue, ref int newValue);
-      /// <summary>
-      /// When provided in a partial class, allows value of Id to be changed before returning.
-      /// </summary>
-      partial void GetId(ref int result);
-
-      /// <summary>
       /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]
-      public int Id
-      {
-         get
-         {
-            int value = _id;
-            GetId(ref value);
-            return (_id = value);
-         }
-         protected set
-         {
-            int oldValue = _id;
-            SetId(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _id = value;
-            }
-         }
-      }
+      public int Id { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
 
-      protected global::Testing.BParentRequired _bParentRequired;
-      partial void SetBParentRequired(global::Testing.BParentRequired oldValue, ref global::Testing.BParentRequired newValue);
-      partial void GetBParentRequired(ref global::Testing.BParentRequired result);
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::Testing.BParentRequired BParentRequired { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Testing.BParentRequired BParentRequired
-      {
-         get
-         {
-            global::Testing.BParentRequired value = _bParentRequired;
-            GetBParentRequired(ref value);
-            return (_bParentRequired = value);
-         }
-         set
-         {
-            global::Testing.BParentRequired oldValue = _bParentRequired;
-            SetBParentRequired(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _bParentRequired = value;
-            }
-         }
-      }
-
-      protected global::Testing.BParentRequired _bParentRequired_1;
-      partial void SetBParentRequired_1(global::Testing.BParentRequired oldValue, ref global::Testing.BParentRequired newValue);
-      partial void GetBParentRequired_1(ref global::Testing.BParentRequired result);
+      public virtual global::Testing.BParentRequired BParentRequired_1 { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Testing.BParentRequired BParentRequired_1
-      {
-         get
-         {
-            global::Testing.BParentRequired value = _bParentRequired_1;
-            GetBParentRequired_1(ref value);
-            return (_bParentRequired_1 = value);
-         }
-         set
-         {
-            global::Testing.BParentRequired oldValue = _bParentRequired_1;
-            SetBParentRequired_1(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _bParentRequired_1 = value;
-            }
-         }
-      }
+      public virtual global::Testing.BParentRequired BParentRequired_2 { get; set; }
 
-      protected global::Testing.BParentRequired _bParentRequired_2;
-      partial void SetBParentRequired_2(global::Testing.BParentRequired oldValue, ref global::Testing.BParentRequired newValue);
-      partial void GetBParentRequired_2(ref global::Testing.BParentRequired result);
+      public virtual ICollection<global::Testing.BParentCollection> BParentCollection { get; private set; }
 
-      /// <summary>
-      /// Required
-      /// </summary>
-      public virtual global::Testing.BParentRequired BParentRequired_2
-      {
-         get
-         {
-            global::Testing.BParentRequired value = _bParentRequired_2;
-            GetBParentRequired_2(ref value);
-            return (_bParentRequired_2 = value);
-         }
-         set
-         {
-            global::Testing.BParentRequired oldValue = _bParentRequired_2;
-            SetBParentRequired_2(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _bParentRequired_2 = value;
-            }
-         }
-      }
+      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_1 { get; private set; }
 
-      protected ICollection<global::Testing.BParentCollection> _bParentCollection;
-      public virtual ICollection<global::Testing.BParentCollection> BParentCollection
-      {
-         get
-         {
-            return _bParentCollection;
-         }
-         private set
-         {
-            _bParentCollection = value;
-         }
-      }
+      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_2 { get; private set; }
 
-      protected ICollection<global::Testing.BParentCollection> _bParentCollection_1;
-      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_1
-      {
-         get
-         {
-            return _bParentCollection_1;
-         }
-         private set
-         {
-            _bParentCollection_1 = value;
-         }
-      }
+      public virtual global::Testing.BParentOptional BParentOptional { get; set; }
 
-      protected ICollection<global::Testing.BParentCollection> _bParentCollection_2;
-      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_2
-      {
-         get
-         {
-            return _bParentCollection_2;
-         }
-         private set
-         {
-            _bParentCollection_2 = value;
-         }
-      }
+      public virtual global::Testing.BParentOptional BParentOptional_1 { get; set; }
 
-      protected global::Testing.BParentOptional _bParentOptional;
-      partial void SetBParentOptional(global::Testing.BParentOptional oldValue, ref global::Testing.BParentOptional newValue);
-      partial void GetBParentOptional(ref global::Testing.BParentOptional result);
-
-      public virtual global::Testing.BParentOptional BParentOptional
-      {
-         get
-         {
-            global::Testing.BParentOptional value = _bParentOptional;
-            GetBParentOptional(ref value);
-            return (_bParentOptional = value);
-         }
-         set
-         {
-            global::Testing.BParentOptional oldValue = _bParentOptional;
-            SetBParentOptional(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _bParentOptional = value;
-            }
-         }
-      }
-
-      protected global::Testing.BParentOptional _bParentOptional_1;
-      partial void SetBParentOptional_1(global::Testing.BParentOptional oldValue, ref global::Testing.BParentOptional newValue);
-      partial void GetBParentOptional_1(ref global::Testing.BParentOptional result);
-
-      public virtual global::Testing.BParentOptional BParentOptional_1
-      {
-         get
-         {
-            global::Testing.BParentOptional value = _bParentOptional_1;
-            GetBParentOptional_1(ref value);
-            return (_bParentOptional_1 = value);
-         }
-         set
-         {
-            global::Testing.BParentOptional oldValue = _bParentOptional_1;
-            SetBParentOptional_1(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _bParentOptional_1 = value;
-            }
-         }
-      }
-
-      protected global::Testing.BParentOptional _bParentOptional_2;
-      partial void SetBParentOptional_2(global::Testing.BParentOptional oldValue, ref global::Testing.BParentOptional newValue);
-      partial void GetBParentOptional_2(ref global::Testing.BParentOptional result);
-
-      public virtual global::Testing.BParentOptional BParentOptional_2
-      {
-         get
-         {
-            global::Testing.BParentOptional value = _bParentOptional_2;
-            GetBParentOptional_2(ref value);
-            return (_bParentOptional_2 = value);
-         }
-         set
-         {
-            global::Testing.BParentOptional oldValue = _bParentOptional_2;
-            SetBParentOptional_2(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _bParentOptional_2 = value;
-            }
-         }
-      }
+      public virtual global::Testing.BParentOptional BParentOptional_2 { get; set; }
 
    }
 }

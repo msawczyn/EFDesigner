@@ -24,7 +24,7 @@ using System.Runtime.CompilerServices;
 
 namespace Sandbox_EFCore5NetCore3_Test
 {
-   public partial class Entity1: IValidatableObject
+   public partial class Entity1
    {
       partial void Init();
 

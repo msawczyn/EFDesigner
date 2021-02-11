@@ -27,6 +27,8 @@ namespace Sandbox_EFCore5NetCore3_Test
       #region DbSets
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore5NetCore3_Test.Entity1> Entity1 { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore5NetCore3_Test.Entity2> Entity2 { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore5NetCore3_Test.Entity3> Entity3 { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore5NetCore3_Test.Entity4> Entity4 { get; set; }
 
       #endregion DbSets
 
@@ -70,6 +72,13 @@ namespace Sandbox_EFCore5NetCore3_Test
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().ToTable("Entity2").HasKey(t => t.Id);
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().Property(t => t.Id).ValueGeneratedOnAdd().IsRequired();
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().Property(t => t.Property1).IsRequired();
+
+         modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity3>().ToTable("Entity3").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity3>().Property(t => t.Id).ValueGeneratedOnAdd().IsRequired();
+
+         modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity4>().ToTable("Entity4").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity4>().Property(t => t.Id).ValueGeneratedOnAdd().IsRequired();
+         modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity4>().HasMany<global::Sandbox_EFCore5NetCore3_Test.Entity3>(p => p.Entity3).WithOne().HasForeignKey("Entity4Entity3Id");
 
          OnModelCreatedImpl(modelBuilder);
       }

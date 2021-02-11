@@ -50,9 +50,9 @@ namespace Testing
       {
          if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
          this.BChildRequired = bchildrequired;
+         bchildrequired.BParentCollection.Add(this);
 
          this.BChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BChild>();
-
          Init();
       }
 
@@ -70,107 +70,24 @@ namespace Testing
        *************************************************************************/
 
       /// <summary>
-      /// Backing field for Id
-      /// </summary>
-      internal int _id;
-      /// <summary>
-      /// When provided in a partial class, allows value of Id to be changed before setting.
-      /// </summary>
-      partial void SetId(int oldValue, ref int newValue);
-      /// <summary>
-      /// When provided in a partial class, allows value of Id to be changed before returning.
-      /// </summary>
-      partial void GetId(ref int result);
-
-      /// <summary>
       /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]
-      public int Id
-      {
-         get
-         {
-            int value = _id;
-            GetId(ref value);
-            return (_id = value);
-         }
-         protected set
-         {
-            int oldValue = _id;
-            SetId(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _id = value;
-            }
-         }
-      }
+      public int Id { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
 
-      protected global::Testing.BChild _bChildRequired;
-      partial void SetBChildRequired(global::Testing.BChild oldValue, ref global::Testing.BChild newValue);
-      partial void GetBChildRequired(ref global::Testing.BChild result);
-
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Testing.BChild BChildRequired
-      {
-         get
-         {
-            global::Testing.BChild value = _bChildRequired;
-            GetBChildRequired(ref value);
-            return (_bChildRequired = value);
-         }
-         set
-         {
-            global::Testing.BChild oldValue = _bChildRequired;
-            SetBChildRequired(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _bChildRequired = value;
-            }
-         }
-      }
+      public virtual global::Testing.BChild BChildRequired { get; set; }
 
-      protected ICollection<global::Testing.BChild> _bChildCollection;
-      public virtual ICollection<global::Testing.BChild> BChildCollection
-      {
-         get
-         {
-            return _bChildCollection;
-         }
-         private set
-         {
-            _bChildCollection = value;
-         }
-      }
+      public virtual ICollection<global::Testing.BChild> BChildCollection { get; private set; }
 
-      protected global::Testing.BChild _bChildOptional;
-      partial void SetBChildOptional(global::Testing.BChild oldValue, ref global::Testing.BChild newValue);
-      partial void GetBChildOptional(ref global::Testing.BChild result);
-
-      public virtual global::Testing.BChild BChildOptional
-      {
-         get
-         {
-            global::Testing.BChild value = _bChildOptional;
-            GetBChildOptional(ref value);
-            return (_bChildOptional = value);
-         }
-         set
-         {
-            global::Testing.BChild oldValue = _bChildOptional;
-            SetBChildOptional(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _bChildOptional = value;
-            }
-         }
-      }
+      public virtual global::Testing.BChild BChildOptional { get; set; }
 
    }
 }

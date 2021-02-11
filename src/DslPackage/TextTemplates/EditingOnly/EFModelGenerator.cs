@@ -12,7 +12,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.3
+      // EFDesigner v3.0.4
       // Copyright (c) 2017-2021 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -419,6 +419,9 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                                                                                  ? x.InitialValue.Trim(quote[0])
                                                                                                  : x.InitialValue);
 
+                                                                if (x.FQPrimitiveType == "decimal")
+                                                                   value += "m";
+
                                                                 return $"{x.FQPrimitiveType} {x.Name.ToLower()} = {quote}{value}{quote}";
                                                              }));
             }
@@ -689,9 +692,14 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                        ? "'"
                                        : string.Empty;
 
+                  string initialValue = modelAttribute.InitialValue;
+
+                  if (modelAttribute.Type == "decimal")
+                     initialValue += "m";
+
                   Output(quote.Length > 0
-                            ? $"this.{modelAttribute.Name} = {quote}{FullyQualified(modelAttribute.InitialValue.Trim(quote[0]))}{quote};"
-                            : $"this.{modelAttribute.Name} = {quote}{FullyQualified(modelAttribute.InitialValue)}{quote};");
+                            ? $"this.{modelAttribute.Name} = {quote}{FullyQualified(initialValue.Trim(quote[0]))}{quote};"
+                            : $"this.{modelAttribute.Name} = {quote}{FullyQualified(initialValue)}{quote};");
                }
 
                // all required navigation properties that aren't a 1..1 relationship
@@ -703,9 +711,12 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   string parameterName = requiredNavigationProperty.PropertyName.ToLower();
                   Output($"if ({parameterName} == null) throw new ArgumentNullException(nameof({parameterName}));");
 
-                  Output(requiredNavigationProperty.IsCollection
-                            ? $"{requiredNavigationProperty.PropertyName}.Add({parameterName});"
-                            : $"this.{requiredNavigationProperty.PropertyName} = {parameterName};");
+                  if (!requiredNavigationProperty.ConstructorParameterOnly)
+                  {
+                     Output(requiredNavigationProperty.IsCollection
+                               ? $"{requiredNavigationProperty.PropertyName}.Add({parameterName});"
+                               : $"this.{requiredNavigationProperty.PropertyName} = {parameterName};");
+                  }
 
                   if (!string.IsNullOrEmpty(otherSide.PropertyName))
                   {
@@ -770,11 +781,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                                                                                   && x.SetterVisibility == SetterAccessModifier.Public))
                Output($@"/// <param name=""{requiredAttribute.Name.ToLower()}"">{string.Join(" ", GenerateCommentBody(requiredAttribute.Summary))}</param>");
 
-            // TODO: Add comment if available
             foreach (NavigationProperty requiredNavigationProperty in modelClass.AllRequiredNavigationProperties()
                                                                                 .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
                                                                                           || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
-               Output($@"/// <param name=""{requiredNavigationProperty.PropertyName.ToLower()}""></param>");
+               Output($@"/// <param name=""{requiredNavigationProperty.PropertyName.ToLower()}"">{string.Join(" ", GenerateCommentBody(requiredNavigationProperty.Summary))}</param>");
          }
 
          protected void WriteDbContextComments()
@@ -809,10 +819,14 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                  : modelAttribute.Type == "Char"
                                     ? "'"
                                     : string.Empty;
+               string initialValue = modelAttribute.InitialValue;
+
+               if (modelAttribute.Type == "decimal")
+                  initialValue += "m";
 
                Output(quote.Length == 1
-                         ? $"{modelAttribute.Name} = {quote}{FullyQualified(modelAttribute.InitialValue.Trim(quote[0]))}{quote};"
-                         : $"{modelAttribute.Name} = {quote}{FullyQualified(modelAttribute.InitialValue)}{quote};");
+                         ? $"{modelAttribute.Name} = {quote}{FullyQualified(initialValue.Trim(quote[0]))}{quote};"
+                         : $"{modelAttribute.Name} = {quote}{FullyQualified(initialValue)}{quote};");
 
                ++lineCount;
             }
@@ -1094,7 +1108,12 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                        ? "'"
                                        : string.Empty;
 
-                  segments.Add($"Default value = {quote}{FullyQualified(modelAttribute.InitialValue.Trim('"'))}{quote}");
+                  string initialValue = modelAttribute.InitialValue;
+
+                  if (modelAttribute.Type == "decimal")
+                     initialValue += "m";
+
+                  segments.Add($"Default value = {quote}{FullyQualified(initialValue.Trim('"'))}{quote}");
                }
 
                string nullable = IsNullable(modelAttribute)

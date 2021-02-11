@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.0.5
+//     Produced by Entity Framework Visual Editor v3.0.4.4
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -34,7 +34,6 @@ namespace Testing
       protected Child()
       {
          Children = new System.Collections.Generic.HashSet<global::Testing.Child>();
-         Parent = global::Testing.Child.CreateChildUnsafe();
 
          Init();
       }
@@ -56,12 +55,12 @@ namespace Testing
       {
          if (parent == null) throw new ArgumentNullException(nameof(parent));
          this.Parent = parent;
+         parent.Children.Add(this);
 
          if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
          _master0.Children.Add(this);
 
          this.Children = new System.Collections.Generic.HashSet<global::Testing.Child>();
-
          Init();
       }
 
@@ -105,7 +104,7 @@ namespace Testing
             GetId(ref value);
             return (_id = value);
          }
-         protected set
+         set
          {
             int oldValue = _id;
             SetId(oldValue, ref value);
@@ -120,7 +119,11 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
+      /// <summary>
+      /// Backing field for Children
+      /// </summary>
       protected ICollection<global::Testing.Child> _children;
+
       public virtual ICollection<global::Testing.Child> Children
       {
          get

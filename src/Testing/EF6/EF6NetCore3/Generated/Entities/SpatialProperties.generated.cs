@@ -104,7 +104,6 @@ namespace Testing
          if (attrgeometrypoint == null) throw new ArgumentNullException(nameof(attrgeometrypoint));
          this.AttrGeometryPoint = attrgeometrypoint;
 
-
          Init();
       }
 
@@ -161,7 +160,7 @@ namespace Testing
             GetId(ref value);
             return (_id = value);
          }
-         protected set
+         set
          {
             int oldValue = _id;
             SetId(oldValue, ref value);

@@ -63,7 +63,7 @@ namespace Testing
             GetId(ref value);
             return (_id = value);
          }
-         protected set
+         set
          {
             int oldValue = _id;
             SetId(oldValue, ref value);
@@ -78,7 +78,11 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
+      /// <summary>
+      /// Backing field for Children
+      /// </summary>
       protected ICollection<global::Testing.Child> _children;
+
       public virtual ICollection<global::Testing.Child> Children
       {
          get

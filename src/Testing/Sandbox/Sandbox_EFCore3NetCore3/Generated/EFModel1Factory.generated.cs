@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.1.1
+//     Produced by Entity Framework Visual Editor v3.0.4.5
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -24,11 +24,17 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace Testing
 {
+   /// <summary>
+   /// A factory for creating derived DbContext instances. Implement this interface to enable design-time services for context 
+   /// types that do not have a public default constructor. At design-time, derived DbContext instances can be created in order 
+   /// to enable specific design-time experiences such as Migrations. Design-time services will automatically discover 
+   /// implementations of this interface that are in the startup assembly or the same assembly as the derived context.
+   /// </summary>
    public class EFModel1Factory: IDesignTimeDbContextFactory<EFModel1>
    {
       /// <summary>Creates a new instance of a derived context.</summary>
       /// <param name="args"> Arguments provided by the design-time service. </param>
-      /// <returns> An instance of <typeparamref name="Testing.EFModel1" />.</returns>
+      /// <returns> An instance of <see cref="Testing.EFModel1" />.</returns>
       public EFModel1 CreateDbContext(string[] args)
       {
          DbContextOptionsBuilder<EFModel1> optionsBuilder = new DbContextOptionsBuilder<EFModel1>();

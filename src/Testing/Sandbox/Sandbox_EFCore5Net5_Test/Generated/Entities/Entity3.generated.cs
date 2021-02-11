@@ -4,6 +4,12 @@
 //
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
+//
+//     Produced by Entity Framework Visual Editor
+//     Source:                    https://github.com/msawczyn/EFDesigner
+//     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
+//     Documentation:             https://msawczyn.github.io/EFDesigner/
+//     License (MIT):             https://github.com/msawczyn/EFDesigner/blob/master/LICENSE
 // </auto-generated>
 //------------------------------------------------------------------------------
 
@@ -15,54 +21,48 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Data.Entity.Spatial;
 
-namespace Testing
+namespace Sandbox_EFCore5NetCore3_Test
 {
-   public partial class BParentOptional
+   public partial class Entity3
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected BParentOptional()
+      protected Entity3()
       {
-         BChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BChild>();
-         BChildRequired = global::Testing.BChild.CreateBChildUnsafe();
-
          Init();
       }
 
       /// <summary>
       /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
       /// </summary>
-      public static BParentOptional CreateBParentOptionalUnsafe()
+      public static Entity3 CreateEntity3Unsafe()
       {
-         return new BParentOptional();
+         return new Entity3();
       }
 
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="bchildrequired"></param>
-      public BParentOptional(global::Testing.BChild bchildrequired)
+      /// <param name="_entity40"></param>
+      public Entity3(global::Sandbox_EFCore5NetCore3_Test.Entity4 _entity40)
       {
-         if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
-         this.BChildRequired = bchildrequired;
-         bchildrequired.BParentOptional = this;
+         if (_entity40 == null) throw new ArgumentNullException(nameof(_entity40));
+         _entity40.Entity3.Add(this);
 
-         this.BChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BChild>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="bchildrequired"></param>
-      public static BParentOptional Create(global::Testing.BChild bchildrequired)
+      /// <param name="_entity40"></param>
+      public static Entity3 Create(global::Sandbox_EFCore5NetCore3_Test.Entity4 _entity40)
       {
-         return new BParentOptional(bchildrequired);
+         return new Entity3(_entity40);
       }
 
       /*************************************************************************
@@ -71,23 +71,16 @@ namespace Testing
 
       /// <summary>
       /// Identity, Indexed, Required
+      /// Unique identifier
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      [System.ComponentModel.Description("Unique identifier")]
+      public long Id { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
-
-      /// <summary>
-      /// Required
-      /// </summary>
-      public virtual global::Testing.BChild BChildRequired { get; set; }
-
-      public virtual ICollection<global::Testing.BChild> BChildCollection { get; private set; }
-
-      public virtual global::Testing.BChild BChildOptional { get; set; }
 
    }
 }

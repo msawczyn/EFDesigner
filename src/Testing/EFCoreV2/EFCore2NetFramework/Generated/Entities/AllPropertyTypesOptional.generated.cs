@@ -47,7 +47,6 @@ namespace Testing
          this.Id1 = id1;
 
          this.OwnedType = new global::Testing.OwnedType();
-
          Init();
       }
 
@@ -90,7 +89,7 @@ namespace Testing
             GetId(ref value);
             return (_id = value);
          }
-         protected set
+         set
          {
             int oldValue = _id;
             SetId(oldValue, ref value);

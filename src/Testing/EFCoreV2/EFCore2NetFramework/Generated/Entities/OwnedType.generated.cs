@@ -39,7 +39,6 @@ namespace Testing
          if (_allpropertytypesoptional0 == null) throw new ArgumentNullException(nameof(_allpropertytypesoptional0));
          _allpropertytypesoptional0.OwnedType = this;
 
-
          Init();
       }
 

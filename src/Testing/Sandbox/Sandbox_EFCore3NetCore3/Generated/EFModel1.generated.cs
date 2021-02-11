@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.1.1
+//     Produced by Entity Framework Visual Editor v3.0.4.5
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -43,12 +43,6 @@ namespace Testing
       }
 
       partial void CustomInit(DbContextOptionsBuilder optionsBuilder);
-
-      /// <inheritdoc />
-      protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-      {
-         CustomInit(optionsBuilder);
-      }
 
       partial void OnModelCreatingImpl(ModelBuilder modelBuilder);
       partial void OnModelCreatedImpl(ModelBuilder modelBuilder);
@@ -91,7 +85,7 @@ namespace Testing
                      .HasDefaultValue("default string");
          modelBuilder.Entity<global::Testing.EntityImplementation>()
                      .Property(t => t.Property1)
-                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                     .HasDefaultValue(DateTime.UtcNow);
          modelBuilder.Entity<global::Testing.EntityImplementation>()
                      .Property(t => t.Property11)
                      .HasDefaultValue(3);

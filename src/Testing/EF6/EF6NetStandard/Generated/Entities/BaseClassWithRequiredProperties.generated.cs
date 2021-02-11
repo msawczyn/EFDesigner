@@ -48,7 +48,6 @@ namespace Testing
          if (string.IsNullOrEmpty(property0)) throw new ArgumentNullException(nameof(property0));
          this.Property0 = property0;
 
-
          Init();
       }
 
@@ -66,77 +65,17 @@ namespace Testing
        *************************************************************************/
 
       /// <summary>
-      /// Backing field for Id
-      /// </summary>
-      internal int _id;
-      /// <summary>
-      /// When provided in a partial class, allows value of Id to be changed before setting.
-      /// </summary>
-      partial void SetId(int oldValue, ref int newValue);
-      /// <summary>
-      /// When provided in a partial class, allows value of Id to be changed before returning.
-      /// </summary>
-      partial void GetId(ref int result);
-
-      /// <summary>
       /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]
-      public int Id
-      {
-         get
-         {
-            int value = _id;
-            GetId(ref value);
-            return (_id = value);
-         }
-         protected set
-         {
-            int oldValue = _id;
-            SetId(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _id = value;
-            }
-         }
-      }
-
-      /// <summary>
-      /// Backing field for Property0
-      /// </summary>
-      protected string _property0;
-      /// <summary>
-      /// When provided in a partial class, allows value of Property0 to be changed before setting.
-      /// </summary>
-      partial void SetProperty0(string oldValue, ref string newValue);
-      /// <summary>
-      /// When provided in a partial class, allows value of Property0 to be changed before returning.
-      /// </summary>
-      partial void GetProperty0(ref string result);
+      public int Id { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public string Property0
-      {
-         get
-         {
-            string value = _property0;
-            GetProperty0(ref value);
-            return (_property0 = value);
-         }
-         set
-         {
-            string oldValue = _property0;
-            SetProperty0(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _property0 = value;
-            }
-         }
-      }
+      public string Property0 { get; set; }
 
    }
 }

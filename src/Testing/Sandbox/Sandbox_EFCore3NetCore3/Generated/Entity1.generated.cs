@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.1.1
+//     Produced by Entity Framework Visual Editor v3.0.4.5
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -33,8 +33,6 @@ namespace Testing
       /// </summary>
       protected Entity1()
       {
-         EntityImplementation = new global::Testing.EntityImplementation();
-
          Init();
       }
 
@@ -54,7 +52,7 @@ namespace Testing
       {
          if (entityimplementation == null) throw new ArgumentNullException(nameof(entityimplementation));
          this.EntityImplementation = entityimplementation;
-
+         entityimplementation.Entity1 = this;
 
          Init();
       }
@@ -78,7 +76,8 @@ namespace Testing
       /// </summary>
       [Key]
       [Required]
-      public long Id { get; protected set; }
+      [System.ComponentModel.Description("Unique identifier")]
+      public long Id { get; set; }
 
       /*************************************************************************
        * Navigation properties

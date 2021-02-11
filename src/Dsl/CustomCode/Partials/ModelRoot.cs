@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
 
+using Sawczyn.EFDesigner.EFModel.Annotations;
 using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -290,40 +291,73 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #region Nuget
 
+      [Obsolete] 
       public NuGetDisplay NuGetPackageVersion
       {
          get
          {
             return NuGetHelper.NuGetPackageDisplay
-                              .FirstOrDefault(x => x.EFVersion == EntityFrameworkVersion 
+                              .FirstOrDefault(x => x.EFVersion == EntityFrameworkVersion
                                                 && x.DisplayVersion == EntityFrameworkPackageVersion);
          }
       }
 
+      /// <summary>
+      /// Transforms the selected EntityFrameworkPackageVersion into a decimal number, only taking the first two segments into account. If a "Latest" version is chosen, looks up the appropriate real version.
+      /// </summary>
       public double GetEntityFrameworkPackageVersionNum()
       {
          string packageVersion = EntityFrameworkPackageVersion;
+         string[] parts = packageVersion.Split('.');
 
          if (packageVersion.EndsWith("Latest"))
-            packageVersion = NuGetHelper.EFPackageVersions[EntityFrameworkVersion].Where(x => !x.EndsWith("Latest")).OrderByDescending(x => x).FirstOrDefault();
+         {
+            (int A, int B, int C) actualVersion;
 
-         string[] parts = (packageVersion ?? "").Split('.');
+            switch (parts.Length)
+            {
+               case 1: // just "Latest"
+                  actualVersion = NugetVersions.Last();
+                  break;
+               case 2: // x.Latest
+                  actualVersion = NugetVersions.Last(v => v.A == int.Parse(parts[0]));
+                  break;
+               default: // x.y.Latest
+                  actualVersion = NugetVersions.Last(v => v.A == int.Parse(parts[0]) && v.B == int.Parse(parts[1]));
+                  break;
+            }
 
-         string resultString = parts.Length > 1
-                                  ? $"{parts[0]}.{parts[1]}"
-                                  : parts.FirstOrDefault();
+            packageVersion = $"{actualVersion.A}.{actualVersion.B}";
+         }
+         else
+            packageVersion = $"{parts[0]}.{parts[1]}";
 
-         return double.TryParse(resultString, out double result)
-                   ? result
-                   : 0;
+         return double.Parse(packageVersion);
       }
 
+      private List<(int A, int B, int C)> nugetVersions;
+      private List<(int A, int B, int C)> NugetVersions
+      {
+         get
+         {
+            return nugetVersions
+                ?? (nugetVersions = NuGetHelper.EFPackageVersions[EntityFrameworkVersion]
+                                               .Where(x => x.Count(c => c == '.') == 2)
+                                               .Select(v => (int.TryParse(v.Substring(0, v.IndexOf('.')), out int x1) ? x1 : 0
+                                                           , int.TryParse(v.Substring(v.IndexOf('.') + 1, v.IndexOf('.', v.IndexOf('.') + 1) - v.IndexOf('.') - 1), out int x2) ? x2 : 0
+                                                           , int.TryParse(v.Substring(v.IndexOf('.', v.IndexOf('.') + 1) + 1), out int x3) ? x3 : 0))
+                                               .OrderBy<(int A, int B, int C), int>(v => v.A).ThenBy(v => v.B).ThenBy(v => v.C)
+                                               .Distinct()
+                                               .ToList());
+         }
+      }
       #endregion Nuget
 
       #region Validation methods
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validatioin")]
+      [UsedImplicitly]
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void ConnectionStringMustExist(ValidationContext context)
       {
          if (!Classes.Any() && !Enums.Any())
@@ -337,7 +371,8 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validatioin")]
+      [UsedImplicitly]
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
          if (string.IsNullOrWhiteSpace(Summary) && WarnOnMissingDocumentation)

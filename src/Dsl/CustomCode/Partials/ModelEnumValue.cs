@@ -2,8 +2,9 @@
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
 using Sawczyn.EFDesigner.EFModel.Extensions;
-using System.Collections.Generic;
 using System.Linq;
+
+using Sawczyn.EFDesigner.EFModel.Annotations;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -41,7 +42,8 @@ namespace Sawczyn.EFDesigner.EFModel
       #endregion
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      // ReSharper disable once UnusedMember.Local
+      [UsedImplicitly]
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
          if (Enum?.ModelRoot == null) return;

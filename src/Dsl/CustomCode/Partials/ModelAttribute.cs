@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
@@ -13,7 +12,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
-   [SuppressMessage("ReSharper", "ArrangeAccessorOwnerBody")]
+   [System.Diagnostics.CodeAnalysis.SuppressMessage("ReSharper", "ArrangeAccessorOwnerBody")]
    public partial class ModelAttribute : IModelElementInCompartment, IDisplaysWarning, IHasStore
    {
       internal const int MAXLENGTH_MAX = -1;
@@ -116,8 +115,6 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="typeName">Name of type to test. If typeName is null, Type property will be used. If initialValue is null, InitialValue property will be used</param>
       /// <param name="initialValue">Initial value to test</param>
       /// <returns>true if InitialValue is a valid value for the type, or if initialValue is null or empty</returns>
-#pragma warning disable 168
-      [SuppressMessage("ReSharper", "BuiltInTypeReferenceStyle")]
       public bool IsValidInitialValue(string typeName = null, string initialValue = null)
       {
          typeName = typeName ?? Type;
@@ -154,9 +151,9 @@ namespace Sawczyn.EFDesigner.EFModel
             case "Polygon":
                return false; //string.IsNullOrEmpty(initialValue);
             case "Boolean":
-               return bool.TryParse(initialValue, out bool _bool);
+               return bool.TryParse(initialValue, out _);
             case "Byte":
-               return byte.TryParse(initialValue, out byte _byte);
+               return byte.TryParse(initialValue, out _);
             case "DateTime":
                switch (initialValue?.Trim())
                {
@@ -166,32 +163,32 @@ namespace Sawczyn.EFDesigner.EFModel
                   case "DateTime.MaxValue":
                      return true;
                   default:
-                     return DateTime.TryParse(initialValue, out DateTime _dateTime);
+                     return DateTime.TryParse(initialValue, out _);
                }
             case "DateTimeOffset":
-               return DateTimeOffset.TryParse(initialValue, out DateTimeOffset _dateTimeOffset);
+               return DateTimeOffset.TryParse(initialValue, out _);
             case "Decimal":
-               return Decimal.TryParse(initialValue, out Decimal _decimal);
+               return Decimal.TryParse(initialValue, out _);
             case "Double":
-               return Double.TryParse(initialValue, out Double _double);
+               return Double.TryParse(initialValue, out _);
             case "Guid":
-               return Guid.TryParse(initialValue, out Guid _guid);
+               return Guid.TryParse(initialValue, out _);
             case "Int16":
-               return Int16.TryParse(initialValue, out Int16 _int16);
+               return Int16.TryParse(initialValue, out _);
             case "UInt16":
-               return UInt16.TryParse(initialValue, out UInt16 _uint16);
+               return UInt16.TryParse(initialValue, out _);
             case "Int32":
-               return Int32.TryParse(initialValue, out Int32 _int32);
+               return Int32.TryParse(initialValue, out _);
             case "UInt32":
-               return UInt32.TryParse(initialValue, out UInt32 _uint32);
+               return UInt32.TryParse(initialValue, out _);
             case "Int64":
-               return Int64.TryParse(initialValue, out Int64 _int64);
+               return Int64.TryParse(initialValue, out _);
             case "UInt64":
-               return UInt64.TryParse(initialValue, out UInt64 _uint64);
+               return UInt64.TryParse(initialValue, out _);
             case "SByte":
-               return SByte.TryParse(initialValue, out SByte _sbyte);
+               return SByte.TryParse(initialValue, out _);
             case "Single":
-               return Single.TryParse(initialValue, out Single _single);
+               return Single.TryParse(initialValue, out _);
             case "String":
                return true;
             case "Time":
@@ -199,8 +196,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                              new[] { "HH:mm:ss", "H:mm:ss", "HH:mm", "H:mm", "HH:mm:ss tt", "H:mm:ss tt", "HH:mm tt", "H:mm tt" },
                                              CultureInfo.InvariantCulture,
                                              DateTimeStyles.None,
-                                             out DateTime _time);
-            // ReSharper restore UnusedVariable
+                                             out _);
             default:
                if (initialValue.Contains("."))
                {
@@ -214,7 +210,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
          return false;
       }
-#pragma warning restore 168
 
       /// <summary>
       /// From internal class System.Data.Metadata.Edm.PrimitiveType in System.Data.Entity. Converts the attribute's CLR type to a C# primitive type.
@@ -935,6 +930,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       [UsedImplicitly]
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void GeographyTypeDoesNotMatchEFVersion(ValidationContext context)
       {
          if (ModelClass?.ModelRoot == null) return;
@@ -966,7 +962,8 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      // ReSharper disable once UnusedMember.Local
+      [UsedImplicitly]
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void StringsShouldHaveLength(ValidationContext context)
       {
          if (ModelClass?.ModelRoot == null) return;
@@ -980,7 +977,8 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      // ReSharper disable once UnusedMember.Local
+      [UsedImplicitly]
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
          if (ModelClass?.ModelRoot == null) return;

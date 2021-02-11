@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.0.5
+//     Produced by Entity Framework Visual Editor v3.0.4.4
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -56,7 +56,6 @@ namespace MultiContext.Context2
          if (_entity20 == null) throw new ArgumentNullException(nameof(_entity20));
          _entity20.Entity3.Add(this);
 
-
          Init();
       }
 
@@ -81,13 +80,14 @@ namespace MultiContext.Context2
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; protected set; }
+      public int Id { get; set; }
 
       /// <summary>
       /// Indexed, Required
       /// Foreign key for Entity2.Entity3 --&gt; Entity3. 
       /// </summary>
       [Required]
+      [System.ComponentModel.Description("Foreign key for Entity2.Entity3 --> Entity3. ")]
       public int Fk { get; set; }
 
       /*************************************************************************

@@ -51,12 +51,12 @@ namespace Testing
       {
          if (parent == null) throw new ArgumentNullException(nameof(parent));
          this.Parent = parent;
+         parent.Children.Add(this);
 
          if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
          _master0.Children.Add(this);
 
          this.Children = new System.Collections.ObjectModel.ObservableCollection<global::Testing.Child>();
-
          Init();
       }
 
@@ -75,84 +75,22 @@ namespace Testing
        *************************************************************************/
 
       /// <summary>
-      /// Backing field for Id
-      /// </summary>
-      internal int _id;
-      /// <summary>
-      /// When provided in a partial class, allows value of Id to be changed before setting.
-      /// </summary>
-      partial void SetId(int oldValue, ref int newValue);
-      /// <summary>
-      /// When provided in a partial class, allows value of Id to be changed before returning.
-      /// </summary>
-      partial void GetId(ref int result);
-
-      /// <summary>
       /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]
-      public int Id
-      {
-         get
-         {
-            int value = _id;
-            GetId(ref value);
-            return (_id = value);
-         }
-         protected set
-         {
-            int oldValue = _id;
-            SetId(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _id = value;
-            }
-         }
-      }
+      public int Id { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
 
-      protected ICollection<global::Testing.Child> _children;
-      public virtual ICollection<global::Testing.Child> Children
-      {
-         get
-         {
-            return _children;
-         }
-         private set
-         {
-            _children = value;
-         }
-      }
-
-      protected global::Testing.Child _parent;
-      partial void SetParent(global::Testing.Child oldValue, ref global::Testing.Child newValue);
-      partial void GetParent(ref global::Testing.Child result);
+      public virtual ICollection<global::Testing.Child> Children { get; private set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Testing.Child Parent
-      {
-         get
-         {
-            global::Testing.Child value = _parent;
-            GetParent(ref value);
-            return (_parent = value);
-         }
-         set
-         {
-            global::Testing.Child oldValue = _parent;
-            SetParent(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _parent = value;
-            }
-         }
-      }
+      public virtual global::Testing.Child Parent { get; set; }
 
    }
 }
