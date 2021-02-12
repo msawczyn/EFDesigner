@@ -507,29 +507,33 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          protected string[] GenerateCommentBody(string comment)
          {
             List<string> result = new List<string>();
-            int chunkSize = 80;
-            string[] parts = comment.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-            foreach (string value in parts)
+            if (!string.IsNullOrEmpty(comment))
             {
-               string text = value;
+               int chunkSize = 80;
+               string[] parts = comment.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.RemoveEmptyEntries);
 
-               while (text.Length > 0)
+               foreach (string value in parts)
                {
-                  string outputText = text;
+                  string text = value;
 
-                  if (outputText.Length > chunkSize)
+                  while (text.Length > 0)
                   {
-                     outputText = (text.IndexOf(' ', chunkSize) > 0
-                                      ? text.Substring(0, text.IndexOf(' ', chunkSize))
-                                      : text).Trim();
+                     string outputText = text;
 
-                     text = text.Substring(outputText.Length).Trim();
+                     if (outputText.Length > chunkSize)
+                     {
+                        outputText = (text.IndexOf(' ', chunkSize) > 0
+                                         ? text.Substring(0, text.IndexOf(' ', chunkSize))
+                                         : text).Trim();
+
+                        text = text.Substring(outputText.Length).Trim();
+                     }
+                     else
+                        text = string.Empty;
+
+                     result.Add(SecurityElement.Escape(outputText));
                   }
-                  else
-                     text = string.Empty;
-
-                  result.Add(SecurityElement.Escape(outputText));
                }
             }
 

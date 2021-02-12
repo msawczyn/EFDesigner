@@ -28,6 +28,7 @@ namespace Testing
       protected Child()
       {
          Children = new System.Collections.Generic.HashSet<global::Testing.Child>();
+         Parent = global::Testing.Child.CreateChildUnsafe();
 
          Init();
       }

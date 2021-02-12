@@ -27,6 +27,8 @@ namespace Testing
       /// </summary>
       protected UParentCollection()
       {
+         UChildRequired = global::Testing.UChild.CreateUChildUnsafe();
+
          Init();
       }
 
