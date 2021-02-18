@@ -20,9 +20,20 @@ If you are used to the EF visual modeling that comes with Visual Studio, you'll 
 
 and many other nice-to-have bits.
 
+**Note:** This tool does not reverse engineer from the database (i.e., "database-first"). Microsoft has provided
+tools for that, and there are other, well-maintained opensourced projects that provide that functionality as
+well. 
+
 For comprehensive documentation, please visit [the project's documentation site](https://msawczyn.github.io/EFDesigner/).
 
 **ChangeLog**
+
+**3.0.4**
+   - **[NEW]** Added context menu choice to visually align node elements on diagrams.
+   - Fix for detecting correct EF version when anything with "Latest" in it is configured (see https://github.com/msawczyn/EFDesigner/issues/266)
+   - Fix to generate correct initial value code for decimal properties (see https://github.com/msawczyn/EFDesigner/issues/268)
+   - Fix for constructor code generation in 1-N unidirectional associations (see https://github.com/msawczyn/EFDesigner/issues/263)
+   - Removed addition of default objects in constructors for required associations for all EF versions (see https://github.com/msawczyn/EFDesigner/issues/271)
 
 **3.0.3**
    - **[NEW]** Added VS UML icon for model file in solution explorer (thanks to https://github.com/dcastenholz for the change)

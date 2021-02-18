@@ -29,7 +29,6 @@ namespace Testing
       public BParentRequired()
       {
          BChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BChild>();
-         BChildRequired = global::Testing.BChild.CreateBChildUnsafe();
 
          Init();
       }

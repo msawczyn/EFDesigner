@@ -48,11 +48,6 @@
                segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
          }
 
-         protected override void WriteRequiredNavigationsInConstructorBody(ModelClass modelClass, ref int lineCount)
-         {
-            // don't do this for EFCore5+. Adding these prevents EFCore from assigning the object when deserializing
-         }
-
          protected override List<string> GatherModelAttributeSegments(ModelAttribute modelAttribute)
          {
             List<string> segments = base.GatherModelAttributeSegments(modelAttribute);

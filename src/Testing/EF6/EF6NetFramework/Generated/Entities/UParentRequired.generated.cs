@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.4.5
+//     Produced by Entity Framework Visual Editor v3.0.4.7
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -35,7 +35,6 @@ namespace Testing
       public UParentRequired()
       {
          UChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.UChild>();
-         UChildRequired = global::Testing.UChild.CreateUChildUnsafe();
 
          Init();
       }

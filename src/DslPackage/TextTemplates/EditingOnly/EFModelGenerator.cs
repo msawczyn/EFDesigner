@@ -141,7 +141,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          protected void Output(List<string> segments) { host.Output(segments); }
          protected void Output(string text) { host.Output(text); }
          protected void Output(string template, params object[] items) { host.Output(template, items); }
-         protected void OutputChopped(List<string> segments) { host.OutputChopped(segments); }
          protected void ClearIndent() { host.ClearIndent(); }
 
          public static string[] NonNullableTypes
@@ -843,33 +842,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                ++lineCount;
             }
 
-            WriteRequiredNavigationsInConstructorBody(modelClass, ref lineCount);
-
             if (lineCount > 0)
                NL();
 
             Output("Init();");
-         }
-
-         protected virtual void WriteRequiredNavigationsInConstructorBody(ModelClass modelClass, ref int lineCount)
-         {
-            foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()
-                                                                        .Where(x => x.AssociationObject.Persistent
-                                                                                 && x.Required
-                                                                                 && !x.IsCollection
-                                                                                 && !x.ConstructorParameterOnly))
-            {
-               if (navigationProperty.ClassType.IsAbstract)
-                  Output($"// Assignment of required association {navigationProperty.ClassType.Name} {navigationProperty.PropertyName} was not generated because {navigationProperty.ClassType.Name} is abstract. This must be assigned with a concrete object before saving.");
-               else
-               {
-                  Output(GetDefaultConstructorVisibility(navigationProperty.ClassType) == "public"
-                            ? $"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}();"
-                            : $"{navigationProperty.PropertyName} = {navigationProperty.ClassType.FullName}.Create{navigationProperty.ClassType.Name}Unsafe();");
-               }
-
-               ++lineCount;
-            }
          }
 
          protected void WriteEnum(ModelEnum modelEnum)

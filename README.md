@@ -43,6 +43,10 @@ target both EF6 and EFCore, and generate both a code-first DbContext class and
 POCO entity classes. The EF6 template's DbContext code is written to allow consumption in 
 ASP.Net Core in addition to any other project type, so you'll have flexibility in your development.
 
+**Note:** This tool does not reverse engineer from the database (i.e., "database-first"). Microsoft has provided
+tools for that, and there are other, well-maintained opensourced projects that provide that functionality as
+well. 
+
 You can read more about how to use the designer in the [Documentation site](https://msawczyn.github.io/EFDesigner/).
 
 ### Shout out and a big thanks
@@ -53,7 +57,16 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**3.0.3**
+**3.0.4**
+   - Added context menu choice to visually align node elements on diagrams.
+   - Fix for detecting correct EF version when anything with "Latest" in it is configured (see https://github.com/msawczyn/EFDesigner/issues/266)
+   - Fix to generate correct initial value code for decimal properties (see https://github.com/msawczyn/EFDesigner/issues/268)
+   - Fix for constructor code generation in 1-N unidirectional associations (see https://github.com/msawczyn/EFDesigner/issues/263)
+   - Removed addition of default objects in constructors for required associations for all EF versions (see https://github.com/msawczyn/EFDesigner/issues/271)
+
+<details>
+<summary><b>3.0.3</b></summary>
+
    - Added VS UML icon for model file in solution explorer (thanks to https://github.com/dcastenholz for the change)
    - Classes with custom interfaces can now display an indicator with a tooltip indicating the interface type(s). This glyph is enabled/disabled at model level.
    - Added ability to specify that an association should be automatically included in any queries that use it (EFCore5 only). The association connector will appear bolder if at least one end is auto-included.
@@ -64,6 +77,7 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - Fix to generate correct DeleteBehavior enum values in EFCore < v3 (see https://github.com/msawczyn/EFDesigner/issues/257)
    - Removed INotifyPropertyChanged option from designer. Implementers wanting this interface can add it to a partial class file as any other interface, as there's really nothing special about it.
    - Generated code now honors the ExcludeFromMigration setting for a class
+</details>
 
 <details>
 <summary><b>3.0.2</b></summary>

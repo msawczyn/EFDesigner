@@ -6,20 +6,32 @@ using Microsoft.VisualStudio.Modeling.Design;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   //[TypeConverter(typeof(ExpandableObjectConverter))]
+   /// <summary>
+   /// Encapsulates values of the current Output Location settings in the ModelRoot
+   /// </summary>
    [Serializable]
    public class OutputLocations: IHasStore
    {
       private readonly ModelRoot modelRoot;
 
+      /// <summary>
+      /// Constructor
+      /// </summary>
+      /// <param name="modelRoot">DomainClass ModelRoot</param>
       public OutputLocations(ModelRoot modelRoot)
       {
          this.modelRoot = modelRoot;
       }
 
+      /// <summary>
+      /// Exposes the Store object.  Store is a complete model.  Stores contain both the domain data  and the model data for all the domain models in a model.
+      /// </summary>
       [Browsable(false)]
       public Store Store => modelRoot?.Store;
 
+      /// <summary>
+      /// Output location value for the generated DbContext-derived object
+      /// </summary>
       // ReSharper disable once UnusedMember.Global
       [TypeConverter(typeof(ProjectDirectoryTypeConverter))]
       [DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ContextOutputDirectory.DisplayName", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -41,6 +53,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Output location value for the generated entity classes
+      /// </summary>
       [TypeConverter(typeof(ProjectDirectoryTypeConverter))]
       [DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityOutputDirectory.DisplayName", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
       [CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityOutputDirectory.Category", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -66,6 +81,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Output location value for the generated enumerations
+      /// </summary>
       [TypeConverter(typeof(ProjectDirectoryTypeConverter))]
       [DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EnumOutputDirectory.DisplayName", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
       [CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EnumOutputDirectory.Category", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -91,6 +109,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Output location value for the generated non-persistent objects
+      /// </summary>
       [TypeConverter(typeof(ProjectDirectoryTypeConverter))]
       [DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/StructOutputDirectory.DisplayName", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
       [CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/StructOutputDirectory.Category", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]

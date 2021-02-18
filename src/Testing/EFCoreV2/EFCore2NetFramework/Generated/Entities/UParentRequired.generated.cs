@@ -28,7 +28,6 @@ namespace Testing
       public UParentRequired()
       {
          UChildCollection = new System.Collections.Generic.HashSet<global::Testing.UChild>();
-         UChildRequired = global::Testing.UChild.CreateUChildUnsafe();
 
          Init();
       }

@@ -29,7 +29,6 @@ namespace Testing
       protected UParentCollection()
       {
          UChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.UChild>();
-         UChildRequired = global::Testing.UChild.CreateUChildUnsafe();
 
          Init();
       }

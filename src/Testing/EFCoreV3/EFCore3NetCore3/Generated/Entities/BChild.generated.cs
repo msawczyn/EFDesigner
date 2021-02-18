@@ -32,9 +32,6 @@ namespace Testing
 
          BParentCollection = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
          BParentCollection_2 = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
-         BParentRequired = new global::Testing.BParentRequired();
-         BParentRequired_1 = new global::Testing.BParentRequired();
-         BParentRequired_2 = new global::Testing.BParentRequired();
 
          Init();
       }

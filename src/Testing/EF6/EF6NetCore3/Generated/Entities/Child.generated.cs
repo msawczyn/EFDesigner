@@ -29,7 +29,6 @@ namespace Testing
       protected Child()
       {
          Children = new System.Collections.ObjectModel.ObservableCollection<global::Testing.Child>();
-         Parent = global::Testing.Child.CreateChildUnsafe();
 
          Init();
       }

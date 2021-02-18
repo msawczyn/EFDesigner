@@ -4,6 +4,12 @@
 //
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
+//
+//     Produced by Entity Framework Visual Editor
+//     Source:                    https://github.com/msawczyn/EFDesigner
+//     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
+//     Documentation:             https://msawczyn.github.io/EFDesigner/
+//     License (MIT):             https://github.com/msawczyn/EFDesigner/blob/master/LICENSE
 // </auto-generated>
 //------------------------------------------------------------------------------
 
@@ -15,20 +21,19 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Data.Entity.Spatial;
 
-namespace Testing
+namespace Sandbox_EFCore5NetCore3_Test
 {
-   public partial class UParentRequired
+   public partial class AnEntity
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public UParentRequired()
+      public AnEntity()
       {
-         UChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.UChild>();
+         Property1 = 0;
 
          Init();
       }
@@ -39,23 +44,17 @@ namespace Testing
 
       /// <summary>
       /// Identity, Indexed, Required
+      /// Unique identifier
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
-
-      /*************************************************************************
-       * Navigation properties
-       *************************************************************************/
+      [System.ComponentModel.Description("Unique identifier")]
+      public long Id { get; set; }
 
       /// <summary>
-      /// Required
+      /// Default value = 0
       /// </summary>
-      public virtual global::Testing.UChild UChildRequired { get; set; }
-
-      public virtual ICollection<global::Testing.UChild> UChildCollection { get; private set; }
-
-      public virtual global::Testing.UChild UChildOptional { get; set; }
+      public decimal? Property1 { get; set; }
 
    }
 }

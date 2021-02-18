@@ -34,9 +34,6 @@ namespace Testing
          BParentCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BParentCollection>();
          BParentCollection_1 = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BParentCollection>();
          BParentCollection_2 = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BParentCollection>();
-         BParentRequired = new global::Testing.BParentRequired();
-         BParentRequired_1 = new global::Testing.BParentRequired();
-         BParentRequired_2 = new global::Testing.BParentRequired();
 
          Init();
       }
