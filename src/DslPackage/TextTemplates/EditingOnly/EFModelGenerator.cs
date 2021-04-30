@@ -12,7 +12,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.4
+      // EFDesigner v3.0.5
       // Copyright (c) 2017-2021 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -736,9 +736,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                                                                     && (x.IsCollection || x.ClassType.IsDependentType)
                                                                                     && !x.ConstructorParameterOnly))
                {
-                  if (!navigationProperty.IsCollection && navigationProperty.ClassType.IsDependentType)
-                     Output($"this.{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}();");
-                  else if (navigationProperty.IsCollection)
+                  if (navigationProperty.IsCollection)
                   {
                      string collectionType = GetFullContainerName(navigationProperty.AssociationObject.CollectionClass, navigationProperty.ClassType.FullName);
                      Output($"this.{navigationProperty.PropertyName} = new {collectionType}();");

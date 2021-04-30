@@ -104,6 +104,11 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns></returns>
       public string GetDisplayText() => Name;
 
+      /// <summary>
+      /// Name of the DbSet for this class unless overridden
+      /// </summary>
+      /// <param name="shouldPluralize">If true, the DbSet should be a plural form of the class name</param>
+      /// <returns></returns>
       public string GetDefaultDbSetName(bool shouldPluralize)
       {
          return ModelRoot.PluralizationService?.IsSingular(Name) == true && shouldPluralize
@@ -111,6 +116,11 @@ namespace Sawczyn.EFDesigner.EFModel
                                 : Name;
       }
 
+      /// <summary>
+      /// Name of the table for this class unless overridden
+      /// </summary>
+      /// <param name="shouldPluralize">If true, the table should be a plural form of the class name</param>
+      /// <returns></returns>
       public string GetDefaultTableName(bool shouldPluralize)
       {
          return ModelRoot.PluralizationService?.IsSingular(Name) == true && shouldPluralize
@@ -583,7 +593,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (ModelRoot == null) return;
 
-         if (!IsDependentType && !IsQueryType && !AllIdentityAttributes.Any())
+         if (!IsDependentType && !IsDatabaseView && !IsQueryType && !AllIdentityAttributes.Any())
             context.LogError($"{Name}: Class has no identity property in inheritance chain", "MCENoIdentity", this);
       }
 
