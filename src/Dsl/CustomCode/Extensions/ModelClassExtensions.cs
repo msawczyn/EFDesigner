@@ -6,27 +6,32 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
+   /// <summary>
+   /// Extension methods for Sawczyn.EFDesigner.EFModel.ModelClass
+   /// </summary>
    public static class ModelClassExtensions
    {
-      public static void PushDown(this ModelClass superclass, ModelClass subclass)
+      /// <summary>
+      /// Moves all attributes and associations from a superclass to its subclass
+      /// </summary>
+      /// <param name="source">Source ModelClass</param>
+      /// <param name="target">Target ModelClass</param>
+      public static void MoveContents(this ModelClass source, ModelClass target)
       {
-         Store store = superclass.Store;
+         Store store = source.Store;
 
          using (Transaction transaction = store.TransactionManager.BeginTransaction("PushDown"))
          {
-            List<ModelAttribute> newAttributes = superclass.AllAttributes
-                                                           .Select(modelAttribute => (ModelAttribute)modelAttribute.Copy(new[]
-                                                                                                                         {
-                                                                                                                            ClassHasAttributes.AttributeDomainRoleId
-                                                                                                                         }))
+            List<ModelAttribute> newAttributes = source.AllAttributes
+                                                           .Select(modelAttribute => (ModelAttribute)modelAttribute.Copy(new[] {ClassHasAttributes.AttributeDomainRoleId}))
                                                            .Distinct()
                                                            .ToList();
 
             foreach (ModelAttribute newAttribute in newAttributes)
-               newAttribute.ModelClass = subclass;
+               newAttribute.ModelClass = target;
 
             List<Association> associations = new List<Association>(); 
-            ModelClass src = superclass;
+            ModelClass src = source;
             while (src != null)
             {
                associations.AddRange(store.GetAll<Association>().Where(a => a.Source == src || a.Target == src));
@@ -37,18 +42,18 @@ namespace Sawczyn.EFDesigner.EFModel
 
             foreach (UnidirectionalAssociation association in associations.OfType<UnidirectionalAssociation>())
             {
-               if (association.Source == superclass)
-                  UnidirectionalAssociationBuilder.Connect(subclass, association.Target);
+               if (association.Source == source)
+                  UnidirectionalAssociationBuilder.Connect(target, association.Target);
                else
-                  UnidirectionalAssociationBuilder.Connect(association.Source, subclass);
+                  UnidirectionalAssociationBuilder.Connect(association.Source, target);
             }
 
             foreach (BidirectionalAssociation association in associations.OfType<BidirectionalAssociation>())
             {
-               if (association.Source == superclass)
-                  BidirectionalAssociationBuilder.Connect(subclass, association.Target);
+               if (association.Source == source)
+                  BidirectionalAssociationBuilder.Connect(target, association.Target);
                else
-                  BidirectionalAssociationBuilder.Connect(association.Source, subclass);
+                  BidirectionalAssociationBuilder.Connect(association.Source, target);
             }
 
             transaction.Commit();

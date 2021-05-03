@@ -233,6 +233,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(ModelAttribute), "IsDatabaseCollationTracking", ModelAttribute.IsDatabaseCollationTrackingDomainPropertyId, typeof(ModelAttribute.IsDatabaseCollationTrackingPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "PropertyAccessMode", ModelAttribute.PropertyAccessModeDomainPropertyId, typeof(ModelAttribute.PropertyAccessModePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "IsAbstract", ModelAttribute.IsAbstractDomainPropertyId, typeof(ModelAttribute.IsAbstractPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "IsPropertyAccessModeTracking", ModelAttribute.IsPropertyAccessModeTrackingDomainPropertyId, typeof(ModelAttribute.IsPropertyAccessModeTrackingPropertyHandler)),
 	         new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
 	         new DomainMemberInfo(typeof(Comment), "ShortText", Comment.ShortTextDomainPropertyId, typeof(Comment.ShortTextPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelEnum), "ValueType", ModelEnum.ValueTypeDomainPropertyId, typeof(ModelEnum.ValueTypePropertyHandler)),

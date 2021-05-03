@@ -320,10 +320,10 @@ namespace Sawczyn.EFDesigner.EFModel
                   actualVersion = NugetVersions.Last();
                   break;
                case 2: // x.Latest
-                  actualVersion = NugetVersions.Last(v => v.A == int.Parse(parts[0]));
+                  actualVersion = NugetVersions.Last(v => v.A == int.Parse(parts[0], CultureInfo.InvariantCulture));
                   break;
                default: // x.y.Latest
-                  actualVersion = NugetVersions.Last(v => v.A == int.Parse(parts[0]) && v.B == int.Parse(parts[1]));
+                  actualVersion = NugetVersions.Last(v => v.A == int.Parse(parts[0], CultureInfo.InvariantCulture) && v.B == int.Parse(parts[1], CultureInfo.InvariantCulture));
                   break;
             }
 
@@ -332,7 +332,7 @@ namespace Sawczyn.EFDesigner.EFModel
          else
             packageVersion = $"{parts[0]}.{parts[1]}";
 
-         return double.Parse(packageVersion);
+         return double.Parse(packageVersion, CultureInfo.InvariantCulture);
       }
 
       private List<(int A, int B, int C)> nugetVersions;

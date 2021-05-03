@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="3" Build="5" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="3" Build="5" Revision="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -832,7 +832,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="fcbce627-878c-468f-84a5-b0e5deedacb0" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="PropertyAccessMode" DisplayName="Property Access Mode" DefaultValue="FieldDuringConstruction" Category="Code Generation">
+        <DomainProperty Id="fcbce627-878c-468f-84a5-b0e5deedacb0" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="PropertyAccessMode" DisplayName="Property Access Mode" DefaultValue="FieldDuringConstruction" Kind="CustomStorage" Category="Code Generation" IsBrowsable="false">
           <Attributes>
             <ClrAttribute Name="System.ComponentModel.TypeConverter">
               <Parameters>
@@ -845,6 +845,11 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="0ee5f3e7-a047-4c79-a4f4-2d632f2bd47c" Description="If true, this will be generated as an abstract property" Name="IsAbstract" DisplayName="Abstract" DefaultValue="false" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="e8193ff7-7dd5-4ea8-82e1-6c7e4f992a53" Description="If true, ModelAttribute.PropertyAccessMode tracks ModelRoot.PropertyAccessModeDefault" Name="IsPropertyAccessModeTracking" DisplayName="Is Property Access Mode Tracking" DefaultValue="true" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -2541,6 +2546,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isAbstract">
             <DomainPropertyMoniker Name="ModelAttribute/IsAbstract" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isPropertyAccessModeTracking">
+            <DomainPropertyMoniker Name="ModelAttribute/IsPropertyAccessModeTracking" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

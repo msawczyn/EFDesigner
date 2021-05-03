@@ -138,16 +138,29 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                     , new CategoryAttribute("Code Generation")
                                                                    }));
 
-            if (modelRoot.IsEFCore5Plus && modelAttribute.Type == "String")
+            if (modelRoot.IsEFCore5Plus)
             {
+               if (modelAttribute.Type == "String")
+               {
+                  propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute
+                                                                       , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.DatabaseCollationDomainPropertyId)
+                                                                       , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsDatabaseCollationTrackingDomainPropertyId)
+                                                                       , new Attribute[]
+                                                                         {
+                                                                            new DisplayNameAttribute("Database Collation")
+                                                                          , new DescriptionAttribute("Overrides the default database collation setting for the column that persists this attribute")
+                                                                          , new CategoryAttribute("Database")
+                                                                         }));
+               }
+
                propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute
-                                                                    , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.DatabaseCollationDomainPropertyId)
-                                                                    , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsDatabaseCollationTrackingDomainPropertyId)
+                                                                    , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.PropertyAccessModeDomainPropertyId)
+                                                                    , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsPropertyAccessModeTrackingDomainPropertyId)
                                                                     , new Attribute[]
                                                                       {
-                                                                         new DisplayNameAttribute("Database Collation")
-                                                                       , new DescriptionAttribute("Overrides the default database collation setting for the column that persists this attribute")
-                                                                       , new CategoryAttribute("Database")
+                                                                         new DisplayNameAttribute("Property Access Mode")
+                                                                       , new DescriptionAttribute("Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode")
+                                                                       , new CategoryAttribute("Code Generation")
                                                                       }));
             }
          }

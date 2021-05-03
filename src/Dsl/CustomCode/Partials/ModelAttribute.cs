@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Immutability;
@@ -566,6 +567,55 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion
 
+      #region PropertyAccessMode
+
+      /// <summary>Storage for the PropertyAccessMode property.</summary>  
+      private PropertyAccessMode propertyAccessModeStorage;
+
+      /// <summary>Gets the storage for the PropertyAccessMode property.</summary>
+      /// <returns>The AutoProperty value.</returns>
+      public PropertyAccessMode GetPropertyAccessModeValue()
+      {
+         if (!this.IsLoading() && IsPropertyAccessModeTracking)
+         {
+            PropertyAccessMode defaultResult = ModelClass?.ModelRoot.IsEFCore5Plus == true ? PropertyAccessMode.PreferField : PropertyAccessMode.PreferFieldDuringConstruction;
+
+            try
+            {
+               return ModelClass?.ModelRoot.PropertyAccessModeDefault ?? defaultResult;
+            }
+            catch (NullReferenceException)
+            {
+               return defaultResult;
+            }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+
+               return defaultResult;
+            }
+         }
+
+         return propertyAccessModeStorage;
+      }
+
+      /// <summary>Sets the storage for the PropertyAccessMode property.</summary>
+      /// <param name="value">The PropertyAccessMode value.</param>
+      public void SetPropertyAccessModeValue(PropertyAccessMode value)
+      {
+         propertyAccessModeStorage = value;
+
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
+         {
+            PropertyAccessMode defaultResult = ModelClass?.ModelRoot.IsEFCore5Plus == true ? PropertyAccessMode.PreferField : PropertyAccessMode.PreferFieldDuringConstruction;
+
+            IsPropertyAccessModeTracking = (propertyAccessModeStorage == (ModelClass?.ModelRoot.PropertyAccessModeDefault ?? defaultResult));
+         }
+      }
+
+      #endregion
+
       #region ColumnType
 
       /// <summary>Storage for the ColumnType property.</summary>  
@@ -611,6 +661,49 @@ namespace Sawczyn.EFDesigner.EFModel
       #endregion
 
       #region Tracking Properties
+
+      internal sealed partial class IsPropertyAccessModeTrackingPropertyHandler
+      {
+         /// <summary>
+         ///    Called after the IsPropertyAccessModeTracking property changes.
+         /// </summary>
+         /// <param name="element">The model element that has the property that changed. </param>
+         /// <param name="oldValue">The previous value of the property. </param>
+         /// <param name="newValue">The new value of the property. </param>
+         protected override void OnValueChanged(ModelAttribute element, bool oldValue, bool newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+            if (!element.Store.InUndoRedoOrRollback && newValue)
+            {
+               DomainPropertyInfo propInfo = element.Store.DomainDataDirectory.GetDomainProperty(PropertyAccessModeDomainPropertyId);
+               propInfo.NotifyValueChange(element);
+            }
+         }
+
+         /// <summary>Performs the reset operation for the IsPropertyAccessModeTracking property for a model element.</summary>
+         /// <param name="element">The model element that has the property to reset.</param>
+         internal void ResetValue(ModelAttribute element)
+         {
+            PropertyAccessMode? calculatedValue= element?.ModelClass.ModelRoot.PropertyAccessModeDefault;
+
+            if (calculatedValue != null && element.PropertyAccessMode == calculatedValue)
+               element.isPropertyAccessModeTrackingPropertyStorage = true;
+         }
+
+         /// <summary>
+         ///    Method to set IsPropertyAccessModeTracking to false so that this instance of this tracking property is not
+         ///    storage-based.
+         /// </summary>
+         /// <param name="element">
+         ///    The element on which to reset the property value.
+         /// </param>
+         internal void PreResetValue(ModelAttribute element)
+         {
+            // Force the IsPropertyAccessModeTracking property to false so that the value  
+            // of the DatabaseCollation property is retrieved from storage.  
+            element.isPropertyAccessModeTrackingPropertyStorage = false;
+         }
+      }
 
       internal sealed partial class IsDatabaseCollationTrackingPropertyHandler
       {
@@ -894,6 +987,7 @@ namespace Sawczyn.EFDesigner.EFModel
          IsImplementNotifyTrackingPropertyHandler.Instance.PreResetValue(this);
          IsAutoPropertyTrackingPropertyHandler.Instance.PreResetValue(this);
          IsDatabaseCollationTrackingPropertyHandler.Instance.PreResetValue(this);
+         IsPropertyAccessModeTrackingPropertyHandler.Instance.PreResetValue(this);
          // same with other tracking properties as they get added
       }
 
@@ -909,6 +1003,7 @@ namespace Sawczyn.EFDesigner.EFModel
          IsImplementNotifyTrackingPropertyHandler.Instance.ResetValue(this);
          IsAutoPropertyTrackingPropertyHandler.Instance.ResetValue(this);
          IsDatabaseCollationTrackingPropertyHandler.Instance.ResetValue(this);
+         IsPropertyAccessModeTrackingPropertyHandler.Instance.ResetValue(this);
          // same with other tracking properties as they get added
       }
 
@@ -933,7 +1028,8 @@ namespace Sawczyn.EFDesigner.EFModel
       [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void GeographyTypeDoesNotMatchEFVersion(ValidationContext context)
       {
-         if (ModelClass?.ModelRoot == null) return;
+         if (ModelClass?.ModelRoot == null)
+            return;
 
          if (ModelClass.ModelRoot.EntityFrameworkVersion == EFVersion.EFCore)
          {
@@ -966,7 +1062,8 @@ namespace Sawczyn.EFDesigner.EFModel
       [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void StringsShouldHaveLength(ValidationContext context)
       {
-         if (ModelClass?.ModelRoot == null) return;
+         if (ModelClass?.ModelRoot == null)
+            return;
 
          if (ModelClass != null && Type == "String" && (!MaxLength.HasValue || MaxLength.Value == MAXLENGTH_UNDEFINED))
          {
@@ -981,7 +1078,8 @@ namespace Sawczyn.EFDesigner.EFModel
       [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
-         if (ModelClass?.ModelRoot == null) return;
+         if (ModelClass?.ModelRoot == null)
+            return;
 
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
          if (ModelClass != null && modelRoot?.WarnOnMissingDocumentation == true && string.IsNullOrWhiteSpace(Summary))
@@ -1132,7 +1230,8 @@ namespace Sawczyn.EFDesigner.EFModel
       public static ParseResult Parse(ModelRoot modelRoot, string input)
       {
          string _input = input?.Split('{')[0].Trim(';');
-         if (_input == null) return null;
+         if (_input == null)
+            return null;
 
          ParseResult result = AttributeParser.Parse(_input);
          if (result != null)

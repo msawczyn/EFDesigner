@@ -2,8 +2,15 @@ using System.Drawing;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
+   /// <summary>
+   /// Extension methods for System.Drawing.Color
+   /// </summary>
    public static class ColorExtensions
    {
+      /// <summary>
+      /// Calculates a readable color for text against a given background
+      /// </summary>
+      /// <param name="color">The background color</param>
       public static Color LegibleTextColor(this Color color)
       {
          // Counting the perceptive luminance - human eye favors green color... 

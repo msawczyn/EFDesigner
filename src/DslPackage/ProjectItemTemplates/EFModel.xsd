@@ -886,6 +886,12 @@
             <xsd:documentation>If true, this will be generated as an abstract property</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: IsPropertyAccessModeTracking -->
+        <xsd:attribute name="isPropertyAccessModeTracking" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, ModelAttribute.PropertyAccessMode tracks ModelRoot.PropertyAccessModeDefault</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

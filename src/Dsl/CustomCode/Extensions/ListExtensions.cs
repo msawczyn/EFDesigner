@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Sawczyn.EFDesigner.EFModel.Extensions
 {
+   /// <summary>
+   /// Extension methods for System.Collections.Generic.IEnumerable{T}
+   /// </summary>
    public static class ListExtensions
    {
       /// <summary>

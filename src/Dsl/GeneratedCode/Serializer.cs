@@ -4987,6 +4987,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // IsPropertyAccessModeTracking
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribIsPropertyAccessModeTracking = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isPropertyAccessModeTracking");
+	         if (attribIsPropertyAccessModeTracking != null)
+	         {
+	            global::System.Boolean valueOfIsPropertyAccessModeTracking;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsPropertyAccessModeTracking, out valueOfIsPropertyAccessModeTracking))
+	            {
+	               instanceOfModelAttribute.IsPropertyAccessModeTracking = valueOfIsPropertyAccessModeTracking;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isPropertyAccessModeTracking", typeof(global::System.Boolean), attribIsPropertyAccessModeTracking);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -5831,6 +5848,19 @@ namespace Sawczyn.EFDesigner.EFModel
 	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isAbstract", serializedPropValue);
+	            }
+	         }
+	      }
+	      // IsPropertyAccessModeTracking
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelAttribute.IsPropertyAccessModeTracking;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isPropertyAccessModeTracking", serializedPropValue);
 	            }
 	         }
 	      }

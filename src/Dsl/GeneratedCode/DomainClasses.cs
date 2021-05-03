@@ -10910,11 +10910,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		public static readonly global::System.Guid PropertyAccessModeDomainPropertyId = new global::System.Guid(0xfcbce627, 0x878c, 0x468f, 0x84, 0xa5, 0xb0, 0xe5, 0xde, 0xed, 0xac, 0xb0);
 		
 		/// <summary>
-		/// Storage for PropertyAccessMode
-		/// </summary>
-		private PropertyAccessMode propertyAccessModePropertyStorage = PropertyAccessMode.FieldDuringConstruction;
-		
-		/// <summary>
 		/// Gets or sets the value of PropertyAccessMode domain property.
 		/// Defines how EF reads and write this property or its backing field. See 
 		/// https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode
@@ -10924,13 +10919,15 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyAccessMode.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyAccessMode.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue(PropertyAccessMode.FieldDuringConstruction)]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
 		[DslModeling::DomainObjectId("fcbce627-878c-468f-84a5-b0e5deedacb0")]
 		public PropertyAccessMode PropertyAccessMode
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return propertyAccessModePropertyStorage;
+				return PropertyAccessModePropertyHandler.Instance.GetValue(this);
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
@@ -10970,7 +10967,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			public override sealed PropertyAccessMode GetValue(ModelAttribute element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.propertyAccessModePropertyStorage;
+				// There is no storage for PropertyAccessMode because its Kind is
+				// set to CustomStorage. Please provide the GetPropertyAccessModeValue()
+				// method on the domain class.
+				return element.GetPropertyAccessModeValue();
 			}
 		
 			/// <summary>
@@ -10986,8 +10986,11 @@ namespace Sawczyn.EFDesigner.EFModel
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.propertyAccessModePropertyStorage = newValue;
-					ValueChanged(element, oldValue, newValue);
+					// There is no storage for PropertyAccessMode because its Kind is
+					// set to CustomStorage. Please provide the SetPropertyAccessModeValue()
+					// method on the domain class.
+					element.SetPropertyAccessModeValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
 				}
 			}
 		}
@@ -11075,6 +11078,96 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.isAbstractPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region IsPropertyAccessModeTracking domain property code
+		
+		/// <summary>
+		/// IsPropertyAccessModeTracking domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsPropertyAccessModeTrackingDomainPropertyId = new global::System.Guid(0xe8193ff7, 0x7dd5, 0x4ea8, 0x82, 0xe1, 0x6c, 0x7e, 0x4f, 0x99, 0x2a, 0x53);
+		
+		/// <summary>
+		/// Storage for IsPropertyAccessModeTracking
+		/// </summary>
+		private global::System.Boolean isPropertyAccessModeTrackingPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of IsPropertyAccessModeTracking domain property.
+		/// If true, ModelAttribute.PropertyAccessMode tracks
+		/// ModelRoot.PropertyAccessModeDefault
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/IsPropertyAccessModeTracking.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/IsPropertyAccessModeTracking.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("e8193ff7-7dd5-4ea8-82e1-6c7e4f992a53")]
+		public global::System.Boolean IsPropertyAccessModeTracking
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isPropertyAccessModeTrackingPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsPropertyAccessModeTrackingPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelAttribute.IsPropertyAccessModeTracking domain property.
+		/// </summary>
+		internal sealed partial class IsPropertyAccessModeTrackingPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.Boolean>
+		{
+			private IsPropertyAccessModeTrackingPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelAttribute.IsPropertyAccessModeTracking domain property value handler.
+			/// </summary>
+			public static readonly IsPropertyAccessModeTrackingPropertyHandler Instance = new IsPropertyAccessModeTrackingPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelAttribute.IsPropertyAccessModeTracking domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsPropertyAccessModeTrackingDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelAttribute element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isPropertyAccessModeTrackingPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelAttribute element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isPropertyAccessModeTrackingPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
@@ -13432,6 +13525,6 @@ namespace Sawczyn.EFDesigner.EFModel
    /// </summary>
 	partial class ModelRoot
 	{
-		public const string DSLVersion = "3.0.5.0";
+		public const string DSLVersion = "3.0.5.1";
 	}
 }

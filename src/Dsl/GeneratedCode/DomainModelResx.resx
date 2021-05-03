@@ -1497,6 +1497,14 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;IsAbstract&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsPropertyAccessModeTracking.Description" xml:space="preserve">
+    <value>If true, ModelAttribute.PropertyAccessMode tracks ModelRoot.PropertyAccessModeDefault</value>
+    <comment>Description for DomainProperty &apos;IsPropertyAccessModeTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsPropertyAccessModeTracking.DisplayName" xml:space="preserve">
+    <value>Is Property Access Mode Tracking</value>
+    <comment>DisplayName for DomainProperty &apos;IsPropertyAccessModeTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Comment.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;Comment&apos;</comment>

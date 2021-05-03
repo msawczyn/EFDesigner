@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.Modeling.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 
 using Sawczyn.EFDesigner.EFModel.Annotations;
@@ -156,7 +157,7 @@ namespace Sawczyn.EFDesigner.EFModel
             List<ModelEnumValue> modelEnumValues = Values.Where(v => long.TryParse(v.Value, out long _)).ToList();
 
             long maxValue = modelEnumValues.Any()
-                                ? modelEnumValues.Max(v => long.Parse(v.Value))
+                                ? modelEnumValues.Max(v => long.Parse(v.Value, CultureInfo.InvariantCulture))
                                 : -1;
 
             long nextValue = maxValue <= 0

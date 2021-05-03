@@ -7,19 +7,40 @@ using Microsoft.VisualStudio.Modeling.Diagrams;
 
 namespace Sawczyn.EFDesigner.EFModel.Extensions
 {
+   /// <summary>
+   /// Extension methods for Microsoft.VisualStudio.Modeling.ModelElement
+   /// </summary>
    public static class ModelElementExtensions
    {
+      /// <summary>
+      /// Detects whether the model element has a visible shape on the indicated diagram, or on the current diagram if none is passed
+      /// </summary>
+      /// <param name="modelElement">ModelElement represented by the shape in question</param>
+      /// <param name="diagram">Diagram to interrogate</param>
+      /// <returns>True if found, false otherwise</returns>
       internal static bool IsVisible(this ModelElement modelElement, Diagram diagram = null)
       {
          return modelElement.GetShapeElement(diagram)?.IsVisible(diagram) == true;
       }
 
+      /// <summary>
+      /// Detects whether the shape element is present and visible on the indicated diagram, or on the current diagram if none is passed
+      /// </summary>
+      /// <param name="shapeElement">ShapeElement to find</param>
+      /// <param name="diagram">Diagram to interrogate</param>
+      /// <returns>True if found, false otherwise</returns>
       internal static bool IsVisible(this ShapeElement shapeElement, Diagram diagram = null)
       {
          Diagram targetDiagram = diagram ?? EFModel.ModelRoot.GetCurrentDiagram();
          return targetDiagram != null && shapeElement.Diagram == targetDiagram && shapeElement.IsVisible;
       }
 
+      /// <summary>
+      /// Find the shape element if any, representing the model element on the indicated diagram, or on the current diagram if none is passed
+      /// </summary>
+      /// <param name="element">ModelElement represented by the shape in question</param>
+      /// <param name="diagram">Diagram to interrogate</param>
+      /// <returns>ShapeElement if available, null otherwise</returns>
       private static ShapeElement GetShapeElement(this ModelElement element, Diagram diagram = null)
       {
          ShapeElement result = null;
@@ -43,6 +64,11 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
          return result;
       }
 
+      /// <summary>
+      /// Finds the ModelElement surrounding the current ModelElement. Assumes current ModelElement is a compartment.
+      /// </summary>
+      /// <param name="modelElement">Compartment</param>
+      /// <returns>Surrounding (owning) element, if any</returns>
       private static ModelElement GetCompartmentElementFirstParentElement(this ModelElement modelElement)
       {
          // Get the domain class associated with model element.
@@ -63,6 +89,11 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
          return null;
       }
 
+      /// <summary>
+      /// Detects if the model element is currently loading into memory from storage
+      /// </summary>
+      /// <param name="element">Element to interrogate</param>
+      /// <returns>True if loading, false otherwise</returns>
       public static bool IsLoading(this ModelElement element)
       {
          TransactionManager transactionManager = element.Store.TransactionManager;
@@ -75,6 +106,10 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
               || currentTransaction.Name.ToLowerInvariant() == "local merge transaction");
       }
 
+      /// <summary>
+      /// Gets the root element of the model
+      /// </summary>
+      /// <param name="store">Store object to search to find the root</param>
       public static ModelRoot ModelRoot(this Store store)
       {
          return store.GetAll<ModelRoot>().FirstOrDefault();

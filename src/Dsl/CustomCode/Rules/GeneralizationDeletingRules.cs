@@ -35,7 +35,7 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          if (!subclass.IsDeleting && BooleanQuestionDisplay.Show(store, $"Push {superclass.Name} attributes and associations down to {subclass.Name}?") == true)
-            superclass.PushDown(subclass);
+            superclass.MoveContents(subclass);
       }
    }
 }

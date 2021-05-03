@@ -36,7 +36,7 @@ namespace Sawczyn.EFDesigner.EFModel
             if (BooleanQuestionDisplay.Show(store, question) == true)
             {
                foreach (ModelClass subclass in generalizations.Select(g => g.Subclass))
-                  element.PushDown(subclass);
+                  element.MoveContents(subclass);
             }
          }
       }
