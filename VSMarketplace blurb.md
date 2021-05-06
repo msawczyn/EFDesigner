@@ -29,7 +29,8 @@ For comprehensive documentation, please visit [the project's documentation site]
 **ChangeLog**
 
 **3.0.5**
-   - Fix where parsing EF version numbers should be culture-neutral
+   - Fix where parsing EF version numbers should be culture-neutral (see https://github.com/msawczyn/EFDesigner/issues/282)
+   - Fixed circular logic flaw in identity properties for database views (see https://github.com/msawczyn/EFDesigner/issues/275)
    - Corrected tracking property access modes from the default to overrides in entity attributes
 
 **3.0.4**
