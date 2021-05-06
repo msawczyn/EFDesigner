@@ -35,6 +35,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>
       /// If true, this property is an exposed foreign key for an association.
       /// </summary>
+      [UsedImplicitly]
       public bool IsForeignKeyProperty => IsForeignKeyFor != Guid.Empty;
 
       internal string BackingFieldNameDefault => string.IsNullOrEmpty(Name) ? string.Empty : $"_{Name.Substring(0, 1).ToLowerInvariant()}{Name.Substring(1)}";
@@ -110,12 +111,14 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+
       /// <summary>
       /// Tests if the InitialValue property is valid for the type indicated
       /// </summary>
       /// <param name="typeName">Name of type to test. If typeName is null, Type property will be used. If initialValue is null, InitialValue property will be used</param>
       /// <param name="initialValue">Initial value to test</param>
       /// <returns>true if InitialValue is a valid value for the type, or if initialValue is null or empty</returns>
+      [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0049:Simplify Names", Justification = "By design")]
       public bool IsValidInitialValue(string typeName = null, string initialValue = null)
       {
          typeName = typeName ?? Type;
@@ -572,28 +575,28 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>Storage for the PropertyAccessMode property.</summary>  
       private PropertyAccessMode propertyAccessModeStorage;
 
+      internal PropertyAccessMode DefaultPropertyAccessMode => ModelClass?.ModelRoot.IsEFCore5Plus == true ? PropertyAccessMode.PreferField : PropertyAccessMode.PreferFieldDuringConstruction;
+
       /// <summary>Gets the storage for the PropertyAccessMode property.</summary>
       /// <returns>The AutoProperty value.</returns>
       public PropertyAccessMode GetPropertyAccessModeValue()
       {
          if (!this.IsLoading() && IsPropertyAccessModeTracking)
          {
-            PropertyAccessMode defaultResult = ModelClass?.ModelRoot.IsEFCore5Plus == true ? PropertyAccessMode.PreferField : PropertyAccessMode.PreferFieldDuringConstruction;
-
             try
             {
-               return ModelClass?.ModelRoot.PropertyAccessModeDefault ?? defaultResult;
+               return ModelClass?.ModelRoot.PropertyAccessModeDefault ?? DefaultPropertyAccessMode;
             }
             catch (NullReferenceException)
             {
-               return defaultResult;
+               return DefaultPropertyAccessMode;
             }
             catch (Exception e)
             {
                if (CriticalException.IsCriticalException(e))
                   throw;
 
-               return defaultResult;
+               return DefaultPropertyAccessMode;
             }
          }
 
@@ -608,9 +611,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (!Store.InUndoRedoOrRollback && !this.IsLoading())
          {
-            PropertyAccessMode defaultResult = ModelClass?.ModelRoot.IsEFCore5Plus == true ? PropertyAccessMode.PreferField : PropertyAccessMode.PreferFieldDuringConstruction;
-
-            IsPropertyAccessModeTracking = (propertyAccessModeStorage == (ModelClass?.ModelRoot.PropertyAccessModeDefault ?? defaultResult));
+            IsPropertyAccessModeTracking = (propertyAccessModeStorage == (ModelClass?.ModelRoot.PropertyAccessModeDefault ?? DefaultPropertyAccessMode));
          }
       }
 

@@ -57,12 +57,20 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**3.0.4**
+**3.0.5**
+   - Fix where parsing EF version numbers should be culture-neutral
+   - Corrected tracking property access modes from the default to overrides in entity attributes
+
+<details>
+<summary><b>3.0.4</b></summary>
+
    - Added context menu choice to visually align node elements on diagrams.
    - Fix for detecting correct EF version when anything with "Latest" in it is configured (see https://github.com/msawczyn/EFDesigner/issues/266)
    - Fix to generate correct initial value code for decimal properties (see https://github.com/msawczyn/EFDesigner/issues/268)
    - Fix for constructor code generation in 1-N unidirectional associations (see https://github.com/msawczyn/EFDesigner/issues/263)
    - Removed addition of default objects in constructors for required associations for all EF versions (see https://github.com/msawczyn/EFDesigner/issues/271)
+
+</details>
 
 <details>
 <summary><b>3.0.3</b></summary>
@@ -77,6 +85,7 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - Fix to generate correct DeleteBehavior enum values in EFCore < v3 (see https://github.com/msawczyn/EFDesigner/issues/257)
    - Removed INotifyPropertyChanged option from designer. Implementers wanting this interface can add it to a partial class file as any other interface, as there's really nothing special about it.
    - Generated code now honors the ExcludeFromMigration setting for a class
+
 </details>
 
 <details>
@@ -92,6 +101,7 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - Fixed condition where sometimes generated code in entity default constructors would create infinitely recursive calls
    - Stopped escaping standard XML comment tags in summary and description fields (see https://github.com/msawczyn/EFDesigner/issues/248)
    - Due to the new seeding needs in EFCore5, setters for identity properties are now public even if set to be auto-generated
+
 </details>
 
 <details>

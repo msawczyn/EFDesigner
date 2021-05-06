@@ -57,7 +57,6 @@
             }
          }
 
-         [SuppressMessage("ReSharper", "RedundantNameQualifier")]
          private string CreateForeignKeySegment(Association association, List<string> foreignKeyColumns)
          {
             // foreign key definitions always go in the table representing the Dependent end of the association
@@ -83,7 +82,7 @@
             else
                return null;
 
-            string[] columnNameList = null;
+            string[] columnNameList;
 
             // shadow properties
             if (string.IsNullOrWhiteSpace(association.FKPropertyName))
@@ -119,7 +118,6 @@
             return $"Map(x => x.MapKey({string.Join(", ", columnNameList.Select(n => $"\"{n}\""))}))";
          }
 
-         [SuppressMessage("ReSharper", "RedundantNameQualifier")]
          private void DefineBidirectionalAssociations(ModelClass modelClass
                                                     , List<Association> visited
                                                     , List<string> segments
@@ -241,7 +239,6 @@
             }
          }
 
-         [SuppressMessage("ReSharper", "RedundantNameQualifier")]
          private void DefineUnidirectionalAssociations(ModelClass modelClass
                                                      , List<Association> visited
                                                      , List<string> segments

@@ -2192,7 +2192,10 @@ namespace Sawczyn.EFDesigner.EFModel
 	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyAccessMode>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
-	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "propertyAccessModeDefault", serializedPropValue);
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "FieldDuringConstruction") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "propertyAccessModeDefault", serializedPropValue);
+	            }
 	         }
 	      }
 	      // UseTabs

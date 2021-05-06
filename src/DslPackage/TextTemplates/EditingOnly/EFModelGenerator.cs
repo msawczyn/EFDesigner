@@ -689,11 +689,9 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                                                                        && !string.IsNullOrEmpty(x.InitialValue)
                                                                                        && x.InitialValue != "null"))
                {
-                  string quote = modelAttribute.Type == "String"
-                                    ? "\""
-                                    : modelAttribute.Type == "Char"
-                                       ? "'"
-                                       : string.Empty;
+                  string quote = modelAttribute.Type == "String" ? "\""
+                               : modelAttribute.Type == "Char" ? "'"
+                               : string.Empty;
 
                   string initialValue = modelAttribute.InitialValue;
 
@@ -739,7 +737,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   if (navigationProperty.IsCollection)
                   {
                      string collectionType = GetFullContainerName(navigationProperty.AssociationObject.CollectionClass, navigationProperty.ClassType.FullName);
-                     Output($"this.{navigationProperty.PropertyName} = new {collectionType}();");
+
+                     Output(navigationProperty.IsAutoProperty
+                               ? $"this.{navigationProperty.PropertyName} = new {collectionType}();"
+                               : $"this.{navigationProperty.BackingFieldName} = new {collectionType}();");
                   }
                }
 
@@ -836,7 +837,9 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                                                         .Where(x => x.AssociationObject.Persistent && x.IsCollection && !x.ConstructorParameterOnly))
             {
                string collectionType = GetFullContainerName(navigationProperty.AssociationObject.CollectionClass, navigationProperty.ClassType.FullName);
-               Output($"{navigationProperty.PropertyName} = new {collectionType}();");
+               Output(navigationProperty.IsAutoProperty && !string.IsNullOrEmpty(navigationProperty.BackingFieldName)
+                         ? $"{navigationProperty.PropertyName} = new {collectionType}();" 
+                         : $"{navigationProperty.BackingFieldName} = new {collectionType}();");
                ++lineCount;
             }
 

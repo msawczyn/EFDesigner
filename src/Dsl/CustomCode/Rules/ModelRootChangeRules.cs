@@ -88,6 +88,24 @@ namespace Sawczyn.EFDesigner.EFModel
                      {
                         element.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
                         store.ElementDirectory.AllElements.OfType<ModelClass>().Where(c => c.IsPropertyBag).ToList().ForEach(c => c.IsPropertyBag = false);
+
+                        switch (element.PropertyAccessModeDefault)
+                        {
+                           case PropertyAccessMode.PreferField:
+                           case PropertyAccessMode.PreferFieldDuringConstruction:
+                           case PropertyAccessMode.PreferProperty:
+                              element.PropertyAccessModeDefault = PropertyAccessMode.FieldDuringConstruction;
+
+                              store.ElementDirectory.AllElements.OfType<ModelAttribute>()
+                                   .Where(a => !a.IsPropertyAccessModeTracking
+                                            && (a.PropertyAccessMode == PropertyAccessMode.PreferField
+                                             || a.PropertyAccessMode == PropertyAccessMode.PreferProperty
+                                             || a.PropertyAccessMode == PropertyAccessMode.PreferFieldDuringConstruction))
+                                   .ToList()
+                                   .ForEach(a => a.PropertyAccessMode = PropertyAccessMode.FieldDuringConstruction);
+
+                              break;
+                        }
                      }
 
                      break;
@@ -167,7 +185,7 @@ namespace Sawczyn.EFDesigner.EFModel
                foreach (EFModelDiagram diagram in element.GetDiagrams())
                   diagram.GridColor = (Color)e.NewValue;
 
-               redraw = true; 
+               redraw = true;
 
                break;
 
@@ -225,7 +243,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   diagram.ShowGrid = (bool)e.NewValue;
 
                redraw = true;
-               
+
                break;
 
             case "ShowInterfaceIndicators":

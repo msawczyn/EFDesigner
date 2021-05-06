@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Data.Entity.Design.PluralizationServices;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-
+// ReSharper disable RedundantNameQualifier
 // ReSharper disable UnusedMember.Global
 
 namespace Sawczyn.EFDesigner.EFModel.EditingOnly
@@ -45,7 +44,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             }
          }
 
-         [SuppressMessage("ReSharper", "RedundantNameQualifier")]
          private string CreateForeignKeySegment(Association association, List<string> foreignKeyColumns)
          {
             // foreign key definitions always go in the table representing the Dependent end of the association
@@ -71,7 +69,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             else
                return null;
 
-            string[] columnNameList = null;
+            string[] columnNameList;
 
             // shadow properties
             if (string.IsNullOrWhiteSpace(association.FKPropertyName))
@@ -107,7 +105,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             return $"Map(x => x.MapKey({string.Join(", ", columnNameList.Select(n => $"\"{n}\""))}))";
          }
 
-         [SuppressMessage("ReSharper", "RedundantNameQualifier")]
          private void DefineBidirectionalAssociations(ModelClass modelClass
                                                     , List<Association> visited
                                                     , List<string> segments
@@ -229,7 +226,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             }
          }
 
-         [SuppressMessage("ReSharper", "RedundantNameQualifier")]
          private void DefineUnidirectionalAssociations(ModelClass modelClass
                                                      , List<Association> visited
                                                      , List<string> segments

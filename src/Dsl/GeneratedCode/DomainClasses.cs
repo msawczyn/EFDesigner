@@ -3900,7 +3900,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for PropertyAccessModeDefault
 		/// </summary>
-		private PropertyAccessMode propertyAccessModeDefaultPropertyStorage;
+		private PropertyAccessMode propertyAccessModeDefaultPropertyStorage = PropertyAccessMode.FieldDuringConstruction;
 		
 		/// <summary>
 		/// Gets or sets the value of PropertyAccessModeDefault domain property.
@@ -3909,6 +3909,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/PropertyAccessModeDefault.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/PropertyAccessModeDefault.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/PropertyAccessModeDefault.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(PropertyAccessMode.FieldDuringConstruction)]
 		[DslModeling::DomainObjectId("51108d30-911e-496c-9b41-99d297f287c3")]
 		public PropertyAccessMode PropertyAccessModeDefault
 		{
@@ -13525,6 +13526,6 @@ namespace Sawczyn.EFDesigner.EFModel
    /// </summary>
 	partial class ModelRoot
 	{
-		public const string DSLVersion = "3.0.5.1";
+		public const string DSLVersion = "3.0.5.2";
 	}
 }

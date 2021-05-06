@@ -28,6 +28,10 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**3.0.5**
+   - Fix where parsing EF version numbers should be culture-neutral
+   - Corrected tracking property access modes from the default to overrides in entity attributes
+
 **3.0.4**
    - **[NEW]** Added context menu choice to visually align node elements on diagrams.
    - Fix for detecting correct EF version when anything with "Latest" in it is configured (see https://github.com/msawczyn/EFDesigner/issues/266)

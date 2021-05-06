@@ -361,6 +361,47 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   Output($"modelBuilder.Entity<{association.Source.FullName}>().Navigation(e => e.{association.TargetPropertyName}).AutoInclude();");
                else if (association.SourceAutoInclude)
                   Output($"modelBuilder.Entity<{association.Target.FullName}>().Navigation(e => e.{association.SourcePropertyName}).AutoInclude();");
+
+               if (!association.TargetAutoProperty)
+               {
+                  segments.Add($"modelBuilder.Entity<{association.Source.FullName}>().Navigation(e => e.{association.TargetPropertyName})");
+
+                  if (association.Source == association.Principal)
+                  {
+                     segments.Add($".HasField(\"{association.TargetBackingFieldName}\")");
+                     segments.Add($".Metadata.PrincipalToDependent.SetPropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode});");
+                  }
+                  else if (association.Target == association.Principal)
+                  {
+                     segments.Add($".HasField(\"{association.TargetBackingFieldName}\")");
+                     segments.Add($".Metadata.DependentToPrincipal.SetPropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode});");
+                  }
+                  else
+                     segments.Add($".HasField(\"{association.TargetBackingFieldName}\");");
+
+                  Output(segments);
+               }
+
+               if (!association.SourceAutoProperty)
+               {
+                  segments.Add($"modelBuilder.Entity<{association.Target.FullName}>().Navigation(e => e.{association.SourcePropertyName})");
+
+                  if (association.Target == association.Principal)
+                  {
+                     segments.Add($".HasField(\"{association.SourceBackingFieldName}\")");
+                     segments.Add($".Metadata.PrincipalToDependent.SetPropertyAccessMode(PropertyAccessMode.{association.SourcePropertyAccessMode});");
+                  }
+                  else if (association.Source == association.Principal)
+                  {
+                     segments.Add($".HasField(\"{association.SourceBackingFieldName}\")");
+                     segments.Add($".Metadata.DependentToPrincipal.SetPropertyAccessMode(PropertyAccessMode.{association.SourcePropertyAccessMode});");
+                  }
+                  else
+                     segments.Add($".HasField(\"{association.SourceBackingFieldName}\");");
+
+                  Output(segments);
+               }
+
             }
          }
 
@@ -566,8 +607,20 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                if (!association.TargetAutoProperty)
                {
                   segments.Add($"modelBuilder.Entity<{association.Source.FullName}>().Navigation(e => e.{association.TargetPropertyName})");
-                  segments.Add($"HasField(\"{association.TargetBackingFieldName}\")");
-                  segments.Add($"UsePropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode})");
+
+                  if (association.Source == association.Principal)
+                  {
+                     segments.Add($".HasField(\"{association.TargetBackingFieldName}\")");
+                     segments.Add($".Metadata.PrincipalToDependent.SetPropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode});");
+                  }
+                  else if (association.Target == association.Principal)
+                  {
+                     segments.Add($".HasField(\"{association.TargetBackingFieldName}\")");
+                     segments.Add($".Metadata.DependentToPrincipal.SetPropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode});");
+                  }
+                  else
+                     segments.Add($".HasField(\"{association.TargetBackingFieldName}\");");
+
                   Output(segments);
                }
             }
