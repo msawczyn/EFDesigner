@@ -41,22 +41,24 @@
       </Menus>
 
       <Groups>
+
          <Group guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram" priority="0x0100">
             <!-- These symbols are defined in GeneratedVSCT.vsct -->
             <Parent guid="guidCmdSet" id="menuidContext" />
          </Group>
 
-         <Group guid="guidEFDiagramMenuCmdSet" id="grpidSelect" priority="0x0000">
+         <Group guid="guidEFDiagramMenuCmdSet" id="grpidSelect" priority="0x11A">
             <Parent guid="guidEFDiagramMenuCmdSet" id="menuidSelect"/>
          </Group>
 
-         <Group guid="guidEFDiagramMenuCmdSet" id="grpidAlign" priority="0x0000">
+         <Group guid="guidEFDiagramMenuCmdSet" id="grpidAlign" priority="0x011B">
             <Parent guid="guidEFDiagramMenuCmdSet" id="menuidAlign"/>
          </Group>
 
-         <Group guid="guidEFDiagramMenuCmdSet" id="grpidResize" priority="0x0000">
+         <Group guid="guidEFDiagramMenuCmdSet" id="grpidResize" priority="0x011C">
             <Parent guid="guidEFDiagramMenuCmdSet" id="menuidAlign"/>
          </Group>
+
       </Groups>
 
       <Buttons>
@@ -70,7 +72,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidLayoutDiagram" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidLayoutDiagram" priority="0x0101" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -79,16 +81,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSaveAsImage" priority="0x0100" type="Button">
-            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
-            <CommandFlag>DynamicVisibility</CommandFlag>
-            <Strings>
-               <ButtonText>Save as Image</ButtonText>
-               <CommandName>SaveAsImage</CommandName>
-            </Strings>
-         </Button>
-
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidHideShape" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidHideShape" priority="0x0102" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -97,7 +90,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidShowShape" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidShowShape" priority="0x0103" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -106,70 +99,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidRemoveShape" priority="0x0100" type="Button">
-            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
-            <CommandFlag>DynamicVisibility</CommandFlag>
-            <Strings>
-               <ButtonText>Remove from Diagram</ButtonText>
-               <CommandName>RemoveFromDiagram</CommandName>
-            </Strings>
-         </Button>
-
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidMergeAssociations" priority="0x0100" type="Button">
-            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
-            <CommandFlag>DynamicVisibility</CommandFlag>
-            <Strings>
-               <ButtonText>Merge Unidirectional Associations</ButtonText>
-               <CommandName>MergeAssociations</CommandName>
-            </Strings>
-         </Button>
-
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSplitAssociation" priority="0x0100" type="Button">
-            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
-            <CommandFlag>DynamicVisibility</CommandFlag>
-            <Strings>
-               <ButtonText>Split Bidirectional Association</ButtonText>
-               <CommandName>SplitAssociation</CommandName>
-            </Strings>
-         </Button>
-         
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSplitAssociation" priority="0x0100" type="Button">
-            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
-            <CommandFlag>DynamicVisibility</CommandFlag>
-            <Strings>
-               <ButtonText>Split Bidirectional Association</ButtonText>
-               <CommandName>SplitAssociation</CommandName>
-            </Strings>
-         </Button>
-
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAddForeignKeys" priority="0x0100" type="Button">
-            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
-            <CommandFlag>DynamicVisibility</CommandFlag>
-            <Strings>
-               <ButtonText>Add Foreign Key Properties</ButtonText>
-               <CommandName>AddForeignKeys</CommandName>
-            </Strings>
-         </Button>
-         
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidDelForeignKeys" priority="0x0100" type="Button">
-            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
-            <CommandFlag>DynamicVisibility</CommandFlag>
-            <Strings>
-               <ButtonText>Remove Foreign Key Properties</ButtonText>
-               <CommandName>RemoveForeignKeys</CommandName>
-            </Strings>
-         </Button>
-
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidExpandSelected" priority="0x0100" type="Button">
-            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
-            <CommandFlag>DynamicVisibility</CommandFlag>
-            <Strings>
-               <ButtonText>Expand Selected Elements</ButtonText>
-               <CommandName>ExpandSelected</CommandName>
-            </Strings>
-         </Button>
-         
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidGenerateCode" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidGenerateCode" priority="0x0104" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -178,16 +108,7 @@
             </Strings>
          </Button>
          
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidLoadNuGet" priority="0x0100" type="Button">
-            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
-            <CommandFlag>DynamicVisibility</CommandFlag>
-            <Strings>
-               <ButtonText>Load NuGet Packages</ButtonText>
-               <CommandName>LoadNuGetPkgs</CommandName>
-            </Strings>
-         </Button>
-
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties" priority="0x0105" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -196,7 +117,25 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeValues" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSaveAsImage" priority="0x0106" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Save as Image</ButtonText>
+               <CommandName>SaveAsImage</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidImageToClipboard" priority="0x0107" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Copy Image to Clipboard</ButtonText>
+               <CommandName>ImageToClipboard</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeValues" priority="0x0108" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -205,7 +144,61 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSelectClasses" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidExpandSelected" priority="0x0109" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Expand Selected Elements</ButtonText>
+               <CommandName>ExpandSelected</CommandName>
+            </Strings>
+         </Button>
+         
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidMergeAssociations" priority="0x010A" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Merge Unidirectional Associations</ButtonText>
+               <CommandName>MergeAssociations</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSplitAssociation" priority="0x010B" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Split Bidirectional Association</ButtonText>
+               <CommandName>SplitAssociation</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidRemoveShape" priority="0x010C" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Remove from Diagram</ButtonText>
+               <CommandName>RemoveFromDiagram</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAddForeignKeys" priority="0x010D" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Add Foreign Key Properties</ButtonText>
+               <CommandName>AddForeignKeys</CommandName>
+            </Strings>
+         </Button>
+         
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidDelForeignKeys" priority="0x010E" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Remove Foreign Key Properties</ButtonText>
+               <CommandName>RemoveForeignKeys</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSelectClasses" priority="0x010F" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidSelect"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -214,7 +207,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSelectEnums" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSelectEnums" priority="0x0110" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidSelect"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -223,7 +216,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSelectAssocs" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSelectAssocs" priority="0x0111" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidSelect"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -232,7 +225,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSelectUnidir" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSelectUnidir" priority="0x0112" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidSelect"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -241,7 +234,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSelectBidir" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSelectBidir" priority="0x0113" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidSelect"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -250,7 +243,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignLeft" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignLeft" priority="0x0114" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidAlign"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -259,7 +252,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignRight" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignRight" priority="0x0115" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidAlign"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -268,7 +261,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignTop" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignTop" priority="0x0116" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidAlign"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -277,7 +270,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignBottom" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignBottom" priority="0x0117" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidAlign"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -286,7 +279,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignHCenter" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignHCenter" priority="0x0118" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidAlign"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -295,7 +288,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignVCenter" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAlignVCenter" priority="0x0119" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidAlign"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -304,7 +297,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidResizeWidest" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidResizeWidest" priority="0x011D" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidResize"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -313,7 +306,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidResizeNarrowest" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidResizeNarrowest" priority="0x011E" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidResize"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -322,7 +315,7 @@
             </Strings>
          </Button>
          
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidEqualSpaceHoriz" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidEqualSpaceHoriz" priority="0x011F" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidResize"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -331,7 +324,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidEqualSpaceVert" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidEqualSpaceVert" priority="0x0120" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidResize"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -382,6 +375,7 @@
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidLoadNuGet"           editor="guidEditor" key1="N"         mod1="CONTROL ALT" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties"   editor="guidEditor" key1="C"         mod1="CONTROL ALT" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidSaveAsImage"         editor="guidEditor" key1="I"         mod1="CONTROL" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidImageToClipboard"    editor="guidEditor" key1="I"         mod1="CONTROL SHIFT" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAlignLeft"           editor="guidEditor" key1="VK_LEFT"   mod1="CONTROL SHIFT" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAlignRight"          editor="guidEditor" key1="VK_RIGHT"  mod1="CONTROL SHIFT" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAlignTop"            editor="guidEditor" key1="VK_UP"     mod1="CONTROL SHIFT" />
@@ -400,6 +394,7 @@
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidGenerateCode"      context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties" context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidSaveAsImage"       context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidImageToClipboard"  context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidLoadNuGet"         context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeValues"     context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidExpandSelected"    context="guidEditor"/>
@@ -455,6 +450,7 @@
          <IDSymbol name="cmdidRemoveShape"               value="0x0001E"/>
          <IDSymbol name="cmdidAddForeignKeys"            value="0x0001F"/>
          <IDSymbol name="cmdidDelForeignKeys"            value="0x00020"/>
+         <IDSymbol name="cmdidImageToClipboard"          value="0x00021"/>
 
          <IDSymbol name="menuidSelect"                   value="0x01100"/>
          <IDSymbol name="grpidSelect"                    value="0x01150"/>

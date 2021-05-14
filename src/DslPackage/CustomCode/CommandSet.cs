@@ -47,6 +47,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private const int cmdidRemoveShape = 0x001E;
       private const int cmdidAddForeignKeys = 0x001F;
       private const int cmdidDelForeignKeys = 0x0020;
+      private const int cmdidImageToClipboard = 0x0021;
 
       private const int cmdidSelectClasses = 0x0101;
       private const int cmdidSelectEnums = 0x0102;
@@ -175,6 +176,15 @@ namespace Sawczyn.EFDesigner.EFModel
             new DynamicStatusMenuCommand(OnStatusSaveAsImage, OnMenuSaveAsImage, new CommandID(guidEFDiagramMenuCmdSet, cmdidSaveAsImage));
 
          commands.Add(saveAsImageCommand);
+
+         #endregion
+
+         #region imageToClipboard
+
+         DynamicStatusMenuCommand imageToClipboard =
+            new DynamicStatusMenuCommand(OnStatusImageToClipboard, OnMenuImageToClipboard, new CommandID(guidEFDiagramMenuCmdSet, cmdidImageToClipboard));
+
+         commands.Add(imageToClipboard);
 
          #endregion
 
@@ -1014,6 +1024,31 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          throw new ArgumentException();
+      }
+
+      #endregion
+
+      #region Image to Clipboard
+
+      private void OnStatusImageToClipboard(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            command.Visible = true;
+            command.Enabled = IsDiagramSelected() && !IsCurrentDiagramEmpty();
+         }
+      }
+
+      private void OnMenuImageToClipboard(object sender, EventArgs e)
+      {
+         Diagram currentDiagram = CurrentDocView?.CurrentDiagram;
+
+         if (currentDiagram == null)
+            return;
+
+         Bitmap bitmap = currentDiagram.CreateBitmap(currentDiagram.NestedChildShapes,
+                                                     Diagram.CreateBitmapPreference.FavorClarityOverSmallSize);
+         Clipboard.SetImage(bitmap);
       }
 
       #endregion
