@@ -8,7 +8,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.5
+      // EFDesigner v3.0.6
       // Copyright (c) 2017-2021 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -368,16 +368,16 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                   if (association.Source == association.Principal)
                   {
-                     segments.Add($".HasField(\"{association.TargetBackingFieldName}\")");
-                     segments.Add($".Metadata.PrincipalToDependent.SetPropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode});");
+                     segments.Add($"HasField(\"{association.TargetBackingFieldName}\")");
+                     segments.Add($"Metadata.SetPropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode});");
                   }
                   else if (association.Target == association.Principal)
                   {
-                     segments.Add($".HasField(\"{association.TargetBackingFieldName}\")");
-                     segments.Add($".Metadata.DependentToPrincipal.SetPropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode});");
+                     segments.Add($"HasField(\"{association.TargetBackingFieldName}\")");
+                     segments.Add($"Metadata.SetPropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode});");
                   }
                   else
-                     segments.Add($".HasField(\"{association.TargetBackingFieldName}\");");
+                     segments.Add($"HasField(\"{association.TargetBackingFieldName}\");");
 
                   Output(segments);
                }
@@ -388,16 +388,16 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                   if (association.Target == association.Principal)
                   {
-                     segments.Add($".HasField(\"{association.SourceBackingFieldName}\")");
-                     segments.Add($".Metadata.PrincipalToDependent.SetPropertyAccessMode(PropertyAccessMode.{association.SourcePropertyAccessMode});");
+                     segments.Add($"HasField(\"{association.SourceBackingFieldName}\")");
+                     segments.Add($"Metadata.SetPropertyAccessMode(PropertyAccessMode.{association.SourcePropertyAccessMode});");
                   }
                   else if (association.Source == association.Principal)
                   {
-                     segments.Add($".HasField(\"{association.SourceBackingFieldName}\")");
-                     segments.Add($".Metadata.DependentToPrincipal.SetPropertyAccessMode(PropertyAccessMode.{association.SourcePropertyAccessMode});");
+                     segments.Add($"HasField(\"{association.SourceBackingFieldName}\")");
+                     segments.Add($"Metadata.SetPropertyAccessMode(PropertyAccessMode.{association.SourcePropertyAccessMode});");
                   }
                   else
-                     segments.Add($".HasField(\"{association.SourceBackingFieldName}\");");
+                     segments.Add($"HasField(\"{association.SourceBackingFieldName}\");");
 
                   Output(segments);
                }
@@ -610,16 +610,16 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                   if (association.Source == association.Principal)
                   {
-                     segments.Add($".HasField(\"{association.TargetBackingFieldName}\")");
-                     segments.Add($".Metadata.PrincipalToDependent.SetPropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode});");
+                     segments.Add($"HasField(\"{association.TargetBackingFieldName}\")");
+                     segments.Add($"Metadata.SetPropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode});");
                   }
                   else if (association.Target == association.Principal)
                   {
-                     segments.Add($".HasField(\"{association.TargetBackingFieldName}\")");
-                     segments.Add($".Metadata.DependentToPrincipal.SetPropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode});");
+                     segments.Add($"HasField(\"{association.TargetBackingFieldName}\")");
+                     segments.Add($"Metadata.SetPropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode});");
                   }
                   else
-                     segments.Add($".HasField(\"{association.TargetBackingFieldName}\");");
+                     segments.Add($"HasField(\"{association.TargetBackingFieldName}\");");
 
                   Output(segments);
                }
