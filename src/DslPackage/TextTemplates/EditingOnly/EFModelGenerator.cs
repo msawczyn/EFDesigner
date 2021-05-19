@@ -837,7 +837,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                                                         .Where(x => x.AssociationObject.Persistent && x.IsCollection && !x.ConstructorParameterOnly))
             {
                string collectionType = GetFullContainerName(navigationProperty.AssociationObject.CollectionClass, navigationProperty.ClassType.FullName);
-               Output(navigationProperty.IsAutoProperty && !string.IsNullOrEmpty(navigationProperty.BackingFieldName)
+               Output(navigationProperty.IsAutoProperty || string.IsNullOrEmpty(navigationProperty.BackingFieldName)
                          ? $"{navigationProperty.PropertyName} = new {collectionType}();" 
                          : $"{navigationProperty.BackingFieldName} = new {collectionType}();");
                ++lineCount;
@@ -1199,4 +1199,3 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
       #endregion Template
    }
 }
-
