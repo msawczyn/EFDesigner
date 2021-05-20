@@ -1,6 +1,7 @@
 3.0.6
    - Added ability to copy current diagram to clipboard
    - DbContext fix for configuring associations with backing fields
+   - Code generation fix for associations with backing fields
 
 3.0.5
    - Fix where parsing EF version numbers should be culture-neutral (see https://github.com/msawczyn/EFDesigner/issues/282)

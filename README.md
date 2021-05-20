@@ -57,10 +57,19 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**3.0.5**
+**3.0.6**
+   - Added ability to copy current diagram to clipboard
+   - DbContext fix for configuring associations with backing fields
+   - Code generation fix for associations with backing fields
+
+<details>
+<summary><b>3.0.5</b></summary>
+
    - Fix where parsing EF version numbers should be culture-neutral (see https://github.com/msawczyn/EFDesigner/issues/282)
    - Fixed circular logic flaw in identity properties for database views (see https://github.com/msawczyn/EFDesigner/issues/275)
    - Corrected tracking property access modes from the default to overrides in entity attributes
+
+</details>
 
 <details>
 <summary><b>3.0.4</b></summary>
