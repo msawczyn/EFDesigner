@@ -4,8 +4,7 @@ It's an opinionated code generator, adding a new file type (.efmodel) that allow
 
 <img src="https://msawczyn.github.io/EFDesigner/images/Designer.jpg">
 
-While giving you complete control over how the code is generated you'll be able to create, out of the box, sophisticated, consistent and **correct** Entity Framework code that can be regenerated when your model changes. And, since the code is written using partial classes, any additions you make to your generated code are retained across subsequent generations.
-The designer doesn't need to be present to use the code that's generated - it generates standard C#, using the code-first, fluent API - so the tool doesn't become a dependency to your project.
+While giving you complete control over how the code is generated you'll be able to create, out of the box, sophisticated, consistent and **correct** Entity Framework code that can be regenerated when your model changes. And, since the code is written using partial classes, any additions you make to your generated code are retained across subsequent generations. The designer doesn't need to be present to use the code that's generated - it generates standard C#, using the code-first, fluent API - so the tool doesn't become a dependency to your project.
 
 If you are used to the EF visual modeling that comes with Visual Studio, you'll be pretty much at home. The goal was to duplicate at least those features and, in addition, add all the little things that _should_ have been there. Things like:
 
@@ -20,9 +19,7 @@ If you are used to the EF visual modeling that comes with Visual Studio, you'll 
 
 and many other nice-to-have bits.
 
-**Note:** This tool does not reverse engineer from the database (i.e., "database-first"). Microsoft has provided
-tools for that, and there are other, well-maintained opensourced projects that provide that functionality as
-well. 
+**Note:** This tool does not reverse engineer from the database (i.e., "database-first"). Microsoft has provided tools for that, and there are other, well-maintained opensourced projects that provide that functionality as well. 
 
 For comprehensive documentation, please visit [the project's documentation site](https://msawczyn.github.io/EFDesigner/).
 

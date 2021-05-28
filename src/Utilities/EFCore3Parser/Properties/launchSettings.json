@@ -2,7 +2,7 @@
   "profiles": {
     "EFCore3Parser": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\micha\\Downloads\\Dinaris.PsycheAdmin.EFDAL.dll\" c:\\temp\\parsertest.txt"
+      "commandLineArgs": "\"C:\\Code\\_Clients\\AWH\\SureImpactMVP\\Source\\SureImpact.Data\\bin\\Debug\\netcoreapp3.1\\SureImpact.Data.dll\" c:\\temp\\parsertest.txt"
     }
   }
 }

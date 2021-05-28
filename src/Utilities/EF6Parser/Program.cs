@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 
 using log4net;
 using log4net.Config;
@@ -18,6 +20,27 @@ namespace EF6Parser
       public const int CANNOT_FIND_APPROPRIATE_CONSTRUCTOR = 5;
       public const int AMBIGUOUS_REQUEST = 6;
       private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+      private static Assembly Context_Resolving(AssemblyLoadContext context, AssemblyName assemblyName)
+      {
+         // avoid loading *.resources dlls, because of: https://github.com/dotnet/coreclr/issues/8416
+         if (assemblyName.Name.EndsWith("resources"))
+            return null;
+
+         // try known directories
+         string found = context.Assemblies.Select(x => Path.Combine(Path.GetDirectoryName(x.Location), $"{assemblyName.Name}.dll")).Distinct().FirstOrDefault(File.Exists);
+
+         if (found != null) 
+            return context.LoadFromAssemblyPath(found);
+
+         // try gac
+         found = Directory.GetFileSystemEntries(Environment.ExpandEnvironmentVariables("%windir%\\Microsoft.NET\\assembly"), $"{assemblyName.Name}.dll", SearchOption.AllDirectories).FirstOrDefault();
+
+         if (found != null) 
+            return context.LoadFromAssemblyPath(found);
+
+         return null;
+      }
 
       private static void Exit(int returnCode, Exception ex = null)
       {
@@ -90,7 +113,7 @@ namespace EF6Parser
 
                   log.Info($"Loading {inputPath}");
                   Environment.CurrentDirectory = Path.GetDirectoryName(inputPath);
-                  Assembly assembly = Assembly.LoadFrom(inputPath);
+                  Assembly assembly = TryLoadFrom(inputPath);
                   Parser parser = null;
 
                   try
@@ -142,6 +165,23 @@ namespace EF6Parser
          log.Info("Success");
 
          return SUCCESS;
+      }
+
+      private static Assembly TryLoadFrom(string inputPath)
+      {
+         AssemblyLoadContext context = new AssemblyLoadContext("EFCore5Parser");
+         context.Resolving += Context_Resolving;
+
+         try
+         {
+            return context.LoadFromAssemblyPath(inputPath);
+         }
+         catch
+         {
+            string altPath = Path.ChangeExtension(inputPath, "dll");
+
+            return context.LoadFromAssemblyPath(altPath);
+         }
       }
    }
 }
