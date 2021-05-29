@@ -44,10 +44,7 @@ namespace EFCore2Parser
          // try gac
          found = Directory.GetFileSystemEntries(Environment.ExpandEnvironmentVariables("%windir%\\Microsoft.NET\\assembly"), $"{assemblyName.Name}.dll", SearchOption.AllDirectories).FirstOrDefault();
 
-         if (found != null) 
-            return context.LoadFromAssemblyPath(found);
-
-         return null;
+         return found == null ? null : context.LoadFromAssemblyPath(found);
       }
 
       private static void Exit(int returnCode, Exception ex = null)

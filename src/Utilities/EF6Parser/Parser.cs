@@ -19,7 +19,7 @@ using ParsingModels;
 
 namespace EF6Parser
 {
-   public class Parser
+   public class Parser: ParserBase
    {
       private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -27,7 +27,7 @@ namespace EF6Parser
       private readonly DbContext dbContext;
       private readonly MetadataWorkspace metadata;
 
-      public Parser(Assembly assembly, string inputPath, string dbContextTypeName = null)
+      public Parser(Assembly assembly, string dbContextTypeName = null)
       {
          Debugger.Break();
          
@@ -237,8 +237,7 @@ namespace EF6Parser
                                                  ?.SingleOrDefault(s => s.EntitySet == entitySet);
 
                // Find the storage entity set (table) that the entity is mapped
-               table = mapping?.EntityTypeMappings?.SelectMany(m => m.Fragments.Select(f => f.StoreEntitySet))?.Distinct().FirstOrDefault();
-               //table = mapping?.EntityTypeMappings.SingleOrDefault()?.Fragments?.SingleOrDefault()?.StoreEntitySet;
+               table = mapping?.EntityTypeMappings?.SelectMany(m => m.Fragments.Select(f => f.StoreEntitySet)).Distinct().FirstOrDefault();
             }
          }
 
@@ -401,7 +400,7 @@ namespace EF6Parser
                                                       ? customAttributes
                                                       : null
                               , CustomInterfaces = type.GetInterfaces().Any()
-                                                      ? string.Join(",", type.GetInterfaces().Select(t => t.FullName))
+                                                      ? string.Join(",", type.GetInterfaces().Select(GetTypeFullName))
                                                       : null
                               , Properties = oSpaceType.DeclaredProperties
                                                        .Select(x => x.Name)
@@ -439,9 +438,9 @@ namespace EF6Parser
                                 Name = oSpaceType.Name
                               , Namespace = oSpaceType.NamespaceName
                               , IsAbstract = oSpaceType.Abstract
-                              , BaseClass = oSpaceType.BaseType?.Name
+                              , BaseClass = GetTypeFullName(oSpaceType.BaseType?.Name)
                               , CustomInterfaces = type.GetInterfaces().Any()
-                                                      ? string.Join(",", type.GetInterfaces().Select(t => t.FullName))
+                                                      ? string.Join(",", type.GetInterfaces().Select(GetTypeFullName))
                                                       : null
                               , IsDependentType = false
                               , CustomAttributes = customAttributes.Length > 2

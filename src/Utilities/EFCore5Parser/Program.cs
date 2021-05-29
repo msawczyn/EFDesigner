@@ -35,10 +35,16 @@ namespace EFCore5Parser
          if (library != null)
             return context.LoadFromAssemblyName(new AssemblyName(library.Name));
 
-         // try gac
-         string[] foundDlls = Directory.GetFileSystemEntries(Environment.ExpandEnvironmentVariables("%windir%\\Microsoft.NET\\assembly"), $"{assemblyName.Name}.dll", SearchOption.AllDirectories);
+         // try known directories
+         string found = context.Assemblies.Select(x => Path.Combine(Path.GetDirectoryName(x.Location), $"{assemblyName.Name}.dll")).Distinct().FirstOrDefault(File.Exists);
 
-         return foundDlls.Any() ? context.LoadFromAssemblyPath(foundDlls[0]) : null;
+         if (found != null) 
+            return context.LoadFromAssemblyPath(found);
+
+         // try gac
+         found = Directory.GetFileSystemEntries(Environment.ExpandEnvironmentVariables("%windir%\\Microsoft.NET\\assembly"), $"{assemblyName.Name}.dll", SearchOption.AllDirectories).FirstOrDefault();
+
+         return found == null ? null : context.LoadFromAssemblyPath(found);
       }
 
       private static void Exit(int returnCode, Exception ex = null)

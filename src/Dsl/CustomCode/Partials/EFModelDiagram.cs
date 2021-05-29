@@ -187,14 +187,17 @@ namespace Sawczyn.EFDesigner.EFModel
                   }
                   finally
                   {
-                     if (newElements?.Count > 0)
-                     {
-                        string message = $"Created {newElements.Count} new elements that have been added to the Model Explorer. "
-                                       + $"Do you want these added to the current diagram as well? It could take a while.";
+                     //if (newElements?.Count > 0)
+                     //{
+                     //   string message = $"Created {newElements.Count} new elements that have been added to the Model Explorer. "
+                     //                  + $"Do you want these added to the current diagram as well? It could take a while.";
 
-                        if (BooleanQuestionDisplay.Show(Store, message) == true)
-                           AddElementsToActiveDiagram(newElements);
-                     }
+                     //   if (BooleanQuestionDisplay.Show(Store, message) == true)
+                     //      AddElementsToActiveDiagram(newElements);
+                     //}
+
+                     string message = $"{newElements.Count} have been added to the Model Explorer. You can add them to this or any other diagram by dragging them from the Model Explorer and dropping them onto the design surface.";
+                     MessageDisplay.Show(message);
 
                      IsDroppingExternal = false;
                   }
@@ -257,13 +260,20 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             for (int index = 0; index < elementCount; index++)
             {
-               ModelElement newElement = newElements[index];
-               StatusDisplay.Show($"Adding element {index + 1} of {elementCount}");
+               try
+               {
+                  ModelElement newElement = newElements[index];
+                  StatusDisplay.Show($"Adding element {index + 1} of {elementCount}");
 
-               ForceAddShape = true;
-               FixUpAllDiagrams.FixUp(this, newElement);
-               newShapes.Add(newElement.GetFirstShapeElement());
-               ForceAddShape = false;
+                  ForceAddShape = true;
+                  FixUpAllDiagrams.FixUp(this, newElement);
+                  newShapes.Add(newElement.GetFirstShapeElement());
+                  ForceAddShape = false;
+               }
+               catch (Exception)
+               {
+                  StatusDisplay.Show($"Error adding element {index + 1} to diagram");
+               }
             }
 
             t.Commit();
@@ -273,36 +283,43 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             for (int index = 0; index < elementCount; index++)
             {
-               ModelElement newElement = newElements[index];
-               StatusDisplay.Show($"Linking {index + 1} of {elementCount}");
-
-               // find all element links that are attached to our element where the ends are in the diagram but the link isn't already in the diagram
-               List<ElementLink> elementLinks = Store.GetAll<ElementLink>()
-                                                     .Where(link => link.LinkedElements.Contains(newElement)
-                                                                 && link.LinkedElements.All(linkedElement => DisplayedElements.Contains(linkedElement))
-                                                                 && !DisplayedElements.Contains(link))
-                                                     .ToList();
-
-               foreach (ElementLink elementLink in elementLinks)
+               try
                {
-                  BinaryLinkShape linkShape = CreateChildShape(elementLink) as BinaryLinkShape;
-                  newShapes.Add(linkShape);
-                  NestedChildShapes.Add(linkShape);
+                  ModelElement newElement = newElements[index];
+                  StatusDisplay.Show($"Linking {index + 1} of {elementCount}");
 
-                  switch (elementLink)
+                  // find all element links that are attached to our element where the ends are in the diagram but the link isn't already in the diagram
+                  List<ElementLink> elementLinks = Store.GetAll<ElementLink>()
+                                                        .Where(link => link.LinkedElements.Contains(newElement)
+                                                                    && link.LinkedElements.All(linkedElement => DisplayedElements.Contains(linkedElement))
+                                                                    && !DisplayedElements.Contains(link))
+                                                        .ToList();
+
+                  foreach (ElementLink elementLink in elementLinks)
                   {
-                     case Association a:
-                        linkShape.FromShape = a.Source.GetFirstShapeElement() as NodeShape;
-                        linkShape.ToShape = a.Target.GetFirstShapeElement() as NodeShape;
+                     BinaryLinkShape linkShape = CreateChildShape(elementLink) as BinaryLinkShape;
+                     newShapes.Add(linkShape);
+                     NestedChildShapes.Add(linkShape);
 
-                        break;
+                     switch (elementLink)
+                     {
+                        case Association a:
+                           linkShape.FromShape = a.Source.GetFirstShapeElement() as NodeShape;
+                           linkShape.ToShape = a.Target.GetFirstShapeElement() as NodeShape;
 
-                     case Generalization g:
-                        linkShape.FromShape = g.Subclass.GetFirstShapeElement() as NodeShape;
-                        linkShape.ToShape = g.Superclass.GetFirstShapeElement() as NodeShape;
+                           break;
 
-                        break;
+                        case Generalization g:
+                           linkShape.FromShape = g.Subclass.GetFirstShapeElement() as NodeShape;
+                           linkShape.ToShape = g.Superclass.GetFirstShapeElement() as NodeShape;
+
+                           break;
+                     }
                   }
+               }
+               catch (Exception)
+               {
+                  StatusDisplay.Show($"Error adding link {index + 1} to diagram");
                }
             }
 

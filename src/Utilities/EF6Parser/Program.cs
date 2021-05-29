@@ -36,10 +36,7 @@ namespace EF6Parser
          // try gac
          found = Directory.GetFileSystemEntries(Environment.ExpandEnvironmentVariables("%windir%\\Microsoft.NET\\assembly"), $"{assemblyName.Name}.dll", SearchOption.AllDirectories).FirstOrDefault();
 
-         if (found != null) 
-            return context.LoadFromAssemblyPath(found);
-
-         return null;
+         return found == null ? null : context.LoadFromAssemblyPath(found);
       }
 
       private static void Exit(int returnCode, Exception ex = null)
@@ -102,8 +99,6 @@ namespace EF6Parser
             log.Info($"Starting {Assembly.GetEntryAssembly().Location}");
             log.Info($"Log file at {GlobalContext.Properties["LogPath"]}.log");
 
-            string contextClassName = args.Length == 3 ? args[2] : null;
-
             using (StreamWriter output = new StreamWriter(outputPath))
             {
                try
@@ -115,6 +110,7 @@ namespace EF6Parser
                   Environment.CurrentDirectory = Path.GetDirectoryName(inputPath);
                   Assembly assembly = TryLoadFrom(inputPath);
                   Parser parser = null;
+                  string contextClassName = args.Length == 3 ? args[2] : null;
 
                   try
                   {

@@ -18,7 +18,7 @@ using ParsingModels;
 
 namespace EFCore3Parser
 {
-   public class Parser
+   public class Parser: ParserBase
    {
       private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
       private readonly DbContext dbContext;
@@ -62,14 +62,12 @@ namespace EFCore3Parser
          DbContextOptionsBuilder optionsBuilder = Activator.CreateInstance(optionsBuilderType) as DbContextOptionsBuilder;
          Type optionsType = typeof(DbContextOptions<>).MakeGenericType(contextType);
 
-         // TODO: Won't work because of https://github.com/dotnet/efcore/issues/15532
          DbContextOptions options = optionsBuilder.UseLazyLoadingProxies()
                                                   .UseInMemoryDatabase("Parser")
                                                   .UseInternalServiceProvider(new ServiceCollection().AddEntityFrameworkInMemoryDatabase()
                                                                                                      .AddEntityFrameworkProxies()
                                                                                                      .BuildServiceProvider())
                                                   .Options;
-         //DbContextOptions options = optionsBuilder.Options;
 
          ConstructorInfo constructor = contextType.GetConstructor(new[] { optionsType });
 
@@ -260,16 +258,14 @@ namespace EFCore3Parser
          result.Namespace = type.Namespace;
          result.IsAbstract = type.IsAbstract;
 
-         result.BaseClass = type.BaseType.FullName == "System.Object"
-                               ? null
-                               : type.BaseType.Name;
+         result.BaseClass = GetTypeFullName(type.BaseType);
 
          result.TableName = entityType.GetTableName();
          result.IsDependentType = entityType.IsOwned();
          result.CustomAttributes = GetCustomAttributes(type.CustomAttributes);
 
          result.CustomInterfaces = type.GetInterfaces().Any()
-                                      ? string.Join(",", type.GetInterfaces().Select(t => t.FullName))
+                                      ? string.Join(",", type.GetInterfaces().Select(GetTypeFullName))
                                       : null;
 
          result.Properties = entityType.GetDeclaredProperties()
