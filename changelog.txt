@@ -2,6 +2,7 @@
    - Added ability to copy current diagram to clipboard
    - DbContext fix for configuring associations with backing fields
    - Code generation fix for associations with backing fields
+   - Fixed a number of issues with importing compiled assemblies
 
 3.0.5
    - Fix where parsing EF version numbers should be culture-neutral (see https://github.com/msawczyn/EFDesigner/issues/282)
