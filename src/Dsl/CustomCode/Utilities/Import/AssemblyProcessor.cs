@@ -72,7 +72,7 @@ namespace Sawczyn.EFDesigner.EFModel
             Dictionary<string,bool> contexts = new Dictionary<string, bool>();
             foreach (string parserPath in parsers)
             {
-               if (TryParse(inputFile, ref newElements, parserPath, outputFilename, logFilename, contexts))
+               if (TryProcess(inputFile, ref newElements, parserPath, outputFilename, logFilename, contexts))
                   return true;
             }
 
@@ -84,11 +84,11 @@ namespace Sawczyn.EFDesigner.EFModel
          }
          finally
          {
-            StatusDisplay.Show("");
+            StatusDisplay.Show("Ready");
          }
       }
 
-      private bool TryParse(string assemblyPath, ref List<ModelElement> newElements, string parserPath, string outputFilename, string logFilename, Dictionary<string, bool> contexts)
+      private bool TryProcess(string assemblyPath, ref List<ModelElement> newElements, string parserPath, string outputFilename, string logFilename, Dictionary<string, bool> contexts)
       {
          string contextName = contexts.Any(kv => contexts[kv.Key])
                                  ? contexts.First(kv => contexts[kv.Key]).Key
@@ -115,7 +115,7 @@ namespace Sawczyn.EFDesigner.EFModel
                foreach (string context in contextNames)
                   contexts.Add(context, BooleanQuestionDisplay.Show(Store, $"Found multiple DbContext classes. Process {context}?") == true);
 
-               return TryParse(assemblyPath, ref newElements, parserPath, outputFilename, logFilename, contexts);
+               return TryProcess(assemblyPath, ref newElements, parserPath, outputFilename, logFilename, contexts);
             }
          }
 
@@ -154,7 +154,8 @@ namespace Sawczyn.EFDesigner.EFModel
          RemoveDuplicateBidirectionalAssociations(classDataList);
          Dictionary<string, List<ModelClass>> baseClasses = new Dictionary<string, List<ModelClass>>();
 
-         foreach (ParsingModels.ModelClass data in classDataList)
+         // on the odd chance that a generic class passed through the parser, make sure we're not adding that to the model, since EF doesn't support that
+         foreach (ParsingModels.ModelClass data in classDataList.Where(x => !x.FullName.Contains("<")))
          {
             StatusDisplay.Show($"Processing {data.FullName}");
 
@@ -186,42 +187,50 @@ namespace Sawczyn.EFDesigner.EFModel
             }
 
             // if base class exists and isn't in the list yet, we can't hook it up to this class
-            // so we'll defer base class linkage for all classes until we're sure they're all in the model
-            if (!string.IsNullOrEmpty(data.BaseClass))
+            // so we'll defer base class linkage for all classes until we're sure they're all in the model.
+            // Note that we don't support generic base classes or System.Object, so we'll tell the user that they'll have to add that to the partial
+            if (!string.IsNullOrEmpty(data.BaseClass) && data.BaseClass != "System.Object")
             {
-               if (!baseClasses.ContainsKey(data.BaseClass))
-                  baseClasses.Add(data.BaseClass, new List<ModelClass>());
-               baseClasses[data.BaseClass].Add(element);
+               if (data.BaseClass.Contains("<"))
+               {
+                  string message = $"Found base class {data.BaseClass} for {element.FullName}. The designer doesn't support generic base classes. You will have to manually add this to a partial class for {element.FullName}.";
+                  MessageDisplay.Show(message);
+               }
+               else
+               {
+                  if (!baseClasses.ContainsKey(data.BaseClass))
+                     baseClasses.Add(data.BaseClass, new List<ModelClass>());
+
+                  baseClasses[data.BaseClass].Add(element);
+               }
             }
 
             ProcessProperties(element, data.Properties);
          }
 
          // now we can fixup the generalization links
-         foreach (string baseClassName in baseClasses.Keys)
+         foreach (string baseClassKey in baseClasses.Keys.Where(x => x != "System.Object"))
          {
-            foreach (ModelClass subClass in baseClasses[baseClassName])
+            string baseClassName = baseClassKey.StartsWith("global::") ? baseClassKey.Substring(8) : baseClassKey;
+
+            foreach (ModelClass subClass in baseClasses[baseClassKey])
             {
                ModelClass superClass = modelRoot.Classes.FirstOrDefault(s => s.Name == baseClassName);
 
-               if (superClass == null)
-               {
-                  // we couldn't find the superclass, so we'll assume it's external to this assembly
-                  superClass = new ModelClass(Store,
-                                              new PropertyAssignment(ModelClass.NameDomainPropertyId, subClass.BaseClass),
-                                              new PropertyAssignment(ModelClass.NamespaceDomainPropertyId, subClass.Namespace),
-                                              new PropertyAssignment(ModelClass.GenerateCodeDomainPropertyId, false));
-                  modelRoot.Classes.Add(superClass);
-               }
+               if (superClass != null)
+                  GeneralizationBuilder.Connect(subClass, superClass);
                else
-                  subClass.Superclass = superClass;
-
-               subClass.BaseClass = baseClassName;
+               {
+                  string message = $"Found base class {baseClassName} for {subClass.FullName}, but it's not a persistent entity. You will have to manually add this to a partial class for {subClass.FullName}.";
+                  MessageDisplay.Show(message);
+               }
             }
          }
 
          // classes are all created, so we can work the associations
-         foreach (ParsingModels.ModelClass data in classDataList)
+         List<string> allModelClassNames = modelRoot.Classes.Select(c => c.FullName).ToList();
+
+         foreach (ParsingModels.ModelClass data in classDataList.Where(cd => allModelClassNames.Contains(cd.FullName)))
          {
             ProcessUnidirectionalAssociations(data);
             ProcessBidirectionalAssociations(data);
@@ -312,16 +321,16 @@ namespace Sawczyn.EFDesigner.EFModel
             }
 
             UnidirectionalAssociation existing = Store.GetAll<UnidirectionalAssociation>()
-                                                      .FirstOrDefault(x => x.Target.Name == data.TargetClassName
-                                                                        && x.Source.Name == data.SourceClassName
-                                                                        && x.Source.Name == modelClass.Name // just to be sure
+                                                      .FirstOrDefault(x => x.Target.FullName == data.TargetClassFullName
+                                                                        && x.Source.FullName == data.SourceClassFullName
+                                                                        && x.Source.FullName == modelClass.FullName // just to be sure
                                                                         && x.TargetPropertyName == data.TargetPropertyName);
 
             if (existing != null)
             {
                if (string.IsNullOrWhiteSpace(existing.FKPropertyName) && !string.IsNullOrWhiteSpace(data.ForeignKey))
                {
-                  existing.FKPropertyName = data.ForeignKey;
+                  existing.FKPropertyName = string.Join(",", data.ForeignKey.Split(',').ToList().Select(p => p.Split('/').Last().Split(' ').Last()));
                   existing.Source.ModelRoot.ExposeForeignKeys = true;
                }
 
@@ -334,25 +343,56 @@ namespace Sawczyn.EFDesigner.EFModel
             if (source == null || target == null || source.FullName != modelClass.FullName)
                continue;
 
-            // ReSharper disable once UnusedVariable
-            UnidirectionalAssociation element = new UnidirectionalAssociation(Store,
-                                                    new[]
-                                                    {
-                                                       new RoleAssignment(UnidirectionalAssociation.UnidirectionalSourceDomainRoleId, source),
-                                                       new RoleAssignment(UnidirectionalAssociation.UnidirectionalTargetDomainRoleId, target)
-                                                    },
-                                                    new[]
-                                                    {
-                                                       new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, ConvertMultiplicity(data.SourceMultiplicity)),
-                                                       new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, ConvertMultiplicity(data.TargetMultiplicity)),
-                                                       new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, data.TargetPropertyName),
-                                                       new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary),
-                                                       new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription),
-                                                       new PropertyAssignment(Association.FKPropertyNameDomainPropertyId, data.ForeignKey),
-                                                       new PropertyAssignment(Association.SourceRoleDomainPropertyId, ConvertRole(data.SourceRole)),
-                                                       new PropertyAssignment(Association.TargetRoleDomainPropertyId, ConvertRole(data.TargetRole)),
-                                                    });
-            AssociationChangedRules.SetEndpointRoles(element);
+            UnidirectionalAssociation elementLink = (UnidirectionalAssociation)UnidirectionalAssociationBuilder.Connect(source, target);
+            elementLink.SourceMultiplicity = ConvertMultiplicity(data.SourceMultiplicity);
+            elementLink.TargetMultiplicity = ConvertMultiplicity(data.TargetMultiplicity);
+            elementLink.TargetPropertyName = data.TargetPropertyName;
+            elementLink.TargetSummary = data.TargetSummary;
+            elementLink.TargetDescription = data.TargetDescription;
+            elementLink.FKPropertyName = data.ForeignKey;
+            elementLink.SourceRole = ConvertRole(data.SourceRole);
+            elementLink.TargetRole = ConvertRole(data.TargetRole);
+
+            //UnidirectionalAssociation element = new UnidirectionalAssociation(Store
+            //                                                                , new[]
+            //                                                                  {
+            //                                                                     new RoleAssignment(UnidirectionalAssociation.UnidirectionalSourceDomainRoleId, source)
+            //                                                                   , new RoleAssignment(UnidirectionalAssociation.UnidirectionalTargetDomainRoleId, target)
+            //                                                                  }
+            //                                                                , new[]
+            //                                                                  {
+            //                                                                     new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, ConvertMultiplicity(data.SourceMultiplicity))
+            //                                                                   , new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, ConvertMultiplicity(data.TargetMultiplicity))
+            //                                                                   , new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, data.TargetPropertyName)
+            //                                                                   , new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary)
+            //                                                                   , new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription)
+            //                                                                   , new PropertyAssignment(Association.FKPropertyNameDomainPropertyId, data.ForeignKey)
+            //                                                                   , new PropertyAssignment(Association.SourceRoleDomainPropertyId, ConvertRole(data.SourceRole))
+            //                                                                   , new PropertyAssignment(Association.TargetRoleDomainPropertyId, ConvertRole(data.TargetRole))
+            //                                                                  });
+
+            AssociationChangedRules.SetEndpointRoles(elementLink);
+            AssociationChangedRules.FixupForeignKeys(elementLink);
+
+            // we could have a situation where there are no roles assigned (if 0/1-0/1 or 1-1). If we have exposed foreign keys, though, we can figure those out.
+            if ((elementLink.SourceMultiplicity != Multiplicity.ZeroMany || elementLink.TargetMultiplicity != Multiplicity.ZeroMany)
+             && (elementLink.SourceRole == EndpointRole.NotSet || elementLink.TargetRole == EndpointRole.NotSet)
+             && !string.IsNullOrEmpty(elementLink.FKPropertyName))
+            {
+               // which, if any, end has the foreign key properties in it?
+               string firstFKPropertyName = elementLink.FKPropertyName.Split(',').First();
+
+               if (elementLink.Source.AllPropertyNames.Contains(firstFKPropertyName))
+               {
+                  elementLink.SourceRole = EndpointRole.Dependent;
+                  elementLink.TargetRole = EndpointRole.Principal;
+               }
+               else if (elementLink.Target.AllPropertyNames.Contains(firstFKPropertyName))
+               {
+                  elementLink.TargetRole = EndpointRole.Dependent;
+                  elementLink.SourceRole = EndpointRole.Principal;
+               }
+            }
          }
       }
 
@@ -362,7 +402,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
          foreach (ModelBidirectionalAssociation data in bidirectionalAssociations)
          {
-            if (Store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6 && data.SourceMultiplicity != ParsingModels.Multiplicity.ZeroMany && data.TargetMultiplicity != ParsingModels.Multiplicity.ZeroMany)
+            if (Store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6
+             && data.SourceMultiplicity != ParsingModels.Multiplicity.ZeroMany
+             && data.TargetMultiplicity != ParsingModels.Multiplicity.ZeroMany)
                data.ForeignKey = null;
 
             BidirectionalAssociation existing = Store.GetAll<BidirectionalAssociation>()
@@ -382,7 +424,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                if (string.IsNullOrWhiteSpace(existing.FKPropertyName) && !string.IsNullOrWhiteSpace(data.ForeignKey))
                {
-                  existing.FKPropertyName = data.ForeignKey;
+                  existing.FKPropertyName = string.Join(",", data.ForeignKey.Split(',').ToList().Select(p => p.Split('/').Last().Split(' ').Last()));
                   existing.Source.ModelRoot.ExposeForeignKeys = true;
                }
 
@@ -395,28 +437,62 @@ namespace Sawczyn.EFDesigner.EFModel
             if (source == null || target == null || source.FullName != modelClass.FullName)
                continue;
 
+            BidirectionalAssociation elementLink = (BidirectionalAssociation)BidirectionalAssociationBuilder.Connect(source, target);
+            elementLink.SourceMultiplicity = ConvertMultiplicity(data.SourceMultiplicity);
+            elementLink.TargetMultiplicity = ConvertMultiplicity(data.TargetMultiplicity);
+            elementLink.TargetPropertyName = data.TargetPropertyName;
+            elementLink.TargetSummary = data.TargetSummary;
+            elementLink.TargetDescription = data.TargetDescription;
+            elementLink.FKPropertyName = data.ForeignKey;
+            elementLink.SourceRole = ConvertRole(data.SourceRole);
+            elementLink.TargetRole = ConvertRole(data.TargetRole);
+            elementLink.SourcePropertyName = data.SourcePropertyName;
+            elementLink.SourceSummary = data.SourceSummary;
+            elementLink.SourceDescription = data.SourceDescription;
+
             // ReSharper disable once UnusedVariable
-            BidirectionalAssociation element = new BidirectionalAssociation(Store,
-                                                   new[]
-                                                   {
-                                                      new RoleAssignment(BidirectionalAssociation.BidirectionalSourceDomainRoleId, source),
-                                                      new RoleAssignment(BidirectionalAssociation.BidirectionalTargetDomainRoleId, target)
-                                                   },
-                                                   new[]
-                                                   {
-                                                      new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, ConvertMultiplicity(data.SourceMultiplicity)),
-                                                      new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, ConvertMultiplicity(data.TargetMultiplicity)),
-                                                      new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, data.TargetPropertyName),
-                                                      new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary),
-                                                      new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription),
-                                                      new PropertyAssignment(Association.FKPropertyNameDomainPropertyId, data.ForeignKey),
-                                                      new PropertyAssignment(Association.SourceRoleDomainPropertyId, ConvertRole(data.SourceRole)),
-                                                      new PropertyAssignment(Association.TargetRoleDomainPropertyId, ConvertRole(data.TargetRole)),
-                                                      new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, data.SourcePropertyName),
-                                                      new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, data.SourceSummary),
-                                                      new PropertyAssignment(BidirectionalAssociation.SourceDescriptionDomainPropertyId, data.SourceDescription),
-                                                   });
-            AssociationChangedRules.SetEndpointRoles(element);
+            //BidirectionalAssociation element = new BidirectionalAssociation(Store,
+            //                                       new[]
+            //                                       {
+            //                                          new RoleAssignment(BidirectionalAssociation.BidirectionalSourceDomainRoleId, source),
+            //                                          new RoleAssignment(BidirectionalAssociation.BidirectionalTargetDomainRoleId, target)
+            //                                       },
+            //                                       new[]
+            //                                       {
+            //                                          new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, ConvertMultiplicity(data.SourceMultiplicity)),
+            //                                          new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, ConvertMultiplicity(data.TargetMultiplicity)),
+            //                                          new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, data.TargetPropertyName),
+            //                                          new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary),
+            //                                          new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription),
+            //                                          new PropertyAssignment(Association.FKPropertyNameDomainPropertyId, data.ForeignKey),
+            //                                          new PropertyAssignment(Association.SourceRoleDomainPropertyId, ConvertRole(data.SourceRole)),
+            //                                          new PropertyAssignment(Association.TargetRoleDomainPropertyId, ConvertRole(data.TargetRole)),
+            //                                          new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, data.SourcePropertyName),
+            //                                          new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, data.SourceSummary),
+            //                                          new PropertyAssignment(BidirectionalAssociation.SourceDescriptionDomainPropertyId, data.SourceDescription),
+            //                                       });
+            AssociationChangedRules.SetEndpointRoles(elementLink);
+            AssociationChangedRules.FixupForeignKeys(elementLink);
+
+            // we could have a situation where there are no roles assigned (if 0/1-0/1 or 1-1). If we have exposed foreign keys, though, we can figure those out.
+            if ((elementLink.SourceMultiplicity != Multiplicity.ZeroMany || elementLink.TargetMultiplicity != Multiplicity.ZeroMany)
+             && (elementLink.SourceRole == EndpointRole.NotSet || elementLink.TargetRole == EndpointRole.NotSet)
+             && !string.IsNullOrEmpty(elementLink.FKPropertyName))
+            {
+               // which, if any, end has the foreign key properties in it?
+               string firstFKPropertyName = elementLink.FKPropertyName.Split(',').First();
+
+               if (elementLink.Source.AllPropertyNames.Contains(firstFKPropertyName))
+               {
+                  elementLink.SourceRole = EndpointRole.Dependent;
+                  elementLink.TargetRole = EndpointRole.Principal;
+               }
+               else if (elementLink.Target.AllPropertyNames.Contains(firstFKPropertyName))
+               {
+                  elementLink.TargetRole = EndpointRole.Dependent;
+                  elementLink.SourceRole = EndpointRole.Principal;
+               }
+            }
          }
       }
 

@@ -1,5 +1,4 @@
-﻿#pragma warning disable IDE0017 // Simplify object initialization
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
@@ -407,7 +406,6 @@ namespace EF6Parser
                                                        .Select(propertyName => ProcessProperty(oSpaceType
                                                                                              , oSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName)
                                                                                              , sSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName)
-                                                                                             , cSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName)
                                                                                              , true))
                                                        .Where(x => x != null)
                                                        .ToList()
@@ -450,8 +448,7 @@ namespace EF6Parser
                                                        .Select(x => x.Name)
                                                        .Select(propertyName => ProcessProperty(oSpaceType
                                                                                              , oSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName)
-                                                                                             , sSpaceType?.DeclaredProperties?.FirstOrDefault(q => q.Name == propertyName)
-                                                                                             , cSpaceType?.DeclaredProperties?.FirstOrDefault(q => q.Name == propertyName)))
+                                                                                             , sSpaceType?.DeclaredProperties?.FirstOrDefault(q => q.Name == propertyName)))
                                                        .Where(x => x != null)
                                                        .ToList()
                               , UnidirectionalAssociations = GetUnidirectionalAssociations(cSpaceType ?? oSpaceType)
@@ -498,7 +495,7 @@ namespace EF6Parser
       }
 
       // ReSharper disable once UnusedParameter.Local
-      private ModelProperty ProcessProperty(EntityType parent, EdmProperty oSpaceProperty, EdmProperty sSpaceProperty, EdmProperty cSpaceProperty, bool isComplexType = false)
+      private ModelProperty ProcessProperty(EntityType parent, EdmProperty oSpaceProperty, EdmProperty sSpaceProperty, bool isComplexType = false)
       {
          if (oSpaceProperty == null)
             return null;

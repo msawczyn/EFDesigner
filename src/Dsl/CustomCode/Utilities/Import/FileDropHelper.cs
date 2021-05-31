@@ -53,7 +53,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
          finally
          {
-            StatusDisplay.Show(string.Empty);
+            StatusDisplay.Show("Ready");
          }
 
          return newElements;
@@ -103,7 +103,7 @@ namespace Sawczyn.EFDesigner.EFModel
             Cursor.Current = prev;
             ModelRoot.BatchUpdating = false;
 
-            StatusDisplay.Show("");
+            StatusDisplay.Show("Ready");
          }
 
          return newElements;

@@ -50,19 +50,22 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             Association association = (Association)ModelElement;
 
-            if (association.Target.IsDependentType)
+            if (association != null)
             {
-               LinkDecorator decorator = association.SourceMultiplicity == Multiplicity.One
-                                            ? LinkDecorator.DecoratorFilledDiamond
-                                            : LinkDecorator.DecoratorEmptyDiamond;
+               if (association.Target.IsDependentType)
+               {
+                  LinkDecorator decorator = association.SourceMultiplicity == Multiplicity.One
+                                               ? LinkDecorator.DecoratorFilledDiamond
+                                               : LinkDecorator.DecoratorEmptyDiamond;
 
-               if (base.DecoratorFrom != decorator)
-                  SetDecorators(decorator, new SizeD(0.15, 0.15), base.DecoratorTo, DefaultDecoratorSize, true);
-            }
-            else
-            {
-               if (base.DecoratorFrom != null)
-                  SetDecorators(null, DefaultDecoratorSize, base.DecoratorTo, DefaultDecoratorSize, true);
+                  if (base.DecoratorFrom != decorator)
+                     SetDecorators(decorator, new SizeD(0.15, 0.15), base.DecoratorTo, DefaultDecoratorSize, true);
+               }
+               else
+               {
+                  if (base.DecoratorFrom != null)
+                     SetDecorators(base.DecoratorFrom, DefaultDecoratorSize, base.DecoratorTo, DefaultDecoratorSize, true);
+               }
             }
 
             return base.DecoratorFrom;
@@ -83,28 +86,31 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             Association association = (Association)ModelElement;
 
-            if (association.Source.IsDependentType)
+            if (association != null)
             {
-               LinkDecorator decorator = association.TargetMultiplicity == Multiplicity.One
-                                            ? LinkDecorator.DecoratorFilledDiamond
-                                            : LinkDecorator.DecoratorEmptyDiamond;
-
-               if (base.DecoratorTo != decorator)
-                  SetDecorators(base.DecoratorFrom, DefaultDecoratorSize, decorator, new SizeD(0.15, 0.15), true);
-            }
-            else
-            {
-               switch (association)
+               if (association.Source.IsDependentType)
                {
-                  case UnidirectionalAssociation _ when base.DecoratorTo != LinkDecorator.DecoratorEmptyArrow:
-                     SetDecorators(base.DecoratorFrom, DefaultDecoratorSize, LinkDecorator.DecoratorEmptyArrow, DefaultDecoratorSize, true);
+                  LinkDecorator decorator = association.TargetMultiplicity == Multiplicity.One
+                                               ? LinkDecorator.DecoratorFilledDiamond
+                                               : LinkDecorator.DecoratorEmptyDiamond;
 
-                     break;
+                  if (base.DecoratorTo != decorator)
+                     SetDecorators(base.DecoratorFrom, DefaultDecoratorSize, decorator, new SizeD(0.15, 0.15), true);
+               }
+               else
+               {
+                  switch (association)
+                  {
+                     case UnidirectionalAssociation _ when base.DecoratorTo != LinkDecorator.DecoratorEmptyArrow:
+                        SetDecorators(base.DecoratorFrom, DefaultDecoratorSize, LinkDecorator.DecoratorEmptyArrow, DefaultDecoratorSize, true);
 
-                  case BidirectionalAssociation _ when base.DecoratorTo != null:
-                     SetDecorators(null, DefaultDecoratorSize, null, DefaultDecoratorSize, true);
+                        break;
 
-                     break;
+                     case BidirectionalAssociation _ when base.DecoratorTo != null:
+                        SetDecorators(base.DecoratorFrom, DefaultDecoratorSize, null, DefaultDecoratorSize, true);
+
+                        break;
+                  }
                }
             }
 

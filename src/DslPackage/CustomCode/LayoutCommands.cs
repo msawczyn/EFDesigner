@@ -67,6 +67,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
             List<DotEdge> edges = shapeList
                                  .OfType<BinaryLinkShape>()
+                                 .Where(link => link.FromShape != null && link.ToShape != null)
                                  .Select(link => new DotEdge(vertices.Single(vertex => vertex.Shape.Id == link.FromShape.Id),
                                                              vertices.Single(vertex => vertex.Shape.Id == link.ToShape.Id))
                                                  {
