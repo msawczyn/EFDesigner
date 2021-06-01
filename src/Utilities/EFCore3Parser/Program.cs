@@ -41,6 +41,12 @@ namespace EFCore3Parser
          if (found != null)
             return context.LoadFromAssemblyPath(found);
 
+         // try the current directory
+         string pathInCurrentDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $"{assemblyName.Name}.dll");
+
+         if (File.Exists(pathInCurrentDirectory))
+            return context.LoadFromAssemblyPath(found);
+
          // try gac
          found = Directory.GetFileSystemEntries(Environment.ExpandEnvironmentVariables("%windir%\\Microsoft.NET\\assembly"), $"{assemblyName.Name}.dll", SearchOption.AllDirectories).FirstOrDefault();
 

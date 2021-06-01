@@ -16,9 +16,11 @@ using Newtonsoft.Json;
 
 using ParsingModels;
 
+using RelationshipMultiplicity = System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity;
+
 namespace EF6Parser
 {
-   public class Parser: ParserBase
+   public class Parser : ParserBase
    {
       private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -29,7 +31,7 @@ namespace EF6Parser
       public Parser(Assembly assembly, string dbContextTypeName = null)
       {
          Debugger.Break();
-         
+
          this.assembly = assembly;
          Type contextType;
 
@@ -60,7 +62,7 @@ namespace EF6Parser
             log.Info($"Using contextType = {contextType.FullName}");
          }
 
-         ConstructorInfo constructor = contextType.GetConstructor(new[] {typeof(string)});
+         ConstructorInfo constructor = contextType.GetConstructor(new[] { typeof(string) });
 
          // ReSharper disable once UnthrowableException
          if (constructor == null)
@@ -73,7 +75,7 @@ namespace EF6Parser
          try
          {
             DbContextInfo dbContextInfo = new DbContextInfo(contextType, new DbProviderInfo("System.Data.SqlClient", "2008"));
-            dbContext = dbContextInfo.CreateInstance(); 
+            dbContext = dbContextInfo.CreateInstance();
          }
          catch (InvalidOperationException e)
          {
@@ -114,7 +116,7 @@ namespace EF6Parser
       private List<ModelBidirectionalAssociation> GetBidirectionalAssociations(EntityType entityType)
       {
          List<ModelBidirectionalAssociation> result = new List<ModelBidirectionalAssociation>();
-         
+
          if (entityType == null)
             return result;
 
@@ -185,26 +187,6 @@ namespace EF6Parser
          }
 
          return result;
-      }
-
-      private static string GetCustomAttributes(Type type)
-      {
-         return type == null
-                   ? string.Empty
-                   : GetCustomAttributes(type.CustomAttributes);
-      }
-
-      private static string GetCustomAttributes(IEnumerable<CustomAttributeData> customAttributeData)
-      {
-         List<string> customAttributes = customAttributeData.Select(a => a.ToString()).ToList();
-         customAttributes.Remove("[System.SerializableAttribute()]");
-         customAttributes.Remove("[System.Runtime.InteropServices.ComVisibleAttribute((Boolean)True)]");
-         customAttributes.Remove("[__DynamicallyInvokableAttribute()]");
-         customAttributes.Remove("[System.Reflection.DefaultMemberAttribute(\"Chars\")]");
-         customAttributes.Remove("[System.Runtime.Versioning.NonVersionableAttribute()]");
-         customAttributes.Remove("[System.FlagsAttribute()]");
-
-         return string.Join("", customAttributes);
       }
 
       private static EntitySet GetTable(Type type, DbContext context)
@@ -374,6 +356,7 @@ namespace EF6Parser
          return JsonConvert.SerializeObject(modelRoot);
       }
 
+      // ReSharper disable once UnusedParameter.Local
       private ModelClass ProcessComplexType(string entityFullName, EntityType oSpaceType, EntityType sSpaceType, EntityType cSpaceType)
       {
          Type type = assembly.GetType(entityFullName);
@@ -389,28 +372,28 @@ namespace EF6Parser
          string customAttributes = GetCustomAttributes(type);
 
          ModelClass result = new ModelClass
-                             {
-                                Name = oSpaceType.Name
-                              , Namespace = oSpaceType.NamespaceName
-                              , IsAbstract = oSpaceType.Abstract
-                              , BaseClass = oSpaceType.BaseType?.Name
-                              , IsDependentType = true
-                              , CustomAttributes = customAttributes.Length > 2
+         {
+            Name = oSpaceType.Name,
+            Namespace = oSpaceType.NamespaceName,
+            IsAbstract = oSpaceType.Abstract,
+            BaseClass = oSpaceType.BaseType?.Name,
+            IsDependentType = true,
+            CustomAttributes = customAttributes.Length > 2
                                                       ? customAttributes
-                                                      : null
-                              , CustomInterfaces = type.GetInterfaces().Any()
+                                                      : null,
+            CustomInterfaces = type.GetInterfaces().Any()
                                                       ? string.Join(",", type.GetInterfaces().Select(GetTypeFullName))
-                                                      : null
-                              , Properties = oSpaceType.DeclaredProperties
+                                                      : null,
+            Properties = oSpaceType.DeclaredProperties
                                                        .Select(x => x.Name)
                                                        .Select(propertyName => ProcessProperty(oSpaceType
                                                                                              , oSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName)
                                                                                              , sSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName)
                                                                                              , true))
                                                        .Where(x => x != null)
-                                                       .ToList()
-                              , TableName = null
-                             };
+                                                       .ToList(),
+            TableName = null
+         };
 
          log.Debug("\n   " + JsonConvert.SerializeObject(result));
 
@@ -432,29 +415,29 @@ namespace EF6Parser
          string customAttributes = GetCustomAttributes(type);
 
          ModelClass result = new ModelClass
-                             {
-                                Name = oSpaceType.Name
-                              , Namespace = oSpaceType.NamespaceName
-                              , IsAbstract = oSpaceType.Abstract
-                              , BaseClass = GetTypeFullName(oSpaceType.BaseType?.Name)
-                              , CustomInterfaces = type.GetInterfaces().Any()
+         {
+            Name = oSpaceType.Name,
+            Namespace = oSpaceType.NamespaceName,
+            IsAbstract = oSpaceType.Abstract,
+            BaseClass = GetTypeFullName(oSpaceType.BaseType?.Name),
+            CustomInterfaces = type.GetInterfaces().Any()
                                                       ? string.Join(",", type.GetInterfaces().Select(GetTypeFullName))
-                                                      : null
-                              , IsDependentType = false
-                              , CustomAttributes = customAttributes.Length > 2
+                                                      : null,
+            IsDependentType = false,
+            CustomAttributes = customAttributes.Length > 2
                                                       ? customAttributes
-                                                      : null
-                              , Properties = oSpaceType.DeclaredProperties
+                                                      : null,
+            Properties = oSpaceType.DeclaredProperties
                                                        .Select(x => x.Name)
                                                        .Select(propertyName => ProcessProperty(oSpaceType
                                                                                              , oSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName)
                                                                                              , sSpaceType?.DeclaredProperties?.FirstOrDefault(q => q.Name == propertyName)))
                                                        .Where(x => x != null)
-                                                       .ToList()
-                              , UnidirectionalAssociations = GetUnidirectionalAssociations(cSpaceType ?? oSpaceType)
-                              , BidirectionalAssociations = GetBidirectionalAssociations(cSpaceType ?? oSpaceType)
-                              , TableName = GetTableName(type, dbContext)
-                             };
+                                                       .ToList(),
+            UnidirectionalAssociations = GetUnidirectionalAssociations(cSpaceType ?? oSpaceType),
+            BidirectionalAssociations = GetBidirectionalAssociations(cSpaceType ?? oSpaceType),
+            TableName = GetTableName(type, dbContext)
+         };
 
          log.Debug("\n   " + JsonConvert.SerializeObject(result));
 
@@ -476,18 +459,18 @@ namespace EF6Parser
          string customAttributes = GetCustomAttributes(type);
 
          ModelEnum result = new ModelEnum
-                            {
-                               Name = enumType.Name
-                             , Namespace = enumType.NamespaceName
-                             , IsFlags = enumType.IsFlags
-                             , ValueType = enumType.UnderlyingType.ClrEquivalentType.Name
-                             , CustomAttributes = customAttributes.Length > 2
+         {
+            Name = enumType.Name,
+            Namespace = enumType.NamespaceName,
+            IsFlags = enumType.IsFlags,
+            ValueType = enumType.UnderlyingType.ClrEquivalentType.Name,
+            CustomAttributes = customAttributes.Length > 2
                                                      ? customAttributes
-                                                     : null
-                             , Values = enumType.Members
-                                                .Select(enumMember => new ModelEnumValue {Name = enumMember.Name, Value = enumMember.Value?.ToString()})
+                                                     : null,
+            Values = enumType.Members
+                                                .Select(enumMember => new ModelEnumValue { Name = enumMember.Name, Value = enumMember.Value?.ToString() })
                                                 .ToList()
-                            };
+         };
 
          log.Debug("\n   " + JsonConvert.SerializeObject(result));
 
@@ -505,22 +488,23 @@ namespace EF6Parser
          try
          {
             ModelProperty result = new ModelProperty
-                                   {
-                                      TypeName = oSpaceProperty.TypeUsage.EdmType.BuiltInTypeKind == BuiltInTypeKind.EnumType
+            {
+               TypeName = oSpaceProperty.TypeUsage.EdmType.BuiltInTypeKind == BuiltInTypeKind.EnumType
                                                     ? oSpaceProperty.TypeUsage.EdmType.FullName
-                                                    : oSpaceProperty.TypeUsage.EdmType.Name
-                                    , Name = oSpaceProperty.Name
-                                    , IsIdentity = !isComplexType && parent.KeyProperties.Any(p => p.Name == oSpaceProperty.Name)
-                                    , IsIdentityGenerated = sSpaceProperty?.IsStoreGeneratedIdentity == true
-                                    , Required = !(bool)oSpaceProperty.TypeUsage.Facets.First(facet => facet.Name == "Nullable").Value
-                                    , Indexed = bool.TryParse(oSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "Indexed")?.Value?.ToString(), out bool indexed) && indexed
-                                    , MaxStringLength = sSpaceProperty != null && int.TryParse(sSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "MaxLength")?.Value?.ToString(), out int maxLength) && maxLength < int.MaxValue / 2
+                                                    : oSpaceProperty.TypeUsage.EdmType.Name,
+               Name = oSpaceProperty.Name,
+               IsIdentity = !isComplexType && parent.KeyProperties.Any(p => p.Name == oSpaceProperty.Name),
+               IsIdentityGenerated = sSpaceProperty?.IsStoreGeneratedIdentity == true,
+               Required = !(bool)oSpaceProperty.TypeUsage.Facets.First(facet => facet.Name == "Nullable").Value,
+               Indexed = bool.TryParse(oSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "Indexed")?.Value?.ToString(), out bool indexed) && indexed
+                                    ,
+               MaxStringLength = sSpaceProperty != null && int.TryParse(sSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "MaxLength")?.Value?.ToString(), out int maxLength) && maxLength < int.MaxValue / 2
                                                            ? maxLength
-                                                           : 0
-                                    , MinStringLength = sSpaceProperty != null && int.TryParse(sSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "MinLength")?.Value?.ToString(), out int minLength)
+                                                           : 0,
+               MinStringLength = sSpaceProperty != null && int.TryParse(sSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "MinLength")?.Value?.ToString(), out int minLength)
                                                            ? minLength
                                                            : 0
-                                   };
+            };
 
             log.Debug("\n   " + JsonConvert.SerializeObject(result));
 

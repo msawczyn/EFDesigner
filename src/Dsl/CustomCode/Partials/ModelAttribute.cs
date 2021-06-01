@@ -394,7 +394,7 @@ namespace Sawczyn.EFDesigner.EFModel
          Indexed = true;
          IsForeignKeyFor = association.Id;
 
-         this.SetLocks(Locks.Delete);
+         //this.SetLocks(Locks.Delete);
          RedrawItem();
       }
 

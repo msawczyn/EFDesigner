@@ -107,6 +107,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
          newElements = new List<ModelElement>();
 
+         // did the user drop an intermediate file (one created by one of the parsers)? If so, process it and return the results
+         AssemblyProcessor assemblyProcessor = new AssemblyProcessor(Store);
+         if (assemblyProcessor.TryProcessIntermediateFile(inputFile, newElements))
+            return true;
+
          try
          {
             // read the file

@@ -81,31 +81,6 @@ namespace EFCore2Parser
          model = dbContext.Model;
       }
 
-      private static Multiplicity ConvertMultiplicity(RelationshipMultiplicity relationshipMultiplicity)
-      {
-         Multiplicity multiplicity = Multiplicity.ZeroOne;
-
-         switch (relationshipMultiplicity)
-         {
-            case RelationshipMultiplicity.ZeroOrOne:
-               multiplicity = Multiplicity.ZeroOne;
-
-               break;
-
-            case RelationshipMultiplicity.One:
-               multiplicity = Multiplicity.One;
-
-               break;
-
-            case RelationshipMultiplicity.Many:
-               multiplicity = Multiplicity.ZeroMany;
-
-               break;
-         }
-
-         return multiplicity;
-      }
-
       #region Associations
 
       private List<ModelUnidirectionalAssociation> GetUnidirectionalAssociations(IEntityType entityType)
@@ -194,7 +169,7 @@ namespace EFCore2Parser
             {
                List<string> fkPropertyDeclarations = navigationProperty.ForeignKey.Properties
                                                                        .Where(p => !p.IsShadowProperty)
-                                                                       .Select(p => $"{p.DeclaringEntityType.Name}/{p.ClrType.Name}{(p.IsNullable ? "?" : "")} {p.Name}")
+                                                                       .Select(p => p.Name)
                                                                        .ToList();
 
                association.ForeignKey = fkPropertyDeclarations.Any()
@@ -209,26 +184,6 @@ namespace EFCore2Parser
       }
 
       #endregion
-
-      private static string GetCustomAttributes(Type type)
-      {
-         return type == null
-                   ? string.Empty
-                   : GetCustomAttributes(type.CustomAttributes);
-      }
-
-      private static string GetCustomAttributes(IEnumerable<CustomAttributeData> customAttributeData)
-      {
-         List<string> customAttributes = customAttributeData.Select(a => a.ToString()).ToList();
-         customAttributes.Remove("[System.SerializableAttribute()]");
-         customAttributes.Remove("[System.Runtime.CompilerServices.TypeForwardedFromAttribute(\"mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089\")]");
-         customAttributes.Remove("[__DynamicallyInvokableAttribute()]");
-         customAttributes.Remove("[System.Reflection.DefaultMemberAttribute(\"Chars\")]");
-         customAttributes.Remove("[System.Runtime.Versioning.NonVersionableAttribute()]");
-         customAttributes.Remove("[System.FlagsAttribute()]");
-
-         return string.Join("", customAttributes);
-      }
 
       public string Process()
       {
@@ -295,15 +250,16 @@ namespace EFCore2Parser
 
          if (modelRoot.Enumerations.All(e => e.FullName != result.FullName))
          {
+            Type underlyingType = Enum.GetUnderlyingType(enumType);
             result.IsFlags = enumType.GetTypeInfo().GetCustomAttribute(typeof(FlagsAttribute)) is FlagsAttribute;
-            result.ValueType = Enum.GetUnderlyingType(enumType).Name;
+            result.ValueType = underlyingType.Name;
 
             result.CustomAttributes = customAttributes.Length > 2
                                          ? customAttributes
                                          : null;
 
             result.Values = Enum.GetNames(enumType)
-                                .Select(name => new ModelEnumValue { Name = name, Value = Enum.Parse(enumType, name).ToString() })
+                                .Select(name => new ModelEnumValue { Name = name, Value = Convert.ChangeType(Enum.Parse(enumType, name), underlyingType).ToString() })
                                 .ToList();
 
             modelRoot.Enumerations.Add(result);
