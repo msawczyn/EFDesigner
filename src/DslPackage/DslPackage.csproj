@@ -157,12 +157,55 @@
     <Compile Include="CustomCode\Partials\EFModelDocData.cs" />
     <Compile Include="CustomCode\Extensions\ProjectExtensions.cs" />
     <Compile Include="CustomCode\Partials\EFModelDocView.cs" />
-    <Compile Include="CustomCode\Partials\EFModelExplorer.cs" />
+    <Compile Include="CustomCode\Partials\EFModelExplorer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CustomCode\Partials\EFModelPackage.cs" />
     <Compile Include="CustomCode\Messages.cs" />
     <Compile Include="CustomCode\Partials\EFModelExplorerToolWindow.cs" />
     <Compile Include="CustomCode\WaitCursor.cs" />
     <Compile Include="CustomCode\WizardImplementation.cs" />
+    <Compile Include="GeneratedCode\CommandSet.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommandSet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratedCode\Constants.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Constants.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratedCode\DocData.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DocData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratedCode\DocView.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DocView.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratedCode\EditorFactory.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EditorFactory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratedCode\GeneratedVSCT.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GeneratedVSCT.vsct</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratedCode\ModelExplorer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelExplorer.tt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GeneratedCode\ModelExplorerToolWindow.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelExplorerToolWindow.tt</DependentUpon>
+    </Compile>
     <Compile Include="GeneratedCode\Package.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -184,6 +227,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationExtensionRegistrar.tt</DependentUpon>
     </Compile>
+    <Content Include="GeneratedCode\GeneratedVSCT.vsct">
+      <Generator>VsctGenerator</Generator>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GeneratedVSCT.tt</DependentUpon>
+      <LastGenOutput>GeneratedVSCT.cs</LastGenOutput>
+    </Content>
     <Content Include="Parsers\EFCore5Parser.exe">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -296,15 +346,19 @@
     </None>
     <None Include="GeneratedCode\Constants.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Constants.cs</LastGenOutput>
     </None>
     <None Include="GeneratedCode\DocData.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DocData.cs</LastGenOutput>
     </None>
     <None Include="GeneratedCode\DocView.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DocView.cs</LastGenOutput>
     </None>
     <None Include="GeneratedCode\ModelExplorer.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelExplorer.cs</LastGenOutput>
     </None>
     <Compile Include="MefExtension\ValidationExtensionEnablement.cs">
       <DependentUpon>ValidationExtensionEnablement.tt</DependentUpon>
@@ -314,9 +368,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="GeneratedCode\EditorFactory.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EditorFactory.cs</LastGenOutput>
     </None>
     <None Include="GeneratedCode\ModelExplorerToolWindow.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelExplorerToolWindow.cs</LastGenOutput>
     </None>
     <None Include="GeneratedCode\Package.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -387,9 +443,11 @@
     </None>
     <None Include="GeneratedCode\CommandSet.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CommandSet.cs</LastGenOutput>
     </None>
     <None Include="GeneratedCode\GeneratedVSCT.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GeneratedVSCT.vsct</LastGenOutput>
     </None>
     <None Include="ProjectItemTemplates\CSharp.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
