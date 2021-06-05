@@ -12,7 +12,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.6
+      // EFDesigner v3.0.7
       // Copyright (c) 2017-2021 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -197,16 +197,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
          protected static string CreateShadowPropertyName(Association association, List<string> foreignKeyColumns, ModelAttribute identityAttribute)
          {
-            string separator = identityAttribute.ModelClass.ModelRoot.ShadowKeyNamePattern == ShadowKeyPattern.TableColumn ? "" : "_";
+            string separator = identityAttribute.ModelClass.ModelRoot.ShadowKeyNamePattern == ShadowKeyPattern.TableColumn ? string.Empty : "_";
 
             string GetShadowPropertyName(string nameBase)
             {
-               //if (association.SourceRole == EndpointRole.Dependent)
-               //   return $"{nameBase}{identityAttribute.Name}";
-
-               //if (association is BidirectionalAssociation)
-               //   return $"{nameBase}{identityAttribute.Name}";
-
                return $"{nameBase}{separator}{identityAttribute.Name}";
             }
 
@@ -729,20 +723,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   NL();
                }
 
-               foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()
-                                                                           .Where(x => x.AssociationObject.Persistent
-                                                                                    && (x.IsCollection || x.ClassType.IsDependentType)
-                                                                                    && !x.ConstructorParameterOnly))
-               {
-                  if (navigationProperty.IsCollection)
-                  {
-                     string collectionType = GetFullContainerName(navigationProperty.AssociationObject.CollectionClass, navigationProperty.ClassType.FullName);
-
-                     Output(navigationProperty.IsAutoProperty
-                               ? $"this.{navigationProperty.PropertyName} = new {collectionType}();"
-                               : $"this.{navigationProperty.BackingFieldName} = new {collectionType}();");
-                  }
-               }
+               WriteNavigationInitializersForConstructors(modelClass);
 
                Output("Init();");
                Output("}");
@@ -774,6 +755,40 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   NL();
                }
             }
+         }
+
+         private int WriteNavigationInitializersForConstructors(ModelClass modelClass)
+         {
+            int lineCount = 0;
+
+            foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()
+                                                                        .Where(x => x.AssociationObject.Persistent
+                                                                                 && x.IsCollection
+                                                                                 && !x.ConstructorParameterOnly))
+            {
+               string collectionType = GetFullContainerName(navigationProperty.AssociationObject.CollectionClass, navigationProperty.ClassType.FullName);
+
+               Output(navigationProperty.IsAutoProperty || string.IsNullOrEmpty(navigationProperty.BackingFieldName)
+                         ? $"{navigationProperty.PropertyName} = new {collectionType}();"
+                         : $"{navigationProperty.BackingFieldName} = new {collectionType}();");
+
+               ++lineCount;
+            }
+
+            foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()
+                                                                        .Where(x => x.AssociationObject.Persistent
+                                                                                 && !x.IsCollection
+                                                                                 && !x.ConstructorParameterOnly
+                                                                                 && x.Required
+                                                                                 && x.OtherSide.ClassType.IsDependentType))
+            {
+               Output(navigationProperty.IsAutoProperty || string.IsNullOrEmpty(navigationProperty.BackingFieldName)
+                         ? $"{navigationProperty.PropertyName} = new {navigationProperty.OtherSide.ClassType.Namespace}.{navigationProperty.OtherSide.ClassType.Name}();"
+                         : $"{navigationProperty.BackingFieldName} = new {navigationProperty.OtherSide.ClassType.Namespace}.{navigationProperty.OtherSide.ClassType.Name}();");
+               ++lineCount;
+            }
+
+            return lineCount;
          }
 
          protected void WriteConstructorComments(ModelClass modelClass)
@@ -833,15 +848,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                ++lineCount;
             }
 
-            foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()
-                                                                        .Where(x => x.AssociationObject.Persistent && x.IsCollection && !x.ConstructorParameterOnly))
-            {
-               string collectionType = GetFullContainerName(navigationProperty.AssociationObject.CollectionClass, navigationProperty.ClassType.FullName);
-               Output(navigationProperty.IsAutoProperty || string.IsNullOrEmpty(navigationProperty.BackingFieldName)
-                         ? $"{navigationProperty.PropertyName} = new {collectionType}();" 
-                         : $"{navigationProperty.BackingFieldName} = new {collectionType}();");
-               ++lineCount;
-            }
+            lineCount += WriteNavigationInitializersForConstructors(modelClass);
 
             if (lineCount > 0)
                NL();

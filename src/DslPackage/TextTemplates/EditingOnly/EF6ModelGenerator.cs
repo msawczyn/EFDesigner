@@ -10,7 +10,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.6
+      // EFDesigner v3.0.7
       // Copyright (c) 2017-2021 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -156,8 +156,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                      if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                      {
                         string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.SourcePropertyName}_x_{association.TargetPropertyName}" : association.JoinTableName;
-                        string suffix1 = association.Source == association.Target ? "A" : "";
-                        string suffix2 = association.Source == association.Target ? "B" : "";
+                        string suffix1 = association.Source == association.Target ? "A" : string.Empty;
+                        string suffix2 = association.Source == association.Target ? "B" : string.Empty;
                         string sourceMap = string.Join(", ", association.Source.AllIdentityAttributeNames.Select(n => $@"""{association.Source.Name}_{n}{suffix1}""").ToList());
                         string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}{suffix2}""").ToList());
 
@@ -275,8 +275,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                      if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                      {
                         string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.Source.Name}_x_{association.TargetPropertyName}" : association.JoinTableName;
-                        string suffix1 = association.Source == association.Target ? "A" : "";
-                        string suffix2 = association.Source == association.Target ? "B" : "";
+                        string suffix1 = association.Source == association.Target ? "A" : string.Empty;
+                        string suffix2 = association.Source == association.Target ? "B" : string.Empty;
                         string sourceMap = string.Join(", ", association.Source.AllIdentityAttributeNames.Select(n => $@"""{association.Source.Name}_{n}{suffix1}""").ToList());
                         string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}{suffix2}""").ToList());
 

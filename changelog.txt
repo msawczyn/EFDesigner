@@ -1,8 +1,13 @@
+3.0.7
+   - Fixed a number of issues with importing compiled assemblies
+   - Fixed coloring of cascade delete associations when flagged on the model (see https://github.com/msawczyn/EFDesigner/issues/291)   
+   - Fixed missing '$' in generator template that was generating bad code for table schemas (see https://github.com/msawczyn/EFDesigner/issues/289)
+   - Restored auto-instantiation of dependent objects in entity constructors (see https://github.com/msawczyn/EFDesigner/issues/287)
+
 3.0.6
    - Added ability to copy current diagram to clipboard
    - DbContext fix for configuring associations with backing fields
    - Code generation fix for associations with backing fields
-   - Fixed a number of issues with importing compiled assemblies
 
 3.0.5
    - Fix where parsing EF version numbers should be culture-neutral (see https://github.com/msawczyn/EFDesigner/issues/282)

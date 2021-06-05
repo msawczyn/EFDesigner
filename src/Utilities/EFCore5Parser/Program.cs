@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -53,25 +54,36 @@ namespace EFCore5Parser
          return found == null ? null : context.LoadFromAssemblyPath(found);
       }
 
+      private static List<string> Usage
+      {
+         get
+         {
+            return new List<string>(new[]
+                                    {
+                                       $"Usage: {typeof(Program).Assembly.GetName().Name} InputFileName OutputFileName [FullyQualifiedClassName]"
+                                     , "where"
+                                     , "   (required) InputFileName           - path of assembly containing EF6 DbContext to parse"
+                                     , "   (required) OutputFileName          - path to create JSON file of results"
+                                     , "   (optional) FullyQualifiedClassName - fully-qualified name of DbContext class to process, if more than one available."
+                                     , "                                        DbContext class must have a constructor that accepts one parameter of type DbContextOptions<>"
+                                     , "Result codes:"
+                                     , "   0   Success"
+                                     , "   1   Bad argument count"
+                                     , "   2   Cannot load assembly"
+                                     , "   3   Cannot write output file"
+                                     , "   4   Cannot create DbContext"
+                                     , "   5   Cannot find appropriate constructor"
+                                     , "   6   Ambiguous request"
+                                     , ""
+                                    });
+         }
+      }
+
       private static void Exit(int returnCode, Exception ex = null)
       {
          if (returnCode != 0)
          {
-            log.Error($"Usage: {typeof(Program).Assembly.GetName().Name} InputFileName OutputFileName [FullyQualifiedClassName]");
-            log.Error("where");
-            log.Error("   (required) InputFileName           - path of assembly containing EF6 DbContext to parse");
-            log.Error("   (required) OutputFileName          - path to create JSON file of results");
-            log.Error("   (optional) FullyQualifiedClassName - fully-qualified name of DbContext class to process, if more than one available.");
-            log.Error("                                        DbContext class must have a constructor that accepts one parameter of type DbContextOptions<>");
-            log.Error("Result codes:");
-            log.Error("   0   Success");
-            log.Error("   1   Bad argument count");
-            log.Error("   2   Cannot load assembly");
-            log.Error("   3   Cannot write output file");
-            log.Error("   4   Cannot create DbContext");
-            log.Error("   5   Cannot find appropriate constructor");
-            log.Error("   6   Ambiguous request");
-            log.Error("");
+            Usage.ForEach(x => log.Error(x));
 
             if (ex != null)
                log.Error($"Caught {ex.GetType().Name} - {ex.Message}");
@@ -97,6 +109,7 @@ namespace EFCore5Parser
       {
          if (args.Length < 2 || args.Length > 3)
          {
+            Usage.ForEach(x => Console.Error.WriteLine(x));
             log.Error($"Expecting 2 or 3 arguments - found {args.Length}");
             Exit(BAD_ARGUMENT_COUNT);
          }

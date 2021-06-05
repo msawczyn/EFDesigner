@@ -414,7 +414,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                            , Dock = DockStyle.Top
                                            , Padding = new Padding(0, 3, 0, 0)
                                            , TabIndex = 1
-                                           , Text = ""
+                                           , Text = string.Empty
                                            , Child = null
                                           });
 

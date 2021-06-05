@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.4.7
+//     Produced by Entity Framework Visual Editor v3.0.6.4
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -37,7 +37,14 @@ namespace Testing
       /// </summary>
       public static string ConnectionString { get; set; } = @"Data Source=(localdb)\MSSQLLocalDb;Initial Catalog=Test;Integrated Security=True";
 
-      /// <inheritdoc />
+      /// <summary>
+      ///     <para>
+      ///         Initializes a new instance of the <see cref="T:Microsoft.EntityFrameworkCore.DbContext" /> class using the specified options.
+      ///         The <see cref="M:Microsoft.EntityFrameworkCore.DbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)" /> method will still be called to allow further
+      ///         configuration of the options.
+      ///     </para>
+      /// </summary>
+      /// <param name="options">The options for this context.</param>
       public EFModel1(DbContextOptions<EFModel1> options) : base(options)
       {
       }
@@ -47,7 +54,20 @@ namespace Testing
       partial void OnModelCreatingImpl(ModelBuilder modelBuilder);
       partial void OnModelCreatedImpl(ModelBuilder modelBuilder);
 
-      /// <inheritdoc />
+      /// <summary>
+      ///     Override this method to further configure the model that was discovered by convention from the entity types
+      ///     exposed in <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> properties on your derived context. The resulting model may be cached
+      ///     and re-used for subsequent instances of your derived context.
+      /// </summary>
+      /// <remarks>
+      ///     If a model is explicitly set on the options for this context (via <see cref="M:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.UseModel(Microsoft.EntityFrameworkCore.Metadata.IModel)" />)
+      ///     then this method will not be run.
+      /// </remarks>
+      /// <param name="modelBuilder">
+      ///     The builder being used to construct the model for this context. Databases (and other extensions) typically
+      ///     define extension methods on this object that allow you to configure aspects of the model that are specific
+      ///     to a given database.
+      /// </param>
       protected override void OnModelCreating(ModelBuilder modelBuilder)
       {
          base.OnModelCreating(modelBuilder);

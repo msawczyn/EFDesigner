@@ -20,8 +20,6 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="element"></param>
       /// <param name="sourceDeleteAction"></param>
       /// <param name="targetDeleteAction"></param>
-      /// <param name="sourceMultiplicity"></param>
-      /// <param name="targetMultiplicity"></param>
       public static void UpdateAssociationDisplay(Association element
                                                 , DeleteAction? sourceDeleteAction = null
                                                 , DeleteAction? targetDeleteAction = null)

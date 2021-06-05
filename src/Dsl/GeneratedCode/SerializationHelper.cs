@@ -1168,7 +1168,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				// Only model has schema, diagram has no schema.
 				rootElementSettings.SchemaTargetNamespace = "http://schemas.microsoft.com/dsltools/EFModel";
 			}
-			rootElementSettings.Version = new global::System.Version("3.0.6.4");
+			rootElementSettings.Version = new global::System.Version("3.0.6.5");
 	
 			// Carry out the normal serialization.
 			rootSerializer.Write(serializationContext, rootElement, writer, rootElementSettings);
@@ -1190,7 +1190,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				throw new global::System.ArgumentNullException("reader");
 			#endregion
 	
-			global::System.Version expectedVersion = new global::System.Version("3.0.6.4");
+			global::System.Version expectedVersion = new global::System.Version("3.0.6.5");
 			string dslVersionStr = reader.GetAttribute("dslVersion");
 			if (dslVersionStr != null)
 			{

@@ -65,7 +65,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static void AddMessage(string message, string prefix = null)
       {
-         OutputWindowPane?.OutputString($"{(string.IsNullOrWhiteSpace(prefix) ? "" : prefix + ": ")}{message}{(message.EndsWith("\n") ? "" : "\n")}");
+         OutputWindowPane?.OutputString($"{(string.IsNullOrWhiteSpace(prefix) ? string.Empty : prefix + ": ")}{message}{(message.EndsWith("\n") ? string.Empty : "\n")}");
          if (prefix == ERROR || prefix == WARNING)
             OutputWindowPane?.Activate();
       }

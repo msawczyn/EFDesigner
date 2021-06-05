@@ -412,6 +412,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
       internal static bool SetEndpointRoles(Association element)
       {
+         // Note that we're checking 'if (x != y) x = y' to ensure that unnecessary rules don't fire off
+         
          switch (element.TargetMultiplicity)
          {
             case Multiplicity.ZeroMany:
@@ -419,65 +421,57 @@ namespace Sawczyn.EFDesigner.EFModel
                switch (element.SourceMultiplicity)
                {
                   case Multiplicity.ZeroMany:
-                     element.SourceRole = EndpointRole.NotSet;
-                     element.TargetRole = EndpointRole.NotSet;
+                     if (element.SourceRole != EndpointRole.NotSet) element.SourceRole = EndpointRole.NotSet;
+                     if (element.TargetRole != EndpointRole.NotSet) element.TargetRole = EndpointRole.NotSet;
 
                      return true;
-
                   case Multiplicity.One:
-                     element.SourceRole = EndpointRole.Principal;
-                     element.TargetRole = EndpointRole.Dependent;
+                     if (element.SourceRole != EndpointRole.Principal) element.SourceRole = EndpointRole.Principal;
+                     if (element.TargetRole != EndpointRole.Dependent) element.TargetRole = EndpointRole.Dependent;
 
                      return true;
-
                   case Multiplicity.ZeroOne:
-                     element.SourceRole = EndpointRole.Principal;
-                     element.TargetRole = EndpointRole.Dependent;
+                     if (element.SourceRole != EndpointRole.Principal) element.SourceRole = EndpointRole.Principal;
+                     if (element.TargetRole != EndpointRole.Dependent) element.TargetRole = EndpointRole.Dependent;
 
                      return true;
                }
 
                break;
-
             case Multiplicity.One:
 
                switch (element.SourceMultiplicity)
                {
                   case Multiplicity.ZeroMany:
-                     element.SourceRole = EndpointRole.Dependent;
-                     element.TargetRole = EndpointRole.Principal;
+                     if (element.SourceRole != EndpointRole.Dependent) element.SourceRole = EndpointRole.Dependent;
+                     if (element.TargetRole != EndpointRole.Principal) element.TargetRole = EndpointRole.Principal;
 
                      return true;
-
                   case Multiplicity.One:
 
                      return false;
-
                   case Multiplicity.ZeroOne:
-                     element.SourceRole = EndpointRole.Dependent;
-                     element.TargetRole = EndpointRole.Principal;
+                     if (element.SourceRole != EndpointRole.Dependent) element.SourceRole = EndpointRole.Dependent;
+                     if (element.TargetRole != EndpointRole.Principal) element.TargetRole = EndpointRole.Principal;
 
                      return true;
                }
 
                break;
-
             case Multiplicity.ZeroOne:
 
                switch (element.SourceMultiplicity)
                {
                   case Multiplicity.ZeroMany:
-                     element.SourceRole = EndpointRole.Dependent;
-                     element.TargetRole = EndpointRole.Principal;
+                     if (element.SourceRole != EndpointRole.Dependent) element.SourceRole = EndpointRole.Dependent;
+                     if (element.TargetRole != EndpointRole.Principal) element.TargetRole = EndpointRole.Principal;
 
                      return true;
-
                   case Multiplicity.One:
-                     element.SourceRole = EndpointRole.Principal;
-                     element.TargetRole = EndpointRole.Dependent;
+                     if (element.SourceRole != EndpointRole.Principal) element.SourceRole = EndpointRole.Principal;
+                     if (element.TargetRole != EndpointRole.Dependent) element.TargetRole = EndpointRole.Dependent;
 
                      return true;
-
                   case Multiplicity.ZeroOne:
 
                      return false;

@@ -43,7 +43,7 @@ namespace Sawczyn.EFDesigner.EFModel
          bool dirty = DocData.IsDirty(out int isDirty) == 0 && isDirty == 1;
 
          if (!DocData.DocViews.Except(new[] {this}).Any() && dirty && DocData.QuerySaveFile().CanSaveFile)
-            DocData.Save("", 1, 0);
+            DocData.Save(string.Empty, 1, 0);
 
          base.OnClose();
       }

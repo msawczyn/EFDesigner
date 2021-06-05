@@ -178,35 +178,6 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       /// <summary>
-      /// OnBeforePaint is called at the start of the ShapeElement's painting.
-      /// It provides an opportunity for developers to update and override resources
-      /// before they're used in painting.
-      /// </summary>
-      /// <remarks>
-      /// You can override existing resources by calling StyleSet.OverrideXXX and
-      /// changing the specific setting that you would like.
-      /// </remarks>
-      protected override void OnBeforePaint()
-      {
-         if (ModelElement is Association element)
-         {
-            BidirectionalAssociation bidirectionalElement = ModelElement as BidirectionalAssociation;
-            bool hasAutoInclude = element.Source.ModelRoot.IsEFCore5Plus && (element.TargetAutoInclude || bidirectionalElement?.SourceAutoInclude == true);
-
-            if (hasAutoInclude)
-            {
-               PenSettings settings = StyleSet.GetOverriddenPenSettings(DiagramPens.ConnectionLine) ?? new PenSettings();
-               settings.Width = 0.05f;
-               StyleSet.OverridePen(DiagramPens.ConnectionLine, settings);
-            }
-            else
-               StyleSet.ClearPenOverride(DiagramPens.ConnectionLine);
-         }
-         else
-            StyleSet.ClearPenOverride(DiagramPens.ConnectionLine);
-      }
-
-      /// <summary>
       /// Calculates highlight luminosity based on:
       /// 	if L &gt;= 160, then L = L * 0.9
       /// 	else, L += 40.

@@ -1,8 +1,7 @@
 {
   "profiles": {
     "EFCore3Parser": {
-      "commandName": "Project",
-      "commandLineArgs": "\"C:\\Code\\_Clients\\AWH\\SureImpact\\Source\\SureImpact.Data\\bin\\Debug\\netcoreapp3.1\\SureImpact.Data.dll\" c:\\temp\\parsertest.json"
+      "commandName": "Project"
     }
   }
 }

@@ -8,7 +8,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.6
+      // EFDesigner v3.0.7
       // Copyright (c) 2017-2021 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -19,7 +19,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          protected override void ConfigureTable(List<string> segments, ModelClass modelClass)
          {
             string tableName = string.IsNullOrEmpty(modelClass.TableName) ? modelClass.Name : modelClass.TableName;
-            string schema = string.IsNullOrEmpty(modelClass.DatabaseSchema) || modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema ? string.Empty : ", \"{modelClass.DatabaseSchema}\"";
+            string schema = string.IsNullOrEmpty(modelClass.DatabaseSchema) || modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema ? string.Empty : $", \"{modelClass.DatabaseSchema}\"";
             string buildAction = modelClass.ExcludeFromMigrations ? ", t => t.ExcludeFromMigrations()" : string.Empty;
 
             segments.Add($"ToTable(\"{tableName}\"{schema}{buildAction})");
@@ -148,7 +148,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                visited.Add(association);
 
                List<string> segments = new List<string>();
-               string separator = sourceInstance.ModelRoot.ShadowKeyNamePattern == ShadowKeyPattern.TableColumn ? "" : "_";
+               string separator = sourceInstance.ModelRoot.ShadowKeyNamePattern == ShadowKeyPattern.TableColumn ? string.Empty : "_";
 
                switch (association.TargetMultiplicity) // realized by property on source
                {
@@ -441,7 +441,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                visited.Add(association);
 
                List<string> segments = new List<string>();
-               string separator = sourceInstance.ModelRoot.ShadowKeyNamePattern == ShadowKeyPattern.TableColumn ? "" : "_";
+               string separator = sourceInstance.ModelRoot.ShadowKeyNamePattern == ShadowKeyPattern.TableColumn ? string.Empty : "_";
 
                switch (association.TargetMultiplicity) // realized by property on source
                {
