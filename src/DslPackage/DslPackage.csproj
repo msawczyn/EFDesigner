@@ -163,6 +163,16 @@
     <Compile Include="CustomCode\Partials\EFModelPackage.cs" />
     <Compile Include="CustomCode\Messages.cs" />
     <Compile Include="CustomCode\Partials\EFModelExplorerToolWindow.cs" />
+    <Compile Include="CustomCode\Search\AssociationSearchCriteria.cs" />
+    <Compile Include="CustomCode\Search\AttributeSearchCriteria.cs" />
+    <Compile Include="CustomCode\Search\ClassSearchCriteria.cs" />
+    <Compile Include="CustomCode\Search\EnumSearchCriteria.cs" />
+    <Compile Include="CustomCode\Search\SearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomCode\Search\SearchForm.Designer.cs">
+      <DependentUpon>SearchForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomCode\WaitCursor.cs" />
     <Compile Include="CustomCode\WizardImplementation.cs" />
     <Compile Include="GeneratedCode\CommandSet.cs">
@@ -227,6 +237,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationExtensionRegistrar.tt</DependentUpon>
     </Compile>
+    <Compile Include="VSPackage1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VSPackage.resx</DependentUpon>
+    </Compile>
     <Content Include="GeneratedCode\GeneratedVSCT.vsct">
       <Generator>VsctGenerator</Generator>
       <AutoGen>True</AutoGen>
@@ -237,6 +252,8 @@
     <Content Include="Parsers\EFCore5Parser.exe">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="Resources\ExpandDownGroup_16x.png" />
+    <Content Include="Resources\CollapseUpGroup_16x.png" />
     <Content Include="TextTemplates\EF6Designer.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -431,10 +448,16 @@
     <EmbeddedResource Include="CustomCode\ChooseForm.resx">
       <DependentUpon>ChooseForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CustomCode\Search\SearchForm.resx">
+      <DependentUpon>SearchForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <SubType>Designer</SubType>
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>VSPackage1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

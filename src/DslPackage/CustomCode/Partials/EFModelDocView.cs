@@ -4,10 +4,15 @@ using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using Microsoft.VisualStudio.Modeling.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
+using Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
-   internal partial class EFModelDocView 
+   internal partial class EFModelDocView
    {
+      private static SearchForm searchForm;
+      internal static SearchForm SearchForm { get; } = searchForm ?? (searchForm = new SearchForm());
+
       public override void SetInfo()
       {
          base.SetInfo();

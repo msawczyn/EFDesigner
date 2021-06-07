@@ -419,19 +419,14 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (sender is MenuCommand command)
          {
-            // until we can figure out how we want to do this
-            command.Visible = false;
-            command.Enabled = false;
+            command.Visible = true;
+            command.Enabled = true;
          }
       }
 
       private void OnMenuFind(object sender, EventArgs e)
       {
-         // TODO: Implement OnMenuFind
-
-         // find matching class name, property name, association endpoint name, enum name, or enum value name
-         // output to tool window
-         // bind data to each line of output so can highlight proper shape when entry is clicked (or double clicked)
+         EFModelDocView.SearchForm.Show(CurrentEFModelDocView.Window);
       }
 
       #endregion Find
