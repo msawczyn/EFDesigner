@@ -426,7 +426,15 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void OnMenuFind(object sender, EventArgs e)
       {
-         EFModelDocView.SearchForm.Show(CurrentEFModelDocView.Window);
+         SearchForm searchForm;
+
+         using (WaitCursor _ = new WaitCursor())
+         {
+            searchForm = EFModelDocView.SearchForm;
+         }
+
+         if (!searchForm.Visible)
+            searchForm.Show(CurrentEFModelDocView.Window);
       }
 
       #endregion Find

@@ -1,5 +1,5 @@
 ﻿
-namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
+namespace Sawczyn.EFDesigner.EFModel
 {
    partial class SearchForm
    {
@@ -29,6 +29,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
       /// </summary>
       private void InitializeComponent()
       {
+         this.components = new System.ComponentModel.Container();
+         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchForm));
          this.MainContainer = new System.Windows.Forms.SplitContainer();
          this.SearchOptionPanel = new System.Windows.Forms.Panel();
          this.EnumSearchOptionsPanel = new System.Windows.Forms.Panel();
@@ -61,6 +63,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          this.ExpandClassOptions = new System.Windows.Forms.PictureBox();
          this.panel1 = new System.Windows.Forms.Panel();
          this.ClearOptionsButton = new System.Windows.Forms.Button();
+         this.SearchImages = new System.Windows.Forms.ImageList(this.components);
          this.ResultGrid = new System.Windows.Forms.DataGridView();
          this.SelectedOptionsBox = new System.Windows.Forms.GroupBox();
          this.EffectiveCriteriaLabel = new System.Windows.Forms.Label();
@@ -118,6 +121,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // 
          // SearchOptionPanel
          // 
+         this.SearchOptionPanel.AutoScroll = true;
          this.SearchOptionPanel.Controls.Add(this.EnumSearchOptionsPanel);
          this.SearchOptionPanel.Controls.Add(this.AssociationSearchOptionsPanel);
          this.SearchOptionPanel.Controls.Add(this.PropertySearchOptionsPanel);
@@ -132,7 +136,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // 
          // EnumSearchOptionsPanel
          // 
-         this.EnumSearchOptionsPanel.AutoSize = true;
          this.EnumSearchOptionsPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
          this.EnumSearchOptionsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.EnumSearchOptionsPanel.Controls.Add(this.EnumSearchOptions);
@@ -147,7 +150,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // 
          this.EnumSearchOptions.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
          this.EnumSearchOptions.Controls.Add(this.EnumPropertyGrid);
-         this.EnumSearchOptions.Dock = System.Windows.Forms.DockStyle.Top;
+         this.EnumSearchOptions.Dock = System.Windows.Forms.DockStyle.Fill;
          this.EnumSearchOptions.Location = new System.Drawing.Point(0, 20);
          this.EnumSearchOptions.Name = "EnumSearchOptions";
          this.EnumSearchOptions.Size = new System.Drawing.Size(264, 0);
@@ -155,6 +158,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // 
          // EnumPropertyGrid
          // 
+         this.EnumPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
          this.EnumPropertyGrid.HelpVisible = false;
          this.EnumPropertyGrid.Location = new System.Drawing.Point(0, 0);
          this.EnumPropertyGrid.Name = "EnumPropertyGrid";
@@ -185,11 +189,12 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          this.EnumSearchLabel.TabIndex = 2;
          this.EnumSearchLabel.Text = "Enums";
          this.EnumSearchLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+         this.EnumSearchLabel.DoubleClick += new System.EventHandler(this.EnumSearchLabel_DoubleClick);
          // 
          // CollapseEnumOptions
          // 
          this.CollapseEnumOptions.BackColor = System.Drawing.SystemColors.ButtonFace;
-         this.CollapseEnumOptions.BackgroundImage = global::Sawczyn.EFDesigner.EFModel.DslPackage.VSPackage.CollapseUpGroup_16x;
+         this.CollapseEnumOptions.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CollapseEnumOptions.BackgroundImage")));
          this.CollapseEnumOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
          this.CollapseEnumOptions.Cursor = System.Windows.Forms.Cursors.Hand;
          this.CollapseEnumOptions.Dock = System.Windows.Forms.DockStyle.Right;
@@ -204,7 +209,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // ExpandEnumOptions
          // 
          this.ExpandEnumOptions.BackColor = System.Drawing.SystemColors.ButtonFace;
-         this.ExpandEnumOptions.BackgroundImage = global::Sawczyn.EFDesigner.EFModel.DslPackage.VSPackage.ExpandDownGroup_16x;
+         this.ExpandEnumOptions.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ExpandEnumOptions.BackgroundImage")));
          this.ExpandEnumOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
          this.ExpandEnumOptions.Cursor = System.Windows.Forms.Cursors.Hand;
          this.ExpandEnumOptions.Dock = System.Windows.Forms.DockStyle.Right;
@@ -217,7 +222,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // 
          // AssociationSearchOptionsPanel
          // 
-         this.AssociationSearchOptionsPanel.AutoSize = true;
          this.AssociationSearchOptionsPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
          this.AssociationSearchOptionsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.AssociationSearchOptionsPanel.Controls.Add(this.AssociationSearchOptions);
@@ -230,9 +234,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // 
          // AssociationSearchOptions
          // 
+         this.AssociationSearchOptions.AutoSize = true;
          this.AssociationSearchOptions.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
          this.AssociationSearchOptions.Controls.Add(this.AssociationsPropertyGrid);
-         this.AssociationSearchOptions.Dock = System.Windows.Forms.DockStyle.Top;
+         this.AssociationSearchOptions.Dock = System.Windows.Forms.DockStyle.Fill;
          this.AssociationSearchOptions.Location = new System.Drawing.Point(0, 20);
          this.AssociationSearchOptions.Name = "AssociationSearchOptions";
          this.AssociationSearchOptions.Size = new System.Drawing.Size(264, 0);
@@ -240,6 +245,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // 
          // AssociationsPropertyGrid
          // 
+         this.AssociationsPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
          this.AssociationsPropertyGrid.HelpVisible = false;
          this.AssociationsPropertyGrid.Location = new System.Drawing.Point(0, 0);
          this.AssociationsPropertyGrid.Name = "AssociationsPropertyGrid";
@@ -270,11 +276,12 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          this.AssociationsSearchLabel.TabIndex = 2;
          this.AssociationsSearchLabel.Text = "Associations";
          this.AssociationsSearchLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+         this.AssociationsSearchLabel.DoubleClick += new System.EventHandler(this.AssociationsSearchLabel_DoubleClick);
          // 
          // CollapseAssociationsOptions
          // 
          this.CollapseAssociationsOptions.BackColor = System.Drawing.SystemColors.ButtonFace;
-         this.CollapseAssociationsOptions.BackgroundImage = global::Sawczyn.EFDesigner.EFModel.DslPackage.VSPackage.CollapseUpGroup_16x;
+         this.CollapseAssociationsOptions.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CollapseAssociationsOptions.BackgroundImage")));
          this.CollapseAssociationsOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
          this.CollapseAssociationsOptions.Cursor = System.Windows.Forms.Cursors.Hand;
          this.CollapseAssociationsOptions.Dock = System.Windows.Forms.DockStyle.Right;
@@ -289,7 +296,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // ExpandAssociationsOptions
          // 
          this.ExpandAssociationsOptions.BackColor = System.Drawing.SystemColors.ButtonFace;
-         this.ExpandAssociationsOptions.BackgroundImage = global::Sawczyn.EFDesigner.EFModel.DslPackage.VSPackage.ExpandDownGroup_16x;
+         this.ExpandAssociationsOptions.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ExpandAssociationsOptions.BackgroundImage")));
          this.ExpandAssociationsOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
          this.ExpandAssociationsOptions.Cursor = System.Windows.Forms.Cursors.Hand;
          this.ExpandAssociationsOptions.Dock = System.Windows.Forms.DockStyle.Right;
@@ -302,7 +309,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // 
          // PropertySearchOptionsPanel
          // 
-         this.PropertySearchOptionsPanel.AutoSize = true;
          this.PropertySearchOptionsPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
          this.PropertySearchOptionsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.PropertySearchOptionsPanel.Controls.Add(this.PropertySearchOptions);
@@ -315,9 +321,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // 
          // PropertySearchOptions
          // 
+         this.PropertySearchOptions.AutoSize = true;
          this.PropertySearchOptions.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
          this.PropertySearchOptions.Controls.Add(this.PropertyPropertyGrid);
-         this.PropertySearchOptions.Dock = System.Windows.Forms.DockStyle.Top;
+         this.PropertySearchOptions.Dock = System.Windows.Forms.DockStyle.Fill;
          this.PropertySearchOptions.Location = new System.Drawing.Point(0, 20);
          this.PropertySearchOptions.Name = "PropertySearchOptions";
          this.PropertySearchOptions.Size = new System.Drawing.Size(264, 0);
@@ -325,6 +332,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // 
          // PropertyPropertyGrid
          // 
+         this.PropertyPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
          this.PropertyPropertyGrid.HelpVisible = false;
          this.PropertyPropertyGrid.Location = new System.Drawing.Point(0, 0);
          this.PropertyPropertyGrid.Name = "PropertyPropertyGrid";
@@ -355,11 +363,12 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          this.PropertySearchLabel.TabIndex = 2;
          this.PropertySearchLabel.Text = "Attributes";
          this.PropertySearchLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+         this.PropertySearchLabel.DoubleClick += new System.EventHandler(this.PropertySearchLabel_DoubleClick);
          // 
          // CollapsePropertyOptions
          // 
          this.CollapsePropertyOptions.BackColor = System.Drawing.SystemColors.ButtonFace;
-         this.CollapsePropertyOptions.BackgroundImage = global::Sawczyn.EFDesigner.EFModel.DslPackage.VSPackage.CollapseUpGroup_16x;
+         this.CollapsePropertyOptions.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CollapsePropertyOptions.BackgroundImage")));
          this.CollapsePropertyOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
          this.CollapsePropertyOptions.Cursor = System.Windows.Forms.Cursors.Hand;
          this.CollapsePropertyOptions.Dock = System.Windows.Forms.DockStyle.Right;
@@ -374,7 +383,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // ExpandPropertyOptions
          // 
          this.ExpandPropertyOptions.BackColor = System.Drawing.SystemColors.ButtonFace;
-         this.ExpandPropertyOptions.BackgroundImage = global::Sawczyn.EFDesigner.EFModel.DslPackage.VSPackage.ExpandDownGroup_16x;
+         this.ExpandPropertyOptions.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ExpandPropertyOptions.BackgroundImage")));
          this.ExpandPropertyOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
          this.ExpandPropertyOptions.Cursor = System.Windows.Forms.Cursors.Hand;
          this.ExpandPropertyOptions.Dock = System.Windows.Forms.DockStyle.Right;
@@ -383,11 +392,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          this.ExpandPropertyOptions.Size = new System.Drawing.Size(20, 20);
          this.ExpandPropertyOptions.TabIndex = 0;
          this.ExpandPropertyOptions.TabStop = false;
-         this.ExpandPropertyOptions.ChangeUICues += new System.Windows.Forms.UICuesEventHandler(this.ExpandPropertyOptions_Click);
+         this.ExpandPropertyOptions.Click += new System.EventHandler(this.ExpandPropertyOptions_Click);
          // 
          // ClassSearchOptionsPanel
          // 
-         this.ClassSearchOptionsPanel.AutoSize = true;
          this.ClassSearchOptionsPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
          this.ClassSearchOptionsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.ClassSearchOptionsPanel.Controls.Add(this.ClassSearchOptions);
@@ -400,9 +408,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // 
          // ClassSearchOptions
          // 
+         this.ClassSearchOptions.AutoSize = true;
          this.ClassSearchOptions.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
          this.ClassSearchOptions.Controls.Add(this.ClassPropertyGrid);
-         this.ClassSearchOptions.Dock = System.Windows.Forms.DockStyle.Top;
+         this.ClassSearchOptions.Dock = System.Windows.Forms.DockStyle.Fill;
          this.ClassSearchOptions.Location = new System.Drawing.Point(0, 20);
          this.ClassSearchOptions.Name = "ClassSearchOptions";
          this.ClassSearchOptions.Size = new System.Drawing.Size(264, 0);
@@ -410,6 +419,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // 
          // ClassPropertyGrid
          // 
+         this.ClassPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
          this.ClassPropertyGrid.HelpVisible = false;
          this.ClassPropertyGrid.Location = new System.Drawing.Point(0, 0);
          this.ClassPropertyGrid.Name = "ClassPropertyGrid";
@@ -440,11 +450,12 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          this.ClassSearchLabel.TabIndex = 2;
          this.ClassSearchLabel.Text = "Classes";
          this.ClassSearchLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+         this.ClassSearchLabel.DoubleClick += new System.EventHandler(this.ClassSearchLabel_DoubleClick);
          // 
          // CollapseClassOptions
          // 
          this.CollapseClassOptions.BackColor = System.Drawing.SystemColors.ButtonFace;
-         this.CollapseClassOptions.BackgroundImage = global::Sawczyn.EFDesigner.EFModel.DslPackage.VSPackage.CollapseUpGroup_16x;
+         this.CollapseClassOptions.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CollapseClassOptions.BackgroundImage")));
          this.CollapseClassOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
          this.CollapseClassOptions.Cursor = System.Windows.Forms.Cursors.Hand;
          this.CollapseClassOptions.Dock = System.Windows.Forms.DockStyle.Right;
@@ -459,7 +470,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // ExpandClassOptions
          // 
          this.ExpandClassOptions.BackColor = System.Drawing.SystemColors.ButtonFace;
-         this.ExpandClassOptions.BackgroundImage = global::Sawczyn.EFDesigner.EFModel.DslPackage.VSPackage.ExpandDownGroup_16x;
+         this.ExpandClassOptions.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ExpandClassOptions.BackgroundImage")));
          this.ExpandClassOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
          this.ExpandClassOptions.Cursor = System.Windows.Forms.Cursors.Hand;
          this.ExpandClassOptions.Dock = System.Windows.Forms.DockStyle.Right;
@@ -483,13 +494,24 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // ClearOptionsButton
          // 
          this.ClearOptionsButton.Dock = System.Windows.Forms.DockStyle.Left;
+         this.ClearOptionsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+         this.ClearOptionsButton.ImageIndex = 0;
+         this.ClearOptionsButton.ImageList = this.SearchImages;
          this.ClearOptionsButton.Location = new System.Drawing.Point(0, 0);
          this.ClearOptionsButton.Name = "ClearOptionsButton";
-         this.ClearOptionsButton.Size = new System.Drawing.Size(59, 26);
+         this.ClearOptionsButton.Size = new System.Drawing.Size(68, 26);
          this.ClearOptionsButton.TabIndex = 0;
          this.ClearOptionsButton.Text = "Reset";
+         this.ClearOptionsButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
          this.ClearOptionsButton.UseVisualStyleBackColor = true;
          this.ClearOptionsButton.Click += new System.EventHandler(this.ClearOptionsButton_Click);
+         // 
+         // SearchImages
+         // 
+         this.SearchImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("SearchImages.ImageStream")));
+         this.SearchImages.TransparentColor = System.Drawing.Color.Transparent;
+         this.SearchImages.Images.SetKeyName(0, "Restart_16x.png");
+         this.SearchImages.Images.SetKeyName(1, "Search_16x.png");
          // 
          // ResultGrid
          // 
@@ -535,11 +557,15 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          // SearchButton
          // 
          this.SearchButton.Dock = System.Windows.Forms.DockStyle.Right;
-         this.SearchButton.Location = new System.Drawing.Point(471, 0);
+         this.SearchButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+         this.SearchButton.ImageIndex = 1;
+         this.SearchButton.ImageList = this.SearchImages;
+         this.SearchButton.Location = new System.Drawing.Point(462, 0);
          this.SearchButton.Name = "SearchButton";
-         this.SearchButton.Size = new System.Drawing.Size(59, 26);
+         this.SearchButton.Size = new System.Drawing.Size(68, 26);
          this.SearchButton.TabIndex = 2;
          this.SearchButton.Text = "Search";
+         this.SearchButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
          this.SearchButton.UseVisualStyleBackColor = true;
          this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
          // 
@@ -552,30 +578,32 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          this.Controls.Add(this.MainContainer);
          this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
          this.Name = "SearchForm";
-         this.Text = "Search Current Diagram";
+         this.Text = "Search Model";
          this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SearchForm_FormClosing);
          this.MainContainer.Panel1.ResumeLayout(false);
          this.MainContainer.Panel2.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.MainContainer)).EndInit();
          this.MainContainer.ResumeLayout(false);
          this.SearchOptionPanel.ResumeLayout(false);
-         this.SearchOptionPanel.PerformLayout();
          this.EnumSearchOptionsPanel.ResumeLayout(false);
          this.EnumSearchOptions.ResumeLayout(false);
          this.EnumSearchOptionsHeader.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.CollapseEnumOptions)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.ExpandEnumOptions)).EndInit();
          this.AssociationSearchOptionsPanel.ResumeLayout(false);
+         this.AssociationSearchOptionsPanel.PerformLayout();
          this.AssociationSearchOptions.ResumeLayout(false);
          this.AssociationsSearchOptionsHeader.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.CollapseAssociationsOptions)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.ExpandAssociationsOptions)).EndInit();
          this.PropertySearchOptionsPanel.ResumeLayout(false);
+         this.PropertySearchOptionsPanel.PerformLayout();
          this.PropertySearchOptions.ResumeLayout(false);
          this.PropertySearchOptionsHeader.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.CollapsePropertyOptions)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.ExpandPropertyOptions)).EndInit();
          this.ClassSearchOptionsPanel.ResumeLayout(false);
+         this.ClassSearchOptionsPanel.PerformLayout();
          this.ClassSearchOptions.ResumeLayout(false);
          this.ClassSearchOptionsHeader.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.CollapseClassOptions)).EndInit();
@@ -627,5 +655,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
       private System.Windows.Forms.Label EffectiveCriteriaLabel;
       private System.Windows.Forms.Panel panel2;
       private System.Windows.Forms.Button SearchButton;
+      private System.Windows.Forms.ImageList SearchImages;
    }
 }

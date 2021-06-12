@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 using Sawczyn.EFDesigner.EFModel.Search;
 
-namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
+namespace Sawczyn.EFDesigner.EFModel
 {
    public partial class SearchForm : Form
    {
@@ -36,49 +36,74 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
 
       private void CollapseAssociationOptions_Click(object sender, EventArgs e)
       {
-         TogglePanel(AssociationsPropertyGrid, 0, ExpandAssociationsOptions, CollapseAssociationsOptions);
+         SearchOptionPanel.SuspendLayout();
+         AssociationSearchOptionsPanel.Height = 22;
+         ExpandAssociationsOptions.Visible = true;
+         CollapseAssociationsOptions.Visible = false;
+         SearchOptionPanel.ResumeLayout(true);
       }
 
       private void CollapseClassOptions_Click(object sender, EventArgs e)
       {
-         TogglePanel(ClassPropertyGrid, 0, ExpandClassOptions, CollapseClassOptions);
+         SearchOptionPanel.SuspendLayout();
+         ClassSearchOptionsPanel.Height = 22;
+         ExpandClassOptions.Visible = true;
+         CollapseClassOptions.Visible = false;
+         SearchOptionPanel.ResumeLayout(true);
       }
 
       private void CollapseEnumOptions_Click(object sender, EventArgs e)
       {
-         TogglePanel(EnumPropertyGrid, 0, ExpandEnumOptions, CollapseEnumOptions);
+         SearchOptionPanel.SuspendLayout();
+         EnumSearchOptionsPanel.Height = 22;
+         ExpandEnumOptions.Visible = true;
+         CollapseEnumOptions.Visible = false;
+         SearchOptionPanel.ResumeLayout(true);
       }
 
       private void CollapsePropertyOptions_Click(object sender, EventArgs e)
       {
-         TogglePanel(PropertyPropertyGrid, 0, ExpandClassOptions, CollapseClassOptions);
+         SearchOptionPanel.SuspendLayout();
+         PropertySearchOptionsPanel.Height = 22;
+         ExpandPropertyOptions.Visible = true;
+         CollapsePropertyOptions.Visible = false;
+         SearchOptionPanel.ResumeLayout(true);
       }
 
       private void ExpandAssociationOptions_Click(object sender, EventArgs e)
       {
-         TogglePanel(AssociationsPropertyGrid, 100, CollapseAssociationsOptions, ExpandAssociationsOptions);
+         SearchOptionPanel.SuspendLayout();
+         AssociationSearchOptionsPanel.Height = 222;
+         ExpandAssociationsOptions.Visible = false;
+         CollapseAssociationsOptions.Visible = true;
+         SearchOptionPanel.ResumeLayout(true);
       }
 
       private void ExpandClassOptions_Click(object sender, EventArgs e)
       {
-         TogglePanel(ClassPropertyGrid, 100, CollapseClassOptions, ExpandClassOptions);
+         SearchOptionPanel.SuspendLayout();
+         ClassSearchOptionsPanel.Height = 222;
+         ExpandClassOptions.Visible = false;
+         CollapseClassOptions.Visible = true;
+         SearchOptionPanel.ResumeLayout(true);
       }
 
       private void ExpandEnumOptions_Click(object sender, EventArgs e)
       {
-         TogglePanel(EnumPropertyGrid, 100, CollapseEnumOptions, ExpandEnumOptions);
+         SearchOptionPanel.SuspendLayout();
+         EnumSearchOptionsPanel.Height = 222;
+         ExpandEnumOptions.Visible = false;
+         CollapseEnumOptions.Visible = true;
+         SearchOptionPanel.ResumeLayout(true);
       }
 
-      private void ExpandPropertyOptions_Click(object sender, UICuesEventArgs e)
+      private void ExpandPropertyOptions_Click(object sender, EventArgs e)
       {
-         TogglePanel(PropertyPropertyGrid, 100, CollapsePropertyOptions, ExpandPropertyOptions);
-      }
-
-      private void TogglePanel(PropertyGrid grid, int height, PictureBox visible, PictureBox hidden)
-      {
-         grid.Height = height;
-         hidden.Visible = false;
-         visible.Visible = true;
+         SearchOptionPanel.SuspendLayout();
+         PropertySearchOptionsPanel.Height = 222;
+         ExpandPropertyOptions.Visible = false;
+         CollapsePropertyOptions.Visible = true;
+         SearchOptionPanel.ResumeLayout(true);
       }
 
       private void SearchButton_Click(object sender, EventArgs e)
@@ -95,6 +120,38 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
       {
          Hide();
          e.Cancel = true;
+      }
+
+      private void ClassSearchLabel_DoubleClick(object sender, EventArgs e)
+      {
+         if (ExpandClassOptions.Visible)
+            ExpandClassOptions_Click(sender, null);
+         else
+            CollapseClassOptions_Click(sender, null);
+      }
+
+      private void PropertySearchLabel_DoubleClick(object sender, EventArgs e)
+      {
+         if (ExpandPropertyOptions.Visible)
+            ExpandPropertyOptions_Click(sender, null);
+         else
+            CollapsePropertyOptions_Click(sender, null);
+      }
+
+      private void AssociationsSearchLabel_DoubleClick(object sender, EventArgs e)
+      {
+         if (ExpandAssociationsOptions.Visible)
+            ExpandAssociationOptions_Click(sender, null);
+         else
+            CollapseAssociationOptions_Click(sender, null);
+      }
+
+      private void EnumSearchLabel_DoubleClick(object sender, EventArgs e)
+      {
+         if (ExpandEnumOptions.Visible)
+            ExpandEnumOptions_Click(sender, null);
+         else
+            CollapseEnumOptions_Click(sender, null);
       }
    }
 }

@@ -19,7 +19,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class VSPackage {
@@ -61,7 +61,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EFModel.
+        ///   Looks up a localized string similar to Entity Framework Visual Editor.
         /// </summary>
         internal static string _101 {
             get {
@@ -70,7 +70,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds a EFDesigner file to the project..
+        ///   Looks up a localized string similar to Adds an Entity Framework Visual Editor file to the project..
         /// </summary>
         internal static string _102 {
             get {
@@ -79,7 +79,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EFDesigner.
+        ///   Looks up a localized string similar to Entity Framework Visual Editor.
         /// </summary>
         internal static string _103 {
             get {

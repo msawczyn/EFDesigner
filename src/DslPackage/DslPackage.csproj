@@ -237,7 +237,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationExtensionRegistrar.tt</DependentUpon>
     </Compile>
-    <Compile Include="VSPackage1.Designer.cs">
+    <Compile Include="VSPackage.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>VSPackage.resx</DependentUpon>
@@ -254,6 +254,8 @@
     </Content>
     <Content Include="Resources\ExpandDownGroup_16x.png" />
     <Content Include="Resources\CollapseUpGroup_16x.png" />
+    <None Include="Resources\Restart_16x.png" />
+    <None Include="Resources\Search_16x.png" />
     <Content Include="TextTemplates\EF6Designer.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -296,7 +298,6 @@
     <Compile Include="TextTemplates\EditingOnly\EFModelGenerator.cs" />
     <Compile Include="TextTemplates\EditingOnly\MultipleOutputHelper.cs" />
     <Compile Include="TextTemplates\EditingOnly\VSIntegration.cs" />
-    <Compile Include="VSPackage.Designer.cs" />
     <Content Include="Logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -457,7 +458,7 @@
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>VSPackage1.Designer.cs</LastGenOutput>
+      <LastGenOutput>VSPackage.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
