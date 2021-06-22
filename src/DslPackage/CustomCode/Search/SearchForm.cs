@@ -21,6 +21,8 @@ namespace Sawczyn.EFDesigner.EFModel
       public static EnumSearchCriteria EnumSearchCriteria { get; private set; } = new EnumSearchCriteria();
       public static AssociationSearchCriteria AssociationSearchCriteria { get; private set; } = new AssociationSearchCriteria();
 
+      #region Expand/Collapse
+
       private void ClearOptionsButton_Click(object sender, EventArgs e)
       {
          ClassSearchCriteria = new ClassSearchCriteria();
@@ -106,22 +108,6 @@ namespace Sawczyn.EFDesigner.EFModel
          SearchOptionPanel.ResumeLayout(true);
       }
 
-      private void SearchButton_Click(object sender, EventArgs e)
-      {
-
-      }
-
-      private void SearchPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
-      {
-         EffectiveCriteriaLabel.Text += "foo ";
-      }
-
-      private void SearchForm_FormClosing(object sender, FormClosingEventArgs e)
-      {
-         Hide();
-         e.Cancel = true;
-      }
-
       private void ClassSearchLabel_DoubleClick(object sender, EventArgs e)
       {
          if (ExpandClassOptions.Visible)
@@ -153,5 +139,24 @@ namespace Sawczyn.EFDesigner.EFModel
          else
             CollapseEnumOptions_Click(sender, null);
       }
+
+      #endregion
+
+      private void SearchButton_Click(object sender, EventArgs e)
+      {
+
+      }
+
+      private void SearchPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+      {
+         EffectiveCriteriaLabel.Text += "foo ";
+      }
+
+      private void SearchForm_FormClosing(object sender, FormClosingEventArgs e)
+      {
+         Hide();
+         e.Cancel = true;
+      }
+
    }
 }
