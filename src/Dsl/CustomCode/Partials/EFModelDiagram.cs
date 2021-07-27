@@ -302,5 +302,15 @@ namespace Sawczyn.EFDesigner.EFModel
          IsDroppingExternal = false;
          base.OnMouseUp(e);
       }
-   }
+
+      /// <summary>Called by the control's OnMouseDown().</summary>
+      /// <param name="e">A DiagramMouseEventArgs that contains event data.</param>
+      public override void OnMouseDown(DiagramMouseEventArgs e)
+      {
+         MouseDownPosition = e.MousePosition;
+         base.OnMouseDown(e);
+      }
+
+      public PointD MouseDownPosition;
+  }
 }

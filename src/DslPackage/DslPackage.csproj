@@ -146,6 +146,7 @@
     <Compile Include="CustomCode\ChooseForm.Designer.cs">
       <DependentUpon>ChooseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomCode\CommandHelper.cs" />
     <Compile Include="CustomCode\Extensions\TreeViewExtensions.cs" />
     <Compile Include="CustomCode\LayoutCommands.cs" />
     <Compile Include="CustomCode\CommandSet.cs" />
@@ -240,6 +241,8 @@
     <Content Include="Parsers\EFCore5Parser.exe">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="Resources\Commands.png" />
+    <Content Include="Resources\Commands.png" />
     <Content Include="TextTemplates\EF6Designer.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
