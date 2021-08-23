@@ -610,9 +610,7 @@ namespace Sawczyn.EFDesigner.EFModel
          propertyAccessModeStorage = value;
 
          if (!Store.InUndoRedoOrRollback && !this.IsLoading())
-         {
             IsPropertyAccessModeTracking = (propertyAccessModeStorage == (ModelClass?.ModelRoot.PropertyAccessModeDefault ?? DefaultPropertyAccessMode));
-         }
       }
 
       #endregion
@@ -1024,7 +1022,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                                   };
 
 
-      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      [ValidationMethod(/*ValidationCategories.Open | */ValidationCategories.Save | ValidationCategories.Menu)]
       [UsedImplicitly]
       [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void GeographyTypeDoesNotMatchEFVersion(ValidationContext context)

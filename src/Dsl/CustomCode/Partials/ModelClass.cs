@@ -518,7 +518,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Menu)]
+      [ValidationMethod(/*ValidationCategories.Open | */ValidationCategories.Menu)]
       [UsedImplicitly]
       [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void OwnedTypeCannotHaveABaseClass(ValidationContext context)
@@ -528,7 +528,7 @@ namespace Sawczyn.EFDesigner.EFModel
             context.LogError($"Can't make {Name} a dependent class since it has a base class", "MCEOwnedHasBaseClass", this);
       }
 
-      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Menu)]
+      [ValidationMethod(/*ValidationCategories.Open | */ValidationCategories.Menu)]
       [UsedImplicitly]
       [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void OwnedTypeCannotHaveASubclass(ValidationContext context)
@@ -538,7 +538,7 @@ namespace Sawczyn.EFDesigner.EFModel
             context.LogError($"Can't make {Name} a dependent class since it has subclass(es) {string.Join(", ", Subclasses.Select(s => s.Name))}", "MCEOwnedHasSubclass", this);
       }
 
-      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Menu)]
+      [ValidationMethod(/*ValidationCategories.Open | */ValidationCategories.Menu)]
       [UsedImplicitly]
       [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void OwnedTypeCannotBeAbstract(ValidationContext context)
@@ -548,7 +548,7 @@ namespace Sawczyn.EFDesigner.EFModel
             context.LogError($"Can't make {Name} a dependent class since it's abstract", "MCEOwnedIsAbstract", this);
       }
 
-      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Menu)]
+      [ValidationMethod(/*ValidationCategories.Open | */ValidationCategories.Menu)]
       [UsedImplicitly]
       [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void OwnedTypeCannotBePrincipal(ValidationContext context)
@@ -564,7 +564,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Menu)]
+      [ValidationMethod(/*ValidationCategories.Open | */ValidationCategories.Menu)]
       [UsedImplicitly]
       [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void OwnedTypeCannotBeInBidirectionalAssociation(ValidationContext context)
@@ -575,7 +575,7 @@ namespace Sawczyn.EFDesigner.EFModel
             context.LogError($"Can't make {Name} a dependent class since it's part of a bidirectional association", "MCEOwnedInBidirectional", this);
       }
 
-      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      [ValidationMethod(/*ValidationCategories.Open | */ValidationCategories.Save | ValidationCategories.Menu)]
       [UsedImplicitly]
       [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void AttributesCannotBeNamedSameAsEnclosingClass(ValidationContext context)
@@ -586,7 +586,7 @@ namespace Sawczyn.EFDesigner.EFModel
             context.LogError($"{Name}: Properties can't be named the same as the enclosing class", "MCESameName", this);
       }
 
-      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      [ValidationMethod(/*ValidationCategories.Open | */ValidationCategories.Save | ValidationCategories.Menu)]
       [UsedImplicitly]
       [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void PersistentClassesMustHaveIdentity(ValidationContext context)

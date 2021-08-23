@@ -5,27 +5,39 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
-using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
 
 using Sawczyn.EFDesigner.EFModel.Annotations;
 using Sawczyn.EFDesigner.EFModel.Extensions;
+#pragma warning disable 1591
 
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelRoot : IHasStore
    {
+      /// <summary>
+      /// Provides pluralization for names (currently English only)
+      /// </summary>
       public static readonly PluralizationService PluralizationService;
 
       internal static bool BatchUpdating = false;
       internal static string InstallationDirectory { get; set; }
 
+      /// <summary>
+      /// Current method that validates the model
+      /// </summary>
       public static Action ExecuteValidator { get; set; }
 
+      /// <summary>
+      /// Method to finds the diagram that currently has focus, if any
+      /// </summary>
       public static Func<Diagram> GetCurrentDiagram { get; set; }
 
+      /// <summary>
+      /// Method to output a diagram as a zip file
+      /// </summary>
       public static Func<bool> WriteDiagramAsBinary { get; set; } = () => false;
 
       static ModelRoot()
@@ -41,6 +53,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// FQN of the DbContext-derived class
+      /// </summary>
       // ReSharper disable once UnusedMember.Global
       public string FullName => string.IsNullOrWhiteSpace(Namespace) ? $"global::{EntityContainerName}" : $"global::{Namespace}.{EntityContainerName}";
 
@@ -49,9 +64,9 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       public bool IsEFCore5Plus => EntityFrameworkVersion == EFVersion.EFCore && (EntityFrameworkPackageVersion == "Latest" || GetEntityFrameworkPackageVersionNum() >= 5);
 
-      [Obsolete("Use ModelRoot.Classes instead")]
-      public LinkedElementCollection<ModelClass> Types => Classes;
-
+      /// <summary>
+      /// Finds all diagrams associated to this model
+      /// </summary>
       public EFModelDiagram[] GetDiagrams()
       {
          return Store
@@ -66,11 +81,17 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private string filename;
 
+      /// <summary>
+      /// Sets the filename for saving this model
+      /// </summary>
       public void SetFileName(string fileName)
       {
          filename = fileName;
       }
 
+      /// <summary>
+      /// Gets the filename of this model
+      /// </summary>
       public string GetFileName()
       {
          return filename;
@@ -112,6 +133,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #region Valid types based on EF version
 
+      /// <summary>
+      /// List of spatial types, depending on EF version selected
+      /// </summary>
       public string[] SpatialTypes
       {
          get
@@ -249,6 +273,9 @@ namespace Sawczyn.EFDesigner.EFModel
          return IsEFCore5Plus || ValidIdentityAttributeTypes.Contains(typename);
       }
 
+      /// <summary>
+      /// Collection of type names valid for identity attribute types
+      /// </summary>
       public string[] ValidIdentityAttributeTypes
       {
          get
@@ -282,6 +309,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Determines if a type name string is a valid C# CLR type for model usage.
+      /// </summary>
       public bool IsValidCLRType(string type)
       {
          return ValidCLRTypes.Contains(type);
@@ -290,17 +320,6 @@ namespace Sawczyn.EFDesigner.EFModel
       #endregion
 
       #region Nuget
-
-      [Obsolete] 
-      public NuGetDisplay NuGetPackageVersion
-      {
-         get
-         {
-            return NuGetHelper.NuGetPackageDisplay
-                              .FirstOrDefault(x => x.EFVersion == EntityFrameworkVersion
-                                                && x.DisplayVersion == EntityFrameworkPackageVersion);
-         }
-      }
 
       /// <summary>
       /// Transforms the selected EntityFrameworkPackageVersion into a decimal number, only taking the first two segments into account. If a "Latest" version is chosen, looks up the appropriate real version.
@@ -355,7 +374,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #region Validation methods
 
-      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      [ValidationMethod(/*ValidationCategories.Open | */ValidationCategories.Save | ValidationCategories.Menu)]
       [UsedImplicitly]
       [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void ConnectionStringMustExist(ValidationContext context)

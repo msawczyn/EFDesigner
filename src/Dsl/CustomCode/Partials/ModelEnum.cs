@@ -33,13 +33,16 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </value>
       public string FullName => string.IsNullOrWhiteSpace(EffectiveNamespace) ? $"global::{Name}" : $"global::{EffectiveNamespace}.{Name}";
 
+      /// <summary>
+      /// Allows for homogenous access to the display name for this element.
+      /// </summary>
       // ReSharper disable once UnusedMember.Global
       public string GetDisplayText()
       {
          return Name;
       }
 
-#region Warning display
+      #region Warning display
 
       // set as methods to avoid issues around serialization
 
@@ -62,7 +65,7 @@ namespace Sawczyn.EFDesigner.EFModel
       public void RedrawItem()
       {
          // redraw on every diagram
-         foreach (ShapeElement shapeElement in 
+         foreach (ShapeElement shapeElement in
                PresentationViewsSubject.GetPresentation(this).OfType<ShapeElement>().Distinct())
             shapeElement.Invalidate();
       }
@@ -85,6 +88,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion
 
+      /// <summary>
+      /// The namespace for this element before overrides
+      /// </summary>
       [Browsable(false)]
       public string DefaultNamespace
       {
@@ -108,6 +114,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// The output directory for this element's code before overrides
+      /// </summary>
       [Browsable(false)]
       public string DefaultOutputDirectory
       {
@@ -190,12 +199,13 @@ namespace Sawczyn.EFDesigner.EFModel
          // same with other tracking properties as they get added
       }
 
-      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      [ValidationMethod(/*ValidationCategories.Open | */ValidationCategories.Save | ValidationCategories.Menu)]
       [UsedImplicitly]
       [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void EnumMustHaveValues(ValidationContext context)
       {
-         if (ModelRoot == null) return;
+         if (ModelRoot == null)
+            return;
 
          if (!Values.Any())
             context.LogError($"{Name}: Enum has no values", "MEENoValues", this);
@@ -206,7 +216,8 @@ namespace Sawczyn.EFDesigner.EFModel
       [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void EnumValueInitializationsShouldBeAllOrNothing(ValidationContext context)
       {
-         if (ModelRoot == null) return;
+         if (ModelRoot == null)
+            return;
 
          if (Values.Any(x => !string.IsNullOrEmpty(x.Value)) && Values.Any(x => string.IsNullOrEmpty(x.Value)))
          {
@@ -221,7 +232,8 @@ namespace Sawczyn.EFDesigner.EFModel
       [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Called by validation")]
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
-         if (ModelRoot == null) return;
+         if (ModelRoot == null)
+            return;
 
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
          if (modelRoot?.WarnOnMissingDocumentation == true && string.IsNullOrWhiteSpace(Summary))

@@ -92,7 +92,7 @@
       public Association AssociationObject { get; set; }
 
       /// <summary>
-      /// Owning class; the class that has the property
+      /// The type of the property
       /// </summary>
       public ModelClass ClassType { get; set; }
 

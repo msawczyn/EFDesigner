@@ -11,7 +11,6 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-
    public partial class ClassShape : IHighlightFromModelExplorer, IMouseActionTarget
    {
       /// <summary>
@@ -140,6 +139,9 @@ namespace Sawczyn.EFDesigner.EFModel
          return mappings;
       }
 
+      /// <summary>
+      /// Maps names to images for class glyphs
+      /// </summary>
       public static ReadOnlyDictionary<string, Image> ClassImages =
          new ReadOnlyDictionary<string, Image>(new Dictionary<string, Image>
                                                {
@@ -151,6 +153,9 @@ namespace Sawczyn.EFDesigner.EFModel
                                                 , {nameof(Resources.AbstractEntityGlyphVisible), Resources.AbstractEntityGlyphVisible}
                                                });
 
+      /// <summary>
+      /// Maps names to images for property glyphs
+      /// </summary>
       public static ReadOnlyDictionary<string, Image> PropertyImages =
          new ReadOnlyDictionary<string, Image>(new Dictionary<string, Image>
                                                {

@@ -4,6 +4,7 @@
    - Fixed missing '$' in generator template that was generating bad code for table schemas (see https://github.com/msawczyn/EFDesigner/issues/289)
    - Restored auto-instantiation of dependent objects in entity constructors (see https://github.com/msawczyn/EFDesigner/issues/287)
    - Added Microsoft.VisualStudio.Modeling.Components.15.0.dll to DslPackage assembly (see https://github.com/msawczyn/EFDesigner/issues/293)
+   - Removed validations on model open/load that prevented a misconfigured model from loading. Errors will still be shown during editing and when saving.
 
 3.0.6
    - Added ability to copy current diagram to clipboard

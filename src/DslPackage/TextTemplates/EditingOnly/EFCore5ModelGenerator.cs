@@ -24,6 +24,9 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
             segments.Add($"ToTable(\"{tableName}\"{schema}{buildAction})");
 
+            if (modelClass.Superclass != null)
+               segments.Add($"HasBaseType<{modelClass.Superclass.FullName}>()");
+
             // primary key code segments must be output last, since HasKey returns a different type
             List<ModelAttribute> identityAttributes = modelClass.IdentityAttributes.ToList();
 
