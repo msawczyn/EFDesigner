@@ -42,9 +42,10 @@ namespace Sawczyn.EFDesigner.EFModel
       public DotNode Target { get; set; }
    }
 
-   internal class Commands
+   // Set to public to allow MEF extension to perform layout
+   public class Commands
    {
-      internal static void LayoutDiagram(EFModelDiagram diagram)
+      public static void LayoutDiagram(EFModelDiagram diagram)
       {
          using (WaitCursor _ = new WaitCursor())
          {
@@ -54,7 +55,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      internal static void LayoutDiagram(EFModelDiagram diagram, IEnumerable<ShapeElement> shapeElements)
+      public static void LayoutDiagram(EFModelDiagram diagram, IEnumerable<ShapeElement> shapeElements)
       {
          using (Transaction tx = diagram.Store.TransactionManager.BeginTransaction("ModelAutoLayout"))
          {

@@ -8,6 +8,7 @@
    <!-- This causes Visual Studio to re-merge the menu definitions for the package. -->
    <!-- Otherwise, changes won't take effect until the next time devenv /setup is run. -->
    <!-- -->
+   <!-- ReSharper disable MarkupAttributeTypo -->
    <Extern href="stdidcmd.h"/>
    <Extern href="vsshlids.h"/>
    <Extern href="virtkeys.h"/>
@@ -42,7 +43,14 @@
 
       <Groups>
 
-         <Group guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram" priority="0x0100">
+	      <!-- Solution explorer menu group-->
+	      <Groups>
+		      <Group guid="guidSolutionExplorerContextMenuCmdSet" id="grpidSolutionExplorerContextMenuGroup" priority="0x0000">
+			      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
+		      </Group>
+	      </Groups>
+
+	      <Group guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram" priority="0x0100">
             <!-- These symbols are defined in GeneratedVSCT.vsct -->
             <Parent guid="guidCmdSet" id="menuidContext" />
          </Group>
@@ -63,7 +71,7 @@
 
       <Buttons>
 
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidFind" priority="0x0100" type="Button">
+	      <Button guid="guidEFDiagramMenuCmdSet" id="cmdidFind" priority="0x0100" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -106,6 +114,7 @@
                <ButtonText>Generate Code</ButtonText>
                <CommandName>GenerateCode</CommandName>
             </Strings>
+            <Icon guid="guidImages" id="bmpGenerateCode" />
          </Button>
          
          <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties" priority="0x0105" type="Button">
@@ -283,7 +292,7 @@
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidAlign"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
-               <ButtonText>Align Centers Horiz</ButtonText>
+               <ButtonText>Align Centers Horizontally</ButtonText>
                <CommandName>AlignHCenter</CommandName>
             </Strings>
          </Button>
@@ -292,7 +301,7 @@
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidAlign"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
-               <ButtonText>Align Centers Vert</ButtonText>
+               <ButtonText>Align Centers Vertically</ButtonText>
                <CommandName>AlignVCenter</CommandName>
             </Strings>
          </Button>
@@ -332,6 +341,16 @@
                <CommandName>EqualSpaceVert</CommandName>
             </Strings>
          </Button>
+
+	      <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAddEntity" priority="0x0108" type="Button">
+		      <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+		      <CommandFlag>DynamicVisibility</CommandFlag>
+		      <Strings>
+			      <ButtonText>Add Entity</ButtonText>
+			      <CommandName>AddEntity</CommandName>
+		      </Strings>
+		      <Icon guid="guidImages" id="bmpAddEntity" />
+	      </Button>
          
          <!-- Model explorer menu -->
 
@@ -362,7 +381,26 @@
             </Strings>
          </Button>
          
+	      <!-- Solution explorer menu commands -->
+
+         <Button guid="guidSolutionExplorerContextMenuCmdSet" id="cmdidEFModelCommand1" priority="0x0100" type="Button">
+		      <Parent guid="guidSolutionExplorerContextMenuCmdSet" id="grpidSolutionExplorerContextMenuGroup" />
+		      <CommandFlag>DefaultInvisible</CommandFlag>
+		      <CommandFlag>DynamicVisibility</CommandFlag>
+		      <CommandFlag>DynamicItemStart</CommandFlag>
+		      <Strings>
+			      <ButtonText>Generate Code</ButtonText>
+		      </Strings>
+		      <Icon guid="guidImages" id="bmpGenerateCode" />
+	      </Button>
+
       </Buttons>
+
+	   <!-- Solution explorer menu command bitmaps -->
+
+	   <Bitmaps>
+		   <Bitmap guid="guidImages" href="Resources\Commands.png" usedList="bmpGenerateCode, bmpAddEntity" />
+	   </Bitmaps>
    </Commands>
 
    <KeyBindings>
@@ -385,6 +423,9 @@
    </KeyBindings>
 
    <VisibilityConstraints>
+      <!-- Automatically load the extension if user right-clicks on a .efmodel file -->
+	   <VisibilityItem guid="guidSolutionExplorerContextMenuCmdSet" id="cmdidEFModelCommand1" context="guidEFModelUIContextGuid"/>
+
       <!-- Ensures the command is only loaded for this DSL -->
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidFind"              context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidLayoutDiagram"     context="guidEditor"/>
@@ -418,11 +459,24 @@
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidResizeNarrowest"   context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidEqualSpaceHoriz"   context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidEqualSpaceVert"    context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAddEntity"         context="guidEditor"/>
    </VisibilityConstraints>
 
    <Symbols>
-      <!-- Model explorer menu -->
+	   <!-- Solution explorer menu -->
+	   <GuidSymbol name="guidSolutionExplorerContextMenuCmdSet" value="{ac476e6f-82e2-482b-b514-e58e152c1c44}">
+		   <IDSymbol name="grpidSolutionExplorerContextMenuGroup" value="0x0300" />
+		   <IDSymbol name="cmdidEFModelCommand1" value="0x0301" />
+	   </GuidSymbol>
+	   <GuidSymbol name="guidEFModelUIContextGuid" value="{A9878D04-9B94-4FE0-9E18-8874CD56B187}" />
 
+	   <!-- Solution explorer menu image -->
+	   <GuidSymbol name="guidImages" value="{ab58b6f4-8673-44ef-8938-0dd466baf852}">
+		   <IDSymbol name="bmpGenerateCode" value="1" />
+		   <IDSymbol name="bmpAddEntity" value="2" />
+	   </GuidSymbol>
+
+	   <!-- Model explorer menu -->
       <GuidSymbol name="guidMenuExplorerCmdSet"          value="{922EC20C-4054-4E96-8C10-2405A1F91486}" >
          <IDSymbol name="cmdidGoToCode"                  value="0x00203"/>
          <IDSymbol name="cmdidExpandAll"                 value="0x00201"/>
@@ -430,7 +484,6 @@
       </GuidSymbol>
       
       <!-- Diagram menu -->
-
       <GuidSymbol name="guidEFDiagramMenuCmdSet"         value="{31178ecb-5da7-46cc-bd4a-ce4e5420bd3e}" >
          <IDSymbol name="grpidEFDiagram"                 value="0x01001"/>
 
@@ -451,6 +504,7 @@
          <IDSymbol name="cmdidAddForeignKeys"            value="0x0001F"/>
          <IDSymbol name="cmdidDelForeignKeys"            value="0x00020"/>
          <IDSymbol name="cmdidImageToClipboard"          value="0x00021"/>
+         <IDSymbol name="cmdidAddEntity"                 value="0x00022"/>
 
          <IDSymbol name="menuidSelect"                   value="0x01100"/>
          <IDSymbol name="grpidSelect"                    value="0x01150"/>
@@ -478,3 +532,4 @@
       </GuidSymbol>
    </Symbols>
 </CommandTable>
+<!-- ReSharper restore MarkupAttributeTypo -->
