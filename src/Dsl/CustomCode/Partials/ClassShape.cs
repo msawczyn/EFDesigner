@@ -133,7 +133,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          // Each item in the each compartment will call the appropriate method to determine its icon.
          // This happens any time the element's presentation element invalidates.
-         foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>())
+         foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>().Where(mapping => mapping.ImageGetter == null))
             mapping.ImageGetter = GetPropertyImage;
 
          return mappings;
@@ -467,6 +467,10 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          base.OnDoubleClick(e);
 
+         // Allow MEF Extension to mark the event as Handled
+         if(e.Handled)
+            return;
+
          if (OpenCodeFile != null)
          {
             ModelClass modelClass = (ModelClass)ModelElement;
@@ -492,6 +496,5 @@ namespace Sawczyn.EFDesigner.EFModel
             ErrorDisplay.Show(Store, $"Can't open generated file for {modelClass.Name}");
          }
       }
-
    }
 }

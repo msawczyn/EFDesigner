@@ -48,6 +48,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private const int cmdidAddForeignKeys = 0x001F;
       private const int cmdidDelForeignKeys = 0x0020;
       private const int cmdidImageToClipboard = 0x0021;
+      private const int cmdidAddEntity = 0x0022;
 
       private const int cmdidSelectClasses = 0x0101;
       private const int cmdidSelectEnums = 0x0102;
@@ -73,6 +74,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
       internal static readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
       internal static readonly Guid guidMenuExplorerCmdSet = new Guid("922EC20C-4054-4E96-8C10-2405A1F91486");
+
+      #region Solution Explorer context menu 
+      // Solution explorer context menu
+      internal static readonly Guid guidSolutionExplorerContextMenuCmdSet = new Guid("ac476e6f-82e2-482b-b514-e58e152c1c44");
+      // Solution explorer menu auto-load context
+      internal const string guidEFModelUIContextGuidString = "{A9878D04-9B94-4FE0-9E18-8874CD56B187}";
+      internal const int cmdidEFModelCommand1 = 0x0301;
+      #endregion Solution Explorer context menu 
 
       #endregion Identifiers
 
@@ -369,6 +378,24 @@ namespace Sawczyn.EFDesigner.EFModel
          commands.Add(equalSpaceVertCommand);
 
          #endregion
+
+        #region addEntityCommand
+
+         DynamicStatusMenuCommand addEntityCommand =
+            new DynamicStatusMenuCommand(OnStatusAddEntity, OnMenuAddEntity, new CommandID(guidEFDiagramMenuCmdSet, cmdidAddEntity));
+
+         commands.Add(addEntityCommand);
+
+         #endregion
+
+         #region solutionExplorerGenerateCodeCommand 
+
+         DynamicStatusMenuCommand solutionExplorerGenerateCodeCommand =
+            new DynamicStatusMenuCommand(OnStatusSolutionExplorerGenerateCode, OnMenuSolutionExplprerGenerateCode, new CommandID(guidSolutionExplorerContextMenuCmdSet, cmdidEFModelCommand1));
+
+         commands.Add(solutionExplorerGenerateCodeCommand);
+         
+         #endregion solutionExplorerGenerateCodeCommand 
 
          // Additional commands go here.  
          return commands;
@@ -1639,5 +1666,82 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion
+
+      #region Add Entity
+
+      private void OnStatusAddEntity(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            command.Visible = true;
+            command.Enabled = IsDiagramSelected();
+         }
+      }
+
+      private void OnMenuAddEntity(object sender, EventArgs e)
+      {
+         EFModelDiagram diagram = CurrentSelection.OfType<EFModelDiagram>().FirstOrDefault();
+
+         if (diagram != null)
+         {
+            ModelRoot modelRoot = diagram.ModelElement as ModelRoot;
+            Store store = CurrentDocData.Store;
+
+            if (modelRoot != null && store != null)
+            {
+               //Transaction is required if you want to update elements.
+               using (Transaction t = store.TransactionManager.BeginTransaction("AddEntity"))
+               {
+                  ModelElement element = store.ElementFactory.CreateElement(ModelClass.DomainClassId);
+                  ModelClass modelClass = element as ModelClass;
+                  modelClass.ModelRoot = modelRoot;
+                  DomainClassInfo.SetUniqueName(modelClass);
+
+                  // Create a new shape that represents the new element,
+                  // associate it with the new element, 
+                  // size it, position it and link it to the diagram.
+                  ClassShape newShape = new ClassShape(diagram.Partition);
+                  newShape.ModelElement = modelClass;
+                  
+                  if (diagram.MouseDownPosition != default(PointD))
+                  {
+                     // Move to cursor location where the context menu popped up.
+                     double x = diagram.MouseDownPosition.X;
+                     double y = diagram.MouseDownPosition.Y;
+
+                     PointD p = new PointD(x, y);
+                     newShape.AbsoluteBounds = new RectangleD(p, new SizeD(2, 1));
+                  }
+
+                  diagram.NestedChildShapes.Add(newShape);
+
+                  t.Commit();
+               }
+            }
+         }
+      }
+
+      #endregion Add Entity
+
+      #region Solution Explorer Generate Code
+      private FileInfo solutionExplorerSelectedFileInfo;
+
+      private void OnStatusSolutionExplorerGenerateCode(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand menuCommand)
+         {
+            // Get selected file
+            solutionExplorerSelectedFileInfo = new FileInfo(CommandHelper.GetSingleFileSelectedPath());
+            // Set Enabled and Visible if a single .efmodel file is selected'
+            menuCommand.VisibleAndEnabled(solutionExplorerSelectedFileInfo.HasExtension(CommandHelper.EFModelerFileNameExtension));
+         }
+      }
+
+      private void OnMenuSolutionExplprerGenerateCode(object sender, EventArgs e)
+      {
+         CommandHelper.GenerateCode(solutionExplorerSelectedFileInfo.FullName);
+      }
+      #endregion Solution Explorer Generate Code
+
    }
 }
