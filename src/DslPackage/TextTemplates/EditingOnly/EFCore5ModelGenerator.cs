@@ -19,10 +19,14 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          protected override void ConfigureTable(List<string> segments, ModelClass modelClass)
          {
             string tableName = string.IsNullOrEmpty(modelClass.TableName) ? modelClass.Name : modelClass.TableName;
+            string viewName = string.IsNullOrEmpty(modelClass.ViewName) ? modelClass.Name : modelClass.ViewName;
             string schema = string.IsNullOrEmpty(modelClass.DatabaseSchema) || modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema ? string.Empty : $", \"{modelClass.DatabaseSchema}\"";
             string buildAction = modelClass.ExcludeFromMigrations ? ", t => t.ExcludeFromMigrations()" : string.Empty;
 
-            segments.Add($"ToTable(\"{tableName}\"{schema}{buildAction})");
+            if (modelClass.IsDatabaseView)
+               segments.Add($"ToView(\"{viewName}\"{schema}{buildAction})");
+            else
+               segments.Add($"ToTable(\"{tableName}\"{schema}{buildAction})");
 
             if (modelClass.Superclass != null)
                segments.Add($"HasBaseType<{modelClass.Superclass.FullName}>()");

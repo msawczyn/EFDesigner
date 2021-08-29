@@ -144,10 +144,10 @@ namespace Sawczyn.EFDesigner.EFModel
                   if (string.IsNullOrEmpty(element.ViewName))
                      element.ViewName = MakeDefaultTableAndSetName(element.Name);
 
-                  if (modelRoot.IsEFCore5Plus)
-                     VerifyKeylessTypeEFCore5();
-                  else
-                     VerifyKeylessType();
+                  //if (modelRoot.IsEFCore5Plus)
+                  //   VerifyKeylessTypeEFCore5();
+                  //else
+                  //   VerifyKeylessType();
                }
                break;
             }
