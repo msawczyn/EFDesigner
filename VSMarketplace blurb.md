@@ -25,6 +25,17 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**3.0.7**
+   - **[NEW]** New context menu item to add class elements at the cursor position on a diagram (thanks to dcastenholz for the addition)
+   - **[NEW]** New context menu item to generate code from the Solution Explorer (thanks to dcastenholz for the addition)
+   - **[NEW]** Method visibility changes to allow MEF extensions to supply new icons and to layout a diagram (thanks to dcastenholz for the addition)
+   - Fixed a number of issues with importing compiled assemblies
+   - Fixed coloring of cascade delete associations when flagged on the model (see https://github.com/msawczyn/EFDesigner/issues/291)   
+   - Fixed missing '$' in generator template that was generating bad code for table schemas (see https://github.com/msawczyn/EFDesigner/issues/289)
+   - Restored auto-instantiation of dependent objects in entity constructors (see https://github.com/msawczyn/EFDesigner/issues/287)
+   - Added Microsoft.VisualStudio.Modeling.Components.15.0.dll to DslPackage assembly (see https://github.com/msawczyn/EFDesigner/issues/293)
+   - Removed validations on model open/load that prevented a misconfigured model from loading. Errors will still be shown during editing and when saving.
+
 **3.0.6**
    - **[NEW]** Added ability to copy current diagram to clipboard
    - DbContext fix for configuring associations with backing fields

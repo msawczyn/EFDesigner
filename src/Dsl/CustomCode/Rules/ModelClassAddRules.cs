@@ -22,8 +22,9 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          // there could already be an identity property if this class was created via Paste or import
+         // also, don't add columns to views or query types
          // NB: don't do anything if we're in an owned type
-         if (!element.AllIdentityAttributes.Any() && !element.IsDependentType)
+         if (!element.AllIdentityAttributes.Any() && !element.IsDependentType && !element.IsDatabaseView && !element.IsQueryType)
          {
             // there could also be a property named "Id"
             ModelAttribute idProperty = element.AllAttributes.FirstOrDefault(a => a.Name == "Id");

@@ -21,7 +21,7 @@
         <elementListCompartment Id="da1f9974-75f4-47c1-8422-a3bbf809c61d" absoluteBounds="1.1608333333333334, 5.3076611063215466, 1.4700000000000002, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <bidirectionalConnector Id="331c06d9-26f1-430d-9111-020671decbf3" edgePoints="[(2.64583333333333 : 4.7795141336653); (3.19097222222222 : 4.7795141336653)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="113, 111, 110" dashStyle="Solid">
+    <bidirectionalConnector Id="331c06d9-26f1-430d-9111-020671decbf3" edgePoints="[(2.64583333333333 : 4.7795141336653); (3.19097222222222 : 4.7795141336653)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="113, 111, 110" dashStyle="Solid">
       <bidirectionalAssociationMoniker Id="d4a764ac-cc6e-48b8-8a22-034f01c52876" />
       <relativeChildShapes />
       <nodes>
@@ -47,7 +47,7 @@
         <elementListCompartment Id="7530622e-4f5f-4bd7-b37b-36c8278ca393" absoluteBounds="5.25111111111111, 5.11535967402988, 1.4700000000000002, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <unidirectionalConnector Id="f9b1827e-ccdf-485b-b0f0-53143066bc35" edgePoints="[(5.98611111111111 : 3.90197751257155); (5.98611111111111 : 2.24346270137363); (8.08333333333333 : 2.24346270137363)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="113, 111, 110" dashStyle="Solid">
+    <unidirectionalConnector Id="f9b1827e-ccdf-485b-b0f0-53143066bc35" edgePoints="[(6.39930555555556 : 3.90197751257155); (6.39930555555556 : 2.52698485003577); (8.08333333333333 : 2.52698485003577)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="113, 111, 110" dashStyle="Solid">
       <unidirectionalAssociationMoniker Id="4e932c1b-9f94-42f0-9149-36b01659edf4" />
       <relativeChildShapes />
       <nodes>
@@ -62,6 +62,24 @@
         <elementListCompartment Id="5d71abea-d6c1-4ab8-a905-e08417d056c0" absoluteBounds="8.9108330154418951, 4.27875, 1.4700000000000002, 0.63399251302083326" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
         <elementListCompartment Id="a1b9a776-bbec-4c87-82af-938b3ede3279" absoluteBounds="8.9108330154418951, 4.9227425130208333, 1.4700000000000002, 0.2493896484375" name="AssociationsCompartment" titleTextColor="Black" itemTextColor="Black" />
         <elementListCompartment Id="901a7ddd-8ede-40f6-98b7-5c83b6cd5055" absoluteBounds="8.9108330154418951, 5.1821321614583331, 1.4700000000000002, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="31726cf9-bb69-4428-b525-221b483315f6" absoluteBounds="2.5, 0.5, 1.5, 1.3704703776041667" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" outlineThickness="0.01">
+      <modelClassMoniker Id="89a5662d-5004-4bbc-916c-008c041f711c" />
+      <relativeChildShapes />
+      <nestedChildShapes>
+        <elementListCompartment Id="0d11af64-64d2-4e02-ab86-460cd003faed" absoluteBounds="2.515, 0.81, 1.4700000000000002, 0.44169108072916663" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a63fd226-4acb-434f-afed-47892ce47f8c" absoluteBounds="2.515, 1.2616910807291666, 1.4700000000000002, 0.2493896484375" name="AssociationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f12b67e2-1c48-4586-9195-cd4a6c03083a" absoluteBounds="2.515, 1.5210807291666666, 1.4700000000000002, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1929b191-d9fa-4c51-94af-4709b1f097b5" absoluteBounds="4.5, 0.5, 1.5, 1.5627718098958332" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" outlineThickness="0.01">
+      <modelClassMoniker Id="83ef0e13-a54b-499b-bb18-dd6db5f43875" />
+      <relativeChildShapes />
+      <nestedChildShapes>
+        <elementListCompartment Id="87024669-9f81-479f-b4cb-836d7797bddd" absoluteBounds="4.515, 0.81, 1.4700000000000002, 0.63399251302083326" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="91f45626-86a7-4fca-be7a-a14cf3b0d4a6" absoluteBounds="4.515, 1.4539925130208333, 1.4700000000000002, 0.2493896484375" name="AssociationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="185d1784-4240-464a-8157-5ec77982c61b" absoluteBounds="4.515, 1.7133821614583333, 1.4700000000000002, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

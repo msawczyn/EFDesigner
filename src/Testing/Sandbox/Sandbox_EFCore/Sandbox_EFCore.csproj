@@ -41,28 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppDbContext.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Custom\EFModel.cs" />
     <Compile Include="EFModel1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EFModel1.tt</DependentUpon>
     </Compile>
-    <Compile Include="EFModel1.generated.cs">
-      <DependentUpon>EFModel1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity1.generated.cs">
-      <DependentUpon>EFModel1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntityAbstract.generated.cs">
-      <DependentUpon>EFModel1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntityImplementation.generated.cs">
-      <DependentUpon>EFModel1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntityRelated.generated.cs">
-      <DependentUpon>EFModel1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestData.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TestView.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
