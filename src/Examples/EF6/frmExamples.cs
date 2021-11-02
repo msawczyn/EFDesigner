@@ -1,0 +1,89 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace EF6
+{
+    public partial class frmExamples : Form
+    {
+      //How to use Entity Framework
+      //https://docs.microsoft.com/en-us/ef/ef6/
+
+      public frmExamples()
+        {
+            InitializeComponent();
+        }
+
+      private void Form1_Load(object sender, EventArgs e)
+      {
+
+      }
+
+      private void btnTestPerson_Click(object sender, EventArgs e)
+      {
+         TestPerson();
+      }
+
+      private void TestPerson()
+      {
+         txtDebug.Text = "TestPerson()\r\n";
+
+         using (PersonModel context = new PersonModel())
+         {
+            // Perform data access using the context
+            context.Database.Log = Console.Write;
+            
+            context.Database.Delete();
+            txtDebug.Text += "Deleted DB\r\n";
+
+            context.Database.CreateIfNotExists();
+            txtDebug.Text += "Created DB\r\n";
+
+            Person person = new Person();
+            person.FirstName = "Bob";
+            person.MiddleName = "James";
+            person.LastName = "Smith";
+            person.Phone = "555-123-321";
+            CultureInfo culture = new CultureInfo("en-AU");
+            person.DOB = Convert.ToDateTime("6/12/70",culture);
+
+            context.People.Add(person);
+
+            try
+            {
+               context.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+               Exception raise = dbEx;
+               foreach (var validationErrors in dbEx.EntityValidationErrors)
+               {
+                  foreach (var validationError in validationErrors.ValidationErrors)
+                  {
+                     string message = string.Format("{0}:{1}",
+                         validationErrors.Entry.Entity.ToString(),
+                         validationError.ErrorMessage);
+                     // raise a new exception nesting the current instance as InnerException  
+                     raise = new InvalidOperationException(message, raise);
+                  }
+               }
+               throw raise;
+            }
+
+            //Read it back
+            var items = context.People;
+
+            foreach (var x in items)
+               txtDebug.Text += String.Format("{0} {1} {2} {3} {4}", x.Id, x.FirstName, x.MiddleName, x.LastName, x.Phone) + "\r\n";
+         }
+      }
+
+   }
+}
