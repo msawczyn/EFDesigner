@@ -33,6 +33,8 @@ namespace Ex2_ModelOne2One
       /// </summary>
       public Address()
       {
+         Id = 1;
+
          Init();
       }
 
@@ -63,7 +65,7 @@ namespace Ex2_ModelOne2One
        *************************************************************************/
 
       /// <summary>
-      /// Identity, Indexed, Required
+      /// Identity, Indexed, Required, Default value = 1
       /// Unique identifier
       /// </summary>
       [Key]
