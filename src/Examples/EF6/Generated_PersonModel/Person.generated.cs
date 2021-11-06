@@ -22,7 +22,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace EF6
+namespace Ex1_Person
 {
    public partial class Person
    {
@@ -33,8 +33,6 @@ namespace EF6
       /// </summary>
       public Person()
       {
-         Entity1 = new System.Collections.Generic.HashSet<global::EF6.Adress>();
-
          Init();
       }
 
@@ -50,10 +48,10 @@ namespace EF6
       public long Id { get; set; }
 
       /// <summary>
-      /// Max length = 35
+      /// Max length = 2
       /// </summary>
-      [MaxLength(35)]
-      [StringLength(35)]
+      [MaxLength(2)]
+      [StringLength(2)]
       public string FirstName { get; set; }
 
       /// <summary>
@@ -98,12 +96,6 @@ namespace EF6
       /// </summary>
       [Timestamp]
       public Byte[] Timestamp { get; set; }
-
-      /*************************************************************************
-       * Navigation properties
-       *************************************************************************/
-
-      public virtual ICollection<global::EF6.Adress> Entity1 { get; private set; }
 
    }
 }

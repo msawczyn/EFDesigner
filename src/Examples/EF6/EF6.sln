@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF6", "EF6.csproj", "{B0C345BB-4B38-44CE-8D42-3E00545347BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex1_Person", "Ex1_Person.csproj", "{B0C345BB-4B38-44CE-8D42-3E00545347BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex2_ModelOne2One", "..\Ex2_ModelOne2One\Ex2_ModelOne2One.csproj", "{357AB96C-3EA3-4F76-B416-B265661E8BB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B0C345BB-4B38-44CE-8D42-3E00545347BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0C345BB-4B38-44CE-8D42-3E00545347BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0C345BB-4B38-44CE-8D42-3E00545347BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{357AB96C-3EA3-4F76-B416-B265661E8BB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{357AB96C-3EA3-4F76-B416-B265661E8BB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{357AB96C-3EA3-4F76-B416-B265661E8BB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{357AB96C-3EA3-4F76-B416-B265661E8BB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

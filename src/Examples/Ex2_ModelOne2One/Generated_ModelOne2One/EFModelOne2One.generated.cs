@@ -20,14 +20,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Annotations;
 
-namespace EF6
+namespace Ex2_ModelOne2One
 {
    /// <inheritdoc/>
-   public partial class PersonModel : DbContext
+   public partial class EFModelOne2One : DbContext
    {
       #region DbSets
-      public virtual System.Data.Entity.DbSet<global::EF6.Adress> Adresses { get; set; }
-      public virtual System.Data.Entity.DbSet<global::EF6.Person> People { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Ex2_ModelOne2One.Address> Address { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Ex2_ModelOne2One.Person> People { get; set; }
       #endregion DbSets
 
       #region Constructors
@@ -37,67 +37,67 @@ namespace EF6
       /// <summary>
       /// Default connection string
       /// </summary>
-      public static string ConnectionString { get; set; } = @"Data Source=np:\\.\pipe\LOCALDB#385051FC\tsql\query;Initial Catalog=EFLocalDb;Integrated Security=True";
+      public static string ConnectionString { get; set; } = @"Data Source=(localdb)\dbinstance;Initial Catalog=EFLocalDb;Integrated Security=True";
       /// <inheritdoc />
-      public PersonModel() : base(ConnectionString)
+      public EFModelOne2One() : base(ConnectionString)
       {
          Configuration.LazyLoadingEnabled = true;
          Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<PersonModel>(new PersonModelDatabaseInitializer());
+         System.Data.Entity.Database.SetInitializer<EFModelOne2One>(new EFModelOne2OneDatabaseInitializer());
          CustomInit();
       }
 
       /// <inheritdoc />
-      public PersonModel(string connectionString) : base(connectionString)
+      public EFModelOne2One(string connectionString) : base(connectionString)
       {
          Configuration.LazyLoadingEnabled = true;
          Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<PersonModel>(new PersonModelDatabaseInitializer());
+         System.Data.Entity.Database.SetInitializer<EFModelOne2One>(new EFModelOne2OneDatabaseInitializer());
          CustomInit();
       }
 
       /// <inheritdoc />
-      public PersonModel(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)
+      public EFModelOne2One(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)
       {
          Configuration.LazyLoadingEnabled = true;
          Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<PersonModel>(new PersonModelDatabaseInitializer());
+         System.Data.Entity.Database.SetInitializer<EFModelOne2One>(new EFModelOne2OneDatabaseInitializer());
          CustomInit();
       }
 
       /// <inheritdoc />
-      public PersonModel(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)
+      public EFModelOne2One(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)
       {
          Configuration.LazyLoadingEnabled = true;
          Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<PersonModel>(new PersonModelDatabaseInitializer());
+         System.Data.Entity.Database.SetInitializer<EFModelOne2One>(new EFModelOne2OneDatabaseInitializer());
          CustomInit();
       }
 
       /// <inheritdoc />
-      public PersonModel(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)
+      public EFModelOne2One(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)
       {
          Configuration.LazyLoadingEnabled = true;
          Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<PersonModel>(new PersonModelDatabaseInitializer());
+         System.Data.Entity.Database.SetInitializer<EFModelOne2One>(new EFModelOne2OneDatabaseInitializer());
          CustomInit();
       }
 
       /// <inheritdoc />
-      public PersonModel(System.Data.Entity.Infrastructure.DbCompiledModel model) : base(model)
+      public EFModelOne2One(System.Data.Entity.Infrastructure.DbCompiledModel model) : base(model)
       {
          Configuration.LazyLoadingEnabled = true;
          Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<PersonModel>(new PersonModelDatabaseInitializer());
+         System.Data.Entity.Database.SetInitializer<EFModelOne2One>(new EFModelOne2OneDatabaseInitializer());
          CustomInit();
       }
 
       /// <inheritdoc />
-      public PersonModel(System.Data.Entity.Core.Objects.ObjectContext objectContext, bool dbContextOwnsObjectContext) : base(objectContext, dbContextOwnsObjectContext)
+      public EFModelOne2One(System.Data.Entity.Core.Objects.ObjectContext objectContext, bool dbContextOwnsObjectContext) : base(objectContext, dbContextOwnsObjectContext)
       {
          Configuration.LazyLoadingEnabled = true;
          Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<PersonModel>(new PersonModelDatabaseInitializer());
+         System.Data.Entity.Database.SetInitializer<EFModelOne2One>(new EFModelOne2OneDatabaseInitializer());
          CustomInit();
       }
 
@@ -114,45 +114,41 @@ namespace EF6
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<global::EF6.Adress>()
-                     .ToTable("Adresses")
+         modelBuilder.Entity<global::Ex2_ModelOne2One.Address>()
+                     .ToTable("Address")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<global::EF6.Adress>()
+         modelBuilder.Entity<global::Ex2_ModelOne2One.Address>()
                      .Property(t => t.Id)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::EF6.Adress>()
-                     .Property(t => t.Timestamp)
-                     .IsRequired()
-                     .IsRowVersion();
-         modelBuilder.Entity<global::EF6.Adress>()
+         modelBuilder.Entity<global::Ex2_ModelOne2One.Address>()
                      .HasRequired(x => x.Person)
-                     .WithMany(x => x.Entity1)
-                     .Map(x => x.MapKey("PersonId"));
+                     .WithOptional(x => x.Address)
+                     .WillCascadeOnDelete(false);
 
-         modelBuilder.Entity<global::EF6.Person>()
+         modelBuilder.Entity<global::Ex2_ModelOne2One.Person>()
                      .ToTable("People")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<global::EF6.Person>()
+         modelBuilder.Entity<global::Ex2_ModelOne2One.Person>()
                      .Property(t => t.Id)
                      .IsRequired()
-                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-         modelBuilder.Entity<global::EF6.Person>()
+                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Ex2_ModelOne2One.Person>()
                      .Property(t => t.FirstName)
                      .HasMaxLength(35);
-         modelBuilder.Entity<global::EF6.Person>()
+         modelBuilder.Entity<global::Ex2_ModelOne2One.Person>()
                      .Property(t => t.MiddleName)
                      .HasMaxLength(35);
-         modelBuilder.Entity<global::EF6.Person>()
+         modelBuilder.Entity<global::Ex2_ModelOne2One.Person>()
                      .Property(t => t.LastName)
                      .HasMaxLength(35);
-         modelBuilder.Entity<global::EF6.Person>()
+         modelBuilder.Entity<global::Ex2_ModelOne2One.Person>()
                      .Property(t => t.PreferredName)
                      .HasMaxLength(75);
-         modelBuilder.Entity<global::EF6.Person>()
+         modelBuilder.Entity<global::Ex2_ModelOne2One.Person>()
                      .Property(t => t.Email)
                      .HasMaxLength(45);
-         modelBuilder.Entity<global::EF6.Person>()
+         modelBuilder.Entity<global::Ex2_ModelOne2One.Person>()
                      .Property(t => t.Phone)
                      .HasMaxLength(15);
 

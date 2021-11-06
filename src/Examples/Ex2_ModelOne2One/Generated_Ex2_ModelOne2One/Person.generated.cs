@@ -22,40 +22,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace EF6
+namespace EF6_Ex2
 {
-   public partial class Adress
+   public partial class Person
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public Adress()
+      public Person()
       {
-         Init();
-      }
-
-      /// <summary>
-      /// Public constructor with required data
-      /// </summary>
-      /// <param name="person"></param>
-      public Adress(global::EF6.Person person)
-      {
-         if (person == null) throw new ArgumentNullException(nameof(person));
-         this.Person = person;
-         person.Entity1.Add(this);
+         Entity1 = new System.Collections.Generic.HashSet<global::EF6_Ex2.Adress>();
 
          Init();
-      }
-
-      /// <summary>
-      /// Static create function (for use in LINQ queries, etc.)
-      /// </summary>
-      /// <param name="person"></param>
-      public static Adress Create(global::EF6.Person person)
-      {
-         return new Adress(person);
       }
 
       /*************************************************************************
@@ -63,31 +43,67 @@ namespace EF6
        *************************************************************************/
 
       /// <summary>
-      /// Identity, Indexed, Required
-      /// Unique identifier
+      /// Identity, Required
       /// </summary>
       [Key]
       [Required]
-      [System.ComponentModel.Description("Unique identifier")]
       public long Id { get; set; }
 
       /// <summary>
-      /// Required
+      /// Max length = 35
+      /// </summary>
+      [MaxLength(35)]
+      [StringLength(35)]
+      public string FirstName { get; set; }
+
+      /// <summary>
+      /// Max length = 35
+      /// </summary>
+      [MaxLength(35)]
+      [StringLength(35)]
+      public string MiddleName { get; set; }
+
+      /// <summary>
+      /// Max length = 35
+      /// </summary>
+      [MaxLength(35)]
+      [StringLength(35)]
+      public string LastName { get; set; }
+
+      /// <summary>
+      /// Max length = 75
+      /// </summary>
+      [MaxLength(75)]
+      [StringLength(75)]
+      public string PreferredName { get; set; }
+
+      public DateTime? DOB { get; set; }
+
+      /// <summary>
+      /// Max length = 45
+      /// </summary>
+      [MaxLength(45)]
+      [StringLength(45)]
+      public string Email { get; set; }
+
+      /// <summary>
+      /// Max length = 15
+      /// </summary>
+      [MaxLength(15)]
+      [StringLength(15)]
+      public string Phone { get; set; }
+
+      /// <summary>
       /// Concurrency token
       /// </summary>
-      [ConcurrencyCheck]
-      [Required]
-      [System.ComponentModel.Description("Concurrency token")]
-      public byte[] Timestamp { get; set; }
+      [Timestamp]
+      public Byte[] Timestamp { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
 
-      /// <summary>
-      /// Required
-      /// </summary>
-      public virtual global::EF6.Person Person { get; set; }
+      public virtual ICollection<global::EF6_Ex2.Adress> Entity1 { get; private set; }
 
    }
 }

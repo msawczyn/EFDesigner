@@ -13,12 +13,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Data.Entity;
+using System.Data.Entity.Migrations;
 
-namespace EF6
+namespace Migrations
 {
    /// <inheritdoc/>
-   public partial class PersonModelDatabaseInitializer : CreateDatabaseIfNotExists<EF6.PersonModel>
+   public sealed partial class ModelOne2OneDbMigrationConfiguration : DbMigrationsConfiguration<EF6_Ex2.ModelOne2One>
    {
+      partial void Init();
+
+      /// <inheritdoc/>
+      public ModelOne2OneDbMigrationConfiguration()
+      {
+         AutomaticMigrationsEnabled = true;
+         AutomaticMigrationDataLossAllowed = false;
+         Init();
+      }
    }
 }

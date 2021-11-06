@@ -18,12 +18,12 @@ using System.Data.Entity.Migrations;
 namespace Migrations
 {
    /// <inheritdoc/>
-   public sealed partial class PersonModelDbMigrationConfiguration : DbMigrationsConfiguration<EF6.PersonModel>
+   public sealed partial class EFModelOne2OneDbMigrationConfiguration : DbMigrationsConfiguration<Ex2_ModelOne2One.EFModelOne2One>
    {
       partial void Init();
 
       /// <inheritdoc/>
-      public PersonModelDbMigrationConfiguration()
+      public EFModelOne2OneDbMigrationConfiguration()
       {
          AutomaticMigrationsEnabled = true;
          AutomaticMigrationDataLossAllowed = false;

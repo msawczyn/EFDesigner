@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Validation;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -9,20 +10,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace EF6
+namespace Ex1_Person
 {
-    public partial class frmExamples : Form
+    public partial class frmPerson : Form
     {
       //How to use Entity Framework
       //https://docs.microsoft.com/en-us/ef/ef6/
 
-      public frmExamples()
+      public frmPerson()
         {
             InitializeComponent();
         }
 
       private void Form1_Load(object sender, EventArgs e)
       {
+         using (PersonModel context = new PersonModel())
+         {
+            txtConnection.Text = context.Database.Connection.ConnectionString;
+         }
 
       }
 
@@ -63,9 +68,9 @@ namespace EF6
             catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
             {
                Exception raise = dbEx;
-               foreach (var validationErrors in dbEx.EntityValidationErrors)
+               foreach (DbEntityValidationResult validationErrors in dbEx.EntityValidationErrors)
                {
-                  foreach (var validationError in validationErrors.ValidationErrors)
+                  foreach (DbValidationError validationError in validationErrors.ValidationErrors)
                   {
                      string message = string.Format("{0}:{1}",
                          validationErrors.Entry.Entity.ToString(),
@@ -85,5 +90,9 @@ namespace EF6
          }
       }
 
+      private void button1_Click(object sender, EventArgs e)
+      {
+
+      }
    }
 }

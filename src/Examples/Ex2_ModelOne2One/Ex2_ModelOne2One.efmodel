@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="3.0.7.2" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="ModelOne2One" namespace="EF6_Ex2" databaseInitializerType="CreateDatabaseIfNotExists" connectionString="Data Source=(localdb)\dbinstance;Initial Catalog=EFLocalDb;Integrated Security=True" automaticMigrationsEnabled="true" contextOutputDirectory="Generated_Ex2_ModelOne2One" concurrencyDefault="Optimistic" entityFrameworkVersion="EF6" inheritanceStrategy="TablePerType" showCascadeDeletes="true" databaseType="SqlServer2012" warnOnMissingDocumentation="false" exposeForeignKeys="false" generateDbContextFactory="false" entityDefaultConstructorVisibilityDefault="Public" showInterfaceIndicators="false" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+  <classes>
+    <modelRootHasClasses Id="f72590a0-fa15-48df-b987-429e7636d9c4">
+      <modelClass Id="38a992e8-a06f-4166-a3c7-a08801c43801" tableName="People" databaseSchema="dbo" namespace="EF6_Ex2" dbSetName="People" name="Person" isOutputDirectoryTracking="false" autoPropertyDefault="true" excludeFromMigrations="false" defaultConstructorVisibility="Public" isDefaultConstructorVisibilityTracking="false">
+        <attributes>
+          <modelAttribute Id="6be3107b-8c71-4794-be41-6af0a559aa2b" type="Int64" isIdentity="true" required="true" maxLength="-1" indexed="false" indexedUnique="false" stringType="None" name="Id" autoProperty="true" minLength="0" columnName="Id" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_id" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+          <modelAttribute Id="751c7b06-c57f-4d8d-af0c-a50a43c2be02" maxLength="35" indexed="false" indexedUnique="false" stringType="None" name="FirstName" autoProperty="true" minLength="0" columnName="FirstName" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_firstName" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+          <modelAttribute Id="54c5ffe3-193c-4e1b-8a4b-4e565b878ffa" maxLength="35" indexed="false" indexedUnique="false" stringType="None" name="MiddleName" autoProperty="true" minLength="0" columnName="MiddleName" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_middleName" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+          <modelAttribute Id="3115b39d-869a-434f-b0c4-156da6a3716d" maxLength="35" indexed="false" indexedUnique="false" stringType="None" name="LastName" autoProperty="true" minLength="0" columnName="LastName" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_lastName" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+          <modelAttribute Id="03188016-5d4a-4c66-9045-ee68e824105a" maxLength="75" indexed="false" indexedUnique="false" stringType="None" name="PreferredName" autoProperty="true" minLength="0" columnName="PreferredName" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_preferredName" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+          <modelAttribute Id="aee827f9-d1cc-4eff-a064-0bcd31078025" type="DateTime" maxLength="-1" indexed="false" indexedUnique="false" stringType="None" name="DOB" autoProperty="true" minLength="0" columnName="DOB" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_dOB" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+          <modelAttribute Id="1c49ce37-77d1-466a-9c53-f9972dfad093" maxLength="45" indexed="false" indexedUnique="false" stringType="None" name="Email" autoProperty="true" minLength="0" columnName="Email" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_email" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+          <modelAttribute Id="80b1813f-db23-45af-bf51-a4b344951dee" maxLength="15" indexed="false" indexedUnique="false" stringType="None" name="Phone" autoProperty="true" minLength="0" columnName="Phone" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_phone" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+        </attributes>
+        <bidirectionalTargets>
+          <bidirectionalAssociation Id="a74bda46-176a-4cc0-b16a-a227d929f2d7" targetPropertyName="Entity1" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false" targetBackingFieldName="_entity1" targetAutoProperty="true" isTargetAbstract="false" targetAutoInclude="false" sourcePropertyName="Person" sourceImplementNotify="false" sourceBackingFieldName="_person" sourceAutoProperty="true" isSourceAbstract="false" sourceAutoInclude="false">
+            <modelClassMoniker Id="1cc67414-3d84-4f29-a325-80e6032ba3f4" />
+          </bidirectionalAssociation>
+        </bidirectionalTargets>
+      </modelClass>
+    </modelRootHasClasses>
+    <modelRootHasClasses Id="985a230d-bdfe-42f0-adc5-4993f9e27955">
+      <modelClass Id="1cc67414-3d84-4f29-a325-80e6032ba3f4" tableName="Adresses" databaseSchema="dbo" namespace="EF6_Ex2" dbSetName="Adresses" name="Adress" isOutputDirectoryTracking="false" autoPropertyDefault="true" excludeFromMigrations="false" defaultConstructorVisibility="Public">
+        <attributes>
+          <modelAttribute Id="d6cdddbb-83e0-472a-b4fd-9c99df351874" type="Int64" isIdentity="true" required="true" maxLength="" indexed="true" indexedUnique="true" stringType="None" identityType="AutoGenerated" summary="Unique identifier" name="Id" autoProperty="true" minLength="0" columnName="Id" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_id" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+          <modelAttribute Id="93fdf1ce-fa71-4094-8519-a3ea12ee0567" type="Binary" required="true" maxLength="" indexed="false" indexedUnique="false" stringType="None" isConcurrencyToken="true" summary="Concurrency token" name="Timestamp" autoProperty="true" minLength="0" columnName="Timestamp" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_timestamp" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+        </attributes>
+      </modelClass>
+    </modelRootHasClasses>
+  </classes>
+  <diagrams>
+    <modelRootHasModelDiagrams Id="ecc7c4fa-84bd-4e6b-90d1-3c59fc587994">
+      <modelDiagramData name="ModelOne2One" />
+    </modelRootHasModelDiagrams>
+  </diagrams>
+</modelRoot>

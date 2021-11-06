@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B0C345BB-4B38-44CE-8D42-3E00545347BA}</ProjectGuid>
+    <ProjectGuid>{357AB96C-3EA3-4F76-B416-B265661E8BB6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>EF6</RootNamespace>
-    <AssemblyName>EF6</AssemblyName>
+    <RootNamespace>Ex2_ModelOne2One</RootNamespace>
+    <AssemblyName>Ex2_ModelOne2One</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,26 +46,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmExamples.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmExamples.Designer.cs">
-      <DependentUpon>frmExamples.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PersonModel.cs">
+    <Compile Include="EFModelOne2One.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PersonModel.tt</DependentUpon>
+      <DependentUpon>EFModelOne2One.tt</DependentUpon>
     </Compile>
-    <Compile Include="PersonModelGenerated\Adress.generated.cs" />
-    <Compile Include="PersonModelGenerated\Person.generated.cs" />
-    <Compile Include="PersonModelGenerated\PersonModel.generated.cs" />
-    <Compile Include="PersonModelGenerated\PersonModelDatabaseInitializer.generated.cs" />
-    <Compile Include="PersonModelGenerated\PersonModelDbMigrationConfiguration.generated.cs" />
+    <Compile Include="FrmOne2One.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmOne2One.Designer.cs">
+      <DependentUpon>FrmOne2One.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generated_ModelOne2One\Address.generated.cs" />
+    <Compile Include="Generated_ModelOne2One\EFModelOne2One.generated.cs" />
+    <Compile Include="Generated_ModelOne2One\EFModelOne2OneDatabaseInitializer.generated.cs" />
+    <Compile Include="Generated_ModelOne2One\EFModelOne2OneDbMigrationConfiguration.generated.cs" />
+    <Compile Include="Generated_ModelOne2One\Person.generated.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frmExamples.resx">
-      <DependentUpon>frmExamples.cs</DependentUpon>
+    <EmbeddedResource Include="FrmOne2One.resx">
+      <DependentUpon>FrmOne2One.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -76,9 +76,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="PersonModel.efmodel" />
-    <None Include="PersonModel.efmodel.diagramx">
-      <DependentUpon>PersonModel.efmodel</DependentUpon>
+    <None Include="EFModelOne2One.efmodel" />
+    <None Include="EFModelOne2One.efmodel.diagramx">
+      <DependentUpon>EFModelOne2One.efmodel</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -99,9 +99,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PersonModel.tt">
+    <Content Include="EFModelOne2One.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PersonModel.cs</LastGenOutput>
+      <LastGenOutput>EFModelOne2One.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
