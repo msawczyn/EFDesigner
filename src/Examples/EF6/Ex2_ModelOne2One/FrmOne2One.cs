@@ -49,7 +49,9 @@ namespace Ex2_ModelOne2One
             context.Database.CreateIfNotExists();
             txtDebug.Text += "Created DB\r\n";
 
-            Person person = new Person();
+            var person = context.People.Create();
+            var address = context.Address.Create();
+
             person.FirstName = "Bob";
             person.MiddleName = "James";
             person.LastName = "Smith";
@@ -57,16 +59,16 @@ namespace Ex2_ModelOne2One
             CultureInfo culture = new CultureInfo("en-AU");
             person.DOB = Convert.ToDateTime("6/12/70", culture);
 
+            address.Number = "1";
+            address.StreetLine1 = "High St";
+            address.City = "Perth";
+            address.Country = "Australia";
+
             //One to One
-            Address.Create(person);
+            person.Address = address;
 
-            person.Address.Number = "1";
-            person.Address.StreetLine1 = "High St";
-            person.Address.City = "Perth";
-            person.Address.Country = "Australia";
-           
             context.People.Add(person);
-
+            
             try
             {
                context.SaveChanges();
@@ -92,7 +94,7 @@ namespace Ex2_ModelOne2One
             var items = context.People;
 
             foreach (var x in items)
-               txtDebug.Text += String.Format("{0} {1} {2} {3} {4}", x.Id, x.FirstName, x.MiddleName, x.LastName, x.Phone) + "\r\n";
+               txtDebug.Text += String.Format("{0} {1} {2} {3} {4}", x.PersonId, x.FirstName, x.MiddleName, x.LastName, x.Phone) + "\r\n";
          }
       }
    }

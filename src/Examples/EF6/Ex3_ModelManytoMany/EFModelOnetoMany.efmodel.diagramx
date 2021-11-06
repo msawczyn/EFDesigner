@@ -29,6 +29,9 @@
         <classShapeMoniker Id="511a0399-f1db-4e5e-939e-436ae99f97f1" />
       </nodes>
     </unidirectionalConnector>
+    <commentBoxShape Id="ab3f50a0-7c93-4fb3-8072-6a4f111042cd" absoluteBounds="2.9861110051472979, 0.95138890213436556, 3.0902777777777777, 0.75833333333333353" fillColor="255, 255, 204" outlineColor="204, 204, 102" textColor="Black" outlineDashStyle="Solid" outlineThickness="0.01">
+      <commentMoniker Id="498fa7a9-9bd5-4918-a041-9315e055dda5" />
+    </commentBoxShape>
   </nestedChildShapes>
 </eFModelDiagram>
 </eFModelDiagrams>

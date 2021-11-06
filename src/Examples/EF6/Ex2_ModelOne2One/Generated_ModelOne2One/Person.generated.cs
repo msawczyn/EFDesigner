@@ -45,7 +45,7 @@ namespace Ex2_ModelOne2One
       /// </summary>
       [Key]
       [Required]
-      public long Id { get; set; }
+      public long PersonId { get; set; }
 
       /// <summary>
       /// Max length = 35

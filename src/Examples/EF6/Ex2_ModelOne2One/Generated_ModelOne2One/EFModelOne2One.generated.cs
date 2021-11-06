@@ -116,9 +116,9 @@ namespace Ex2_ModelOne2One
 
          modelBuilder.Entity<global::Ex2_ModelOne2One.Address>()
                      .ToTable("Address")
-                     .HasKey(t => t.Id);
+                     .HasKey(t => t.AddressId);
          modelBuilder.Entity<global::Ex2_ModelOne2One.Address>()
-                     .Property(t => t.Id)
+                     .Property(t => t.AddressId)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<global::Ex2_ModelOne2One.Address>()
@@ -128,9 +128,9 @@ namespace Ex2_ModelOne2One
 
          modelBuilder.Entity<global::Ex2_ModelOne2One.Person>()
                      .ToTable("People")
-                     .HasKey(t => t.Id);
+                     .HasKey(t => t.PersonId);
          modelBuilder.Entity<global::Ex2_ModelOne2One.Person>()
-                     .Property(t => t.Id)
+                     .Property(t => t.PersonId)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<global::Ex2_ModelOne2One.Person>()

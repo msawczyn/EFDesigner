@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="3.0.7.2" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="EFModelOnetoMany" namespace="Ex3_ModelManytoMany" databaseInitializerType="CreateDatabaseIfNotExists" connectionString="Data Source=(localdb)\dbinstance;Initial Catalog=EFLocalDb;Integrated Security=True" automaticMigrationsEnabled="true" contextOutputDirectory="Generated_One2Many" entityFrameworkVersion="EF6" inheritanceStrategy="TablePerType" showCascadeDeletes="true" databaseType="None" warnOnMissingDocumentation="false" exposeForeignKeys="false" generateDbContextFactory="false" showInterfaceIndicators="false" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+  <comments>
+    <comment Id="498fa7a9-9bd5-4918-a041-9315e055dda5" text="How do you do for more fields? Like ISBN  TO DO?&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;AuthorIA.Books..ISBN = &quot;9780008277819&quot;;" />
+  </comments>
   <classes>
     <modelRootHasClasses Id="b25cf068-f8f7-42c3-85d3-2eae5d2d7288">
       <modelClass Id="fdae6131-d257-4751-9c81-2bc2a1e9278c" tableName="Authors" databaseSchema="dbo" namespace="Ex3_ModelManytoMany" dbSetName="Authors" name="Author" isOutputDirectoryTracking="false" autoPropertyDefault="true" excludeFromMigrations="false">

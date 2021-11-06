@@ -33,8 +33,6 @@ namespace Ex2_ModelOne2One
       /// </summary>
       public Address()
       {
-         Id = 1;
-
          Init();
       }
 
@@ -65,13 +63,11 @@ namespace Ex2_ModelOne2One
        *************************************************************************/
 
       /// <summary>
-      /// Identity, Indexed, Required, Default value = 1
-      /// Unique identifier
+      /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]
-      [System.ComponentModel.Description("Unique identifier")]
-      public long Id { get; set; }
+      public long AddressId { get; set; }
 
       public string Unit { get; set; }
 
