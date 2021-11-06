@@ -16,7 +16,7 @@ namespace Ex3_ModelManytoMany
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmMany2Many());
+            Application.Run(new FrmModelOnetoMany());
         }
     }
 }

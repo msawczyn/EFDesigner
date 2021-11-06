@@ -24,18 +24,45 @@ using System.Runtime.CompilerServices;
 
 namespace Ex3_ModelManytoMany
 {
-   public partial class Entity1
+   public partial class Book
    {
       partial void Init();
 
       /// <summary>
-      /// Default constructor
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      public Entity1()
+      protected Book()
       {
-         Entity2 = new System.Collections.Generic.HashSet<global::Ex3_ModelManytoMany.Entity2>();
+         Init();
+      }
+
+      /// <summary>
+      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+      /// </summary>
+      public static Book CreateBookUnsafe()
+      {
+         return new Book();
+      }
+
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="_author0"></param>
+      public Book(global::Ex3_ModelManytoMany.Author _author0)
+      {
+         if (_author0 == null) throw new ArgumentNullException(nameof(_author0));
+         _author0.Books.Add(this);
 
          Init();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="_author0"></param>
+      public static Book Create(global::Ex3_ModelManytoMany.Author _author0)
+      {
+         return new Book(_author0);
       }
 
       /*************************************************************************
@@ -49,13 +76,15 @@ namespace Ex3_ModelManytoMany
       [Key]
       [Required]
       [System.ComponentModel.Description("Unique identifier")]
-      public long Id { get; set; }
+      public long BookId { get; set; }
+
+      public string Title { get; set; }
+
+      public string ISBN { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
-
-      public virtual ICollection<global::Ex3_ModelManytoMany.Entity2> Entity2 { get; private set; }
 
    }
 }

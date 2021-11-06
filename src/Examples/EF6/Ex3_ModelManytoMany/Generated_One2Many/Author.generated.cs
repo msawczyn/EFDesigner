@@ -24,15 +24,17 @@ using System.Runtime.CompilerServices;
 
 namespace Ex3_ModelManytoMany
 {
-   public partial class Entity2
+   public partial class Author
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public Entity2()
+      public Author()
       {
+         Books = new System.Collections.Generic.HashSet<global::Ex3_ModelManytoMany.Book>();
+
          Init();
       }
 
@@ -47,11 +49,17 @@ namespace Ex3_ModelManytoMany
       [Key]
       [Required]
       [System.ComponentModel.Description("Unique identifier")]
-      public long Id { get; set; }
+      public long AuthorId { get; set; }
+
+      public string Firstname { get; set; }
+
+      public string Lastname { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
+
+      public virtual ICollection<global::Ex3_ModelManytoMany.Book> Books { get; private set; }
 
    }
 }

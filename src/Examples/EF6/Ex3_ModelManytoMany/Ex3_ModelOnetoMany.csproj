@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -35,13 +34,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Ex3_ModelManytoMany.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -56,36 +52,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entity1.generated.cs">
-      <DependentUpon>ModelMany2Many.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity2.generated.cs">
-      <DependentUpon>ModelMany2Many.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FrmMany2Many.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmMany2Many.Designer.cs">
-      <DependentUpon>FrmMany2Many.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ModelMany2Many.cs">
+    <Compile Include="EFModelOnetoMany.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMany2Many.tt</DependentUpon>
+      <DependentUpon>EFModelOnetoMany.tt</DependentUpon>
     </Compile>
-    <Compile Include="ModelMany2Many.generated.cs">
-      <DependentUpon>ModelMany2Many.tt</DependentUpon>
+    <Compile Include="FrmModelOnetoMany.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ModelMany2ManyDatabaseInitializer.generated.cs">
-      <DependentUpon>ModelMany2Many.tt</DependentUpon>
+    <Compile Include="FrmModelOnetoMany.Designer.cs">
+      <DependentUpon>FrmModelOnetoMany.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModelMany2ManyDbMigrationConfiguration.generated.cs">
-      <DependentUpon>ModelMany2Many.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Generated_One2Many\Author.generated.cs" />
+    <Compile Include="Generated_One2Many\Book.generated.cs" />
+    <Compile Include="Generated_One2Many\EFModelOnetoMany.generated.cs" />
+    <Compile Include="Generated_One2Many\EFModelOnetoManyDatabaseInitializer.generated.cs" />
+    <Compile Include="Generated_One2Many\EFModelOnetoManyDbMigrationConfiguration.generated.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FrmMany2Many.resx">
-      <DependentUpon>FrmMany2Many.cs</DependentUpon>
+    <EmbeddedResource Include="FrmModelOnetoMany.resx">
+      <DependentUpon>FrmModelOnetoMany.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -96,11 +82,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="ModelMany2Many.efmodel" />
-    <None Include="ModelMany2Many.efmodel.diagramx">
-      <DependentUpon>ModelMany2Many.efmodel</DependentUpon>
+    <None Include="EFModelOnetoMany.efmodel" />
+    <None Include="EFModelOnetoMany.efmodel.diagramx">
+      <DependentUpon>EFModelOnetoMany.efmodel</DependentUpon>
     </None>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -115,21 +100,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ModelMany2Many.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelMany2Many.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework">
+      <Version>6.4.4</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EFModelOnetoMany.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EFModelOnetoMany.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
-  </Target>
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
 </Project>

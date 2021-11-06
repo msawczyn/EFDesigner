@@ -57,11 +57,8 @@ namespace Ex2_ModelOne2One
             CultureInfo culture = new CultureInfo("en-AU");
             person.DOB = Convert.ToDateTime("6/12/70", culture);
 
-            //person.Address =  new Address(); 
-            
-            
-            //Address.CreateAddressUnsafe(); // new Address();
-             Address.Create(person); // new Address();
+            //One to One
+            Address.Create(person);
 
             person.Address.Number = "1";
             person.Address.StreetLine1 = "High St";

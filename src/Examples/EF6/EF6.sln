@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex1_Person", "E1_ModelPerso
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex2_ModelOne2One", "Ex2_ModelOne2One\Ex2_ModelOne2One.csproj", "{357AB96C-3EA3-4F76-B416-B265661E8BB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex3_ModelManytoMany", "Ex3_ModelManytoMany\Ex3_ModelManytoMany.csproj", "{CD767834-7004-444D-B7D8-58AC359ED441}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex3_ModelOnetoMany", "Ex3_ModelManytoMany\Ex3_ModelOnetoMany.csproj", "{CD767834-7004-444D-B7D8-58AC359ED441}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

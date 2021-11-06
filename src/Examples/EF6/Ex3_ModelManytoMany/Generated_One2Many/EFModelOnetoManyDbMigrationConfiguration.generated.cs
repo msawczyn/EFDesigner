@@ -18,14 +18,14 @@ using System.Data.Entity.Migrations;
 namespace Migrations
 {
    /// <inheritdoc/>
-   public sealed partial class ModelMany2ManyDbMigrationConfiguration : DbMigrationsConfiguration<Ex3_ModelManytoMany.ModelMany2Many>
+   public sealed partial class EFModelOnetoManyDbMigrationConfiguration : DbMigrationsConfiguration<Ex3_ModelManytoMany.EFModelOnetoMany>
    {
       partial void Init();
 
       /// <inheritdoc/>
-      public ModelMany2ManyDbMigrationConfiguration()
+      public EFModelOnetoManyDbMigrationConfiguration()
       {
-         AutomaticMigrationsEnabled = false;
+         AutomaticMigrationsEnabled = true;
          AutomaticMigrationDataLossAllowed = false;
          Init();
       }

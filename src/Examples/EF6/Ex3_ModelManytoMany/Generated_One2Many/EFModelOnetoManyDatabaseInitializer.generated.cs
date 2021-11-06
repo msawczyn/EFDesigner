@@ -18,7 +18,7 @@ using System.Data.Entity;
 namespace Ex3_ModelManytoMany
 {
    /// <inheritdoc/>
-   public partial class ModelMany2ManyDatabaseInitializer : MigrateDatabaseToLatestVersion<Ex3_ModelManytoMany.ModelMany2Many, Migrations.ModelMany2ManyDbMigrationConfiguration>
+   public partial class EFModelOnetoManyDatabaseInitializer : CreateDatabaseIfNotExists<Ex3_ModelManytoMany.EFModelOnetoMany>
    {
    }
 }

@@ -13,6 +13,11 @@ namespace Ex1_Person
 
    // ----------  SETUP DATABASE SERVER - MsSqlServer LocalDb -------- //
 
+
+   // LocalDB is a special, low impact version of the SQL Server engine, that is not installed as a Windows Service,
+   // but launched(made to run) on demand by the ADO.NET client opening a connection to it.It is intended for single user scenarios, and not for any production use -
+   // for production you should use SQL Server Express(or higher)
+
    //Download SQL Server Express   - LocalDB
    // https://www.sqlshack.com/install-microsoft-sql-server-express-localdb/
    // https://www.microsoft.com/en-au/download/confirmation.aspx?id=101064
@@ -27,7 +32,7 @@ namespace Ex1_Person
    C:\>sqllocaldb create DbInstance
 
    //Connection string is now 
-   //Data Source=(localdb)\DbInstance1;Initial Catalog=EFLocalDb;Integrated Security=True
+   //Data Source=(localdb)\DbInstance;Initial Catalog=EFLocalDb;Integrated Security=True
    
    C:\>sqllocaldb info DbInstance
    Name:               DbInstance

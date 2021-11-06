@@ -10,7 +10,7 @@
 #><#@ import namespace="System.Data.Entity.Design.PluralizationServices" 
 #><#@ import namespace="System.Globalization" 
 #><#@ import namespace="Sawczyn.EFDesigner.EFModel" 
-#><#@ EFModel processor="EFModelDirectiveProcessor" requires="FileName='ModelMany2Many.efmodel'"  
+#><#@ EFModel processor="EFModelDirectiveProcessor" requires="FileName='EFModelOnetoMany.efmodel'"  
 #><#
    Manager manager = Manager.Create(Host, GenerationEnvironment);
    manager.FileNameMarker = ModelRoot.FileNameMarker;

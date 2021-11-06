@@ -23,11 +23,11 @@ using System.Data.Entity.Infrastructure.Annotations;
 namespace Ex3_ModelManytoMany
 {
    /// <inheritdoc/>
-   public partial class ModelMany2Many : DbContext
+   public partial class EFModelOnetoMany : DbContext
    {
       #region DbSets
-      public virtual System.Data.Entity.DbSet<global::Ex3_ModelManytoMany.Entity1> Entity1 { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Ex3_ModelManytoMany.Entity2> Entity2 { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Ex3_ModelManytoMany.Author> Authors { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Ex3_ModelManytoMany.Book> Books { get; set; }
       #endregion DbSets
 
       #region Constructors
@@ -37,67 +37,67 @@ namespace Ex3_ModelManytoMany
       /// <summary>
       /// Default connection string
       /// </summary>
-      public static string ConnectionString { get; set; } = @"Data Source=(localdb)\DbInstance;Initial Catalog=EFLocalDb;Integrated Security=True";
+      public static string ConnectionString { get; set; } = @"Data Source=(localdb)\dbinstance;Initial Catalog=EFLocalDb;Integrated Security=True";
       /// <inheritdoc />
-      public ModelMany2Many() : base(ConnectionString)
+      public EFModelOnetoMany() : base(ConnectionString)
       {
          Configuration.LazyLoadingEnabled = true;
          Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<ModelMany2Many>(new ModelMany2ManyDatabaseInitializer());
+         System.Data.Entity.Database.SetInitializer<EFModelOnetoMany>(new EFModelOnetoManyDatabaseInitializer());
          CustomInit();
       }
 
       /// <inheritdoc />
-      public ModelMany2Many(string connectionString) : base(connectionString)
+      public EFModelOnetoMany(string connectionString) : base(connectionString)
       {
          Configuration.LazyLoadingEnabled = true;
          Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<ModelMany2Many>(new ModelMany2ManyDatabaseInitializer());
+         System.Data.Entity.Database.SetInitializer<EFModelOnetoMany>(new EFModelOnetoManyDatabaseInitializer());
          CustomInit();
       }
 
       /// <inheritdoc />
-      public ModelMany2Many(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)
+      public EFModelOnetoMany(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)
       {
          Configuration.LazyLoadingEnabled = true;
          Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<ModelMany2Many>(new ModelMany2ManyDatabaseInitializer());
+         System.Data.Entity.Database.SetInitializer<EFModelOnetoMany>(new EFModelOnetoManyDatabaseInitializer());
          CustomInit();
       }
 
       /// <inheritdoc />
-      public ModelMany2Many(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)
+      public EFModelOnetoMany(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)
       {
          Configuration.LazyLoadingEnabled = true;
          Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<ModelMany2Many>(new ModelMany2ManyDatabaseInitializer());
+         System.Data.Entity.Database.SetInitializer<EFModelOnetoMany>(new EFModelOnetoManyDatabaseInitializer());
          CustomInit();
       }
 
       /// <inheritdoc />
-      public ModelMany2Many(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)
+      public EFModelOnetoMany(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)
       {
          Configuration.LazyLoadingEnabled = true;
          Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<ModelMany2Many>(new ModelMany2ManyDatabaseInitializer());
+         System.Data.Entity.Database.SetInitializer<EFModelOnetoMany>(new EFModelOnetoManyDatabaseInitializer());
          CustomInit();
       }
 
       /// <inheritdoc />
-      public ModelMany2Many(System.Data.Entity.Infrastructure.DbCompiledModel model) : base(model)
+      public EFModelOnetoMany(System.Data.Entity.Infrastructure.DbCompiledModel model) : base(model)
       {
          Configuration.LazyLoadingEnabled = true;
          Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<ModelMany2Many>(new ModelMany2ManyDatabaseInitializer());
+         System.Data.Entity.Database.SetInitializer<EFModelOnetoMany>(new EFModelOnetoManyDatabaseInitializer());
          CustomInit();
       }
 
       /// <inheritdoc />
-      public ModelMany2Many(System.Data.Entity.Core.Objects.ObjectContext objectContext, bool dbContextOwnsObjectContext) : base(objectContext, dbContextOwnsObjectContext)
+      public EFModelOnetoMany(System.Data.Entity.Core.Objects.ObjectContext objectContext, bool dbContextOwnsObjectContext) : base(objectContext, dbContextOwnsObjectContext)
       {
          Configuration.LazyLoadingEnabled = true;
          Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<ModelMany2Many>(new ModelMany2ManyDatabaseInitializer());
+         System.Data.Entity.Database.SetInitializer<EFModelOnetoMany>(new EFModelOnetoManyDatabaseInitializer());
          CustomInit();
       }
 
@@ -114,23 +114,23 @@ namespace Ex3_ModelManytoMany
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<global::Ex3_ModelManytoMany.Entity1>()
-                     .ToTable("Entity1")
-                     .HasKey(t => t.Id);
-         modelBuilder.Entity<global::Ex3_ModelManytoMany.Entity1>()
-                     .Property(t => t.Id)
+         modelBuilder.Entity<global::Ex3_ModelManytoMany.Author>()
+                     .ToTable("Authors")
+                     .HasKey(t => t.AuthorId);
+         modelBuilder.Entity<global::Ex3_ModelManytoMany.Author>()
+                     .Property(t => t.AuthorId)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::Ex3_ModelManytoMany.Entity1>()
-                     .HasMany(x => x.Entity2)
-                     .WithMany()
-                     .Map(x => { x.ToTable("Entity1_x_Entity2"); x.MapLeftKey("Entity1_Id"); x.MapRightKey("Entity2_Id"); });
+         modelBuilder.Entity<global::Ex3_ModelManytoMany.Author>()
+                     .HasMany(x => x.Books)
+                     .WithRequired()
+                     .Map(x => x.MapKey("AuthorBooksAuthorId"));
 
-         modelBuilder.Entity<global::Ex3_ModelManytoMany.Entity2>()
-                     .ToTable("Entity2")
-                     .HasKey(t => t.Id);
-         modelBuilder.Entity<global::Ex3_ModelManytoMany.Entity2>()
-                     .Property(t => t.Id)
+         modelBuilder.Entity<global::Ex3_ModelManytoMany.Book>()
+                     .ToTable("Books")
+                     .HasKey(t => t.BookId);
+         modelBuilder.Entity<global::Ex3_ModelManytoMany.Book>()
+                     .Property(t => t.BookId)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
