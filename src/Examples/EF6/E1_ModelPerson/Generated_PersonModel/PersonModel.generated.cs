@@ -122,7 +122,7 @@ namespace Ex1_Person
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<global::Ex1_Person.Person>()
                      .Property(t => t.FirstName)
-                     .HasMaxLength(2);
+                     .HasMaxLength(25);
          modelBuilder.Entity<global::Ex1_Person.Person>()
                      .Property(t => t.MiddleName)
                      .HasMaxLength(35);

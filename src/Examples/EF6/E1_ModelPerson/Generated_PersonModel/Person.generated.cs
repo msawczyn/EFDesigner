@@ -48,10 +48,10 @@ namespace Ex1_Person
       public long Id { get; set; }
 
       /// <summary>
-      /// Max length = 2
+      /// Max length = 25
       /// </summary>
-      [MaxLength(2)]
-      [StringLength(2)]
+      [MaxLength(25)]
+      [StringLength(25)]
       public string FirstName { get; set; }
 
       /// <summary>
