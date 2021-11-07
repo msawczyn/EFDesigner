@@ -137,12 +137,6 @@ namespace Ex6_Course
                      .Property(t => t.EnrollmentId)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::Ex6_Course.Enrollment>()
-                     .Property(t => t.CourseId)
-                     .IsRequired();
-         modelBuilder.Entity<global::Ex6_Course.Enrollment>()
-                     .Property(t => t.StudentId)
-                     .IsRequired();
 
          modelBuilder.Entity<global::Ex6_Course.Student>()
                      .ToTable("Students")

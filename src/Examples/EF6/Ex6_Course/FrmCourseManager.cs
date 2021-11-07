@@ -343,18 +343,12 @@ namespace Ex6_Course
  
             if (txtGrade.Text !="")
                enroll.Grade = Convert.ToInt32(txtGrade.Text);
-
-
-            //ToDo : How do you add enrollments?
-
-            // in 'CourseManager.Enrollments' participate in the 'Course_Enrollments' relationship.
-            // 0 related 'Course_Enrollments_Source' were found. 1 'Course_Enrollments_Source' is expected.'
-
+            
             Course CourseToLink = db.Courses.First(c => c.CourseId == CoursePk);
             Student StudentToLink = db.Students.First(s => s.StudentId == StudentPk);
 
             StudentToLink.Enrollments.Add(enroll);
-
+            CourseToLink.Enrollments.Add(enroll);
 
             db.Enrollments.Add(enroll);
 

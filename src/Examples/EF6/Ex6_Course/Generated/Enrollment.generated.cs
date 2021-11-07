@@ -47,16 +47,10 @@ namespace Ex6_Course
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="courseid"></param>
-      /// <param name="studentid"></param>
       /// <param name="_course0"></param>
       /// <param name="_student1"></param>
-      public Enrollment(long courseid, long studentid, global::Ex6_Course.Course _course0, global::Ex6_Course.Student _student1)
+      public Enrollment(global::Ex6_Course.Course _course0, global::Ex6_Course.Student _student1)
       {
-         this.CourseId = courseid;
-
-         this.StudentId = studentid;
-
          if (_course0 == null) throw new ArgumentNullException(nameof(_course0));
          _course0.Enrollments.Add(this);
 
@@ -69,13 +63,11 @@ namespace Ex6_Course
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="courseid"></param>
-      /// <param name="studentid"></param>
       /// <param name="_course0"></param>
       /// <param name="_student1"></param>
-      public static Enrollment Create(long courseid, long studentid, global::Ex6_Course.Course _course0, global::Ex6_Course.Student _student1)
+      public static Enrollment Create(global::Ex6_Course.Course _course0, global::Ex6_Course.Student _student1)
       {
-         return new Enrollment(courseid, studentid, _course0, _student1);
+         return new Enrollment(_course0, _student1);
       }
 
       /*************************************************************************
@@ -88,18 +80,6 @@ namespace Ex6_Course
       [Key]
       [Required]
       public long EnrollmentId { get; set; }
-
-      /// <summary>
-      /// Required
-      /// </summary>
-      [Required]
-      public long CourseId { get; set; }
-
-      /// <summary>
-      /// Required
-      /// </summary>
-      [Required]
-      public long StudentId { get; set; }
 
       public int? Grade { get; set; }
 
