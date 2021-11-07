@@ -116,11 +116,17 @@ namespace Ex2_ModelOne2One
 
          modelBuilder.Entity<global::Ex2_ModelOne2One.Address>()
                      .ToTable("Address")
-                     .HasKey(t => t.AddressId);
+                     .HasKey(t => t.Id);
+         modelBuilder.Entity<global::Ex2_ModelOne2One.Address>()
+                     .Property(t => t.Id)
+                     .IsRequired()
+                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
          modelBuilder.Entity<global::Ex2_ModelOne2One.Address>()
                      .Property(t => t.AddressId)
                      .IsRequired()
-                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+                     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()));
+         modelBuilder.Entity<global::Ex2_ModelOne2One.Address>().HasIndex(t => t.AddressId)
+                     .IsUnique();
          modelBuilder.Entity<global::Ex2_ModelOne2One.Address>()
                      .HasRequired(x => x.Person)
                      .WithOptional(x => x.Address)

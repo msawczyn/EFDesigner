@@ -94,7 +94,7 @@ namespace Ex2_ModelOne2One
             var items = context.People;
 
             foreach (var x in items)
-               txtDebug.Text += String.Format("{0} {1} {2} {3} {4}", x.PersonId, x.FirstName, x.MiddleName, x.LastName, x.Phone) + "\r\n";
+               txtDebug.Text += String.Format("{0} {1} {2} {3} {4} City: {5}", x.PersonId, x.FirstName, x.MiddleName, x.LastName, x.Phone, x.Address.City) + "\r\n";
          }
       }
    }

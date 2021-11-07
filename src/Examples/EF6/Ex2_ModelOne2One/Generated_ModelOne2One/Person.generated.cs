@@ -41,7 +41,7 @@ namespace Ex2_ModelOne2One
        *************************************************************************/
 
       /// <summary>
-      /// Identity, Required
+      /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]
