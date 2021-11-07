@@ -1,7 +1,7 @@
 ﻿
 namespace Ex5_Store
 {
-    partial class Form1
+    partial class FrmEx5Store
     {
         /// <summary>
         /// Required designer variable.
@@ -29,10 +29,18 @@ namespace Ex5_Store
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // FrmEx5Store
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.Name = "FrmEx5Store";
+            this.Text = "Ex 5 Store";
+            this.Load += new System.EventHandler(this.FrmEx5Store_Load);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

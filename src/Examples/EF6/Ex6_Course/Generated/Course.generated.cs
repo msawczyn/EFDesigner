@@ -49,9 +49,16 @@ namespace Ex6_Course
       [Required]
       public long CourseId { get; set; }
 
+      /// <summary>
+      /// Max length = 25
+      /// </summary>
+      [MaxLength(25)]
+      [StringLength(25)]
+      public string CourseLabel { get; set; }
+
       public string Title { get; set; }
 
-      public string Credits { get; set; }
+      public int? Credits { get; set; }
 
       /*************************************************************************
        * Navigation properties

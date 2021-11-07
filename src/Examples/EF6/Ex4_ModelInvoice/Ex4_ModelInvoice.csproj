@@ -51,11 +51,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AccountingSystemModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="FRmInvoice.cs">
+    <Compile Include="FrmInvoice.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FRmInvoice.Designer.cs">
-      <DependentUpon>FRmInvoice.cs</DependentUpon>
+    <Compile Include="FrmInvoice.Designer.cs">
+      <DependentUpon>FrmInvoice.cs</DependentUpon>
     </Compile>
     <Compile Include="GeneratedAccountingModel\AccountingSystemModel.generated.cs" />
     <Compile Include="GeneratedAccountingModel\AccountingSystemModelDatabaseInitializer.generated.cs" />
@@ -64,8 +64,8 @@
     <Compile Include="GeneratedAccountingModel\InvoiceHeaders.generated.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FRmInvoice.resx">
-      <DependentUpon>FRmInvoice.cs</DependentUpon>
+    <EmbeddedResource Include="FrmInvoice.resx">
+      <DependentUpon>FrmInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -16,7 +16,7 @@ namespace Ex4_ModelInvoice
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FRmInvoice());
+            Application.Run(new FrmInvoice());
         }
     }
 }

@@ -12,11 +12,16 @@ namespace Ex5_Store
 {
    // Ordering system
    
-   public partial class Form1 : Form
+   public partial class FrmEx5Store : Form
     {
-        public Form1()
+        public FrmEx5Store()
         {
             InitializeComponent();
         }
-    }
+
+      private void FrmEx5Store_Load(object sender, EventArgs e)
+      {
+
+      }
+   }
 }

@@ -1,7 +1,7 @@
 ﻿
 namespace Ex4_ModelInvoice
 {
-    partial class FRmInvoice
+    partial class FrmInvoice
     {
         /// <summary>
         /// Required designer variable.
@@ -37,11 +37,11 @@ namespace Ex4_ModelInvoice
             // 
             // btnInvoice
             // 
-            this.btnInvoice.Location = new System.Drawing.Point(60, 169);
+            this.btnInvoice.Location = new System.Drawing.Point(37, 135);
             this.btnInvoice.Name = "btnInvoice";
-            this.btnInvoice.Size = new System.Drawing.Size(192, 53);
+            this.btnInvoice.Size = new System.Drawing.Size(243, 87);
             this.btnInvoice.TabIndex = 0;
-            this.btnInvoice.Text = "Invoice";
+            this.btnInvoice.Text = "Create and read back Invoice header and detail";
             this.btnInvoice.UseVisualStyleBackColor = true;
             this.btnInvoice.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -73,7 +73,7 @@ namespace Ex4_ModelInvoice
             this.txtConnection.TabIndex = 9;
             this.txtConnection.Text = "...";
             // 
-            // FRmInvoice
+            // FrmInvoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -82,7 +82,7 @@ namespace Ex4_ModelInvoice
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtConnection);
             this.Controls.Add(this.btnInvoice);
-            this.Name = "FRmInvoice";
+            this.Name = "FrmInvoice";
             this.Text = "Ex 4: Invoice - Header and Detail";
             this.Load += new System.EventHandler(this.FRmInvoice_Load);
             this.ResumeLayout(false);

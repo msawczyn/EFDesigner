@@ -121,7 +121,10 @@ namespace Ex6_Course
          modelBuilder.Entity<global::Ex6_Course.Course>()
                      .Property(t => t.CourseId)
                      .IsRequired()
-                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Ex6_Course.Course>()
+                     .Property(t => t.CourseLabel)
+                     .HasMaxLength(25);
          modelBuilder.Entity<global::Ex6_Course.Course>()
                      .HasMany(x => x.Enrollments)
                      .WithRequired()
@@ -133,7 +136,7 @@ namespace Ex6_Course
          modelBuilder.Entity<global::Ex6_Course.Enrollment>()
                      .Property(t => t.EnrollmentId)
                      .IsRequired()
-                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<global::Ex6_Course.Enrollment>()
                      .Property(t => t.CourseId)
                      .IsRequired();
@@ -147,7 +150,7 @@ namespace Ex6_Course
          modelBuilder.Entity<global::Ex6_Course.Student>()
                      .Property(t => t.StudentId)
                      .IsRequired()
-                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<global::Ex6_Course.Student>()
                      .HasMany(x => x.Enrollments)
                      .WithRequired()

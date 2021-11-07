@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace Ex4_ModelInvoice
 {
-    public partial class FRmInvoice : Form
+    public partial class FrmInvoice : Form
     {
-        public FRmInvoice()
+        public FrmInvoice()
         {
             InitializeComponent();
         }
@@ -85,7 +85,7 @@ namespace Ex4_ModelInvoice
 
             foreach (InvoiceHeaders record in records)
             {
-                txtDebug.Text += String.Format("Invoice Id {0} - Total: {1}", record.Id, record.Total);
+               txtDebug.Text += String.Format("Invoice Id {0} - Total: {1}", record.Id, record.Total) + "\r\n"; ;
 
                txtDebug.Text += "--- Detail --\r\n";
               
