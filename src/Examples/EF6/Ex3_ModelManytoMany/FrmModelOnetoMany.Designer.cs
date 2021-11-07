@@ -84,7 +84,7 @@ namespace Ex3_ModelManytoMany
             this.Controls.Add(this.txtConnection);
             this.Controls.Add(this.btnTestOne2One);
             this.Name = "FrmModelOnetoMany";
-            this.Text = "FrmOne2Many";
+            this.Text = "Ex 3: One 2 Many - Authors & Books";
             this.Load += new System.EventHandler(this.FrmMany2Many_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

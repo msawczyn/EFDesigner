@@ -37,34 +37,38 @@ namespace Ex2_ModelOne2One
             // 
             // txtDebug
             // 
-            this.txtDebug.Location = new System.Drawing.Point(237, 87);
+            this.txtDebug.Location = new System.Drawing.Point(356, 134);
+            this.txtDebug.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtDebug.Multiline = true;
             this.txtDebug.Name = "txtDebug";
-            this.txtDebug.Size = new System.Drawing.Size(282, 174);
+            this.txtDebug.Size = new System.Drawing.Size(421, 266);
             this.txtDebug.TabIndex = 8;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 31);
+            this.label1.Location = new System.Drawing.Point(42, 48);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 13);
+            this.label1.Size = new System.Drawing.Size(167, 20);
             this.label1.TabIndex = 7;
             this.label1.Text = "Sql Server Connection";
             // 
             // txtConnection
             // 
-            this.txtConnection.Location = new System.Drawing.Point(28, 47);
+            this.txtConnection.Location = new System.Drawing.Point(42, 72);
+            this.txtConnection.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtConnection.Name = "txtConnection";
-            this.txtConnection.Size = new System.Drawing.Size(491, 20);
+            this.txtConnection.Size = new System.Drawing.Size(734, 26);
             this.txtConnection.TabIndex = 6;
             this.txtConnection.Text = "...";
             // 
             // btnTestOne2One
             // 
-            this.btnTestOne2One.Location = new System.Drawing.Point(28, 87);
+            this.btnTestOne2One.Location = new System.Drawing.Point(42, 134);
+            this.btnTestOne2One.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnTestOne2One.Name = "btnTestOne2One";
-            this.btnTestOne2One.Size = new System.Drawing.Size(113, 41);
+            this.btnTestOne2One.Size = new System.Drawing.Size(170, 63);
             this.btnTestOne2One.TabIndex = 5;
             this.btnTestOne2One.Text = "Test One to One";
             this.btnTestOne2One.UseVisualStyleBackColor = true;
@@ -72,15 +76,16 @@ namespace Ex2_ModelOne2One
             // 
             // FrmOne2One
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(547, 293);
+            this.ClientSize = new System.Drawing.Size(820, 451);
             this.Controls.Add(this.txtDebug);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtConnection);
             this.Controls.Add(this.btnTestOne2One);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FrmOne2One";
-            this.Text = "Form1";
+            this.Text = "Ex 2: One to One - Person & Address";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -35,6 +35,9 @@ namespace Ex4_ModelInvoice
             // So doing a delete and recreate
             db.Database.Log = Console.Write;
 
+
+            txtDebug.Text += "\r\nEx 4: Invoice - Header and Detail\r\n----------------\r\n";
+
             db.Database.Delete();
             txtDebug.Text += "Deleted DB\r\n";
 
@@ -82,13 +85,16 @@ namespace Ex4_ModelInvoice
 
             foreach (InvoiceHeaders record in records)
             {
-               //TODO: Error? There is already an open DataReader associated with this Command which must be closed first.
+                txtDebug.Text += String.Format("Invoice Id {0} - Total: {1}", record.Id, record.Total);
 
-               txtDebug.Text += "---------\r\n";
-               foreach (InvoiceDetails details in record.InvoiceDetails)
-               {
-                 // txtDebug.Text += String.Format("Invoice Id {0} - Total: {1} |  Details Desc:{2} Qty:{3} Price:{4} Total:{5}", record.Id, record.Total, details.ItemDescription, details.Quantity, details.Price, details.Total) + "\r\n";
-               }
+               txtDebug.Text += "--- Detail --\r\n";
+              
+               //TODO: Error? There is already an open DataReader associated with this Command which must be closed first.
+               //Cannot figure out how to get detail data?
+               //foreach (InvoiceDetails details in record.InvoiceDetails)
+               //{
+               //  // txtDebug.Text += String.Format("Invoice Id {0} - Total: {1} |  Details Desc:{2} Qty:{3} Price:{4} Total:{5}", record.Id, record.Total, details.ItemDescription, details.Quantity, details.Price, details.Total) + "\r\n";
+               //}
 
             }
          }

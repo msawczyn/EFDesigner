@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="3.0.7.2" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AccountingSystemModel" namespace="Ex4_ModelInvoice" connectionString="Data Source=(localdb)\dbinstance;Initial Catalog=EFLocalDb;Integrated Security=True" automaticMigrationsEnabled="true" contextOutputDirectory="GeneratedAccountingModel" entityFrameworkVersion="EF6" showCascadeDeletes="false" databaseType="None" warnOnMissingDocumentation="false" exposeForeignKeys="false" generateDbContextFactory="false" showInterfaceIndicators="false" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <comments>
-    <comment Id="5e61cd83-3617-44a7-badb-d69ca1b6eec2" text="Invoice Example - AutomaticMigrationDataLossAllowed" />
+    <comment Id="5e61cd83-3617-44a7-badb-d69ca1b6eec2" text="Invoice Example - &#xD;&#xA;&#xD;&#xA;AutomaticMigrationDataLossAllowed" />
   </comments>
   <classes>
     <modelRootHasClasses Id="54afbda4-bdbb-4850-812f-8cabf64e5e94">

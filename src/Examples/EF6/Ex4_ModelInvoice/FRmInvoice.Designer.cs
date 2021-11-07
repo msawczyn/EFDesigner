@@ -83,7 +83,7 @@ namespace Ex4_ModelInvoice
             this.Controls.Add(this.txtConnection);
             this.Controls.Add(this.btnInvoice);
             this.Name = "FRmInvoice";
-            this.Text = "Accounting Mock up";
+            this.Text = "Ex 4: Invoice - Header and Detail";
             this.Load += new System.EventHandler(this.FRmInvoice_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

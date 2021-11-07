@@ -18,7 +18,7 @@ namespace Ex1_Person
    //https://www.geeksforgeeks.org/basic-database-operations-using-c-sharp/
 
 
-   // ---------  Introducint ENTITY FRAMEWORK   --------------
+   // ---------  Introducing ENTITY FRAMEWORK   --------------
    // This is a modern ORM way of using DB access, robust and solid using Code First & Fluent API  (
    // Unfortunatley the 'Code first' and 'Fluent API' are console like commands that require a deep dive to utilise and apply to your requirements.
 
