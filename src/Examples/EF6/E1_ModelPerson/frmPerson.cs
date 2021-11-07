@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Drawing;
 using System.Globalization;
@@ -86,10 +87,10 @@ namespace Ex1_Person
             }
 
             //Read it back
-            var items = context.People;
+            DbSet<Person> people = context.People;
 
-            foreach (var x in items)
-               txtDebug.Text += String.Format("{0} {1} {2} {3} {4}", x.Id, x.FirstName, x.MiddleName, x.LastName, x.Phone) + "\r\n";
+            foreach (Person p in people)
+               txtDebug.Text += String.Format("{0} {1} {2} {3} {4}", p.Id, p.FirstName, p.MiddleName, p.LastName, p.Phone) + "\r\n";
          }
       }
 

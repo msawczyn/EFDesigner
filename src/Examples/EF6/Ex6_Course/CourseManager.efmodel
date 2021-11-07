@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="3.0.7.2" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="CourseManager" namespace="Ex6_Course" connectionString="Data Source=(localdb)\dbinstance;Initial Catalog=EFLocalDb;Integrated Security=True" automaticMigrationsEnabled="true" contextOutputDirectory="Generated" entityFrameworkVersion="EF6" inheritanceStrategy="TablePerType" showCascadeDeletes="false" databaseType="None" warnOnMissingDocumentation="false" exposeForeignKeys="false" generateDbContextFactory="false" showInterfaceIndicators="false" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+  <classes>
+    <modelRootHasClasses Id="4ed45b80-b307-4c1e-9a2b-13240231ec1d">
+      <modelClass Id="7b5671e3-a912-43e5-84a8-072243eb6804" tableName="Courses" databaseSchema="dbo" namespace="Ex6_Course" dbSetName="Courses" name="Course" isOutputDirectoryTracking="false" autoPropertyDefault="true" excludeFromMigrations="false">
+        <unidirectionalTargets>
+          <unidirectionalAssociation Id="e307285a-2a7e-4e6f-86ed-dbe15b004c4a" targetPropertyName="Enrollments" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false" targetBackingFieldName="_enrollments" targetAutoProperty="true" isTargetAbstract="false" targetAutoInclude="false">
+            <modelClassMoniker Id="030ea4dd-9650-4760-9f06-77af0bf93b70" />
+          </unidirectionalAssociation>
+        </unidirectionalTargets>
+        <attributes>
+          <modelAttribute Id="d7920cac-6008-43d4-a13a-b78514c083d3" type="Int64" isIdentity="true" required="true" maxLength="-1" indexed="false" indexedUnique="false" stringType="None" name="CourseId" autoProperty="true" minLength="0" columnName="CourseId" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_courseId" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+          <modelAttribute Id="036884fb-5465-4cd4-aea3-89fb72be47df" maxLength="-1" indexed="false" indexedUnique="false" stringType="None" name="Title" autoProperty="true" minLength="0" columnName="Title" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_title" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+          <modelAttribute Id="298fc884-2973-4ebb-9c5b-46fd4d7f1d11" maxLength="-1" indexed="false" indexedUnique="false" stringType="None" name="Credits" autoProperty="true" minLength="0" columnName="Credits" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_credits" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+        </attributes>
+      </modelClass>
+    </modelRootHasClasses>
+    <modelRootHasClasses Id="fc0d292d-7eba-40a3-b787-78782d3e8cd4">
+      <modelClass Id="2e81a461-3d88-41cb-9472-f53fd2f6c57d" tableName="Students" databaseSchema="dbo" namespace="Ex6_Course" dbSetName="Students" name="Student" isOutputDirectoryTracking="false" autoPropertyDefault="true" excludeFromMigrations="false">
+        <unidirectionalTargets>
+          <unidirectionalAssociation Id="5e9015a6-6fa5-4206-87d7-0cefcf4a9855" targetPropertyName="Enrollments" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false" targetBackingFieldName="_enrollments" targetAutoProperty="true" isTargetAbstract="false" targetAutoInclude="false">
+            <modelClassMoniker Id="030ea4dd-9650-4760-9f06-77af0bf93b70" />
+          </unidirectionalAssociation>
+        </unidirectionalTargets>
+        <attributes>
+          <modelAttribute Id="1588b522-6d72-4a15-bbe4-58b8c12d95cc" type="Int64" isIdentity="true" required="true" maxLength="-1" indexed="false" indexedUnique="false" stringType="None" name="StudentId" autoProperty="true" minLength="0" columnName="StudentId" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_studentId" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+          <modelAttribute Id="14f05fc0-fcec-417f-9917-dab18548ff84" maxLength="-1" indexed="false" indexedUnique="false" stringType="None" name="FirstName" autoProperty="true" minLength="0" columnName="FirstName" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_firstName" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+          <modelAttribute Id="c00311fb-c085-47b8-b34b-7ecc8e4420f9" maxLength="-1" indexed="false" indexedUnique="false" stringType="None" name="LastName" autoProperty="true" minLength="0" columnName="LastName" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_lastName" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+        </attributes>
+      </modelClass>
+    </modelRootHasClasses>
+    <modelRootHasClasses Id="40c7db5b-f561-4b52-82f2-59e5dc2ac12e">
+      <modelClass Id="030ea4dd-9650-4760-9f06-77af0bf93b70" tableName="Enrollments" databaseSchema="dbo" namespace="Ex6_Course" dbSetName="Enrollments" name="Enrollment" isOutputDirectoryTracking="false" autoPropertyDefault="true" excludeFromMigrations="false">
+        <attributes>
+          <modelAttribute Id="f919faef-ed0a-4d99-80e7-4f6fd9a2ad04" type="Int64" isIdentity="true" required="true" maxLength="-1" indexed="false" indexedUnique="false" stringType="None" name="EnrollmentId" autoProperty="true" minLength="0" columnName="EnrollmentId" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_enrollmentId" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+          <modelAttribute Id="e598f394-4c02-4469-8fe3-479011507b4b" type="Int32" required="true" maxLength="-1" indexed="false" indexedUnique="false" stringType="None" name="CourseId" autoProperty="true" minLength="0" columnName="CourseId" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_courseId" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+          <modelAttribute Id="50f76cfc-fd0d-4cbf-9335-f7f2ad36fdc0" type="Int32" required="true" maxLength="-1" indexed="false" indexedUnique="false" stringType="None" name="StudentId" autoProperty="true" minLength="0" columnName="StudentId" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_studentId" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+          <modelAttribute Id="9ca7e16d-20ff-4cf4-a6b8-890afce37455" type="Int32" maxLength="-1" indexed="false" indexedUnique="false" stringType="None" name="Grade" autoProperty="true" minLength="0" columnName="Grade" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_grade" databaseCollation="default" propertyAccessMode="Field" isPropertyAccessModeTracking="false" />
+        </attributes>
+      </modelClass>
+    </modelRootHasClasses>
+  </classes>
+  <diagrams>
+    <modelRootHasModelDiagrams Id="ec55e5bb-f7ad-48d2-a36c-786ad7c6003a">
+      <modelDiagramData name="EFModel1" />
+    </modelRootHasModelDiagrams>
+  </diagrams>
+</modelRoot>

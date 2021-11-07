@@ -121,6 +121,9 @@ namespace Ex4_ModelInvoice
                      .Property(t => t.Id)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Ex4_ModelInvoice.InvoiceDetails>()
+                     .Property(t => t.ItemDescription)
+                     .HasMaxLength(255);
 
          modelBuilder.Entity<global::Ex4_ModelInvoice.InvoiceHeaders>()
                      .ToTable("InvoiceHeaders")
@@ -129,6 +132,10 @@ namespace Ex4_ModelInvoice
                      .Property(t => t.Id)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Ex4_ModelInvoice.InvoiceHeaders>()
+                     .HasMany(x => x.InvoiceDetails)
+                     .WithRequired()
+                     .Map(x => x.MapKey("InvoiceHeadersInvoiceDetailsId"));
 
          OnModelCreatedImpl(modelBuilder);
       }

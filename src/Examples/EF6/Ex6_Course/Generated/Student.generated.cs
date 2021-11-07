@@ -22,18 +22,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Ex4_ModelInvoice
+namespace Ex6_Course
 {
-   public partial class InvoiceHeaders
+   public partial class Student
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public InvoiceHeaders()
+      public Student()
       {
-         InvoiceDetails = new System.Collections.Generic.HashSet<global::Ex4_ModelInvoice.InvoiceDetails>();
+         Enrollments = new System.Collections.Generic.HashSet<global::Ex6_Course.Enrollment>();
 
          Init();
       }
@@ -43,21 +43,21 @@ namespace Ex4_ModelInvoice
        *************************************************************************/
 
       /// <summary>
-      /// Identity, Indexed, Required
-      /// Unique identifier
+      /// Identity, Required
       /// </summary>
       [Key]
       [Required]
-      [System.ComponentModel.Description("Unique identifier")]
-      public long Id { get; set; }
+      public long StudentId { get; set; }
 
-      public decimal? Total { get; set; }
+      public string FirstName { get; set; }
+
+      public string LastName { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Ex4_ModelInvoice.InvoiceDetails> InvoiceDetails { get; private set; }
+      public virtual ICollection<global::Ex6_Course.Enrollment> Enrollments { get; private set; }
 
    }
 }

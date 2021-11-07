@@ -22,16 +22,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Ex4_ModelInvoice
+namespace Ex6_Course
 {
-   public partial class InvoiceDetails
+   public partial class Enrollment
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected InvoiceDetails()
+      protected Enrollment()
       {
          Init();
       }
@@ -39,19 +39,29 @@ namespace Ex4_ModelInvoice
       /// <summary>
       /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
       /// </summary>
-      public static InvoiceDetails CreateInvoiceDetailsUnsafe()
+      public static Enrollment CreateEnrollmentUnsafe()
       {
-         return new InvoiceDetails();
+         return new Enrollment();
       }
 
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_invoiceheaders0"></param>
-      public InvoiceDetails(global::Ex4_ModelInvoice.InvoiceHeaders _invoiceheaders0)
+      /// <param name="courseid"></param>
+      /// <param name="studentid"></param>
+      /// <param name="_course0"></param>
+      /// <param name="_student1"></param>
+      public Enrollment(int courseid, int studentid, global::Ex6_Course.Course _course0, global::Ex6_Course.Student _student1)
       {
-         if (_invoiceheaders0 == null) throw new ArgumentNullException(nameof(_invoiceheaders0));
-         _invoiceheaders0.InvoiceDetails.Add(this);
+         this.CourseId = courseid;
+
+         this.StudentId = studentid;
+
+         if (_course0 == null) throw new ArgumentNullException(nameof(_course0));
+         _course0.Enrollments.Add(this);
+
+         if (_student1 == null) throw new ArgumentNullException(nameof(_student1));
+         _student1.Enrollments.Add(this);
 
          Init();
       }
@@ -59,10 +69,13 @@ namespace Ex4_ModelInvoice
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_invoiceheaders0"></param>
-      public static InvoiceDetails Create(global::Ex4_ModelInvoice.InvoiceHeaders _invoiceheaders0)
+      /// <param name="courseid"></param>
+      /// <param name="studentid"></param>
+      /// <param name="_course0"></param>
+      /// <param name="_student1"></param>
+      public static Enrollment Create(int courseid, int studentid, global::Ex6_Course.Course _course0, global::Ex6_Course.Student _student1)
       {
-         return new InvoiceDetails(_invoiceheaders0);
+         return new Enrollment(courseid, studentid, _course0, _student1);
       }
 
       /*************************************************************************
@@ -70,31 +83,25 @@ namespace Ex4_ModelInvoice
        *************************************************************************/
 
       /// <summary>
-      /// Identity, Indexed, Required
-      /// Unique identifier
+      /// Identity, Required
       /// </summary>
       [Key]
       [Required]
-      [System.ComponentModel.Description("Unique identifier")]
-      public long Id { get; set; }
+      public long EnrollmentId { get; set; }
 
       /// <summary>
-      /// Max length = 255
-      /// Desc
+      /// Required
       /// </summary>
-      /// <remarks>
-      /// Item description
-      /// </remarks>
-      [MaxLength(255)]
-      [StringLength(255)]
-      [System.ComponentModel.Description("Desc")]
-      public string ItemDescription { get; set; }
+      [Required]
+      public int CourseId { get; set; }
 
-      public decimal? Price { get; set; }
+      /// <summary>
+      /// Required
+      /// </summary>
+      [Required]
+      public int StudentId { get; set; }
 
-      public decimal? Quantity { get; set; }
-
-      public decimal? Total { get; set; }
+      public int? Grade { get; set; }
 
       /*************************************************************************
        * Navigation properties
