@@ -51,7 +51,7 @@ namespace Ex6_Course
       /// <param name="studentid"></param>
       /// <param name="_course0"></param>
       /// <param name="_student1"></param>
-      public Enrollment(int courseid, int studentid, global::Ex6_Course.Course _course0, global::Ex6_Course.Student _student1)
+      public Enrollment(long courseid, long studentid, global::Ex6_Course.Course _course0, global::Ex6_Course.Student _student1)
       {
          this.CourseId = courseid;
 
@@ -73,7 +73,7 @@ namespace Ex6_Course
       /// <param name="studentid"></param>
       /// <param name="_course0"></param>
       /// <param name="_student1"></param>
-      public static Enrollment Create(int courseid, int studentid, global::Ex6_Course.Course _course0, global::Ex6_Course.Student _student1)
+      public static Enrollment Create(long courseid, long studentid, global::Ex6_Course.Course _course0, global::Ex6_Course.Student _student1)
       {
          return new Enrollment(courseid, studentid, _course0, _student1);
       }
@@ -93,13 +93,13 @@ namespace Ex6_Course
       /// Required
       /// </summary>
       [Required]
-      public int CourseId { get; set; }
+      public long CourseId { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public int StudentId { get; set; }
+      public long StudentId { get; set; }
 
       public int? Grade { get; set; }
 

@@ -47,6 +47,9 @@ namespace Ex6_Course
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lvCourses = new System.Windows.Forms.ListView();
             this.ColId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label10 = new System.Windows.Forms.Label();
             this.txtCourseID = new System.Windows.Forms.TextBox();
             this.btnUpdateCourse = new System.Windows.Forms.Button();
@@ -59,7 +62,7 @@ namespace Ex6_Course
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtGrade = new System.Windows.Forms.TextBox();
             this.LblCourse = new System.Windows.Forms.Label();
             this.lblStudent = new System.Windows.Forms.Label();
             this.btnDeleteEnrol = new System.Windows.Forms.Button();
@@ -69,9 +72,6 @@ namespace Ex6_Course
             this.lbEnrolments = new System.Windows.Forms.ListBox();
             this.label8 = new System.Windows.Forms.Label();
             this.btnSeedData = new System.Windows.Forms.Button();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -265,6 +265,21 @@ namespace Ex6_Course
             // 
             this.ColId.Text = "Id";
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Course";
+            this.columnHeader1.Width = 45;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Desc";
+            this.columnHeader2.Width = 100;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Credits";
+            this.columnHeader3.Width = 80;
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -353,7 +368,7 @@ namespace Ex6_Course
             // 
             this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.label9);
-            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.txtGrade);
             this.groupBox3.Controls.Add(this.LblCourse);
             this.groupBox3.Controls.Add(this.lblStudent);
             this.groupBox3.Controls.Add(this.btnDeleteEnrol);
@@ -388,12 +403,12 @@ namespace Ex6_Course
             this.label9.TabIndex = 10;
             this.label9.Text = "Grade";
             // 
-            // textBox1
+            // txtGrade
             // 
-            this.textBox1.Location = new System.Drawing.Point(200, 250);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(150, 26);
-            this.textBox1.TabIndex = 9;
+            this.txtGrade.Location = new System.Drawing.Point(200, 250);
+            this.txtGrade.Name = "txtGrade";
+            this.txtGrade.Size = new System.Drawing.Size(150, 26);
+            this.txtGrade.TabIndex = 9;
             // 
             // LblCourse
             // 
@@ -482,21 +497,6 @@ namespace Ex6_Course
             this.btnSeedData.UseVisualStyleBackColor = true;
             this.btnSeedData.Click += new System.EventHandler(this.btnSeedData_Click);
             // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Label";
-            this.columnHeader1.Width = 45;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Desc";
-            this.columnHeader2.Width = 100;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Credits";
-            this.columnHeader3.Width = 80;
-            // 
             // FrmCourseManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -556,7 +556,7 @@ namespace Ex6_Course
       private System.Windows.Forms.Label label8;
       private System.Windows.Forms.Button button1;
       private System.Windows.Forms.Label label9;
-      private System.Windows.Forms.TextBox textBox1;
+      private System.Windows.Forms.TextBox txtGrade;
       private System.Windows.Forms.Label label10;
       private System.Windows.Forms.TextBox txtCourseID;
       private System.Windows.Forms.Button btnSeedData;

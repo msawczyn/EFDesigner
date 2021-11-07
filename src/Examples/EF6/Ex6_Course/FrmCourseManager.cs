@@ -48,6 +48,7 @@ namespace Ex6_Course
 
       }
 
+      #region Student-CRUD
       void DatabaseLoad_Students()
       {
 
@@ -64,34 +65,12 @@ namespace Ex6_Course
                txtDebug.Text += String.Format("Loaded: {0} {1} {2} ", p.StudentId, p.FirstName, p.LastName) + "\r\n";
               
                string[] row = { p.StudentId.ToString(), p.FirstName, p.LastName };
-               var listViewItem = new ListViewItem(row);
+               ListViewItem listViewItem = new ListViewItem(row);
                lvStudents.Items.Add(listViewItem); 
             }
          }
       }
 
-      void DatabaseLoad_Courses()
-      {
-
-         lvCourses.Items.Clear();
-
-         using (CourseManager db = new CourseManager())
-         {
-            db.Database.Log = Logger.Log;
-
-            DbSet<Course> courses = db.Courses;
-
-            foreach (Course c in courses)
-            {
-               txtDebug.Text += String.Format("Course Loaded: {0} {1} {2} {3} ", c.CourseId, c.CourseLabel, c.Title, c.Credits) + "\r\n";
-
-               //Note: Could do tuple
-               string[] row = { c.CourseId.ToString(), c.CourseLabel, c.Title, c.Credits.ToString()};
-               var listViewItem = new ListViewItem(row);
-               lvCourses.Items.Add(listViewItem);
-            }
-         }
-      }
       private void btnNewStudent_Click(object sender, EventArgs e)
       {
 
@@ -136,13 +115,21 @@ namespace Ex6_Course
       private void btnDeleteStudent_Click(object sender, EventArgs e)
       {
          //Get StudentId from Listview
-         Int64 StudentId = 1;
+         if (lvStudents.SelectedItems.Count == 0)
+         {
+            return;
+         }
+
+         int selectedIndex = lvStudents.SelectedIndices[0];
+         ListViewItem lvItem = lvStudents.Items[selectedIndex];
+         string sPk = lvItem.SubItems[0].Text;
+         long pk = Convert.ToInt64(sPk);
 
          using (CourseManager db = new CourseManager())
          {
             db.Database.Log = Logger.Log;
             // Get student to delete
-            Student StudentToDelete = db.Students.First(s => s.StudentId == StudentId);
+            Student StudentToDelete = db.Students.First(s => s.StudentId == pk);
 
             if (StudentToDelete != null)
             {
@@ -151,6 +138,7 @@ namespace Ex6_Course
                db.SaveChanges();
             }
          }
+         txtFirstname.Text = txtLastname.Text = "";
          DatabaseLoad_Students();
       }
 
@@ -183,24 +171,223 @@ namespace Ex6_Course
          DatabaseLoad_Students();
 
       }
+      #endregion
+
+      #region Courses-CRUD
+      void DatabaseLoad_Courses()
+      {
+
+         lvCourses.Items.Clear();
+
+         using (CourseManager db = new CourseManager())
+         {
+            db.Database.Log = Logger.Log;
+
+            DbSet<Course> courses = db.Courses;
+
+            foreach (Course c in courses)
+            {
+               txtDebug.Text += String.Format("Course Loaded: {0} {1} {2} {3} ", c.CourseId, c.CourseLabel, c.Title, c.Credits) + "\r\n";
+
+               //Note: Could do tuple
+               string[] row = { c.CourseId.ToString(), c.CourseLabel, c.Title, c.Credits.ToString() };
+               ListViewItem listViewItem = new ListViewItem(row);
+               lvCourses.Items.Add(listViewItem);
+            }
+         }
+      }
 
       private void btnNewCourse_Click(object sender, EventArgs e)
       {
+
+         txtDebug.Text = "btnNewCourse_Click()\r\n";
+
+         using (CourseManager db = new CourseManager())
+         {
+            db.Database.Log = Logger.Log;
+
+            Course course = db.Courses.Create();
+
+            course.CourseLabel = txtCourseID.Text;
+            course.Title = txtTitle.Text;
+            if(txtCredits.Text!="")
+               course.Credits = int.Parse(txtCredits.Text);
+
+            db.Courses.Add(course);
+
+            // This Exception handler helps to describe what went wrong with the EF database save.
+            // It decodes why the data did not comply with defined database field structure. e.g too long or wrong type.
+            try
+            {
+               db.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+               Exception raise = dbEx;
+               foreach (DbEntityValidationResult validationErrors in dbEx.EntityValidationErrors)
+               {
+                  foreach (DbValidationError validationError in validationErrors.ValidationErrors)
+                  {
+                     string message = string.Format("{0}:{1}",
+                         validationErrors.Entry.Entity.ToString(),
+                         validationError.ErrorMessage);
+                     // raise a new exception nesting the current instance as InnerException  
+                     raise = new InvalidOperationException(message, raise);
+                  }
+               }
+               throw raise;
+            }
+         }
+         DatabaseLoad_Students();
          DatabaseLoad_Courses();
       }
 
       private void btnDeletCourse_Click(object sender, EventArgs e)
       {
+         //Get PrimaryKey from Listview
+         if (lvCourses.SelectedItems.Count == 0)
+         {
+            return;
+         }
 
+         int selectedIndex = lvCourses.SelectedIndices[0];
+         ListViewItem lvItem = lvCourses.Items[selectedIndex];
+         string sPk = lvItem.SubItems[0].Text;
+         long pk = Convert.ToInt64(sPk);
+
+         using (CourseManager db = new CourseManager())
+         {
+            db.Database.Log = Logger.Log;
+            // Get course to delete
+            Course CourseToDelete = db.Courses.First(c => c.CourseId == pk);
+
+            if (CourseToDelete != null)
+            {
+               // Delete 
+               db.Courses.Remove(CourseToDelete);
+               db.SaveChanges();
+            }
+         }
+
+         txtCourseID.Text = txtTitle.Text = txtCredits.Text = "";
+         
          DatabaseLoad_Courses();
       }
 
       private void btnUpdateCourse_Click(object sender, EventArgs e)
       {
+         //Get PrimaryKey from Listview
+         if (lvCourses.SelectedItems.Count == 0)
+         {
+            return;
+         }
 
+         int selectedIndex = lvCourses.SelectedIndices[0];
+         ListViewItem lvItem = lvCourses.Items[selectedIndex];
+         string sPk = lvItem.SubItems[0].Text;
+         long pk = Convert.ToInt64(sPk);
+
+         using (CourseManager db = new CourseManager())
+         {
+            db.Database.Log = Logger.Log;
+            // Get course to delete
+            Course CourseToUpdate = db.Courses.First(c => c.CourseId == pk);
+
+            if (CourseToUpdate != null)
+            {
+               CourseToUpdate.CourseLabel = txtCourseID.Text;
+               CourseToUpdate.Title = txtTitle.Text;
+               if (txtCredits.Text != "")
+                  CourseToUpdate.Credits = int.Parse(txtCredits.Text);
+
+                  db.SaveChanges();
+            }
+         }
          DatabaseLoad_Courses();
       }
 
+      #endregion
+
+      #region Courses-CRUD
+      private void btnNewEnrol_Click(object sender, EventArgs e)
+      {
+         txtDebug.Text = "btnNewEnrol_Click()\r\n";
+
+         //Get CourseId from Listview
+         if (lvCourses.SelectedItems.Count == 0)
+         {
+            return;
+         }
+
+         int selectedIndex = lvCourses.SelectedIndices[0];
+         ListViewItem lvItem = lvCourses.Items[selectedIndex];
+         string sPk = lvItem.SubItems[0].Text;
+         long CoursePk = Convert.ToInt64(sPk);
+
+         //Get StudentId from Listview
+         if (lvStudents.SelectedItems.Count == 0)
+         {
+            return;
+         }
+
+         selectedIndex = lvStudents.SelectedIndices[0];
+         lvItem = lvStudents.Items[selectedIndex];
+         sPk = lvItem.SubItems[0].Text;
+         long StudentPk = Convert.ToInt64(sPk);
+
+         using (CourseManager db = new CourseManager())
+         {
+            db.Database.Log = Logger.Log;
+
+            Enrollment enroll = db.Enrollments.Create();
+ 
+            if (txtGrade.Text !="")
+               enroll.Grade = Convert.ToInt32(txtGrade.Text);
+
+
+            //ToDo : How do you add enrollments?
+
+            // in 'CourseManager.Enrollments' participate in the 'Course_Enrollments' relationship.
+            // 0 related 'Course_Enrollments_Source' were found. 1 'Course_Enrollments_Source' is expected.'
+
+            Course CourseToLink = db.Courses.First(c => c.CourseId == CoursePk);
+            Student StudentToLink = db.Students.First(s => s.StudentId == StudentPk);
+
+            StudentToLink.Enrollments.Add(enroll);
+
+
+            db.Enrollments.Add(enroll);
+
+            // This Exception handler helps to describe what went wrong with the EF database save.
+            // It decodes why the data did not comply with defined database field structure. e.g too long or wrong type.
+            try
+            {
+               db.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+               Exception raise = dbEx;
+               foreach (DbEntityValidationResult validationErrors in dbEx.EntityValidationErrors)
+               {
+                  foreach (DbValidationError validationError in validationErrors.ValidationErrors)
+                  {
+                     string message = string.Format("{0}:{1}",
+                         validationErrors.Entry.Entity.ToString(),
+                         validationError.ErrorMessage);
+                     // raise a new exception nesting the current instance as InnerException  
+                     raise = new InvalidOperationException(message, raise);
+                  }
+               }
+               throw raise;
+            }
+         }
+         DatabaseLoad_Students();
+
+
+      }
+
+
+      #endregion
       #region GUIActions
 
       private void LbCourses_SelectedIndexChanged(object sender, EventArgs e)
@@ -228,7 +415,7 @@ namespace Ex6_Course
       {
          using (CourseManager db = new CourseManager())
          {
-            var students = new List<Student>
+            List<Student> students = new List<Student>
             {
             new Student{FirstName="Carson",LastName="Alexander" },//,EnrollmentDate=DateTime.Parse("2005-09-01")},
             new Student{FirstName="Meredith",LastName="Alonso"},//EnrollmentDate=DateTime.Parse("2002-09-01")},
@@ -246,7 +433,7 @@ namespace Ex6_Course
             //Have to use create?  Dont know why?
             foreach (Student s in students)
             {
-               var stu = db.Students.Create();
+               Student stu = db.Students.Create();
                stu.FirstName = s.FirstName;
                stu.LastName = s.LastName;
 
@@ -274,7 +461,7 @@ namespace Ex6_Course
             //Have to use create?  Dont know why?
             foreach (Course c in courses)
             {
-               var course = db.Courses.Create();
+               Course course = db.Courses.Create();
                course.CourseLabel = c.CourseLabel;
                course.Title = c.Title;
                course.Credits = c.Credits;
@@ -339,9 +526,6 @@ namespace Ex6_Course
          LblCourse.Text = sPk + ":" + txtCourseID.Text + " " + txtTitle.Text;
       }
 
-      private void btnNewEnrol_Click(object sender, EventArgs e)
-      {
-
-      }
+     
    }
 }
