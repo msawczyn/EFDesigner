@@ -36,7 +36,7 @@ namespace Ex4_ModelInvoice
             //Trying to do this..as an example..
             //https://github.com/andern7/EFModelFirst/blob/master/Program.cs
 
-            /
+            
             invHeader.InvoiceDetails.Add(invDetails);
             db.InvoiceHeaders.Add(invHeader);
             db.SaveChanges();

@@ -61,6 +61,9 @@ namespace Ex1_Person
 
             context.People.Add(person);
 
+
+            // This Exception handler helps to describe what went wrong with the EF database save.
+            // It decodes why the data did not comply with defined database field structure. e.g too long or wrong type.
             try
             {
                context.SaveChanges();
