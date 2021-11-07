@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="3.0.7.2" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="CourseManager" namespace="Ex6_Course" connectionString="Data Source=(localdb)\dbinstance;Initial Catalog=EFLocalDb;Integrated Security=True" automaticMigrationsEnabled="true" contextOutputDirectory="Generated" entityFrameworkVersion="EF6" inheritanceStrategy="TablePerType" showCascadeDeletes="false" databaseType="None" warnOnMissingDocumentation="false" exposeForeignKeys="false" generateDbContextFactory="false" showInterfaceIndicators="false" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+  <comments>
+    <comment Id="62cd932a-7cee-4f37-ae1e-5de3a45c7e43" text="To Do&#xD;&#xA;&#xD;&#xA;FrmCourseManager: Line 348&#xD;&#xA;&#xD;&#xA;I dont know how to create an enrolment?" />
+  </comments>
   <classes>
     <modelRootHasClasses Id="4ed45b80-b307-4c1e-9a2b-13240231ec1d">
       <modelClass Id="7b5671e3-a912-43e5-84a8-072243eb6804" tableName="Courses" databaseSchema="dbo" namespace="Ex6_Course" dbSetName="Courses" name="Course" isOutputDirectoryTracking="false" autoPropertyDefault="true" excludeFromMigrations="false">
