@@ -50,6 +50,7 @@ namespace Ex4_ModelInvoice
             InvoiceDetails invDetails = db.InvoiceDetails.Create();
 
             invHeader.Total = 150M;
+           
             invDetails.ItemDescription = "New Item";
             invDetails.Price = 75M;
             invDetails.Quantity = 2;

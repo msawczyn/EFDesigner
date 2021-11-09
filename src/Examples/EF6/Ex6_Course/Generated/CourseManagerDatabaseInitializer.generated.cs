@@ -18,7 +18,7 @@ using System.Data.Entity;
 namespace Ex6_Course
 {
    /// <inheritdoc/>
-   public partial class CourseManagerDatabaseInitializer : MigrateDatabaseToLatestVersion<Ex6_Course.CourseManager, Migrations.CourseManagerDbMigrationConfiguration>
+   public partial class CourseManagerDatabaseInitializer : DropCreateDatabaseIfModelChanges<Ex6_Course.CourseManager>
    {
    }
 }

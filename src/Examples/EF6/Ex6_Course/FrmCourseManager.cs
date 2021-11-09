@@ -12,8 +12,8 @@ using System.Windows.Forms;
 
 namespace Ex6_Course
 {
-    public partial class FrmCourseManager : Form
-    {
+   public partial class FrmCourseManager : Form
+   {
       public FrmCourseManager()
       {
          InitializeComponent();
@@ -32,7 +32,7 @@ namespace Ex6_Course
       private void FrmCourseManager_Load(object sender, EventArgs e)
       {
          using (CourseManager db = new CourseManager())
-         {       
+         {
             db.Database.Log = Logger.Log;
 
             db.Database.Delete();
@@ -46,9 +46,34 @@ namespace Ex6_Course
 
          SeedData();
 
+         DatabaseLoad_Enrolments();
+
+         DatabaseLoad_Students();
+         DatabaseLoad_Courses();
+        
       }
 
       #region Student-CRUD
+
+      private void lvStudents_SelectedIndexChanged(object sender, EventArgs e)
+      {
+
+         if (lvStudents.SelectedItems.Count == 0)
+         {
+            lblStudent.Text = "";
+            return;
+         }
+
+         int selectedIndex = lvStudents.SelectedIndices[0];
+
+         ListViewItem lvItem = lvStudents.Items[selectedIndex];
+
+         string sPk = lvItem.SubItems[0].Text;
+         txtFirstname.Text = lvItem.SubItems[1].Text;
+         txtLastname.Text = lvItem.SubItems[2].Text;
+
+         lblStudent.Text = sPk + ":" + txtFirstname.Text + " " + txtLastname.Text;
+      }
       void DatabaseLoad_Students()
       {
 
@@ -63,10 +88,10 @@ namespace Ex6_Course
             foreach (Student p in people)
             {
                txtDebug.Text += String.Format("Loaded: {0} {1} {2} ", p.StudentId, p.FirstName, p.LastName) + "\r\n";
-              
+
                string[] row = { p.StudentId.ToString(), p.FirstName, p.LastName };
                ListViewItem listViewItem = new ListViewItem(row);
-               lvStudents.Items.Add(listViewItem); 
+               lvStudents.Items.Add(listViewItem);
             }
          }
       }
@@ -81,7 +106,7 @@ namespace Ex6_Course
             db.Database.Log = Logger.Log;
 
             Student student = db.Students.Create();
-          
+
             student.FirstName = txtFirstname.Text;
             student.LastName = txtLastname.Text;
 
@@ -158,13 +183,13 @@ namespace Ex6_Course
          using (CourseManager db = new CourseManager())
          {
             db.Database.Log = Logger.Log;
-            
+
             Student student = db.Students.SingleOrDefault(b => b.StudentId == pk);
             if (student != null)
             {
                student.FirstName = txtFirstname.Text;
                student.LastName = txtLastname.Text;
-           
+
                db.SaveChanges();
             }
          }
@@ -174,6 +199,28 @@ namespace Ex6_Course
       #endregion
 
       #region Courses-CRUD
+
+      private void lvCourses_SelectedIndexChanged(object sender, EventArgs e)
+      {
+
+         if (lvCourses.SelectedItems.Count == 0)
+         {
+            LblCourse.Text = "";
+            return;
+         }
+
+         int selectedIndex = lvCourses.SelectedIndices[0];
+
+         ListViewItem lvItem = lvCourses.Items[selectedIndex];
+
+         string sPk = lvItem.SubItems[0].Text;
+         txtCourseID.Text = lvItem.SubItems[1].Text;
+         txtTitle.Text = lvItem.SubItems[2].Text;
+         txtCredits.Text = lvItem.SubItems[3].Text;
+
+         LblCourse.Text = sPk + ":" + txtCourseID.Text + " " + txtTitle.Text;
+      }
+
       void DatabaseLoad_Courses()
       {
 
@@ -185,6 +232,8 @@ namespace Ex6_Course
 
             DbSet<Course> courses = db.Courses;
 
+            int count = courses.Count();
+
             foreach (Course c in courses)
             {
                txtDebug.Text += String.Format("Course Loaded: {0} {1} {2} {3} ", c.CourseId, c.CourseLabel, c.Title, c.Credits) + "\r\n";
@@ -194,7 +243,9 @@ namespace Ex6_Course
                ListViewItem listViewItem = new ListViewItem(row);
                lvCourses.Items.Add(listViewItem);
             }
+            lvCourses.Refresh();
          }
+
       }
 
       private void btnNewCourse_Click(object sender, EventArgs e)
@@ -210,7 +261,7 @@ namespace Ex6_Course
 
             course.CourseLabel = txtCourseID.Text;
             course.Title = txtTitle.Text;
-            if(txtCredits.Text!="")
+            if (txtCredits.Text != "")
                course.Credits = int.Parse(txtCredits.Text);
 
             db.Courses.Add(course);
@@ -238,7 +289,7 @@ namespace Ex6_Course
                throw raise;
             }
          }
-         DatabaseLoad_Students();
+
          DatabaseLoad_Courses();
       }
 
@@ -270,7 +321,7 @@ namespace Ex6_Course
          }
 
          txtCourseID.Text = txtTitle.Text = txtCredits.Text = "";
-         
+
          DatabaseLoad_Courses();
       }
 
@@ -300,7 +351,7 @@ namespace Ex6_Course
                if (txtCredits.Text != "")
                   CourseToUpdate.Credits = int.Parse(txtCredits.Text);
 
-                  db.SaveChanges();
+               db.SaveChanges();
             }
          }
          DatabaseLoad_Courses();
@@ -308,7 +359,7 @@ namespace Ex6_Course
 
       #endregion
 
-      #region Courses-CRUD
+      #region Enrollment-CRUD
       private void btnNewEnrol_Click(object sender, EventArgs e)
       {
          txtDebug.Text = "btnNewEnrol_Click()\r\n";
@@ -340,10 +391,10 @@ namespace Ex6_Course
             db.Database.Log = Logger.Log;
 
             Enrollment enroll = db.Enrollments.Create();
- 
-            if (txtGrade.Text !="")
+
+            if (txtGrade.Text != "")
                enroll.Grade = Convert.ToInt32(txtGrade.Text);
-            
+
             Course CourseToLink = db.Courses.First(c => c.CourseId == CoursePk);
             Student StudentToLink = db.Students.First(s => s.StudentId == StudentPk);
 
@@ -375,13 +426,56 @@ namespace Ex6_Course
                throw raise;
             }
          }
-         DatabaseLoad_Students();
+
+         DatabaseLoad_Enrolments();
 
 
       }
 
+      void DatabaseLoad_Enrolments()
+      {
+         lvEnrolments.Items.Clear();
+
+         using (CourseManager db = new CourseManager())
+         {
+            db.Database.Log = Logger.Log;
+
+            DbSet<Enrollment> enrolments = db.Enrollments;
+
+            foreach (Enrollment e in enrolments)
+            {
+
+
+               //To DO ??
+
+               /*
+               //To Do - look u p
+               EF Message: SELECT 
+                1 AS [C1], 
+                [Extent1].[EnrollmentId] AS [EnrollmentId], 
+                [Extent1].[Grade] AS [Grade], 
+                [Extent1].[CourseEnrollmentsCourseId] AS [CourseEnrollmentsCourseId], 
+                [Extent1].[StudentEnrollmentsStudentId] AS [StudentEnrollmentsStudentId]
+                FROM [dbo].[Enrollments] AS [Extent1] 
+               */
+
+               // Student student = db.Students.First(s => s.StudentId == e.StudentEnrollmentsStudentId);
+               // Course course = db.Courses.First(c => c.CourseId == e.CourseEnrollmentsCourseId);
+
+               txtDebug.Text += String.Format("Loaded: {0} {1} {2} {3} ", e.EnrollmentId, "student?", "course?", "Grade?");//;   e.EnrollmentId, e.EnrollmentId);//  + "\r\n";
+
+               string[] row = { e.EnrollmentId.ToString(), "student?", "course?", "grade?" };
+
+               ListViewItem listViewItem = new ListViewItem(row);
+               lvEnrolments.Items.Add(listViewItem);
+
+            }
+         }
+      }
 
       #endregion
+
+
       #region GUIActions
 
       private void LbCourses_SelectedIndexChanged(object sender, EventArgs e)
@@ -474,52 +568,10 @@ namespace Ex6_Course
 
       private void btnSeedData_Click(object sender, EventArgs e)
       {
-      
+
          SeedData();
-         
+
       }
 
-      private void lvStudents_SelectedIndexChanged(object sender, EventArgs e)
-      {
-
-         if (lvStudents.SelectedItems.Count == 0)
-         {
-            lblStudent.Text = "";
-            return;
-         }
-      
-         int selectedIndex = lvStudents.SelectedIndices[0];
-
-         ListViewItem lvItem = lvStudents.Items[selectedIndex];
-
-         string sPk = lvItem.SubItems[0].Text;
-         txtFirstname.Text = lvItem.SubItems[1].Text; 
-         txtLastname.Text = lvItem.SubItems[2].Text;
-
-         lblStudent.Text = sPk + ":" + txtFirstname.Text+ " " + txtLastname.Text;
-      }
-
-      private void lvCourses_SelectedIndexChanged(object sender, EventArgs e)
-      {
-
-         if (lvCourses.SelectedItems.Count == 0)
-         {
-            LblCourse.Text = "";
-            return;
-         }
-
-         int selectedIndex = lvCourses.SelectedIndices[0];
-
-         ListViewItem lvItem = lvCourses.Items[selectedIndex];
-
-         string sPk = lvItem.SubItems[0].Text;
-         txtCourseID.Text = lvItem.SubItems[1].Text;
-         txtTitle.Text = lvItem.SubItems[2].Text;
-         txtCredits.Text = lvItem.SubItems[3].Text;
-         
-         LblCourse.Text = sPk + ":" + txtCourseID.Text + " " + txtTitle.Text;
-      }
-
-     
    }
 }

@@ -60,16 +60,23 @@ namespace Ex3_ModelManytoMany
             };
 
            
-            Book.Create(AuthorIA).Title = "The Complete Robot";
+            Book book = Book.Create(AuthorIA);
+            book.Title = "The Complete Robot";
+            book.ISBN = "65445635";
 
-            //How do you do for more fields? Like ISBN  TO DO?
-            // AuthorIA.Books..ISBN = "9780008277819";
 
-            Book.Create(AuthorIA).Title = "Youth";
+            Book book1 = Book.Create(AuthorIA);
+            book.Title = "Youth";
+            book.ISBN = "43252345243";
+
+            Book book2 = Book.Create(AuthorMT);
+            book2.Title = "The Adventures of Huckleberry Finn";
+            book2.ISBN = "6436546345";
+
+            Book book3 = Book.Create(AuthorMT);
+            book3.Title = "The Prince and the Pauper";
+            book3.ISBN = "34523452";
             
-            Book.Create(AuthorMT).Title = "The Adventures of Huckleberry Finn";
-            Book.Create(AuthorMT).Title = "The Prince and the Pauper ";
-
 
             context.Authors.Add(AuthorMT);
             context.Authors.Add(AuthorIA);
@@ -101,7 +108,7 @@ namespace Ex3_ModelManytoMany
             foreach (var x in items)
             {
                txtDebug.Text += "---------\r\n";
-               foreach (Book book in x.Books)
+               foreach (Book books in x.Books)
                {
                   txtDebug.Text += String.Format("Auth Id {0} - Author: {1} {2} & Book Title:{3} - {4}", x.AuthorId, x.Firstname, x.Lastname, book.Title, book.ISBN ) + "\r\n";
                }

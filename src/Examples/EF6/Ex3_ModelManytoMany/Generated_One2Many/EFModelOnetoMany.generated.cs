@@ -122,6 +122,12 @@ namespace Ex3_ModelManytoMany
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<global::Ex3_ModelManytoMany.Author>()
+                     .Property(t => t.Firstname)
+                     .HasMaxLength(125);
+         modelBuilder.Entity<global::Ex3_ModelManytoMany.Author>()
+                     .Property(t => t.Lastname)
+                     .HasMaxLength(125);
+         modelBuilder.Entity<global::Ex3_ModelManytoMany.Author>()
                      .HasMany(x => x.Books)
                      .WithRequired()
                      .Map(x => x.MapKey("AuthorBooksAuthorId"));
@@ -133,6 +139,12 @@ namespace Ex3_ModelManytoMany
                      .Property(t => t.BookId)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Ex3_ModelManytoMany.Book>()
+                     .Property(t => t.Title)
+                     .HasMaxLength(255);
+         modelBuilder.Entity<global::Ex3_ModelManytoMany.Book>()
+                     .Property(t => t.ISBN)
+                     .HasMaxLength(75);
 
          OnModelCreatedImpl(modelBuilder);
       }

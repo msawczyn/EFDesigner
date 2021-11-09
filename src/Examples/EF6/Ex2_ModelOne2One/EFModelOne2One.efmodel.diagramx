@@ -21,7 +21,7 @@
         <elementListCompartment Id="181f9112-b4b4-4b3d-9e99-e0808094ccd3" absoluteBounds="5.9108333333333327, 5.6307812499999992, 1.4700000000000002, 0.44169108072916652" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <bidirectionalConnector Id="d479d9fc-38ce-44d9-8de4-4a9192b7ca92" edgePoints="[(3.80259530606245 : 3.62351976152866); (5.89583333333333 : 3.62351976152866)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="113, 111, 110" dashStyle="Solid">
+    <bidirectionalConnector Id="d479d9fc-38ce-44d9-8de4-4a9192b7ca92" edgePoints="[(3.80259530606245 : 3.62351976152866); (5.89583333333333 : 3.62351976152866)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="113, 111, 110" dashStyle="Solid">
       <bidirectionalAssociationMoniker Id="1434f31d-a63c-4cc7-9dda-052b569eabaa" />
       <relativeChildShapes />
       <nodes>
@@ -31,6 +31,9 @@
     </bidirectionalConnector>
     <commentBoxShape Id="3aa6cf7b-8667-4a77-bf78-b46b33d0f9c1" absoluteBounds="7.6458334922790545, 2.3402777512868238, 3.6805555555555536, 1.2999999999999989" fillColor="255, 255, 204" outlineColor="204, 204, 102" textColor="Black" outlineDashStyle="Solid" outlineThickness="0.01">
       <commentMoniker Id="a6a7785a-4873-4d5f-9b91-d56ef5f8586c" />
+    </commentBoxShape>
+    <commentBoxShape Id="79ae7547-1d7e-4e4a-a361-54cd20865686" absoluteBounds="4.34375, 1.4270833333333333, 1.5, 0.3" fillColor="Lime" outlineColor="204, 204, 102" textColor="Black" outlineDashStyle="Solid" outlineThickness="0.01">
+      <commentMoniker Id="d857dd80-ee7e-46eb-b5c8-7e24ee78f550" />
     </commentBoxShape>
   </nestedChildShapes>
 </eFModelDiagram>

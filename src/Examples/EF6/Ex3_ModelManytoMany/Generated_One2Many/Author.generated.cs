@@ -51,8 +51,18 @@ namespace Ex3_ModelManytoMany
       [System.ComponentModel.Description("Unique identifier")]
       public long AuthorId { get; set; }
 
+      /// <summary>
+      /// Max length = 125
+      /// </summary>
+      [MaxLength(125)]
+      [StringLength(125)]
       public string Firstname { get; set; }
 
+      /// <summary>
+      /// Max length = 125
+      /// </summary>
+      [MaxLength(125)]
+      [StringLength(125)]
       public string Lastname { get; set; }
 
       /*************************************************************************

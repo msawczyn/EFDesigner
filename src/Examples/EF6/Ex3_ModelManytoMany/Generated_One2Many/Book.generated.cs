@@ -78,8 +78,18 @@ namespace Ex3_ModelManytoMany
       [System.ComponentModel.Description("Unique identifier")]
       public long BookId { get; set; }
 
+      /// <summary>
+      /// Max length = 255
+      /// </summary>
+      [MaxLength(255)]
+      [StringLength(255)]
       public string Title { get; set; }
 
+      /// <summary>
+      /// Max length = 75
+      /// </summary>
+      [MaxLength(75)]
+      [StringLength(75)]
       public string ISBN { get; set; }
 
       /*************************************************************************
