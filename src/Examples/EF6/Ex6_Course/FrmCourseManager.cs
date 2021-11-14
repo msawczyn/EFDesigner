@@ -431,6 +431,45 @@ namespace Ex6_Course
 
 
       }
+      private void btnEnrolmentUpdate_Click(object sender, EventArgs e)
+      {
+         txtDebug.Text = "btnEnrolmentUpdate_Click()\r\n";
+
+         //Get CourseId from Listview
+         if (lvEnrolments.SelectedItems.Count == 0)
+         {
+            return;
+         }
+
+         int selectedIndex = lvEnrolments.SelectedIndices[0];
+         ListViewItem lvItem = lvEnrolments.Items[selectedIndex];
+         string sPk = lvItem.SubItems[0].Text;
+         long EnrolPk = Convert.ToInt64(sPk);
+
+         using (CourseManager db = new CourseManager())
+         {
+            db.Database.Log = Logger.Log;
+            Enrollment EnrolToUpdate = db.Enrollments.First(en => en.EnrollmentId == EnrolPk);
+
+            int grade = 0;
+            var isNumeric = int.TryParse("123", out grade);
+
+            if (isNumeric)
+               EnrolToUpdate.Grade = int.Parse(txtGrade.Text);
+
+
+            //How do you get linked tables??
+
+            //Examples of getting linked table
+            //Student StudentInEnrolment = db.Enrollments.First(en => en.EnrollmentId == EnrolToUpdate.);  //No student PK
+
+           // Student EnrolmentInStudent = db.Students.First(listEnrolments => listEnrolments.Enrollments.First(en => en.EnrollmentId == EnrolPk)); 
+
+
+
+         }
+
+      }
 
       void DatabaseLoad_Enrolments()
       {
@@ -573,5 +612,6 @@ namespace Ex6_Course
 
       }
 
+    
    }
 }
