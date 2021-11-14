@@ -30,8 +30,6 @@ namespace EF6Parser
 
       public Parser(Assembly assembly, string dbContextTypeName = null)
       {
-         Debugger.Break();
-
          this.assembly = assembly;
          Type contextType;
 
