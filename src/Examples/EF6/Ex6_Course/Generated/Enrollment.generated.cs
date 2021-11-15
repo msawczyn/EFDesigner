@@ -47,15 +47,17 @@ namespace Ex6_Course
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_course0"></param>
-      /// <param name="_student1"></param>
-      public Enrollment(global::Ex6_Course.Course _course0, global::Ex6_Course.Student _student1)
+      /// <param name="course"></param>
+      /// <param name="student"></param>
+      public Enrollment(global::Ex6_Course.Course course, global::Ex6_Course.Student student)
       {
-         if (_course0 == null) throw new ArgumentNullException(nameof(_course0));
-         _course0.Enrollments.Add(this);
+         if (course == null) throw new ArgumentNullException(nameof(course));
+         this.Course = course;
+         course.Enrollments.Add(this);
 
-         if (_student1 == null) throw new ArgumentNullException(nameof(_student1));
-         _student1.Enrollments.Add(this);
+         if (student == null) throw new ArgumentNullException(nameof(student));
+         this.Student = student;
+         student.Enrollments.Add(this);
 
          Init();
       }
@@ -63,11 +65,11 @@ namespace Ex6_Course
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_course0"></param>
-      /// <param name="_student1"></param>
-      public static Enrollment Create(global::Ex6_Course.Course _course0, global::Ex6_Course.Student _student1)
+      /// <param name="course"></param>
+      /// <param name="student"></param>
+      public static Enrollment Create(global::Ex6_Course.Course course, global::Ex6_Course.Student student)
       {
-         return new Enrollment(_course0, _student1);
+         return new Enrollment(course, student);
       }
 
       /*************************************************************************
@@ -86,6 +88,16 @@ namespace Ex6_Course
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
+
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::Ex6_Course.Course Course { get; set; }
+
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::Ex6_Course.Student Student { get; set; }
 
    }
 }

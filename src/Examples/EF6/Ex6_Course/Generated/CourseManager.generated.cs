@@ -38,7 +38,7 @@ namespace Ex6_Course
       /// <summary>
       /// Default connection string
       /// </summary>
-      public static string ConnectionString { get; set; } = @"Data Source=(localdb)\dbinstance;Initial Catalog=EFLocalDb;Integrated Security=True";
+      public static string ConnectionString { get; set; } = @"Data Source=(localdb)\dbinstance;Initial Catalog=EFLocalDb;MultipleActiveResultSets=true;Integrated Security=True";
       /// <inheritdoc />
       public CourseManager() : base(ConnectionString)
       {
@@ -125,10 +125,6 @@ namespace Ex6_Course
          modelBuilder.Entity<global::Ex6_Course.Course>()
                      .Property(t => t.CourseLabel)
                      .HasMaxLength(25);
-         modelBuilder.Entity<global::Ex6_Course.Course>()
-                     .HasMany(x => x.Enrollments)
-                     .WithRequired()
-                     .Map(x => x.MapKey("CourseEnrollmentsCourseId"));
 
          modelBuilder.Entity<global::Ex6_Course.Enrollment>()
                      .ToTable("Enrollments")
@@ -137,6 +133,14 @@ namespace Ex6_Course
                      .Property(t => t.EnrollmentId)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Ex6_Course.Enrollment>()
+                     .HasRequired(x => x.Course)
+                     .WithMany(x => x.Enrollments)
+                     .Map(x => x.MapKey("CourseCourseId"));
+         modelBuilder.Entity<global::Ex6_Course.Enrollment>()
+                     .HasRequired(x => x.Student)
+                     .WithMany(x => x.Enrollments)
+                     .Map(x => x.MapKey("StudentStudentId"));
 
          modelBuilder.Entity<global::Ex6_Course.Student>()
                      .ToTable("Students")
@@ -145,10 +149,6 @@ namespace Ex6_Course
                      .Property(t => t.StudentId)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::Ex6_Course.Student>()
-                     .HasMany(x => x.Enrollments)
-                     .WithRequired()
-                     .Map(x => x.MapKey("StudentEnrollmentsStudentId"));
 
          OnModelCreatedImpl(modelBuilder);
       }

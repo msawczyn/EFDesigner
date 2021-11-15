@@ -430,7 +430,7 @@ namespace Ex6_Course
             this.btnEnrolmentUpdate.ForeColor = System.Drawing.Color.White;
             this.btnEnrolmentUpdate.Location = new System.Drawing.Point(382, 249);
             this.btnEnrolmentUpdate.Name = "btnEnrolmentUpdate";
-            this.btnEnrolmentUpdate.Size = new System.Drawing.Size(75, 29);
+            this.btnEnrolmentUpdate.Size = new System.Drawing.Size(103, 29);
             this.btnEnrolmentUpdate.TabIndex = 11;
             this.btnEnrolmentUpdate.Text = "Update";
             this.btnEnrolmentUpdate.UseVisualStyleBackColor = false;
@@ -480,6 +480,7 @@ namespace Ex6_Course
             this.btnDeleteEnrol.TabIndex = 6;
             this.btnDeleteEnrol.Text = "Delete";
             this.btnDeleteEnrol.UseVisualStyleBackColor = false;
+            this.btnDeleteEnrol.Click += new System.EventHandler(this.btnDeleteEnrol_Click);
             // 
             // btnNewEnrol
             // 
