@@ -1,6 +1,8 @@
-# Entity Framework Designer
+# Entity Framework Designer - VS2019 Version
 
 ## Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond.
+
+### This package is for VS2019. The VS2022 version is available in the [EFDesigner2022](https://github.com/msawczyn/EFDesigner2022) project
 
 Model and generate code for both Entity Framework v6.x and Entity Framework Core 2.x, 3.x and 5.
 
