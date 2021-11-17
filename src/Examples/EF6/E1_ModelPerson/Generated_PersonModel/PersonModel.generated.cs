@@ -36,7 +36,7 @@ namespace Ex1_Person
       /// <summary>
       /// Default connection string
       /// </summary>
-      public static string ConnectionString { get; set; } = @"Data Source=(localdb)\dbinstance;Initial Catalog=EFLocalDb;Integrated Security=True";
+      public static string ConnectionString { get; set; } = @"Data Source=(localdb)\mssqllocaldb;Initial Catalog=EFVisualExamples;Integrated Security=True";
       /// <inheritdoc />
       public PersonModel() : base(ConnectionString)
       {

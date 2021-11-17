@@ -27,7 +27,7 @@
     <commentBoxShape Id="a291a736-66b3-4327-8bf4-e3cb7df51fe1" absoluteBounds="2.951388782925076, 3.2083332273695206, 1.9097222222222223, 0.86249999999999938" fillColor="192, 255, 192" outlineColor="204, 204, 102" textColor="Black" outlineDashStyle="Solid" outlineThickness="0.01">
       <commentMoniker Id="1549ae3f-195c-493a-aa3d-d496f7a7084c" />
     </commentBoxShape>
-    <commentConnector Id="15200246-5d0d-4963-9b32-f92df90ee0c0" edgePoints="[(2.95138878292508 : 3.63958322736952); (2.52777777777778 : 3.63958322736952)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <commentConnector Id="15200246-5d0d-4963-9b32-f92df90ee0c0" edgePoints="[(2.95138878292508 : 3.63958322736952); (2.52777777777778 : 3.63958322736952)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <commentReferencesClassesMoniker Id="6d00c778-ed8d-401a-bab5-5af3cfa64d12" />
       <nodes>
         <commentBoxShapeMoniker Id="a291a736-66b3-4327-8bf4-e3cb7df51fe1" />

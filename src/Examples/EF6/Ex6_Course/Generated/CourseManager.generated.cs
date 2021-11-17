@@ -38,7 +38,7 @@ namespace Ex6_Course
       /// <summary>
       /// Default connection string
       /// </summary>
-      public static string ConnectionString { get; set; } = @"Data Source=(localdb)\dbinstance;Initial Catalog=EFLocalDb;MultipleActiveResultSets=true;Integrated Security=True";
+      public static string ConnectionString { get; set; } = @"Data Source=(localdb)\mssqllocaldb;Initial Catalog=EFVisualExamples;MultipleActiveResultSets=true;Integrated Security=True";
       /// <inheritdoc />
       public CourseManager() : base(ConnectionString)
       {
