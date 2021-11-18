@@ -27,77 +27,77 @@ namespace Ex4_ModelInvoice
         }
 
 
-        static void SetupLocalDb(string InstanceName = "mssqllocaldb", string DatabaseName = "EFVisualExamples") //This is a default instance name in local DB v13
-        {
-            //Step 1: Islocaldb installed?
-            if (!CreateLocalDBInstance(InstanceName))
+      static void SetupLocalDb(string InstanceName = "mssqllocaldb", string DatabaseName = "EFVisualExamples") //This is a default instance name in local DB v13
+      {
+         //Step 1: Islocaldb installed?
+         if (!CreateLocalDBInstance(InstanceName))
+         {
+
+            MessageBox.Show("CRITICAL ERROR: SqlLocalDb software is not installed!");
+
+            //Download SQL Server Express   - LocalDB
+            // https://www.sqlshack.com/install-microsoft-sql-server-express-localdb/
+            // https://www.microsoft.com/en-au/download/confirmation.aspx?id=101064
+            // Microsoft SQL Server Express LocalDB supports silent installation. A user should download SqlLocalDB.msi and run the Command Prompt window as an administrator. Then, they should paste the following command:
+            // msiexec /i SqlLocalDB.msi /qn IACCEPTSQLLOCALDBLICENSETERMS = YES
+            string url = @"https://www.microsoft.com/en-au/download/confirmation.aspx?id=101064";
+            Process.Start(url);
+
+            Application.Exit();
+         }
+
+         //Step2: Create Database
+
+         string connectionString = @"Data Source=(localdb)\" + InstanceName + $"; Integrated Security=True;";
+
+         if (!CheckDatabaseExists(connectionString, DatabaseName))
+         {
+            //This is fixed  -canot be changed
+            string UserPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile); 
+            
+
+            SqlConnection connection = new SqlConnection(connectionString);
+            using (connection)
             {
+               connection.Open();
 
-                MessageBox.Show("CRITICAL ERROR: SqlLocalDb software is not installed!");
-
-                //Download SQL Server Express   - LocalDB
-                // https://www.sqlshack.com/install-microsoft-sql-server-express-localdb/
-                // https://www.microsoft.com/en-au/download/confirmation.aspx?id=101064
-                // Microsoft SQL Server Express LocalDB supports silent installation. A user should download SqlLocalDB.msi and run the Command Prompt window as an administrator. Then, they should paste the following command:
-                // msiexec /i SqlLocalDB.msi /qn IACCEPTSQLLOCALDBLICENSETERMS = YES
-                string url = @"https://www.microsoft.com/en-au/download/confirmation.aspx?id=101064";
-                Process.Start(url);
-
-                Application.Exit();
-            }
-
-            //Step2: Create Database
-
-            string connectionString = @"Data Source=(localdb)\" + InstanceName + $"; Integrated Security=True;";
-
-            if (!CheckDatabaseExists(connectionString, DatabaseName))
-            {
-
-                string AppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\EFVisualExamples";
-                Directory.CreateDirectory(AppDataPath);
-
-                SqlConnection connection = new SqlConnection(connectionString);
-                using (connection)
-                {
-                    connection.Open();
-
-                    string sql = $@"
+               string sql = $@"
                             CREATE DATABASE
                                 {DatabaseName}
                             ON PRIMARY (
                                 NAME={DatabaseName}_data,
-                                FILENAME = '{AppDataPath}\{DatabaseName}.mdf'
+                                FILENAME = '{UserPath}\{DatabaseName}.mdf'
                             )
                             LOG ON (
                                 NAME={DatabaseName}_log,
-                                FILENAME = '{AppDataPath}\{DatabaseName}.ldf'
+                                FILENAME = '{UserPath}\{DatabaseName}.ldf'
                             )";
 
-                    SqlCommand command = new SqlCommand(sql, connection);
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"CRITICAL ERROR: Database cannot be created\r\n{ex.ToString()}\r\nDoes Db exists in another instance?\r\n(Note: You cannot duplicate names across instances- requires unique name)");
-                        //You can debug using commandline
-                        //>sqllocaldb info mssqllocaldb
+               SqlCommand command = new SqlCommand(sql, connection);
+               try
+               {
+                  command.ExecuteNonQuery();
+               }
+               catch (Exception ex)
+               {
+                  MessageBox.Show($"CRITICAL ERROR: Database cannot be created\r\n{ex.ToString()}\r\nDoes Db exists in another instance?\r\n(Note: You cannot duplicate names across instances- requires unique name)");
+                  //You can debug using commandline
+                  //>sqllocaldb info mssqllocaldb
 
-                        //https://docs.microsoft.com/en-us/sql/tools/sqllocaldb-utility?view=sql-server-ver15
+                  //https://docs.microsoft.com/en-us/sql/tools/sqllocaldb-utility?view=sql-server-ver15
 
-                        string url = @"https://docs.microsoft.com/en-us/sql/relational-databases/express-localdb-instance-apis/command-line-management-tool-sqllocaldb-exe?view=sql-server-ver15";
-                        Process.Start(url);
+                  string url = @"https://docs.microsoft.com/en-us/sql/relational-databases/express-localdb-instance-apis/command-line-management-tool-sqllocaldb-exe?view=sql-server-ver15";
+                  Process.Start(url);
 
-                        Application.Exit();
-                    }
+                  Application.Exit();
+               }
 
-                    MessageBox.Show($" A New empty Local Database has been created successfully!\r\n\r\nSQLLOCALDB:{InstanceName}\r\nDATABASE:{DatabaseName}");
-                }
+               MessageBox.Show($" A New empty Local Database has been created successfully!\r\n\r\nSQLLOCALDB:{InstanceName}\r\nDATABASE:{DatabaseName}");
             }
-        }
+         }
+      }
 
-        static bool CreateLocalDBInstance(string InstanceName)
+      static bool CreateLocalDBInstance(string InstanceName)
         {
             // Lists all instances
             // >sqllocaldb info

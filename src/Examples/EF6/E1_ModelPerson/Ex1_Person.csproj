@@ -106,7 +106,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="LocalDb-Scripts\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="PersonModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
