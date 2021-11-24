@@ -46,16 +46,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmEx5Store.cs">
+    <Compile Include="EFCRM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFCRM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEx6CRM.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmEx5Store.Designer.cs">
-      <DependentUpon>FrmEx5Store.cs</DependentUpon>
+    <Compile Include="FrmEx6CRM.Designer.cs">
+      <DependentUpon>FrmEx6CRM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Generated\Address.generated.cs" />
+    <Compile Include="Generated\Agent.generated.cs" />
+    <Compile Include="Generated\Audit.generated.cs" />
+    <Compile Include="Generated\EFCRM.generated.cs" />
+    <Compile Include="Generated\EFCRMDatabaseInitializer.generated.cs" />
+    <Compile Include="Generated\EFCRMDbMigrationConfiguration.generated.cs" />
+    <Compile Include="Generated\Features.generated.cs" />
+    <Compile Include="Generated\Open.generated.cs" />
+    <Compile Include="Generated\Person.generated.cs" />
+    <Compile Include="Generated\PropertyStatus.generated.cs" />
+    <Compile Include="Generated\PropertyType.generated.cs" />
+    <Compile Include="Generated\RatingType.generated.cs" />
+    <Compile Include="Generated\ResultType.generated.cs" />
+    <Compile Include="Generated\Status.generated.cs" />
+    <Compile Include="Generated\Tasks.generated.cs" />
+    <Compile Include="Generated\Templates.generated.cs" />
+    <Compile Include="Generated\Viewing.generated.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FrmEx5Store.resx">
-      <DependentUpon>FrmEx5Store.cs</DependentUpon>
+    <EmbeddedResource Include="FrmEx6CRM.resx">
+      <DependentUpon>FrmEx6CRM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -66,6 +88,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="EFCRM.efmodel" />
+    <None Include="EFCRM.efmodel.diagramx">
+      <DependentUpon>EFCRM.efmodel</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -83,6 +109,15 @@
     <PackageReference Include="EntityFramework">
       <Version>6.4.4</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EFCRM.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EFCRM.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

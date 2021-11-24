@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Ex6_Course
+namespace Ex5_Course
 {
     static class Program
     {
@@ -65,7 +65,7 @@ namespace Ex6_Course
                connection.Open();
 
                string sql = $@"
-                            CREATE DATABASE
+                            CREATE DATABASE 
                                 {DatabaseName}
                             ON PRIMARY (
                                 NAME={DatabaseName}_data,

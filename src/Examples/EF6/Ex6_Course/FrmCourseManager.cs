@@ -5,7 +5,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Ex6_Course
+namespace Ex5_Course
 {
     public partial class FrmCourseManager : Form
     {

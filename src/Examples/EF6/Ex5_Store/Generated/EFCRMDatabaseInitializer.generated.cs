@@ -13,21 +13,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Data.Entity.Migrations;
+using System.Data.Entity;
 
-namespace Migrations
+namespace Ex5_Store
 {
    /// <inheritdoc/>
-   public sealed partial class CourseManagerDbMigrationConfiguration : DbMigrationsConfiguration<Ex5_Course.CourseManager>
+   public partial class EFCRMDatabaseInitializer : MigrateDatabaseToLatestVersion<Ex5_Store.EFCRM, Migrations.EFCRMDbMigrationConfiguration>
    {
-      partial void Init();
-
-      /// <inheritdoc/>
-      public CourseManagerDbMigrationConfiguration()
-      {
-         AutomaticMigrationsEnabled = true;
-         AutomaticMigrationDataLossAllowed = false;
-         Init();
-      }
    }
 }

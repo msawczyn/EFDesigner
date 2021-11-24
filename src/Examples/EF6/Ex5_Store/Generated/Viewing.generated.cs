@@ -22,16 +22,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Ex5_Course
+namespace Ex5_Store
 {
-   public partial class Enrollment
+   public partial class Viewing
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected Enrollment()
+      protected Viewing()
       {
          Init();
       }
@@ -39,25 +39,25 @@ namespace Ex5_Course
       /// <summary>
       /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
       /// </summary>
-      public static Enrollment CreateEnrollmentUnsafe()
+      public static Viewing CreateViewingUnsafe()
       {
-         return new Enrollment();
+         return new Viewing();
       }
 
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="course"></param>
-      /// <param name="student"></param>
-      public Enrollment(global::Ex5_Course.Course course, global::Ex5_Course.Student student)
+      /// <param name="open"></param>
+      /// <param name="person"></param>
+      public Viewing(global::Ex5_Store.Open open, global::Ex5_Store.Person person)
       {
-         if (course == null) throw new ArgumentNullException(nameof(course));
-         this.Course = course;
-         course.Enrollments.Add(this);
+         if (open == null) throw new ArgumentNullException(nameof(open));
+         this.Open = open;
+         open.Viewings.Add(this);
 
-         if (student == null) throw new ArgumentNullException(nameof(student));
-         this.Student = student;
-         student.Enrollments.Add(this);
+         if (person == null) throw new ArgumentNullException(nameof(person));
+         this.Person = person;
+         person.Viewings.Add(this);
 
          Init();
       }
@@ -65,11 +65,11 @@ namespace Ex5_Course
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="course"></param>
-      /// <param name="student"></param>
-      public static Enrollment Create(global::Ex5_Course.Course course, global::Ex5_Course.Student student)
+      /// <param name="open"></param>
+      /// <param name="person"></param>
+      public static Viewing Create(global::Ex5_Store.Open open, global::Ex5_Store.Person person)
       {
-         return new Enrollment(course, student);
+         return new Viewing(open, person);
       }
 
       /*************************************************************************
@@ -77,13 +77,26 @@ namespace Ex5_Course
        *************************************************************************/
 
       /// <summary>
-      /// Identity, Required
+      /// Identity, Indexed, Required
+      /// Unique identifier
       /// </summary>
       [Key]
       [Required]
-      public long EnrollmentId { get; set; }
+      [System.ComponentModel.Description("Unique identifier")]
+      public long Id { get; set; }
 
-      public int? Grade { get; set; }
+      public DateTime? TimeIn { get; set; }
+
+      public int? Guests { get; set; }
+
+      public string Notes { get; set; }
+
+      /// <summary>
+      /// Max length = 125
+      /// </summary>
+      [MaxLength(125)]
+      [StringLength(125)]
+      public string Sync { get; set; }
 
       /*************************************************************************
        * Navigation properties
@@ -92,12 +105,12 @@ namespace Ex5_Course
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Ex5_Course.Course Course { get; set; }
+      public virtual global::Ex5_Store.Open Open { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Ex5_Course.Student Student { get; set; }
+      public virtual global::Ex5_Store.Person Person { get; set; }
 
    }
 }

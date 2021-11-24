@@ -13,21 +13,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Data.Entity.Migrations;
+using System;
 
-namespace Migrations
+namespace Ex5_Store
 {
-   /// <inheritdoc/>
-   public sealed partial class CourseManagerDbMigrationConfiguration : DbMigrationsConfiguration<Ex5_Course.CourseManager>
+   public enum ResultType : Int32
    {
-      partial void Init();
-
-      /// <inheritdoc/>
-      public CourseManagerDbMigrationConfiguration()
-      {
-         AutomaticMigrationsEnabled = true;
-         AutomaticMigrationDataLossAllowed = false;
-         Init();
-      }
+      Invalid,
+      Verified,
+      DontAnswer,
+      NotAvailable,
+      CorrectedWithoutCall
    }
 }

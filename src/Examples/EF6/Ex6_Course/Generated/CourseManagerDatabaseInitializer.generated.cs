@@ -15,10 +15,10 @@
 
 using System.Data.Entity;
 
-namespace Ex6_Course
+namespace Ex5_Course
 {
    /// <inheritdoc/>
-   public partial class CourseManagerDatabaseInitializer : DropCreateDatabaseIfModelChanges<Ex6_Course.CourseManager>
+   public partial class CourseManagerDatabaseInitializer : DropCreateDatabaseIfModelChanges<Ex5_Course.CourseManager>
    {
    }
 }

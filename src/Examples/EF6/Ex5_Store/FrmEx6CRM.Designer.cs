@@ -1,7 +1,7 @@
 ﻿
-namespace Ex5_Store
+namespace Ex6_CRM
 {
-    partial class FrmEx5Store
+    partial class FrmEx6CRM
     {
         /// <summary>
         /// Required designer variable.

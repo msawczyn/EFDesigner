@@ -13,21 +13,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Data.Entity.Migrations;
+using System;
 
-namespace Migrations
+namespace Ex5_Store
 {
-   /// <inheritdoc/>
-   public sealed partial class CourseManagerDbMigrationConfiguration : DbMigrationsConfiguration<Ex5_Course.CourseManager>
+   public enum PropertyType : Int32
    {
-      partial void Init();
-
-      /// <inheritdoc/>
-      public CourseManagerDbMigrationConfiguration()
-      {
-         AutomaticMigrationsEnabled = true;
-         AutomaticMigrationDataLossAllowed = false;
-         Init();
-      }
+      Unknown = -1,
+      Suburban_House = 1,
+      Apartment,
+      Townhouse,
+      Complex,
+      Land,
+      Rural_House,
+      Farm_and_House,
+      Farm
    }
 }

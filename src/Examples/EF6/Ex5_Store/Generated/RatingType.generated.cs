@@ -13,21 +13,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Data.Entity.Migrations;
+using System;
 
-namespace Migrations
+namespace Ex5_Store
 {
-   /// <inheritdoc/>
-   public sealed partial class CourseManagerDbMigrationConfiguration : DbMigrationsConfiguration<Ex5_Course.CourseManager>
+   public enum RatingType : Int32
    {
-      partial void Init();
-
-      /// <inheritdoc/>
-      public CourseManagerDbMigrationConfiguration()
-      {
-         AutomaticMigrationsEnabled = true;
-         AutomaticMigrationDataLossAllowed = false;
-         Init();
-      }
+      WouldNotRecommend_0 = 0,
+      Terrible_1 = 1,
+      Poor_2 = 2,
+      CouldDoBetter_3 = 3,
+      Ok_4 = 4,
+      Average_5 = 5,
+      Good_6 = 6,
+      VeryGood_7 = 7,
+      Excellent_8 = 8,
+      Exceptional_9 = 9,
+      Outstanding_10 = 10
    }
 }

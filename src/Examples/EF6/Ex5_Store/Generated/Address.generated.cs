@@ -22,18 +22,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Ex5_Course
+namespace Ex5_Store
 {
-   public partial class Course
+   public partial class Address
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public Course()
+      public Address()
       {
-         Enrollments = new System.Collections.Generic.HashSet<global::Ex5_Course.Enrollment>();
+         Opens = new System.Collections.Generic.HashSet<global::Ex5_Store.Open>();
+         Tasks = new System.Collections.Generic.HashSet<global::Ex5_Store.Tasks>();
 
          Init();
       }
@@ -43,28 +44,53 @@ namespace Ex5_Course
        *************************************************************************/
 
       /// <summary>
-      /// Identity, Required
+      /// Identity, Indexed, Required
+      /// Unique identifier
       /// </summary>
       [Key]
       [Required]
-      public long CourseId { get; set; }
+      [System.ComponentModel.Description("Unique identifier")]
+      public long AddressId { get; set; }
 
       /// <summary>
-      /// Max length = 25
+      /// Max length = 125
       /// </summary>
-      [MaxLength(25)]
-      [StringLength(25)]
-      public string CourseLabel { get; set; }
+      [MaxLength(125)]
+      [StringLength(125)]
+      public string PropertyType { get; set; }
 
-      public string Title { get; set; }
+      public string Unit { get; set; }
 
-      public int? Credits { get; set; }
+      public string Number { get; set; }
+
+      public string StreetLine1 { get; set; }
+
+      public string StreetType { get; set; }
+
+      public string StreetLine2 { get; set; }
+
+      public string Suburb { get; set; }
+
+      public string PostalCode { get; set; }
+
+      public string State { get; set; }
+
+      public string Country { get; set; }
+
+      /// <summary>
+      /// Max length = 125
+      /// </summary>
+      [MaxLength(125)]
+      [StringLength(125)]
+      public string Sync { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Ex5_Course.Enrollment> Enrollments { get; private set; }
+      public virtual ICollection<global::Ex5_Store.Open> Opens { get; private set; }
+
+      public virtual ICollection<global::Ex5_Store.Tasks> Tasks { get; private set; }
 
    }
 }

@@ -13,21 +13,42 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Data.Entity.Migrations;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
-namespace Migrations
+namespace Ex5_Store
 {
-   /// <inheritdoc/>
-   public sealed partial class CourseManagerDbMigrationConfiguration : DbMigrationsConfiguration<Ex5_Course.CourseManager>
+   public partial class PropertyStatus
    {
       partial void Init();
 
-      /// <inheritdoc/>
-      public CourseManagerDbMigrationConfiguration()
+      /// <summary>
+      /// Default constructor
+      /// </summary>
+      public PropertyStatus()
       {
-         AutomaticMigrationsEnabled = true;
-         AutomaticMigrationDataLossAllowed = false;
          Init();
       }
+
+      /*************************************************************************
+       * Properties
+       *************************************************************************/
+
+      /// <summary>
+      /// Identity, Indexed, Required
+      /// Unique identifier
+      /// </summary>
+      [Key]
+      [Required]
+      [System.ComponentModel.Description("Unique identifier")]
+      public long Id { get; set; }
+
    }
 }
+

@@ -18,12 +18,12 @@ using System.Data.Entity.Migrations;
 namespace Migrations
 {
    /// <inheritdoc/>
-   public sealed partial class CourseManagerDbMigrationConfiguration : DbMigrationsConfiguration<Ex5_Course.CourseManager>
+   public sealed partial class EFCRMDbMigrationConfiguration : DbMigrationsConfiguration<Ex5_Store.EFCRM>
    {
       partial void Init();
 
       /// <inheritdoc/>
-      public CourseManagerDbMigrationConfiguration()
+      public EFCRMDbMigrationConfiguration()
       {
          AutomaticMigrationsEnabled = true;
          AutomaticMigrationDataLossAllowed = false;

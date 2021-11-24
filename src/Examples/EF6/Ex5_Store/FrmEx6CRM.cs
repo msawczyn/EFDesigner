@@ -8,13 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Ex5_Store
+namespace Ex6_CRM
 {
    // Ordering system
    
-   public partial class FrmEx5Store : Form
+   public partial class FrmEx6CRM : Form
     {
-        public FrmEx5Store()
+        public FrmEx6CRM()
         {
             InitializeComponent();
         }

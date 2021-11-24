@@ -20,15 +20,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Annotations;
 
-namespace Ex6_Course
+namespace Ex5_Course
 {
    /// <inheritdoc/>
    public partial class CourseManager : DbContext
    {
       #region DbSets
-      public virtual System.Data.Entity.DbSet<global::Ex6_Course.Course> Courses { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Ex6_Course.Enrollment> Enrollments { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Ex6_Course.Student> Students { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Ex5_Course.Course> Courses { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Ex5_Course.Enrollment> Enrollments { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Ex5_Course.Student> Students { get; set; }
       #endregion DbSets
 
       #region Constructors
@@ -115,37 +115,37 @@ namespace Ex6_Course
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<global::Ex6_Course.Course>()
+         modelBuilder.Entity<global::Ex5_Course.Course>()
                      .ToTable("Courses")
                      .HasKey(t => t.CourseId);
-         modelBuilder.Entity<global::Ex6_Course.Course>()
+         modelBuilder.Entity<global::Ex5_Course.Course>()
                      .Property(t => t.CourseId)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::Ex6_Course.Course>()
+         modelBuilder.Entity<global::Ex5_Course.Course>()
                      .Property(t => t.CourseLabel)
                      .HasMaxLength(25);
 
-         modelBuilder.Entity<global::Ex6_Course.Enrollment>()
+         modelBuilder.Entity<global::Ex5_Course.Enrollment>()
                      .ToTable("Enrollments")
                      .HasKey(t => t.EnrollmentId);
-         modelBuilder.Entity<global::Ex6_Course.Enrollment>()
+         modelBuilder.Entity<global::Ex5_Course.Enrollment>()
                      .Property(t => t.EnrollmentId)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::Ex6_Course.Enrollment>()
+         modelBuilder.Entity<global::Ex5_Course.Enrollment>()
                      .HasRequired(x => x.Course)
                      .WithMany(x => x.Enrollments)
                      .Map(x => x.MapKey("CourseCourseId"));
-         modelBuilder.Entity<global::Ex6_Course.Enrollment>()
+         modelBuilder.Entity<global::Ex5_Course.Enrollment>()
                      .HasRequired(x => x.Student)
                      .WithMany(x => x.Enrollments)
                      .Map(x => x.MapKey("StudentStudentId"));
 
-         modelBuilder.Entity<global::Ex6_Course.Student>()
+         modelBuilder.Entity<global::Ex5_Course.Student>()
                      .ToTable("Students")
                      .HasKey(t => t.StudentId);
-         modelBuilder.Entity<global::Ex6_Course.Student>()
+         modelBuilder.Entity<global::Ex5_Course.Student>()
                      .Property(t => t.StudentId)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);

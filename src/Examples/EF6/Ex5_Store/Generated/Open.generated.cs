@@ -22,54 +22,53 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Ex5_Course
+namespace Ex5_Store
 {
-   public partial class Enrollment
+   public partial class Open
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected Enrollment()
+      protected Open()
       {
+         Agents = new System.Collections.Generic.HashSet<global::Ex5_Store.Agent>();
+         Viewings = new System.Collections.Generic.HashSet<global::Ex5_Store.Viewing>();
+
          Init();
       }
 
       /// <summary>
       /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
       /// </summary>
-      public static Enrollment CreateEnrollmentUnsafe()
+      public static Open CreateOpenUnsafe()
       {
-         return new Enrollment();
+         return new Open();
       }
 
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="course"></param>
-      /// <param name="student"></param>
-      public Enrollment(global::Ex5_Course.Course course, global::Ex5_Course.Student student)
+      /// <param name="address"></param>
+      public Open(global::Ex5_Store.Address address)
       {
-         if (course == null) throw new ArgumentNullException(nameof(course));
-         this.Course = course;
-         course.Enrollments.Add(this);
+         if (address == null) throw new ArgumentNullException(nameof(address));
+         this.Address = address;
+         address.Opens.Add(this);
 
-         if (student == null) throw new ArgumentNullException(nameof(student));
-         this.Student = student;
-         student.Enrollments.Add(this);
-
+         Agents = new System.Collections.Generic.HashSet<global::Ex5_Store.Agent>();
+         Viewings = new System.Collections.Generic.HashSet<global::Ex5_Store.Viewing>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="course"></param>
-      /// <param name="student"></param>
-      public static Enrollment Create(global::Ex5_Course.Course course, global::Ex5_Course.Student student)
+      /// <param name="address"></param>
+      public static Open Create(global::Ex5_Store.Address address)
       {
-         return new Enrollment(course, student);
+         return new Open(address);
       }
 
       /*************************************************************************
@@ -77,27 +76,39 @@ namespace Ex5_Course
        *************************************************************************/
 
       /// <summary>
-      /// Identity, Required
+      /// Identity, Indexed, Required
+      /// Unique identifier
       /// </summary>
       [Key]
       [Required]
-      public long EnrollmentId { get; set; }
+      [System.ComponentModel.Description("Unique identifier")]
+      public long OpenId { get; set; }
 
-      public int? Grade { get; set; }
+      public DateTime? StartTime { get; set; }
+
+      public int? Duration { get; set; }
+
+      public string WelcomeMessage { get; set; }
+
+      /// <summary>
+      /// Max length = 125
+      /// </summary>
+      [MaxLength(125)]
+      [StringLength(125)]
+      public string Sync { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
 
-      /// <summary>
-      /// Required
-      /// </summary>
-      public virtual global::Ex5_Course.Course Course { get; set; }
+      public virtual ICollection<global::Ex5_Store.Agent> Agents { get; private set; }
+
+      public virtual ICollection<global::Ex5_Store.Viewing> Viewings { get; private set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Ex5_Course.Student Student { get; set; }
+      public virtual global::Ex5_Store.Address Address { get; set; }
 
    }
 }

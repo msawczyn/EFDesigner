@@ -22,54 +22,57 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Ex5_Course
+namespace Ex5_Store
 {
-   public partial class Enrollment
+   public partial class Tasks
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected Enrollment()
+      protected Tasks()
       {
+         Audits = new System.Collections.Generic.HashSet<global::Ex5_Store.Audit>();
+
          Init();
       }
 
       /// <summary>
       /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
       /// </summary>
-      public static Enrollment CreateEnrollmentUnsafe()
+      public static Tasks CreateTasksUnsafe()
       {
-         return new Enrollment();
+         return new Tasks();
       }
 
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="course"></param>
-      /// <param name="student"></param>
-      public Enrollment(global::Ex5_Course.Course course, global::Ex5_Course.Student student)
+      /// <param name="person"></param>
+      /// <param name="address"></param>
+      public Tasks(global::Ex5_Store.Person person, global::Ex5_Store.Address address)
       {
-         if (course == null) throw new ArgumentNullException(nameof(course));
-         this.Course = course;
-         course.Enrollments.Add(this);
+         if (person == null) throw new ArgumentNullException(nameof(person));
+         this.Person = person;
+         person.Tasks.Add(this);
 
-         if (student == null) throw new ArgumentNullException(nameof(student));
-         this.Student = student;
-         student.Enrollments.Add(this);
+         if (address == null) throw new ArgumentNullException(nameof(address));
+         this.Address = address;
+         address.Tasks.Add(this);
 
+         Audits = new System.Collections.Generic.HashSet<global::Ex5_Store.Audit>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="course"></param>
-      /// <param name="student"></param>
-      public static Enrollment Create(global::Ex5_Course.Course course, global::Ex5_Course.Student student)
+      /// <param name="person"></param>
+      /// <param name="address"></param>
+      public static Tasks Create(global::Ex5_Store.Person person, global::Ex5_Store.Address address)
       {
-         return new Enrollment(course, student);
+         return new Tasks(person, address);
       }
 
       /*************************************************************************
@@ -77,27 +80,29 @@ namespace Ex5_Course
        *************************************************************************/
 
       /// <summary>
-      /// Identity, Required
+      /// Identity, Indexed, Required
+      /// Unique identifier
       /// </summary>
       [Key]
       [Required]
-      public long EnrollmentId { get; set; }
-
-      public int? Grade { get; set; }
+      [System.ComponentModel.Description("Unique identifier")]
+      public long Id { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
 
-      /// <summary>
-      /// Required
-      /// </summary>
-      public virtual global::Ex5_Course.Course Course { get; set; }
+      public virtual ICollection<global::Ex5_Store.Audit> Audits { get; private set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Ex5_Course.Student Student { get; set; }
+      public virtual global::Ex5_Store.Person Person { get; set; }
+
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::Ex5_Store.Address Address { get; set; }
 
    }
 }

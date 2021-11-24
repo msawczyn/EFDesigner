@@ -22,18 +22,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Ex5_Course
+namespace Ex5_Store
 {
-   public partial class Course
+   public partial class Person
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public Course()
+      public Person()
       {
-         Enrollments = new System.Collections.Generic.HashSet<global::Ex5_Course.Enrollment>();
+         Viewings = new System.Collections.Generic.HashSet<global::Ex5_Store.Viewing>();
+         Tasks = new System.Collections.Generic.HashSet<global::Ex5_Store.Tasks>();
 
          Init();
       }
@@ -43,28 +44,43 @@ namespace Ex5_Course
        *************************************************************************/
 
       /// <summary>
-      /// Identity, Required
+      /// Identity, Indexed, Required
+      /// Unique identifier
       /// </summary>
       [Key]
       [Required]
-      public long CourseId { get; set; }
+      [System.ComponentModel.Description("Unique identifier")]
+      public long PeopleId { get; set; }
+
+      public string FirstName { get; set; }
+
+      public string LastName { get; set; }
+
+      public string Email { get; set; }
 
       /// <summary>
       /// Max length = 25
       /// </summary>
       [MaxLength(25)]
       [StringLength(25)]
-      public string CourseLabel { get; set; }
+      public string Phone { get; set; }
 
-      public string Title { get; set; }
+      public string Notes { get; set; }
 
-      public int? Credits { get; set; }
+      /// <summary>
+      /// Max length = 125
+      /// </summary>
+      [MaxLength(125)]
+      [StringLength(125)]
+      public string Sync { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Ex5_Course.Enrollment> Enrollments { get; private set; }
+      public virtual ICollection<global::Ex5_Store.Viewing> Viewings { get; private set; }
+
+      public virtual ICollection<global::Ex5_Store.Tasks> Tasks { get; private set; }
 
    }
 }

@@ -22,20 +22,48 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Ex5_Course
+namespace Ex5_Store
 {
-   public partial class Course
+   public partial class Agent
    {
       partial void Init();
 
       /// <summary>
-      /// Default constructor
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      public Course()
+      protected Agent()
       {
-         Enrollments = new System.Collections.Generic.HashSet<global::Ex5_Course.Enrollment>();
+         Init();
+      }
+
+      /// <summary>
+      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+      /// </summary>
+      public static Agent CreateAgentUnsafe()
+      {
+         return new Agent();
+      }
+
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="open"></param>
+      public Agent(global::Ex5_Store.Open open)
+      {
+         if (open == null) throw new ArgumentNullException(nameof(open));
+         this.Open = open;
+         open.Agents.Add(this);
 
          Init();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="open"></param>
+      public static Agent Create(global::Ex5_Store.Open open)
+      {
+         return new Agent(open);
       }
 
       /*************************************************************************
@@ -43,28 +71,44 @@ namespace Ex5_Course
        *************************************************************************/
 
       /// <summary>
-      /// Identity, Required
+      /// Identity, Indexed, Required
+      /// Unique identifier
       /// </summary>
       [Key]
       [Required]
-      public long CourseId { get; set; }
+      [System.ComponentModel.Description("Unique identifier")]
+      public long AgentId { get; set; }
+
+      public string FirstName { get; set; }
+
+      public string LastName { get; set; }
+
+      public string Email { get; set; }
 
       /// <summary>
       /// Max length = 25
       /// </summary>
       [MaxLength(25)]
       [StringLength(25)]
-      public string CourseLabel { get; set; }
+      public string Phone { get; set; }
 
-      public string Title { get; set; }
+      public string Notes { get; set; }
 
-      public int? Credits { get; set; }
+      /// <summary>
+      /// Max length = 125
+      /// </summary>
+      [MaxLength(125)]
+      [StringLength(125)]
+      public string Sync { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Ex5_Course.Enrollment> Enrollments { get; private set; }
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::Ex5_Store.Open Open { get; set; }
 
    }
 }

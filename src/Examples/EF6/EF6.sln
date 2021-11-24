@@ -11,9 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex3_ModelOnetoMany", "Ex3_M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex4_ModelInvoice", "Ex4_ModelInvoice\Ex4_ModelInvoice.csproj", "{2B46097A-AE7A-4F87-A7D8-EC7F9865A681}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex5_Store", "Ex5_Store\Ex5_Store.csproj", "{9E4E33FD-1644-4AD1-9F6C-42389F7D3647}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex6_CRM", "Ex5_Store\Ex6_CRM.csproj", "{9E4E33FD-1644-4AD1-9F6C-42389F7D3647}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex6_Course", "Ex6_Course\Ex6_Course.csproj", "{BF56F02E-DCEB-413D-8DE6-A1FFA71870A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex5_Course", "Ex6_Course\Ex5_Course.csproj", "{BF56F02E-DCEB-413D-8DE6-A1FFA71870A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
