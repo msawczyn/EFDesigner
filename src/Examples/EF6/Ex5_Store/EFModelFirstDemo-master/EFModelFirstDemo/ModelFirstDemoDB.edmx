@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ModelFirstDemoDB.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelFirstDemoDBStoreContainer">
+    <EntitySet Name="Students" EntityType="ModelFirstDemoDB.Store.Students" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Enrollements" EntityType="ModelFirstDemoDB.Store.Enrollements" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Courses" EntityType="ModelFirstDemoDB.Store.Courses" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="StudentEnrollement" Association="ModelFirstDemoDB.Store.StudentEnrollement">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="Enrollement" EntitySet="Enrollements" />
+    </AssociationSet>
+    <AssociationSet Name="CourseEnrollement" Association="ModelFirstDemoDB.Store.CourseEnrollement">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="Enrollement" EntitySet="Enrollements" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Students">
+    <Key>
+      <PropertyRef Name="StudentId" />
+    </Key>
+    <Property Name="StudentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EnrollementDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Enrollements">
+    <Key>
+      <PropertyRef Name="EnrollementId" />
+    </Key>
+    <Property Name="EnrollementId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CourseId" Type="int" Nullable="false" />
+    <Property Name="StudentId" Type="int" Nullable="false" />
+    <Property Name="Grade" Type="int" Nullable="false" />
+    <Property Name="StudentStudentId" Type="int" Nullable="false" />
+    <Property Name="CourseCourseId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Courses">
+    <Key>
+      <PropertyRef Name="CourseId" />
+    </Key>
+    <Property Name="CourseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Credits" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="StudentEnrollement">
+    <End Role="Student" Type="ModelFirstDemoDB.Store.Students" Multiplicity="1" />
+    <End Role="Enrollement" Type="ModelFirstDemoDB.Store.Enrollements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentId" />
+      </Principal>
+      <Dependent Role="Enrollement">
+        <PropertyRef Name="StudentStudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CourseEnrollement">
+    <End Role="Course" Type="ModelFirstDemoDB.Store.Courses" Multiplicity="1" />
+    <End Role="Enrollement" Type="ModelFirstDemoDB.Store.Enrollements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="Enrollement">
+        <PropertyRef Name="CourseCourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ModelFirstDemoDB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelFirstDemoDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Students" EntityType="ModelFirstDemoDB.Student" />
+          <EntitySet Name="Enrollements" EntityType="ModelFirstDemoDB.Enrollement" />
+          <EntitySet Name="Courses" EntityType="ModelFirstDemoDB.Course" />
+          <AssociationSet Name="StudentEnrollement" Association="ModelFirstDemoDB.StudentEnrollement">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Enrollement" EntitySet="Enrollements" />
+          </AssociationSet>
+          <AssociationSet Name="CourseEnrollement" Association="ModelFirstDemoDB.CourseEnrollement">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Enrollement" EntitySet="Enrollements" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="EnrollementDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Enrollements" Relationship="ModelFirstDemoDB.StudentEnrollement" FromRole="Student" ToRole="Enrollement" />
+        </EntityType>
+        <EntityType Name="Enrollement">
+          <Key>
+            <PropertyRef Name="EnrollementId" />
+          </Key>
+          <Property Name="EnrollementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseId" Type="Int32" Nullable="false" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <Property Name="Grade" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Student" Relationship="ModelFirstDemoDB.StudentEnrollement" FromRole="Enrollement" ToRole="Student" />
+          <Property Name="StudentStudentId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Course" Relationship="ModelFirstDemoDB.CourseEnrollement" FromRole="Enrollement" ToRole="Course" />
+          <Property Name="CourseCourseId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Credits" Type="String" Nullable="false" />
+          <NavigationProperty Name="Enrollements" Relationship="ModelFirstDemoDB.CourseEnrollement" FromRole="Course" ToRole="Enrollement" />
+        </EntityType>
+        <Association Name="StudentEnrollement">
+          <End Type="ModelFirstDemoDB.Student" Role="Student" Multiplicity="1" />
+          <End Type="ModelFirstDemoDB.Enrollement" Role="Enrollement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="Enrollement">
+              <PropertyRef Name="StudentStudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CourseEnrollement">
+          <End Type="ModelFirstDemoDB.Course" Role="Course" Multiplicity="1" />
+          <End Type="ModelFirstDemoDB.Enrollement" Role="Enrollement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Enrollement">
+              <PropertyRef Name="CourseCourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelFirstDemoDBStoreContainer" CdmEntityContainer="ModelFirstDemoDBContext">
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelFirstDemoDB.Student)">
+        <MappingFragment StoreEntitySet="Students">
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="EnrollementDate" ColumnName="EnrollementDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Enrollements">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelFirstDemoDB.Enrollement)">
+        <MappingFragment StoreEntitySet="Enrollements">
+          <ScalarProperty Name="EnrollementId" ColumnName="EnrollementId" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+          <ScalarProperty Name="StudentStudentId" ColumnName="StudentStudentId" />
+          <ScalarProperty Name="CourseCourseId" ColumnName="CourseCourseId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelFirstDemoDB.Course)">
+        <MappingFragment StoreEntitySet="Courses">
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Credits" ColumnName="Credits" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
