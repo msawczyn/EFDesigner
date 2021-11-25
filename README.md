@@ -57,7 +57,12 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**3.0.7**
+**3.0.8**
+
+   - Autoproperty setting for End1 on association wasn't persisting, so reloading the model lost that change
+
+<details>
+<summary><b>3.0.7</b></summary>
 
    - Fixed a number of issues with importing compiled assemblies
    - Fixed coloring of cascade delete associations when flagged on the model (see https://github.com/msawczyn/EFDesigner/issues/291)   
@@ -68,6 +73,8 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - New context menu item to add class elements at the cursor position on a diagram (thanks to dcastenholz for the addition)
    - New context menu item to generate code from the Solution Explorer (thanks to dcastenholz for the addition)
    - Method visibility changes to allow MEF extensions to supply new icons and to layout a diagram (thanks to dcastenholz for the addition)
+
+</details>
 
 <details>
 <summary><b>3.0.6</b></summary>

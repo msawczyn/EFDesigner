@@ -1,3 +1,6 @@
+3.0.8
+   - Autoproperty setting for End1 on association wasn't persisting, so reloading the model lost that change
+
 3.0.7
    - Fixed a number of issues with importing compiled assemblies
    - Fixed coloring of cascade delete associations when flagged on the model (see https://github.com/msawczyn/EFDesigner/issues/291)   
