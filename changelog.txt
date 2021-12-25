@@ -1,3 +1,7 @@
+3.1.0
+   - Fix generalizations in assembly import
+   - Add DbContextFactory generation on request
+
 3.0.8
    - Autoproperty setting for End1 on association wasn't persisting, so reloading the model lost that change
 

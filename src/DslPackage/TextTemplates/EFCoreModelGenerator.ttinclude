@@ -23,8 +23,8 @@
 #><#@ import namespace="System.Data.Entity.Design.PluralizationServices"
 #><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
 #><#+
-      // EFDesigner v3.0.8.0
-      // Copyright (c) 2017-2021 Michael Sawczyn
+      // EFDesigner v3.1.0.0
+      // Copyright (c) 2017-2022 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
       public abstract class EFCoreModelGenerator : EFModelGenerator
@@ -105,8 +105,16 @@
             Output("/// implementations of this interface that are in the startup assembly or the same assembly as the derived context.");
             Output("/// </summary>");
 
-            Output($"public class {modelRoot.EntityContainerName}Factory: IDesignTimeDbContextFactory<{modelRoot.EntityContainerName}>");
+            Output($"public partial class {modelRoot.EntityContainerName}DesignTimeFactory: IDesignTimeDbContextFactory<{modelRoot.EntityContainerName}>");
             Output("{");
+
+            Output("/// <summary>");
+            Output("/// Partial method to allow post-creation configuration of the DbContext after it's created");
+            Output("/// but before it's returned.");
+            Output("/// </summary>");
+            Output($"partial void Initialize({modelRoot.EntityContainerName} dbContext);");
+            NL();
+
             Output("/// <summary>Creates a new instance of a derived context.</summary>");
             Output("/// <param name=\"args\"> Arguments provided by the design-time service. </param>");
             Output($"/// <returns> An instance of <see cref=\"{modelRoot.Namespace}.{modelRoot.EntityContainerName}\" />.</returns>");
@@ -120,9 +128,57 @@
             Output("// If you have custom initialization for the context, you can then consolidate the code by defining the CustomInit partial as");
             Output("//    partial void CustomInit(DbContextOptionsBuilder optionsBuilder) => ConfigureOptions(optionsBuilder);");
             Output($"{modelRoot.EntityContainerName}.ConfigureOptions(optionsBuilder);");
-            Output($"return new {modelRoot.EntityContainerName}(optionsBuilder.Options);");
+            Output($"{modelRoot.EntityContainerName} result = new {modelRoot.EntityContainerName}(optionsBuilder.Options);");
+            Output($"Initialize(result);");
+            NL();
+
+            Output($"return result;");
             Output("}");
             Output("}");
+            NL();
+            
+            Output("/// <summary>");
+            Output("///     Defines a factory for creating derived DbContext instances.");
+            Output("/// </summary>");
+            Output("/// <remarks>");
+            Output("///     See <see href=\"https://aka.ms/efcore-docs-dbcontext-factory\">Using DbContextFactory</see> for more information.");
+            Output("/// </remarks>");
+            Output($"public partial class {modelRoot.EntityContainerName}Factory: IDbContextFactory<{modelRoot.EntityContainerName}>");
+            Output("{");
+            Output("/// <summary>");
+            Output("/// Partial method to allow post-creation configuration of the DbContext after it's created");
+            Output("/// but before it's returned.");
+            Output("/// </summary>");
+            Output($"partial void Initialize({modelRoot.EntityContainerName} dbContext);");
+            NL();
+
+            Output("/// <summary>");
+            Output("///     <para>");
+            Output("///         Creates a new <see cref=\"T:Microsoft.EntityFrameworkCore.DbContext\" /> instance.");
+            Output("///     </para>");
+            Output("///     <para>");
+            Output("///         The caller is responsible for disposing the context; it will not be disposed by any dependency injection container.");
+            Output("///     </para>");
+            Output("/// </summary>");
+            Output("/// <returns>A new context instance.</returns>");
+            Output($"public {modelRoot.EntityContainerName} CreateDbContext()");
+            Output("{");
+            Output($"DbContextOptionsBuilder<{modelRoot.EntityContainerName}> optionsBuilder = new DbContextOptionsBuilder<{modelRoot.EntityContainerName}>();");
+            NL();
+
+            Output($"// Please provide the {modelRoot.EntityContainerName}.ConfigureOptions(optionsBuilder) in the partial class as");
+            Output("//    public static void ConfigureOptions(DbContextOptionsBuilder optionsBuilder) {{ ... }}");
+            Output("// If you have custom initialization for the context, you can then consolidate the code by defining the CustomInit partial as");
+            Output("//    partial void CustomInit(DbContextOptionsBuilder optionsBuilder) => ConfigureOptions(optionsBuilder);");
+            Output($"{modelRoot.EntityContainerName}.ConfigureOptions(optionsBuilder);");
+            Output($"{modelRoot.EntityContainerName} result = new {modelRoot.EntityContainerName}(optionsBuilder.Options);");
+            Output($"Initialize(result);");
+            NL();
+
+            Output($"return result;");
+            Output("}");
+            Output("}");
+
             EndNamespace(modelRoot.Namespace);
          }
 
