@@ -3065,6 +3065,60 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // UseTemporalTables
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribUseTemporalTables = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "useTemporalTables");
+	         if (attribUseTemporalTables != null)
+	         {
+	            global::System.Boolean valueOfUseTemporalTables;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribUseTemporalTables, out valueOfUseTemporalTables))
+	            {
+	               instanceOfModelClass.UseTemporalTables = valueOfUseTemporalTables;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "useTemporalTables", typeof(global::System.Boolean), attribUseTemporalTables);
+	            }
+	         }
+	      }
+	      // IsAssociationClass
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribIsAssociationClass = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isAssociationClass");
+	         if (attribIsAssociationClass != null)
+	         {
+	            global::System.Boolean valueOfIsAssociationClass;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsAssociationClass, out valueOfIsAssociationClass))
+	            {
+	               instanceOfModelClass.IsAssociationClass = valueOfIsAssociationClass;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isAssociationClass", typeof(global::System.Boolean), attribIsAssociationClass);
+	            }
+	         }
+	      }
+	      // DescribedAssociationElementId
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribDescribedAssociationElementId = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "describedAssociationElementId");
+	         if (attribDescribedAssociationElementId != null)
+	         {
+	            global::System.Guid valueOfDescribedAssociationElementId;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Guid>(serializationContext, attribDescribedAssociationElementId, out valueOfDescribedAssociationElementId))
+	            {
+	               // Non-public setter, use DomainPropertyInfo method.
+	               DslModeling::DomainPropertyInfo propInfo = instanceOfModelClass.Partition.DomainDataDirectory.GetDomainProperty (ModelClass.DescribedAssociationElementIdDomainPropertyId);
+	               global::System.Diagnostics.Debug.Assert (propInfo != null, "Cannot get DomainPropertyInfo for ModelClass.DescribedAssociationElementId!");
+	               propInfo.SetValue(instanceOfModelClass, valueOfDescribedAssociationElementId);
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "describedAssociationElementId", typeof(global::System.Guid), attribDescribedAssociationElementId);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -4080,6 +4134,36 @@ namespace Sawczyn.EFDesigner.EFModel
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isAutoPropertyDefaultTracking", serializedPropValue);
 	            }
+	         }
+	      }
+	      // UseTemporalTables
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelClass.UseTemporalTables;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "useTemporalTables", serializedPropValue);
+	         }
+	      }
+	      // IsAssociationClass
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelClass.IsAssociationClass;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isAssociationClass", serializedPropValue);
+	         }
+	      }
+	      // DescribedAssociationElementId
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Guid propValue = instanceOfModelClass.DescribedAssociationElementId;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Guid>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "describedAssociationElementId", serializedPropValue);
 	         }
 	      }
 	   }

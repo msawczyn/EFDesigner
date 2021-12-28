@@ -142,7 +142,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>
       /// Maps names to images for class glyphs
       /// </summary>
-      public static ReadOnlyDictionary<string, Image> ClassImages =
+      public static readonly ReadOnlyDictionary<string, Image> ClassImages =
          new ReadOnlyDictionary<string, Image>(new Dictionary<string, Image>
                                                {
                                                   {nameof(Resources.EntityGlyph), Resources.EntityGlyph}
@@ -151,12 +151,14 @@ namespace Sawczyn.EFDesigner.EFModel
                                                 , {nameof(Resources.SQLVisible), Resources.SQLVisible}
                                                 , {nameof(Resources.AbstractEntityGlyph), Resources.AbstractEntityGlyph}
                                                 , {nameof(Resources.AbstractEntityGlyphVisible), Resources.AbstractEntityGlyphVisible}
+                                                , { nameof(Resources.AssociationClassGlyph), Resources.AssociationClassGlyph }
+                                                , { nameof(Resources.AssociationClassGlyphVisible), Resources.AssociationClassGlyphVisible }
                                                });
 
       /// <summary>
       /// Maps names to images for property glyphs
       /// </summary>
-      public static ReadOnlyDictionary<string, Image> PropertyImages =
+      public static readonly ReadOnlyDictionary<string, Image> PropertyImages =
          new ReadOnlyDictionary<string, Image>(new Dictionary<string, Image>
                                                {
                                                   {nameof(Resources.Warning), Resources.Warning}
@@ -235,27 +237,47 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </remarks>
       protected override void OnBeforePaint()
       {
-         if (ModelElement is ModelClass element && (element.IsAbstract || element.IsDependentType))
+         if (ModelElement is ModelClass element && (element.IsAbstract || element.IsDependentType || element.IsAssociationClass))
          {
-            PenSettings penSettings = StyleSet.GetOverriddenPenSettings(DiagramPens.ConnectionLine) ?? new PenSettings();
-
             if (element.IsAbstract)
             {
+               PenSettings penSettings = StyleSet.GetOverriddenPenSettings(DiagramPens.ShapeOutline) ?? new PenSettings();
                penSettings.Color = Color.OrangeRed;
                penSettings.Width = 0.03f;
                penSettings.DashStyle = DashStyle.Dot;
+               StyleSet.OverridePen(DiagramPens.ShapeOutline, penSettings);
             }
             else if (element.IsDependentType)
             {
+               PenSettings penSettings = StyleSet.GetOverriddenPenSettings(DiagramPens.ShapeOutline) ?? new PenSettings();
                penSettings.Color = Color.ForestGreen;
                penSettings.Width = 0.03f;
                penSettings.DashStyle = DashStyle.Dot;
+               StyleSet.OverridePen(DiagramPens.ShapeOutline, penSettings);
             }
+            else if (element.IsAssociationClass)
+            {
+               PenSettings penSettings = StyleSet.GetOverriddenPenSettings(DiagramPens.ShapeOutline) ?? new PenSettings();
+               penSettings.Color = Color.DarkGoldenrod;
+               penSettings.Width = 0.03f;
+               penSettings.DashStyle = DashStyle.Dot;
+               StyleSet.OverridePen(DiagramPens.ShapeOutline, penSettings);
 
-            StyleSet.OverridePen(DiagramPens.ShapeOutline, penSettings);
+               BrushSettings backgroundBrush = StyleSet.GetOverriddenBrushSettings(DiagramBrushes.ShapeBackground) ?? new BrushSettings();
+               backgroundBrush.Color = Color.Goldenrod;
+               StyleSet.OverrideBrush(DiagramBrushes.ShapeBackground, backgroundBrush);
+
+               FontSettings titleFont = StyleSet.GetOverriddenFontSettings(DiagramFonts.ShapeTitle) ?? new FontSettings();
+               titleFont.Italic = true;
+               StyleSet.OverrideFont(DiagramFonts.ShapeTitle, titleFont);
+            }
          }
          else
+         {
             StyleSet.ClearPenOverride(DiagramPens.ShapeOutline);
+            StyleSet.ClearBrushOverride(DiagramBrushes.ShapeBackground);
+            StyleSet.ClearFontOverride(DiagramFonts.ShapeTitle);
+         }
 
       }
 
@@ -291,6 +313,8 @@ namespace Sawczyn.EFDesigner.EFModel
                return $"[{attribute.Persistent}][{attribute.SetterVisibility}]";
 
             case ModelClass modelClass:
+               if (modelClass.IsAssociationClass)
+                  return modelClass.IsVisible() ? nameof(Resources.AssociationClassGlyphVisible) : nameof(Resources.AssociationClassGlyph);
                if (modelClass.IsQueryType)
                   return modelClass.IsVisible() ? nameof(Resources.SQLVisible) : nameof(Resources.SQL);
                if (modelClass.IsAbstract)
@@ -305,14 +329,14 @@ namespace Sawczyn.EFDesigner.EFModel
       #region Drag/drop model attributes
 
       /// <summary>
-      ///    Model element that is being dragged.
+      ///    Model attribute that is being dragged, if any
       /// </summary>
-      private static ModelAttribute dragStartElement;
+      private static ModelAttribute dragStartModelAttribute;
 
       /// <summary>
-      ///    Absolute bounds of the compartment, used to set the cursor.
+      ///    Absolute bounds of the item being dragged, used to set the cursor.
       /// </summary>
-      private static RectangleD compartmentBounds;
+      private static RectangleD dragItemBounds;
 
       /// <summary>
       ///    Remember which item the mouse was dragged from.
@@ -324,8 +348,8 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="e"></param>
       private void Compartment_MouseDown(object sender, DiagramMouseEventArgs e)
       {
-         dragStartElement = e.HitDiagramItem.RepresentedElements.OfType<ModelAttribute>().FirstOrDefault();
-         compartmentBounds = e.HitDiagramItem.Shape.AbsoluteBoundingBox;
+         dragStartModelAttribute = e.HitDiagramItem.RepresentedElements.OfType<ModelAttribute>().FirstOrDefault();
+         dragItemBounds = e.HitDiagramItem.Shape.AbsoluteBoundingBox;
       }
 
       /// <summary>
@@ -337,10 +361,10 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="e"></param>
       private void Compartment_MouseMove(object sender, DiagramMouseEventArgs e)
       {
-         if (dragStartElement != null && dragStartElement != e.HitDiagramItem.RepresentedElements.OfType<ModelAttribute>().FirstOrDefault())
+         if (dragStartModelAttribute != null && dragStartModelAttribute != e.HitDiagramItem.RepresentedElements.OfType<ModelAttribute>().FirstOrDefault())
          {
-            e.DiagramClientView.ActiveMouseAction = new CompartmentDragMouseAction<ClassShape>(dragStartElement, this, compartmentBounds);
-            dragStartElement = null;
+            e.DiagramClientView.ActiveMouseAction = new CompartmentDragMouseAction<ClassShape>(dragStartModelAttribute, this, dragItemBounds);
+            dragStartModelAttribute = null;
          }
       }
 
@@ -349,7 +373,10 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       /// <param name="sender"></param>
       /// <param name="e"></param>
-      private void Compartment_MouseUp(object sender, DiagramMouseEventArgs e) => dragStartElement = null;
+      private void Compartment_MouseUp(object sender, DiagramMouseEventArgs e)
+      {
+         dragStartModelAttribute = null;
+      }
 
       /// <summary>
       ///    Called by the Action when the user releases the mouse.
@@ -446,7 +473,7 @@ namespace Sawczyn.EFDesigner.EFModel
       public override void OnMouseUp(DiagramMouseEventArgs e)
       {
          base.OnMouseUp(e);
-         dragStartElement = null;
+         dragStartModelAttribute = null;
       }
 
       #endregion
@@ -460,6 +487,11 @@ namespace Sawczyn.EFDesigner.EFModel
       /// If non-null, calling this method will execute code generation for the model
       /// </summary>
       public static Action ExecCodeGeneration;
+
+      /// <summary>
+      /// Set when DocData is loaded. If non-null, calling this action will set the linked ModelClass to be an association class for the linked BidirectionalAssociation
+      /// </summary>
+      public static Action<BidirectionalConnector, ClassShape> AddAssociationClass;
 
       /// <summary>Called by the control's OnDoubleClick()</summary>
       /// <param name="e">A DiagramPointEventArgs that contains event data.</param>

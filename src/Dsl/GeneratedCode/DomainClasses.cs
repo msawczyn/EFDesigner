@@ -7615,6 +7615,274 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region UseTemporalTables domain property code
+		
+		/// <summary>
+		/// UseTemporalTables domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid UseTemporalTablesDomainPropertyId = new global::System.Guid(0xb4b06061, 0xbd7a, 0x4059, 0xac, 0x5f, 0xf2, 0x9b, 0xe6, 0x20, 0xd2, 0x3c);
+		
+		/// <summary>
+		/// Storage for UseTemporalTables
+		/// </summary>
+		private global::System.Boolean useTemporalTablesPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of UseTemporalTables domain property.
+		/// If true, will configure the class to use temporal tables for storage. This is
+		/// not supported in all database types.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/UseTemporalTables.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/UseTemporalTables.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/UseTemporalTables.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("b4b06061-bd7a-4059-ac5f-f29be620d23c")]
+		public global::System.Boolean UseTemporalTables
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return useTemporalTablesPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				UseTemporalTablesPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.UseTemporalTables domain property.
+		/// </summary>
+		internal sealed partial class UseTemporalTablesPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.Boolean>
+		{
+			private UseTemporalTablesPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.UseTemporalTables domain property value handler.
+			/// </summary>
+			public static readonly UseTemporalTablesPropertyHandler Instance = new UseTemporalTablesPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.UseTemporalTables domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return UseTemporalTablesDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.useTemporalTablesPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelClass element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.useTemporalTablesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region IsAssociationClass domain property code
+		
+		/// <summary>
+		/// IsAssociationClass domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsAssociationClassDomainPropertyId = new global::System.Guid(0xe9775a9d, 0x2c2c, 0x4206, 0x8a, 0x27, 0x5a, 0xdf, 0x99, 0xcc, 0x73, 0xdc);
+		
+		/// <summary>
+		/// Storage for IsAssociationClass
+		/// </summary>
+		private global::System.Boolean isAssociationClassPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsAssociationClass domain property.
+		/// If true, this is an association class for a many-to-many association
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsAssociationClass.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsAssociationClass.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsAssociationClass.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.ReadOnly(true)]
+		[DslModeling::DomainObjectId("e9775a9d-2c2c-4206-8a27-5adf99cc73dc")]
+		public global::System.Boolean IsAssociationClass
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isAssociationClassPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsAssociationClassPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.IsAssociationClass domain property.
+		/// </summary>
+		internal sealed partial class IsAssociationClassPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.Boolean>
+		{
+			private IsAssociationClassPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.IsAssociationClass domain property value handler.
+			/// </summary>
+			public static readonly IsAssociationClassPropertyHandler Instance = new IsAssociationClassPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.IsAssociationClass domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsAssociationClassDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isAssociationClassPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelClass element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isAssociationClassPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region DescribedAssociationElementId domain property code
+		
+		/// <summary>
+		/// DescribedAssociationElementId domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DescribedAssociationElementIdDomainPropertyId = new global::System.Guid(0x2105ff46, 0xf992, 0x4148, 0x97, 0x77, 0xfa, 0x49, 0xf0, 0x27, 0x51, 0xaa);
+		
+		/// <summary>
+		/// Storage for DescribedAssociationElementId
+		/// </summary>
+		private global::System.Guid describedAssociationElementIdPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of DescribedAssociationElementId domain property.
+		/// When IsAssociationClass is true, the element id of the association this entity
+		/// extends
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/DescribedAssociationElementId.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/DescribedAssociationElementId.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[global::System.ComponentModel.ReadOnly(true)]
+		[DslModeling::DomainObjectId("2105ff46-f992-4148-9777-fa49f02751aa")]
+		public global::System.Guid DescribedAssociationElementId
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return describedAssociationElementIdPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			internal set
+			{
+				DescribedAssociationElementIdPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.DescribedAssociationElementId domain property.
+		/// </summary>
+		internal sealed partial class DescribedAssociationElementIdPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.Guid>
+		{
+			private DescribedAssociationElementIdPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.DescribedAssociationElementId domain property value handler.
+			/// </summary>
+			public static readonly DescribedAssociationElementIdPropertyHandler Instance = new DescribedAssociationElementIdPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.DescribedAssociationElementId domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DescribedAssociationElementIdDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Guid GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.describedAssociationElementIdPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelClass element, global::System.Guid newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Guid oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.describedAssociationElementIdPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Targets opposite domain role accessor
 		
 		/// <summary>
@@ -13526,6 +13794,6 @@ namespace Sawczyn.EFDesigner.EFModel
    /// </summary>
 	partial class ModelRoot
 	{
-		public const string DSLVersion = "3.1.0.0";
+		public const string DSLVersion = "4.0.1.1";
 	}
 }

@@ -20,21 +20,18 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>
       /// True if this is a normal entity type (not aggregated and not keyless), false otherwise
       /// </summary>
-      /// <returns></returns>
       [Browsable(false)]
       public bool IsEntity() => !IsDependentType && !IsKeylessType();
 
       /// <summary>
       /// True if this is a dependent (aggregated) entity type, false otherwise
       /// </summary>
-      /// <returns></returns>
       [Browsable(false)]
       public bool IsDependent() => IsDependentType;
 
       /// <summary>
       /// True if this is a keyless entity type (backed by a query or a view), false otherwise
       /// </summary>
-      /// <returns></returns>
       [Browsable(false)]
       public bool IsKeyless() => IsKeylessType();
 
@@ -128,6 +125,24 @@ namespace Sawczyn.EFDesigner.EFModel
                    : Name;
       }
 
+      /// <summary>
+      /// All custom interfaces in the class, including those inherited from base classes
+      /// </summary>
+      public IEnumerable<string> AllCustomInterfaces
+      {
+         get
+         {
+            List<string> interfaces = new List<string>();
+            ModelClass modelClass = this;
+            while (modelClass != null)
+            {
+               interfaces.AddRange(modelClass.CustomInterfaces.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
+               modelClass = modelClass.Superclass;
+            }
+
+            return interfaces.Distinct();
+         }
+      }
 
       /// <summary>
       /// All attributes in the class, including those inherited from base classes
@@ -318,6 +333,9 @@ namespace Sawczyn.EFDesigner.EFModel
          if (ModelRoot.ShowWarningsInDesigner && GetHasWarningValue())
             return "WarningGlyph";
 
+         if (IsAssociationClass)
+            return "AssociationClassGlyph";
+
          if (IsQueryType)
             return "SQLGlyph";
 
@@ -499,6 +517,17 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          MergeDisconnect(attribute);
          destination.MergeRelate(attribute, null);
+      }
+
+      internal bool CanBecomeAssociationClass()
+      {
+         return !AllNavigationProperties().Any()
+             && !IsAssociationClass
+             && !IsAbstract
+             && !IsDependentType
+             && !IsQueryType
+             && !IsDatabaseView
+             && string.IsNullOrEmpty(ViewName);
       }
 
       #region Validations

@@ -81,6 +81,26 @@ namespace Sawczyn.EFDesigner.EFModel {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AssociationClassGlyph {
+            get {
+                object obj = ResourceManager.GetObject("AssociationClassGlyph", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AssociationClassGlyphVisible {
+            get {
+                object obj = ResourceManager.GetObject("AssociationClassGlyphVisible", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] AttributeGrammar {
@@ -206,6 +226,16 @@ namespace Sawczyn.EFDesigner.EFModel {
         internal static System.Drawing.Bitmap Cardinality_many_many {
             get {
                 object obj = ResourceManager.GetObject("Cardinality_many_many", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Dictionary_16xVisible {
+            get {
+                object obj = ResourceManager.GetObject("Dictionary_16xVisible", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -113,10 +113,35 @@ namespace Sawczyn.EFDesigner.EFModel
                   break;
                }
 
+                  if (newIsAbstract && element.IsAssociationClass)
+                  {
+                     errorMessages.Add($"Can't make {element.Name} abstract since it's an association class");
+
+                     break;
+                  }
+
                PresentationHelper.UpdateClassDisplay(element);
 
                break;
             }
+
+            case "IsAssociationClass":
+               {
+                  bool newIsAssociationClass = (bool)e.NewValue;
+
+                  if (newIsAssociationClass)
+                  {
+                     element.IsAbstract = false;
+                     element.IsDependentType = false;
+                     element.IsPropertyBag = false;
+                     element.IsQueryType = false;
+                     element.IsDatabaseView = false;
+                     element.ViewName = null;
+                  }
+
+                  PresentationHelper.UpdateClassDisplay(element);
+                  break;
+               }
 
             case "IsDatabaseView":
             {
@@ -124,6 +149,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (newIsView)
                {
+                     if (element.IsAssociationClass)
+                     {
+                        errorMessages.Add($"Can't base {element.Name} off a view since it's an association class");
+
+                        break;
+                     }
+
                   if (element.IsDependentType)
                   {
                      errorMessages.Add($"Can't base {element.Name} off a view since it's a dependent type");
@@ -162,6 +194,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
                      break;
                   }
+
+                     if (element.IsAssociationClass)
+                     {
+                        errorMessages.Add($"Can't make {element.Name} a dependent class since it's an association class");
+
+                        break;
+                     }
 
                   if (element.IsQueryType)
                   {
@@ -282,6 +321,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "IsPropertyBag":
             {
+                  if (element.IsPropertyBag && element.IsAssociationClass)
+                  {
+                     errorMessages.Add($"Can't make {element.Name} a property bag since it's an associatioin class");
+
+                     break;
+                  }
+
                if (element.Superclass != null && !element.Superclass.IsPropertyBag)
                   element.Superclass.IsPropertyBag = true;
 
@@ -294,10 +340,17 @@ namespace Sawczyn.EFDesigner.EFModel
                PresentationHelper.UpdateClassDisplay(element);
                break;
             }
+           
             case "IsQueryType":
             {
                if ((bool)e.NewValue)
                {
+                     if (element.IsAssociationClass)
+                     {
+                        errorMessages.Add($"Can't make {element.Name} a query type since it's an association class");
+                        break;
+                     }
+
                   if (element.IsDependentType)
                   {
                      errorMessages.Add($"Can't make {element.Name} a query type since it's a dependent class");
@@ -314,6 +367,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                break;
             }
+         
             case "Name":
             {
                if (current.Name.ToLowerInvariant() == "paste")
@@ -392,10 +446,13 @@ namespace Sawczyn.EFDesigner.EFModel
                      if (string.IsNullOrEmpty(newViewName))
                         element.TableName = MakeDefaultTableAndSetName(element.Name);
 
-                     if (store.GetAll<ModelClass>()
+                        List<ModelClass> classesUsingTableName = store.GetAll<ModelClass>()
                               .Except(new[] { element })
-                              .Any(x => x.TableName == newViewName))
-                        errorMessages.Add($"Table name '{newViewName}' already in use");
+                                                             .Where(x => x.TableName == newViewName)
+                                                             .ToList();
+
+                        if (classesUsingTableName.Any())
+                           errorMessages.Add($"View name '{newViewName}' already in use in {classesUsingTableName.First().Name}");
                   }
                }
 

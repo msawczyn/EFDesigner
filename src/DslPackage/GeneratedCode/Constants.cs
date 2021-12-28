@@ -18,7 +18,7 @@ namespace Sawczyn.EFDesigner.EFModel
       [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
       public const string CompanyName = @"Michael Sawczyn";
       [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-      public const string ProductVersion = "3.1.0.0";
+      public const string ProductVersion = "4.0.1.1";
 
       // Menu definitions
       public static readonly global::System.ComponentModel.Design.CommandID EFModelDiagramMenu = new global::System.ComponentModel.Design.CommandID(new global::System.Guid(EFModelCommandSetId), 0x10000);
@@ -28,7 +28,7 @@ namespace Sawczyn.EFDesigner.EFModel
       public static readonly global::System.ComponentModel.Design.CommandID ViewEFModelExplorerCommand = new global::System.ComponentModel.Design.CommandID(new global::System.Guid(EFModelCommandSetId), 0x0001);
    
       // Package identifier
-      public const string EFModelPackageId = "56bbe1ba-aaee-4883-848f-e3c8656f8db2";
+      public const string EFModelPackageId = "dd1c2ec0-b732-4b74-a591-4d78684bb231";
       
       // Editor factory identifier
       public const string EFModelEditorFactoryId = "4e135186-c9c4-4b55-8959-217a3e025622";

@@ -143,6 +143,7 @@
     <Compile Include="CustomCode\Partials\EFModelDomainModel.cs" />
     <Compile Include="CustomCode\Partials\ModelDiagramData.cs" />
     <Compile Include="CustomCode\Rules\AssociationDeletingRules.cs" />
+    <Compile Include="CustomCode\Rules\ClassShapeChangeRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataAddRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataChangeRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataDeleteRules.cs" />
@@ -397,6 +398,8 @@
     </Content>
     <Content Include="Resources\AbstractEntityGlyph.png" />
     <Content Include="Resources\AbstractEntityGlyphVisible.png" />
+    <Content Include="Resources\AssociationClassGlyph.png" />
+    <Content Include="Resources\AssociationClassGlyphVisible.png" />
     <Content Include="Resources\Calculated.png" />
     <Content Include="Resources\CalculatedInternal.png" />
     <Content Include="Resources\CalculatedProtected.png" />
@@ -410,6 +413,7 @@
     <Content Include="Resources\cardinality-many-1.png" />
     <Content Include="Resources\cardinality-many-many.png" />
     <Content Include="Resources\Dictionary_16x.png" />
+    <Content Include="Resources\Dictionary_16xVisible.png" />
     <Content Include="Resources\EntityGlyph.png" />
     <Content Include="Resources\EntityGlyphVisible.png" />
     <Content Include="Resources\Enumerator_16x.png" />

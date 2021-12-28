@@ -12,7 +12,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.GeneratedCode
     /// </summary>
     internal sealed partial class PackageGuids
     {
-        public const string guidPkgString = "56bbe1ba-aaee-4883-848f-e3c8656f8db2";
+        public const string guidPkgString = "dd1c2ec0-b732-4b74-a591-4d78684bb231";
         public static Guid guidPkg = new Guid(guidPkgString);
 
         public const string guidCmdSetString = "49f3aada-0211-457c-84e5-9925654ab8a1";

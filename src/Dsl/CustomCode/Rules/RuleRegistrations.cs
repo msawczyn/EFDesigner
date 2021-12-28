@@ -10,6 +10,7 @@ namespace Sawczyn.EFDesigner.EFModel
          typeof(AssociationAddRules),
          typeof(AssociationChangedRules),
          typeof(AssociationDeletingRules),
+         typeof(ClassShapeChangeRules),
          typeof(GeneralizationAddRules),
          typeof(GeneralizationChangeRules),
          typeof(GeneralizationDeletingRules),
