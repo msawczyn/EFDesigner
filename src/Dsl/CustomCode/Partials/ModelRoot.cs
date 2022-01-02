@@ -62,7 +62,12 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>
       /// True if the model is EFCore and the Entity Framework version is >= 5
       /// </summary>
-      public bool IsEFCore5Plus => EntityFrameworkVersion == EFVersion.EFCore && (EntityFrameworkPackageVersion == "Latest" || GetEntityFrameworkPackageVersionNum() >= 5);
+      public bool IsEFCore5Plus => EntityFrameworkVersion == EFVersion.EFCore && GetEntityFrameworkPackageVersionNum() >= 5;
+
+      /// <summary>
+      /// True if the model is EFCore and the Entity Framework version is >= 6
+      /// </summary>
+      public bool IsEFCore6Plus => EntityFrameworkVersion == EFVersion.EFCore && (EntityFrameworkPackageVersion == "Latest" || GetEntityFrameworkPackageVersionNum() >= 6);
 
       /// <summary>
       /// Finds all diagrams associated to this model

@@ -87,7 +87,7 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Modeling.Components.15.0">
-      <HintPath>..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\Microsoft\Modeling\16.0\Microsoft.VisualStudio.Modeling.Components.15.0.dll</HintPath>
+      <HintPath>..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\Microsoft\Modeling_\16.0\Microsoft.VisualStudio.Modeling.Components.15.0.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Modeling.Sdk$(DslToolsVersionSuffix)" />
     <Reference Include="Microsoft.VisualStudio.Modeling.Sdk.Diagrams$(DslToolsVersionSuffix)" />
@@ -493,6 +493,11 @@ if "$(ConfigurationName)"=="Release" del "$(ProjectDir)Parsers\*.pdb
   <ItemGroup>
     <PackageReference Include="EnvDTE80">
       <Version>16.10.31320.204</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.SDK.Analyzers">
+      <Version>16.10.10</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK.EmbedInteropTypes">
       <Version>15.0.36</Version>

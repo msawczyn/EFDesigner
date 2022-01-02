@@ -22,7 +22,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	[DslModeling::DependsOnDomainModel(typeof(global::Microsoft.VisualStudio.Modeling.CoreDomainModel))]
 	[DslModeling::DependsOnDomainModel(typeof(global::Microsoft.VisualStudio.Modeling.Diagrams.CoreDesignSurfaceDomainModel))]
 	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]
-	[DslModeling::DomainObjectId("9987f227-3d05-49b7-b151-857879f5dfb8")]
+	[DslModeling::DomainObjectId("2f9962d2-544c-40e2-a4ba-a2babee17a5b")]
 	public partial class EFModelDomainModel : DslModeling::DomainModel
 	{
 	   #region Constructor, domain model Id
@@ -30,7 +30,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	   /// <summary>
 	   /// EFModelDomainModel domain model Id.
 	   /// </summary>
-	   public static readonly global::System.Guid DomainModelId = new global::System.Guid(0x9987f227, 0x3d05, 0x49b7, 0xb1, 0x51, 0x85, 0x78, 0x79, 0xf5, 0xdf, 0xb8);
+	   public static readonly global::System.Guid DomainModelId = new global::System.Guid(0x2f9962d2, 0x544c, 0x40e2, 0xa4, 0xba, 0xa2, 0xba, 0xbe, 0xe1, 0x7a, 0x5b);
 	
 	   /// <summary>
 	   /// Constructor.
@@ -198,6 +198,9 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(ModelClass), "IsDefaultConstructorVisibilityTracking", ModelClass.IsDefaultConstructorVisibilityTrackingDomainPropertyId, typeof(ModelClass.IsDefaultConstructorVisibilityTrackingPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "IsAutoPropertyDefaultTracking", ModelClass.IsAutoPropertyDefaultTrackingDomainPropertyId, typeof(ModelClass.IsAutoPropertyDefaultTrackingPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "ShouldShowInterfaceGlyph", ModelClass.ShouldShowInterfaceGlyphDomainPropertyId, typeof(ModelClass.ShouldShowInterfaceGlyphPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "UseTemporalTables", ModelClass.UseTemporalTablesDomainPropertyId, typeof(ModelClass.UseTemporalTablesPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "IsAssociationClass", ModelClass.IsAssociationClassDomainPropertyId, typeof(ModelClass.IsAssociationClassPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "DescribedAssociationElementId", ModelClass.DescribedAssociationElementIdDomainPropertyId, typeof(ModelClass.DescribedAssociationElementIdPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "Type", ModelAttribute.TypeDomainPropertyId, typeof(ModelAttribute.TypePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "InitialValue", ModelAttribute.InitialValueDomainPropertyId, typeof(ModelAttribute.InitialValuePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "IsIdentity", ModelAttribute.IsIdentityDomainPropertyId, typeof(ModelAttribute.IsIdentityPropertyHandler)),

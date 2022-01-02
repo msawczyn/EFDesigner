@@ -7,8 +7,11 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+
 using EnvDTE;
+
 using EnvDTE80;
+
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Modeling;
@@ -29,18 +32,22 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       private static DTE _dte;
       private static DTE2 _dte2;
+
       private IComponentModel _componentModel;
+
       //private IVsOutputWindowPane _outputWindow;
 
       internal static DTE Dte => _dte ?? (_dte = Package.GetGlobalService(typeof(DTE)) as DTE);
       internal static DTE2 Dte2 => _dte2 ?? (_dte2 = Package.GetGlobalService(typeof(SDTE)) as DTE2);
+
       internal IComponentModel ComponentModel => _componentModel ?? (_componentModel = (IComponentModel)GetService(typeof(SComponentModel)));
+
       //internal IVsOutputWindowPane OutputWindow => _outputWindow ?? (_outputWindow = (IVsOutputWindowPane)GetService(typeof(SVsGeneralOutputWindowPane)));
 
       internal static Project ActiveProject =>
-            Dte.ActiveSolutionProjects is Array activeSolutionProjects && activeSolutionProjects.Length > 0
-                  ? activeSolutionProjects.GetValue(0) as Project
-                  : null;
+         Dte.ActiveSolutionProjects is Array activeSolutionProjects && activeSolutionProjects.Length > 0
+            ? activeSolutionProjects.GetValue(0) as Project
+            : null;
 
       internal static void GenerateCode()
       {
@@ -118,6 +125,7 @@ namespace Sawczyn.EFDesigner.EFModel
          catch (Exception e)
          {
             Debug.WriteLine("Error opening file. " + e.Message);
+
             return false;
          }
       }
@@ -151,6 +159,7 @@ namespace Sawczyn.EFDesigner.EFModel
          catch (Exception e)
          {
             Debug.WriteLine("Error opening file. " + e.Message);
+
             return false;
          }
       }
@@ -369,18 +378,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
             ValidationCategories allCategories = ValidationCategories.Menu | ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Custom | ValidationCategories.Load;
             ValidationController.Validate(modelElement, allCategories);
-            
+
             displaysWarningElement.RedrawItem();
          }
       }
 
       internal static DialogResult ShowQuestionBox(IServiceProvider serviceProvider, string question)
       {
-         return PackageUtility.ShowMessageBox(serviceProvider, 
-                                              question, 
-                                              OLEMSGBUTTON.OLEMSGBUTTON_YESNO, 
-                                              OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_SECOND, 
-                                              OLEMSGICON.OLEMSGICON_QUERY);
+         return PackageUtility.ShowMessageBox(serviceProvider, question, OLEMSGBUTTON.OLEMSGBUTTON_YESNO, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_SECOND, OLEMSGICON.OLEMSGICON_QUERY);
       }
 
       internal static bool ShowBooleanQuestionBox(IServiceProvider serviceProvider, string question)
@@ -429,6 +434,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (allowUserInterface)
             ValidationController?.ClearMessages();
+
          return base.CanSave(allowUserInterface);
       }
 
@@ -449,7 +455,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public void Merge(UnidirectionalAssociation[] selected)
       {
-         if (!(RootElement is ModelRoot modelRoot)) return;
+         if (!(RootElement is ModelRoot modelRoot))
+            return;
 
          using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("Merge associations"))
          {
@@ -457,105 +464,89 @@ namespace Sawczyn.EFDesigner.EFModel
             selected[1].Delete();
 
             // ReSharper disable once UnusedVariable
-            BidirectionalAssociation element = new BidirectionalAssociation(Store,
-                                                   new[]
-                                                   {
-                                                      new RoleAssignment(BidirectionalAssociation.BidirectionalSourceDomainRoleId, selected[0].Source),
-                                                      new RoleAssignment(BidirectionalAssociation.BidirectionalTargetDomainRoleId, selected[1].Source)
-                                                   },
-                                                   new[]
-                                                   {
-                                                      new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, selected[1].TargetPropertyName), 
-                                                      new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, selected[0].TargetPropertyName), 
-                                                     
-                                                      new PropertyAssignment(BidirectionalAssociation.SourceCustomAttributesDomainPropertyId, selected[1].TargetCustomAttributes), 
-                                                      new PropertyAssignment(Association.TargetCustomAttributesDomainPropertyId, selected[0].TargetCustomAttributes), 
+            BidirectionalAssociation element = new BidirectionalAssociation(Store
+                                                                          , new[]
+                                                                            {
+                                                                               new RoleAssignment(BidirectionalAssociation.BidirectionalSourceDomainRoleId, selected[0].Source)
+                                                                             , new RoleAssignment(BidirectionalAssociation.BidirectionalTargetDomainRoleId, selected[1].Source)
+                                                                            }
+                                                                          , new[]
+                                                                            {
+                                                                               new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, selected[1].TargetPropertyName)
+                                                                             , new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, selected[0].TargetPropertyName)
+                                                                             , new PropertyAssignment(BidirectionalAssociation.SourceCustomAttributesDomainPropertyId
+                                                                                                    , selected[1].TargetCustomAttributes)
+                                                                             , new PropertyAssignment(Association.TargetCustomAttributesDomainPropertyId, selected[0].TargetCustomAttributes)
+                                                                             , new PropertyAssignment(BidirectionalAssociation.SourceDisplayTextDomainPropertyId, selected[1].TargetDisplayText)
+                                                                             , new PropertyAssignment(Association.TargetDisplayTextDomainPropertyId, selected[0].TargetDisplayText)
+                                                                             , new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, selected[1].TargetSummary)
+                                                                             , new PropertyAssignment(BidirectionalAssociation.SourceDescriptionDomainPropertyId, selected[1].TargetDescription)
+                                                                             , new PropertyAssignment(Association.TargetSummaryDomainPropertyId, selected[0].TargetSummary)
+                                                                             , new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, selected[0].TargetDescription)
+                                                                             , new PropertyAssignment(Association.SourceDeleteActionDomainPropertyId, selected[1].TargetDeleteAction)
+                                                                             , new PropertyAssignment(Association.TargetDeleteActionDomainPropertyId, selected[0].TargetDeleteAction)
+                                                                             , new PropertyAssignment(Association.SourceRoleDomainPropertyId, selected[1].TargetRole)
+                                                                             , new PropertyAssignment(Association.TargetRoleDomainPropertyId, selected[0].TargetRole)
+                                                                             , new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, selected[1].TargetMultiplicity)
+                                                                             , new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, selected[0].TargetMultiplicity)
+                                                                            });
 
-                                                      new PropertyAssignment(BidirectionalAssociation.SourceDisplayTextDomainPropertyId, selected[1].TargetDisplayText), 
-                                                      new PropertyAssignment(Association.TargetDisplayTextDomainPropertyId, selected[0].TargetDisplayText), 
-
-                                                      new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, selected[1].TargetSummary), 
-                                                      new PropertyAssignment(BidirectionalAssociation.SourceDescriptionDomainPropertyId, selected[1].TargetDescription),
-
-                                                      new PropertyAssignment(Association.TargetSummaryDomainPropertyId, selected[0].TargetSummary), 
-                                                      new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, selected[0].TargetDescription), 
-
-                                                      new PropertyAssignment(Association.SourceDeleteActionDomainPropertyId, selected[1].TargetDeleteAction), 
-                                                      new PropertyAssignment(Association.TargetDeleteActionDomainPropertyId, selected[0].TargetDeleteAction), 
-
-                                                      new PropertyAssignment(Association.SourceRoleDomainPropertyId, selected[1].TargetRole), 
-                                                      new PropertyAssignment(Association.TargetRoleDomainPropertyId, selected[0].TargetRole), 
-
-                                                      new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, selected[1].TargetMultiplicity), 
-                                                      new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, selected[0].TargetMultiplicity), 
-                                                   });
             tx.Commit();
          }
       }
 
       public void Split(BidirectionalAssociation selected)
       {
-         if (!(RootElement is ModelRoot modelRoot)) return;
+         if (!(RootElement is ModelRoot modelRoot))
+            return;
 
          using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("Split associations"))
          {
             selected.Delete();
 
             // ReSharper disable once UnusedVariable
-            UnidirectionalAssociation element1 = new UnidirectionalAssociation(Store,
-                                                   new[]
-                                                   {
-                                                      new RoleAssignment(Association.SourceDomainRoleId, selected.Source),
-                                                      new RoleAssignment(Association.TargetDomainRoleId, selected.Target)
-                                                   },
-                                                   new[]
-                                                   {
-                                                      new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, selected.TargetPropertyName), 
-                                                     
-                                                      new PropertyAssignment(Association.TargetCustomAttributesDomainPropertyId, selected.TargetCustomAttributes), 
-
-                                                      new PropertyAssignment(Association.TargetDisplayTextDomainPropertyId, selected.TargetDisplayText), 
-
-                                                      new PropertyAssignment(Association.TargetSummaryDomainPropertyId, selected.TargetSummary), 
-                                                      new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, selected.TargetDescription), 
-
-                                                      new PropertyAssignment(Association.SourceDeleteActionDomainPropertyId, selected.SourceDeleteAction), 
-                                                      new PropertyAssignment(Association.TargetDeleteActionDomainPropertyId, selected.TargetDeleteAction), 
-
-                                                      new PropertyAssignment(Association.SourceRoleDomainPropertyId, selected.SourceRole), 
-                                                      new PropertyAssignment(Association.TargetRoleDomainPropertyId, selected.TargetRole), 
-
-                                                      new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, selected.SourceMultiplicity), 
-                                                      new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, selected.TargetMultiplicity), 
-                                                   });
+            UnidirectionalAssociation element1 = new UnidirectionalAssociation(Store
+                                                                             , new[]
+                                                                               {
+                                                                                  new RoleAssignment(Association.SourceDomainRoleId, selected.Source)
+                                                                                , new RoleAssignment(Association.TargetDomainRoleId, selected.Target)
+                                                                               }
+                                                                             , new[]
+                                                                               {
+                                                                                  new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, selected.TargetPropertyName)
+                                                                                , new PropertyAssignment(Association.TargetCustomAttributesDomainPropertyId, selected.TargetCustomAttributes)
+                                                                                , new PropertyAssignment(Association.TargetDisplayTextDomainPropertyId, selected.TargetDisplayText)
+                                                                                , new PropertyAssignment(Association.TargetSummaryDomainPropertyId, selected.TargetSummary)
+                                                                                , new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, selected.TargetDescription)
+                                                                                , new PropertyAssignment(Association.SourceDeleteActionDomainPropertyId, selected.SourceDeleteAction)
+                                                                                , new PropertyAssignment(Association.TargetDeleteActionDomainPropertyId, selected.TargetDeleteAction)
+                                                                                , new PropertyAssignment(Association.SourceRoleDomainPropertyId, selected.SourceRole)
+                                                                                , new PropertyAssignment(Association.TargetRoleDomainPropertyId, selected.TargetRole)
+                                                                                , new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, selected.SourceMultiplicity)
+                                                                                , new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, selected.TargetMultiplicity)
+                                                                               });
 
             // ReSharper disable once UnusedVariable
-            UnidirectionalAssociation element2 = new UnidirectionalAssociation(Store,
-                                                   new[]
-                                                   {
-                                                      new RoleAssignment(Association.SourceDomainRoleId, selected.Target),
-                                                      new RoleAssignment(Association.TargetDomainRoleId, selected.Source)
-                                                   },
-                                                   new[]
-                                                   {
-                                                      new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, selected.SourcePropertyName), 
-                                                     
-                                                      new PropertyAssignment(Association.TargetCustomAttributesDomainPropertyId, selected.SourceCustomAttributes), 
-
-                                                      new PropertyAssignment(Association.TargetDisplayTextDomainPropertyId, selected.SourceDisplayText), 
-
-                                                      new PropertyAssignment(Association.TargetSummaryDomainPropertyId, selected.SourceSummary), 
-                                                      new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, selected.SourceDescription), 
-
-                                                      new PropertyAssignment(Association.SourceDeleteActionDomainPropertyId, selected.TargetDeleteAction), 
-                                                      new PropertyAssignment(Association.TargetDeleteActionDomainPropertyId, selected.SourceDeleteAction), 
-
-                                                      new PropertyAssignment(Association.SourceRoleDomainPropertyId, selected.TargetRole), 
-                                                      new PropertyAssignment(Association.TargetRoleDomainPropertyId, selected.SourceRole), 
-
-                                                      new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, selected.TargetMultiplicity), 
-                                                      new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, selected.SourceMultiplicity), 
-                                                   });
+            UnidirectionalAssociation element2 = new UnidirectionalAssociation(Store
+                                                                             , new[]
+                                                                               {
+                                                                                  new RoleAssignment(Association.SourceDomainRoleId, selected.Target)
+                                                                                , new RoleAssignment(Association.TargetDomainRoleId, selected.Source)
+                                                                               }
+                                                                             , new[]
+                                                                               {
+                                                                                  new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, selected.SourcePropertyName)
+                                                                                , new PropertyAssignment(Association.TargetCustomAttributesDomainPropertyId, selected.SourceCustomAttributes)
+                                                                                , new PropertyAssignment(Association.TargetDisplayTextDomainPropertyId, selected.SourceDisplayText)
+                                                                                , new PropertyAssignment(Association.TargetSummaryDomainPropertyId, selected.SourceSummary)
+                                                                                , new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, selected.SourceDescription)
+                                                                                , new PropertyAssignment(Association.SourceDeleteActionDomainPropertyId, selected.TargetDeleteAction)
+                                                                                , new PropertyAssignment(Association.TargetDeleteActionDomainPropertyId, selected.SourceDeleteAction)
+                                                                                , new PropertyAssignment(Association.SourceRoleDomainPropertyId, selected.TargetRole)
+                                                                                , new PropertyAssignment(Association.TargetRoleDomainPropertyId, selected.SourceRole)
+                                                                                , new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, selected.TargetMultiplicity)
+                                                                                , new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, selected.SourceMultiplicity)
+                                                                               });
 
             tx.Commit();
          }
@@ -564,6 +555,7 @@ namespace Sawczyn.EFDesigner.EFModel
       protected override void CleanupOldDiagramFiles()
       {
          string diagramsFileName = FileName + this.DiagramExtension;
+
          if (diagramsFileName.EndsWith("x"))
          {
             string oldDiagramFileName = diagramsFileName.TrimEnd('x');
@@ -573,4 +565,5 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
    }
+
 }

@@ -8,11 +8,14 @@ namespace Sawczyn.EFDesigner.EFModel
    /// <summary>
    ///    Manage the mouse while dragging a compartment item.
    /// </summary>
-   public class CompartmentDragMouseAction<T> : MouseAction where T:CompartmentShape, IMouseActionTarget
+   public class CompartmentDragMouseAction<T> : MouseAction where T:CompartmentShape, ICompartmentShapeMouseTarget
    {
       private readonly ModelElement sourceChild;
       private readonly T sourceShape;
       private RectangleD sourceCompartmentBounds;
+
+      // ReSharper disable once StaticMemberInGenericType
+      private static Cursor _moveCursor;
 
       public CompartmentDragMouseAction(ModelElement sourceChildElement, T sourceParentShape, RectangleD bounds)
          : base(sourceParentShape.Diagram)
@@ -21,9 +24,6 @@ namespace Sawczyn.EFDesigner.EFModel
          sourceShape = sourceParentShape;
          sourceCompartmentBounds = bounds; // For cursor.
       }
-
-      // ReSharper disable once StaticMemberInGenericType
-      private static Cursor _moveCursor;
 
       private static Cursor MoveCursor
       {
@@ -40,6 +40,7 @@ namespace Sawczyn.EFDesigner.EFModel
             return _moveCursor;
          }
       }
+ 
       /// <summary>
       ///    Display an appropriate cursor while the drag is in progress:
       ///    Up-down arrow if we are inside the original compartment.
@@ -78,7 +79,7 @@ namespace Sawczyn.EFDesigner.EFModel
       protected override void OnMouseUp(DiagramMouseEventArgs e)
       {
          base.OnMouseUp(e);
-         sourceShape.DoMouseUp(sourceChild, e);
+         sourceShape.MoveCompartmentItem(sourceChild, e);
          Cancel(e.DiagramClientView);
          e.Handled = true;
       }

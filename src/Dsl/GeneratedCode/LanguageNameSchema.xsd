@@ -646,6 +646,24 @@
             <xsd:documentation>If true, ModelClass.AutoPropertyDefault tracks ModelRoot.AutoPropertyDefault</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: UseTemporalTables -->
+        <xsd:attribute name="useTemporalTables" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, will configure the class to use temporal tables for storage. This is not supported in all database types.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsAssociationClass -->
+        <xsd:attribute name="isAssociationClass" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, this is an association class for a many-to-many association</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: DescribedAssociationElementId -->
+        <xsd:attribute name="describedAssociationElementId" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>When IsAssociationClass is true, the element id of the association this entity extends</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

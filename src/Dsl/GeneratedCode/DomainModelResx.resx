@@ -1093,6 +1093,38 @@
     <value>Should Show Interface Glyph</value>
     <comment>DisplayName for DomainProperty &apos;ShouldShowInterfaceGlyph&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/UseTemporalTables.Description" xml:space="preserve">
+    <value>If true, will configure the class to use temporal tables for storage. This is not supported in all database types.</value>
+    <comment>Description for DomainProperty &apos;UseTemporalTables&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/UseTemporalTables.DisplayName" xml:space="preserve">
+    <value>Use Temporal Tables</value>
+    <comment>DisplayName for DomainProperty &apos;UseTemporalTables&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/UseTemporalTables.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;UseTemporalTables&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsAssociationClass.Description" xml:space="preserve">
+    <value>If true, this is an association class for a many-to-many association</value>
+    <comment>Description for DomainProperty &apos;IsAssociationClass&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsAssociationClass.DisplayName" xml:space="preserve">
+    <value>Is Association Class</value>
+    <comment>DisplayName for DomainProperty &apos;IsAssociationClass&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsAssociationClass.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;IsAssociationClass&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/DescribedAssociationElementId.Description" xml:space="preserve">
+    <value>When IsAssociationClass is true, the element id of the association this entity extends</value>
+    <comment>Description for DomainProperty &apos;DescribedAssociationElementId&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/DescribedAssociationElementId.DisplayName" xml:space="preserve">
+    <value>Described Association Element Id</value>
+    <comment>DisplayName for DomainProperty &apos;DescribedAssociationElementId&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
     <comment>Description for DomainClass &apos;ModelAttribute&apos;</comment>

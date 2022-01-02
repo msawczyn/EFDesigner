@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="3" MinorVersion="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="2f9962d2-544c-40e2-a4ba-a2babee17a5b" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="4" Build="1" Revision="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="dd1c2ec0-b732-4b74-a591-4d78684bb231" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -593,6 +593,21 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="b4b06061-bd7a-4059-ac5f-f29be620d23c" Description="If true, will configure the class to use temporal tables for storage. This is not supported in all database types." Name="UseTemporalTables" DisplayName="Use Temporal Tables" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="e9775a9d-2c2c-4206-8a27-5adf99cc73dc" Description="If true, this is an association class for a many-to-many association" Name="IsAssociationClass" DisplayName="Is Association Class" Category="Code Generation" IsUIReadOnly="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="2105ff46-f992-4148-9777-fa49f02751aa" Description="When IsAssociationClass is true, the element id of the association this entity extends" Name="DescribedAssociationElementId" DisplayName="Described Association Element Id" SetterAccessModifier="Assembly" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Guid" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1068,8 +1083,10 @@
   </Classes>
   <Relationships>
     <DomainRelationship Id="ce77f831-a92d-4274-823a-3a8441a65f3a" Description="Associations between Classes." Name="Association" DisplayName="Association" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel" AllowsDuplicates="true">
-      <Notes>This is the abstract base relationship of the several kinds of association between Classes.
-      It defines the Properties that are attached to each association.</Notes>
+      <Notes>
+            This is the abstract base relationship of the several kinds of association between Classes.
+            It defines the Properties that are attached to each association.
+         </Notes>
       <CustomTypeDescriptor>
         <DomainTypeDescriptor CustomCoded="true" />
       </CustomTypeDescriptor>
@@ -2436,6 +2453,15 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="shouldShowInterfaceGlyph" Representation="Ignore">
             <DomainPropertyMoniker Name="ModelClass/ShouldShowInterfaceGlyph" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="useTemporalTables">
+            <DomainPropertyMoniker Name="ModelClass/UseTemporalTables" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isAssociationClass">
+            <DomainPropertyMoniker Name="ModelClass/IsAssociationClass" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="describedAssociationElementId">
+            <DomainPropertyMoniker Name="ModelClass/DescribedAssociationElementId" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
