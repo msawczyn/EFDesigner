@@ -6,13 +6,16 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Windows.Forms;
 
 using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public partial class ClassShape : IHighlightFromModelExplorer, IMouseActionTarget
+   public partial class ClassShape : IHighlightFromModelExplorer, ICompartmentShapeMouseTarget
    {
+      internal static ClassShapeDragData ShapeDragData;
+
       /// <summary>
       /// Initializes style set resources for this shape type
       /// </summary>
@@ -24,7 +27,7 @@ namespace Sawczyn.EFDesigner.EFModel
          AssociateValueWith(Store, ModelRoot.ShowInterfaceIndicatorsDomainPropertyId);
       }
 
-      internal static readonly Dictionary<bool, Dictionary<SetterAccessModifier, Bitmap>> AttributeGlyphs =
+      private static readonly Dictionary<bool, Dictionary<SetterAccessModifier, Bitmap>> AttributeGlyphs =
          new Dictionary<bool, Dictionary<SetterAccessModifier, Bitmap>>
          {
             {true, new Dictionary<SetterAccessModifier, Bitmap>
@@ -188,7 +191,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       /// <param name="element"></param>
       /// <returns></returns>
-      public static Image GetPropertyImage(ModelElement element)
+      private static Image GetPropertyImage(ModelElement element)
       {
          ModelRoot modelRoot = element.Store.ModelRoot();
 
@@ -258,9 +261,8 @@ namespace Sawczyn.EFDesigner.EFModel
             else if (element.IsAssociationClass)
             {
                PenSettings penSettings = StyleSet.GetOverriddenPenSettings(DiagramPens.ShapeOutline) ?? new PenSettings();
-               penSettings.Color = Color.DarkGoldenrod;
+               penSettings.Color = Color.Sienna;
                penSettings.Width = 0.03f;
-               penSettings.DashStyle = DashStyle.Dot;
                StyleSet.OverridePen(DiagramPens.ShapeOutline, penSettings);
 
                BrushSettings backgroundBrush = StyleSet.GetOverriddenBrushSettings(DiagramBrushes.ShapeBackground) ?? new BrushSettings();
@@ -326,7 +328,7 @@ namespace Sawczyn.EFDesigner.EFModel
          return nameof(Resources.Spacer);
       }
 
-      #region Drag/drop model attributes
+      #region ModelAttribute Drag/drop 
 
       /// <summary>
       ///    Model attribute that is being dragged, if any
@@ -385,7 +387,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       /// <param name="dragFrom"></param>
       /// <param name="e"></param>
-      public void DoMouseUp(ModelElement dragFrom, DiagramMouseEventArgs e)
+      public void MoveCompartmentItem(ModelElement dragFrom, DiagramMouseEventArgs e)
       {
          // Original or "from" item:
 #pragma warning disable IDE0019 // Use pattern matching
@@ -466,6 +468,30 @@ namespace Sawczyn.EFDesigner.EFModel
                      .SelectMany(role => role.OppositeDomainRole.GetElementLinks(child))
                      .FirstOrDefault();
 
+      /// <summary>Called by the control's OnMouseDown().</summary>
+      /// <param name="e">A DiagramMouseEventArgs that contains event data.</param>
+      public override void OnMouseDown(DiagramMouseEventArgs e)
+      {
+         base.OnMouseDown(e);
+
+         if (((ModelClass)ModelElement).CanBecomeAssociationClass())
+            ShapeDragData = new ClassShapeDragData(this, e.MousePosition);
+      }
+
+      /// <summary>
+      /// Gets the cursor that is displayed when the mouse pointer is over the ShapeElement.
+      /// </summary>
+      /// <param name="currentCursor"></param>
+      /// <param name="diagramClientView"></param>
+      /// <param name="mousePosition">Relative to diagram's top, left.</param>
+      /// <returns></returns>
+      public override Cursor GetCursor(Cursor currentCursor, DiagramClientView diagramClientView, PointD mousePosition)
+      {
+         return ShapeDragData?.GetBidirectionalConnectorsUnderShape(mousePosition).Any() == true
+                   ? Cursors.Hand
+                   : base.GetCursor(currentCursor, diagramClientView, mousePosition);
+      }
+
       /// <summary>
       ///    Forget the source item if mouse up occurs outside the compartment.
       /// </summary>
@@ -488,11 +514,6 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       public static Action ExecCodeGeneration;
 
-      /// <summary>
-      /// Set when DocData is loaded. If non-null, calling this action will set the linked ModelClass to be an association class for the linked BidirectionalAssociation
-      /// </summary>
-      public static Action<BidirectionalConnector, ClassShape> AddAssociationClass;
-
       /// <summary>Called by the control's OnDoubleClick()</summary>
       /// <param name="e">A DiagramPointEventArgs that contains event data.</param>
       public override void OnDoubleClick(DiagramPointEventArgs e)
@@ -500,7 +521,7 @@ namespace Sawczyn.EFDesigner.EFModel
          base.OnDoubleClick(e);
 
          // Allow MEF Extension to mark the event as Handled
-         if(e.Handled)
+         if (e.Handled)
             return;
 
          if (OpenCodeFile != null)

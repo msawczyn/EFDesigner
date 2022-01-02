@@ -12,7 +12,7 @@ namespace Sawczyn.EFDesigner.EFModel
    ///    Override some methods of the compartment shape.
    ///    *** GenerateDoubleDerived must be set for this shape in DslDefinition.dsl. ****
    /// </summary>
-   public partial class EnumShape : IHighlightFromModelExplorer, IMouseActionTarget
+   public partial class EnumShape : IHighlightFromModelExplorer, ICompartmentShapeMouseTarget
    {
       /// <summary>
       /// Exposes NodeShape Collapse() function to DSL's context menu
@@ -113,7 +113,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       /// <param name="dragFrom"></param>
       /// <param name="e"></param>
-      public void DoMouseUp(ModelElement dragFrom, DiagramMouseEventArgs e)
+      public void MoveCompartmentItem(ModelElement dragFrom, DiagramMouseEventArgs e)
       {
          // Original or "from" item:
 #pragma warning disable IDE0019 // Use pattern matching

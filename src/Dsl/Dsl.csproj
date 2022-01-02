@@ -135,15 +135,16 @@
     <Compile Include="CustomCode\Extensions\StringExtensions.cs" />
     <Compile Include="CustomCode\Extensions\SyntaxNodeExtensions.cs" />
     <Compile Include="CustomCode\Gestures\CompartmentDragMouseAction.cs" />
+    <Compile Include="CustomCode\ModelElement Interfaces\ICompartmentShapeMouseTarget.cs" />
     <Compile Include="CustomCode\Modeling\ViewContext.cs" />
     <Compile Include="CustomCode\Name Providers\ModelDiagramDataNameProvider.cs" />
     <Compile Include="CustomCode\Partials\AssociationConnector.cs" />
     <Compile Include="CustomCode\Domain Types\Namespaces.cs" />
+    <Compile Include="CustomCode\Gestures\ClassShapeDragData.cs" />
     <Compile Include="CustomCode\Partials\CommentBoxShapeBase.cs" />
     <Compile Include="CustomCode\Partials\EFModelDomainModel.cs" />
     <Compile Include="CustomCode\Partials\ModelDiagramData.cs" />
     <Compile Include="CustomCode\Rules\AssociationDeletingRules.cs" />
-    <Compile Include="CustomCode\Rules\ClassShapeChangeRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataAddRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataChangeRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataDeleteRules.cs" />
@@ -171,7 +172,6 @@
     <Compile Include="CustomCode\ModelElement Interfaces\IHighlightFromModelExplorer.cs" />
     <Compile Include="CustomCode\ModelElement Interfaces\IModelElementInCompartment.cs" />
     <Compile Include="CustomCode\ModelElement Interfaces\IModelElementWithCompartments.cs" />
-    <Compile Include="CustomCode\ModelElement Interfaces\IMouseActionTarget.cs" />
     <Compile Include="CustomCode\Partials\ModelAttribute.cs" />
     <Compile Include="CustomCode\Rules\GeneralizationDeletingRules.cs" />
     <Compile Include="CustomCode\Rules\ModelClassDeletingRules.cs" />
@@ -432,6 +432,7 @@
     <Content Include="Resources\ShowDiagramPane_16x.png" />
     <Content Include="Resources\Spacer.png" />
     <Content Include="Resources\SQL.png" />
+    <None Include="Templates\SerializationHelper.tt" />
     <None Include="Resources\SQLVisible.png" />
     <Content Include="Resources\TransientClass.png" />
     <Content Include="Resources\TransientClassVisible.png" />

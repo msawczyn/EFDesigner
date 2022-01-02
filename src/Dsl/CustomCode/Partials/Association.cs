@@ -182,8 +182,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
       internal IEnumerable<ModelAttribute> GetFKAutoIdentityErrors()
       {
-         if (string.IsNullOrWhiteSpace(FKPropertyName))
-            return new ModelAttribute[0];
+         if (string.IsNullOrWhiteSpace(FKPropertyName) || Dependent == null)
+            return Array.Empty<ModelAttribute>();
 
          return FKPropertyName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                               .Select(name => Dependent.Attributes.FirstOrDefault(a => a.Name == name.Trim()))

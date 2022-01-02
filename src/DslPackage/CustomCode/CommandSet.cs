@@ -1700,17 +1700,15 @@ namespace Sawczyn.EFDesigner.EFModel
                   // Create a new shape that represents the new element,
                   // associate it with the new element, 
                   // size it, position it and link it to the diagram.
-                  ClassShape newShape = new ClassShape(diagram.Partition);
-                  newShape.ModelElement = modelClass;
-                  
-                  if (diagram.MouseDownPosition != default(PointD))
+                  ClassShape newShape = new ClassShape(diagram.Partition)
+                                        {
+                                           ModelElement = modelClass
+                                        };
+
+                  if (diagram.MouseDownPosition != default)
                   {
                      // Move to cursor location where the context menu popped up.
-                     double x = diagram.MouseDownPosition.X;
-                     double y = diagram.MouseDownPosition.Y;
-
-                     PointD p = new PointD(x, y);
-                     newShape.AbsoluteBounds = new RectangleD(p, new SizeD(2, 1));
+                     newShape.AbsoluteBounds = new RectangleD(diagram.MouseDownPosition, new SizeD(2, 1));
                   }
 
                   diagram.NestedChildShapes.Add(newShape);

@@ -494,6 +494,11 @@ if "$(ConfigurationName)"=="Release" del "$(ProjectDir)Parsers\*.pdb
     <PackageReference Include="EnvDTE80">
       <Version>16.10.31320.204</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.SDK.Analyzers">
+      <Version>16.10.10</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK.EmbedInteropTypes">
       <Version>15.0.36</Version>
     </PackageReference>

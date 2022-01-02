@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Immutability;
 using Microsoft.VisualStudio.Modeling.Validation;
 
 using Sawczyn.EFDesigner.EFModel.Annotations;
@@ -395,14 +396,14 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>
       /// All navigation properties including those in superclasses
       /// </summary>
-      /// <param name="ignore">Associations to remove from the result</param>
+      /// <param name="except">Associations to remove from the result</param>
       /// <returns>All navigation properties including those in superclasses, except those listed in the parameter</returns>
-      public IEnumerable<NavigationProperty> AllNavigationProperties(params Association[] ignore)
+      public IEnumerable<NavigationProperty> AllNavigationProperties(params Association[] except)
       {
-         List<NavigationProperty> result = LocalNavigationProperties(ignore).ToList();
+         List<NavigationProperty> result = LocalNavigationProperties(except).ToList();
 
          if (Superclass != null)
-            result.AddRange(Superclass.AllNavigationProperties(ignore));
+            result.AddRange(Superclass.AllNavigationProperties(except));
 
          return result;
       }
@@ -410,23 +411,23 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>
       /// All navigation properties defined in this class
       /// </summary>
-      /// <param name="ignore">Associations to remove from the result</param>
+      /// <param name="except">Associations to remove from the result</param>
       /// <returns>All navigation properties defined in this class, except those listed in the parameter</returns>
-      public IEnumerable<NavigationProperty> LocalNavigationProperties(params Association[] ignore)
+      public IEnumerable<NavigationProperty> LocalNavigationProperties(params Association[] except)
       {
          List<NavigationProperty> sourceProperties = Association.GetLinksToTargets(this)
-                                                                .Except(ignore)
+                                                                .Except(except)
                                                                 .Select(NavigationProperty.LinkToTarget)
                                                                 .ToList();
 
          List<NavigationProperty> targetProperties = Association.GetLinksToSources(this)
-                                                                .Except(ignore)
+                                                                .Except(except)
                                                                 .OfType<BidirectionalAssociation>()
                                                                 .Select(NavigationProperty.LinkToSource)
                                                                 .ToList();
 
          targetProperties.AddRange(Association.GetLinksToSources(this)
-                                              .Except(ignore)
+                                              .Except(except)
                                               .OfType<UnidirectionalAssociation>()
                                               .Select(NavigationProperty.LinkToSource));
          int suffix = 0;
@@ -442,16 +443,16 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>
       /// required navigation (1.. cardinality) properties in this class
       /// </summary>
-      /// <param name="ignore">Associations to remove from the result.</param>
-      /// <returns>All required associations found, except for those in the [ignore] parameter</returns>
-      public IEnumerable<NavigationProperty> RequiredNavigationProperties(params Association[] ignore) => LocalNavigationProperties(ignore).Where(x => x.Required).ToList();
+      /// <param name="except">Associations to remove from the result.</param>
+      /// <returns>All required associations found, except for those in the [except] parameter</returns>
+      public IEnumerable<NavigationProperty> RequiredNavigationProperties(params Association[] except) => LocalNavigationProperties(except).Where(x => x.Required).ToList();
 
       /// <summary>
       /// All the required navigation (1.. cardinality) properties in both this and base classes.
       /// </summary>
-      /// <param name="ignore">Associations to remove from the result.</param>
-      /// <returns>All required associations found, except for those in the [ignore] parameter</returns>
-      public IEnumerable<NavigationProperty> AllRequiredNavigationProperties(params Association[] ignore) => AllNavigationProperties(ignore).Where(x => x.Required).ToList();
+      /// <param name="except">Associations to remove from the result.</param>
+      /// <returns>All required associations found, except for those in the [except] parameter</returns>
+      public IEnumerable<NavigationProperty> AllRequiredNavigationProperties(params Association[] except) => AllNavigationProperties(except).Where(x => x.Required).ToList();
 
       /// <summary>
       /// Finds the association named by the value specified in the parameter
@@ -522,12 +523,103 @@ namespace Sawczyn.EFDesigner.EFModel
       internal bool CanBecomeAssociationClass()
       {
          return !AllNavigationProperties().Any()
+             && string.IsNullOrEmpty(BaseClass)
              && !IsAssociationClass
              && !IsAbstract
-             && !IsDependentType
-             && !IsQueryType
              && !IsDatabaseView
+             && !IsDependentType
+             && !IsPropertyBag
+             && !IsQueryType
+             && Superclass == null
+             && !Subclasses.Any()
              && string.IsNullOrEmpty(ViewName);
+      }
+
+      internal void ConvertToAssociationClass(BidirectionalAssociation bidirectionalAssociation)
+      {
+         if (ModelRoot == null)
+            return;
+
+         using (Transaction tx = Store.TransactionManager.BeginTransaction("Set association class"))
+         {
+            // add the new associations 
+
+            // ReSharper disable once UnusedVariable
+            BidirectionalAssociation element1 =
+               new BidirectionalAssociation(Store
+                                          , new[]
+                                            {
+                                               new RoleAssignment(Association.SourceDomainRoleId, bidirectionalAssociation.Source)
+                                             , new RoleAssignment(Association.TargetDomainRoleId, this)
+                                            }
+                                          , new[]
+                                            {
+                                               new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, $"{bidirectionalAssociation.TargetPropertyName}_{Name}")
+                                             , new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, $"{bidirectionalAssociation.SourcePropertyName}")
+                                             , new PropertyAssignment(Association.TargetDisplayTextDomainPropertyId, $"Association object for {bidirectionalAssociation.TargetPropertyName}")
+                                             , new PropertyAssignment(BidirectionalAssociation.SourceDisplayTextDomainPropertyId, $"Association object for {bidirectionalAssociation.SourcePropertyName}")
+                                             , new PropertyAssignment(Association.TargetSummaryDomainPropertyId, $"Association class for {bidirectionalAssociation.TargetPropertyName}")
+                                             , new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, $"Association class for {bidirectionalAssociation.SourcePropertyName}")
+                                             , new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, Multiplicity.One)
+                                             , new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, Multiplicity.ZeroMany)
+                                             , new PropertyAssignment(Association.FKPropertyNameDomainPropertyId, $"{bidirectionalAssociation.TargetPropertyName}Id")
+                                            });
+
+            // ReSharper disable once UnusedVariable
+            BidirectionalAssociation element2 =
+               new BidirectionalAssociation(Store
+                                          , new[]
+                                            {
+                                               new RoleAssignment(Association.SourceDomainRoleId, bidirectionalAssociation.Target)
+                                             , new RoleAssignment(Association.TargetDomainRoleId, this)
+                                            }
+                                          , new[]
+                                            {
+                                               new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, $"{bidirectionalAssociation.SourcePropertyName}_{Name}")
+                                             , new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, $"{bidirectionalAssociation.TargetPropertyName}")
+                                             , new PropertyAssignment(Association.TargetDisplayTextDomainPropertyId, $"Association object for {bidirectionalAssociation.SourcePropertyName}")
+                                             , new PropertyAssignment(BidirectionalAssociation.SourceDisplayTextDomainPropertyId, $"Association object for {bidirectionalAssociation.TargetPropertyName}")
+                                             , new PropertyAssignment(Association.TargetSummaryDomainPropertyId, $"Association class for {bidirectionalAssociation.SourcePropertyName}")
+                                             , new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, $"Association class for {bidirectionalAssociation.TargetPropertyName}")
+                                             , new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, Multiplicity.One)
+                                             , new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, Multiplicity.ZeroMany)
+                                             , new PropertyAssignment(Association.FKPropertyNameDomainPropertyId, $"{bidirectionalAssociation.SourcePropertyName}Id")
+                                            });
+
+            // set some properties in the association class
+
+            DescribedAssociationElementId = bidirectionalAssociation.Id;
+            IsAssociationClass = true;
+
+            // get rid of any identity attributes
+
+            ModelAttribute[] oldIdentityProperties = Attributes.Where(a => a.IsIdentity).ToArray();
+
+            foreach (ModelAttribute attribute in oldIdentityProperties)
+               attribute.IsIdentity = false;
+
+            // add the new FK properties
+
+            AssociationChangedRules.FixupForeignKeys(element1);
+            AssociationChangedRules.FixupForeignKeys(element2);
+
+            // clean them up 
+
+            ModelAttribute sourcePropertyIdAttribute = FindAttributeNamed($"{bidirectionalAssociation.SourcePropertyName}Id");
+            sourcePropertyIdAttribute.IsIdentity = true;
+            sourcePropertyIdAttribute.IdentityType = IdentityType.Manual;
+            sourcePropertyIdAttribute.IndexedUnique = false;
+            sourcePropertyIdAttribute.SetLocks(Locks.Delete);
+
+            ModelAttribute targetPropertyIdAttribute = FindAttributeNamed($"{bidirectionalAssociation.TargetPropertyName}Id");
+            targetPropertyIdAttribute.IsIdentity = true;
+            targetPropertyIdAttribute.IdentityType = IdentityType.Manual;
+            targetPropertyIdAttribute.IndexedUnique = false;
+            targetPropertyIdAttribute.SetLocks(Locks.Delete);
+
+            // and save it all
+            tx.Commit();
+         }
       }
 
       #region Validations

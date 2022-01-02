@@ -87,7 +87,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static bool SelectModelElement(this DiagramView diagramView, ModelElement modelElement, bool ensureVisible)
       {
-         // Get the shape element that corresponds to the model element
+         // Get the shape element in diagramView that corresponds to the model element 
 
          ShapeElement shapeElement = PresentationViewsSubject.GetPresentation(modelElement)
                                                              .OfType<ShapeElement>()
