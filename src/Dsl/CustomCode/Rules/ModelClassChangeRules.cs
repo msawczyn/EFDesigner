@@ -415,6 +415,14 @@ namespace Sawczyn.EFDesigner.EFModel
                   break;
                }
 
+            case "Summary":
+               {
+                  if (string.IsNullOrEmpty(element.TableComment) || element.TableComment == (string)e.OldValue)
+                     element.TableComment = element.Summary;
+
+                  break;
+               }
+
             case "TableName":
                {
                   if (!element.IsDatabaseView)

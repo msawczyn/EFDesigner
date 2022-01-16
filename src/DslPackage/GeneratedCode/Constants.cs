@@ -18,7 +18,7 @@ namespace Sawczyn.EFDesigner.EFModel
       [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
       public const string CompanyName = @"Michael Sawczyn";
       [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-      public const string ProductVersion = "4.0.1.1";
+      public const string ProductVersion = "4.1.2.0";
 
       // Menu definitions
       public static readonly global::System.ComponentModel.Design.CommandID EFModelDiagramMenu = new global::System.ComponentModel.Design.CommandID(new global::System.Guid(EFModelCommandSetId), 0x10000);
@@ -40,7 +40,8 @@ namespace Sawczyn.EFDesigner.EFModel
       // Model explorer tool window identifier
       public const string EFModelModelExplorerToolWindowId = "860f0cbe-0c84-4abe-8062-fa681f8038db";
    }
-}//
+}
+//
 // Constants not generated from values in DesignerDefinition.dsl are defined below
 //
 namespace Sawczyn.EFDesigner.EFModel

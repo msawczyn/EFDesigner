@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.7.1
+//     Produced by Entity Framework Visual Editor v4.1.2.0
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -25,6 +25,8 @@ namespace SureImpact.Data.Framework
    public partial class AppDbContext : DbContext
    {
       #region DbSets
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::SureImpact.Data.Framework.Entity1> Entity1 { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::SureImpact.Data.Framework.Entity2> Entity2 { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::SureImpact.Data.Framework.TestData> TestDatas { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::SureImpact.Data.Framework.TestView> TestViews { get; set; }
 
@@ -81,6 +83,25 @@ namespace SureImpact.Data.Framework
 
          modelBuilder.HasDefaultSchema("dbo");
 
+         modelBuilder.Entity<global::SureImpact.Data.Framework.Entity1>()
+                     .ToTable("Entity1")
+                     .HasKey(t => t.Id);
+         modelBuilder.Entity<global::SureImpact.Data.Framework.Entity1>()
+                     .Property(t => t.Id)
+                     .ValueGeneratedOnAdd()
+                     .IsRequired();
+         modelBuilder.Entity<global::SureImpact.Data.Framework.Entity1>()
+                     .Property(t => t.TestString)
+                     .HasMaxLength(200)
+                     .IsRequired();
+         modelBuilder.Entity<global::SureImpact.Data.Framework.Entity1>().HasIndex(t => t.TestString)
+                     .IsUnique();
+         modelBuilder.Entity<global::SureImpact.Data.Framework.Entity1>()
+                     .HasMany<global::SureImpact.Data.Framework.Entity2>(p => p.TestDatas_Entity2)
+                     .WithOne(p => p.Entity1)
+                     .HasForeignKey(k => k.TestDatasId)
+                     .IsRequired();
+
          modelBuilder.Entity<global::SureImpact.Data.Framework.TestData>()
                      .ToTable("TestDatas")
                      .HasKey(t => t.Id);
@@ -94,9 +115,24 @@ namespace SureImpact.Data.Framework
                      .Property(t => t.Id)
                      .ValueGeneratedOnAdd()
                      .IsRequired();
+         modelBuilder.Entity<global::SureImpact.Data.Framework.TestData>()
+                     .HasMany<global::SureImpact.Data.Framework.Entity1>(p => p.Entity1)
+                     .WithMany(p => p.TestDatas)
+                     .UsingEntity(x => x.ToTable("Entity1_TestDatas_x_TestData_Entity1"));
+         modelBuilder.Entity<global::SureImpact.Data.Framework.TestData>().Navigation(e => e.Entity1)
+                     .HasField("_entity1")
+                     .Metadata.SetPropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::SureImpact.Data.Framework.Entity1>().Navigation(e => e.TestDatas)
+                     .HasField("_testDatas")
+                     .Metadata.SetPropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::SureImpact.Data.Framework.TestData>()
+                     .HasMany<global::SureImpact.Data.Framework.Entity2>(p => p.Entity1_Entity2)
+                     .WithOne(p => p.TestDatas)
+                     .HasForeignKey(k => k.Entity1Id)
+                     .IsRequired();
 
          modelBuilder.Entity<global::SureImpact.Data.Framework.TestView>()
-                     .ToTable("TestViews");
+                     .ToView("TestView");
          modelBuilder.Entity<global::SureImpact.Data.Framework.TestView>()
                      .Property(t => t.TestString)
                      .HasMaxLength(200)

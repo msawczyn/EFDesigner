@@ -753,6 +753,18 @@
     <value>Designer</value>
     <comment>Category for DomainProperty &apos;ShowInterfaceIndicators&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/GenerateTableComments.Description" xml:space="preserve">
+    <value>If true, will allow generating [Comment] attributes on C# class</value>
+    <comment>Description for DomainProperty &apos;GenerateTableComments&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/GenerateTableComments.DisplayName" xml:space="preserve">
+    <value>Generate Table Comments</value>
+    <comment>DisplayName for DomainProperty &apos;GenerateTableComments&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/GenerateTableComments.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;GenerateTableComments&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>
@@ -1124,6 +1136,18 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass/DescribedAssociationElementId.DisplayName" xml:space="preserve">
     <value>Described Association Element Id</value>
     <comment>DisplayName for DomainProperty &apos;DescribedAssociationElementId&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/TableComment.Description" xml:space="preserve">
+    <value>Table comment that will be applied to the database, if possible</value>
+    <comment>Description for DomainProperty &apos;TableComment&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/TableComment.DisplayName" xml:space="preserve">
+    <value>Table Comment</value>
+    <comment>DisplayName for DomainProperty &apos;TableComment&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/TableComment.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;TableComment&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>

@@ -14,7 +14,7 @@ namespace Sawczyn.EFDesigner.EFModel
 {
    public partial class ClassShape : IHighlightFromModelExplorer, ICompartmentShapeMouseTarget
    {
-      internal static ClassShapeDragData ShapeDragData;
+      internal static ClassShapeDragData ClassShapeDragData;
 
       /// <summary>
       /// Initializes style set resources for this shape type
@@ -475,7 +475,7 @@ namespace Sawczyn.EFDesigner.EFModel
          base.OnMouseDown(e);
 
          if (((ModelClass)ModelElement).CanBecomeAssociationClass())
-            ShapeDragData = new ClassShapeDragData(this, e.MousePosition);
+            ClassShapeDragData = new ClassShapeDragData(this, e.MousePosition);
       }
 
       /// <summary>
@@ -487,7 +487,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns></returns>
       public override Cursor GetCursor(Cursor currentCursor, DiagramClientView diagramClientView, PointD mousePosition)
       {
-         return ShapeDragData?.GetBidirectionalConnectorsUnderShape(mousePosition).Any() == true
+         return ClassShapeDragData?.GetBidirectionalConnectorsUnderShape(mousePosition).Any() == true
                    ? Cursors.Hand
                    : base.GetCursor(currentCursor, diagramClientView, mousePosition);
       }

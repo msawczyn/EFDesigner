@@ -28,9 +28,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (modelRoot.GetEntityFrameworkPackageVersionNum() < 2.1)
                   propertyDescriptors.Remove("LazyLoadingEnabled");
+
+               if (!modelRoot.IsEFCore5Plus)
+                  propertyDescriptors.Remove("GenerateTableComments");
             }
             else
             {
+               propertyDescriptors.Remove("GenerateTableComments");
                propertyDescriptors.Remove("GenerateDbContextFactory");
                propertyDescriptors.Remove("PropertyAccessModeDefault");
                propertyDescriptors.Remove("DatabaseCollationDefault");

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="2f9962d2-544c-40e2-a4ba-a2babee17a5b" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="4" Build="1" Revision="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="dd1c2ec0-b732-4b74-a591-4d78684bb231" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="2f9962d2-544c-40e2-a4ba-a2babee17a5b" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="4" MinorVersion="1" Build="2" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="dd1c2ec0-b732-4b74-a591-4d78684bb231" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -365,6 +365,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="65d03977-253f-4e9c-a946-14d0e416446d" Description="If true, will allow generating [Comment] attributes on C# class" Name="GenerateTableComments" DisplayName="Generate Table Comments" DefaultValue="true" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -608,6 +613,19 @@
             <ExternalTypeMoniker Name="/System/Guid" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="221e8cda-f6f7-49e6-a03c-9ee9ce2755ff" Description="Table comment that will be applied to the database, if possible" Name="TableComment" DisplayName="Table Comment" Category="Database">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -827,7 +845,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="8282d835-2c0e-4d59-a638-6d3c6e494260" Description="If present, this attribute is a foreign key for the association named by this Guid" Name="IsForeignKeyFor" DisplayName="Is Foreign Key For" GetterAccessModifier="Assembly" SetterAccessModifier="Assembly" IsBrowsable="false" IsUIReadOnly="true">
+        <DomainProperty Id="8282d835-2c0e-4d59-a638-6d3c6e494260" Description="If present, this attribute is a foreign key for the association named by this Guid" Name="IsForeignKeyFor" DisplayName="Is Foreign Key For" SetterAccessModifier="Assembly" IsBrowsable="false" IsUIReadOnly="true">
           <Type>
             <ExternalTypeMoniker Name="/System/Guid" />
           </Type>
@@ -2344,6 +2362,9 @@
           <XmlPropertyData XmlName="showInterfaceIndicators">
             <DomainPropertyMoniker Name="ModelRoot/ShowInterfaceIndicators" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="generateTableComments">
+            <DomainPropertyMoniker Name="ModelRoot/GenerateTableComments" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelClass" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelClassMoniker" ElementName="modelClass" MonikerTypeName="ModelClassMoniker">
@@ -2462,6 +2483,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="describedAssociationElementId">
             <DomainPropertyMoniker Name="ModelClass/DescribedAssociationElementId" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="tableComment">
+            <DomainPropertyMoniker Name="ModelClass/TableComment" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

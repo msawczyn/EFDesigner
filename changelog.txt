@@ -1,3 +1,10 @@
+4.1.2
+   - Added association classes to model for EFCore >= 5
+   - Added table comments for EFCore >= 5 (generation of [Comment] attribute on class)
+
+4.0.0
+   - Added EFCore 6 support
+
 3.1.0
    - Fix generalizations in assembly import
    - Add DbContextFactory generation on request

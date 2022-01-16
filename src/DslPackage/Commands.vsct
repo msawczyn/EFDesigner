@@ -4,7 +4,7 @@
    <!-- This file contains custom command definitions. -->
    <!-- -->
    <!-- NOTE: Each time commands are added or changed, the "version" parameter to the -->
-   <!--   attribute in Shell\Package.tt should be incremented. -->
+   <!-- ProvideMenuResource attribute in Shell\Package.tt should be incremented. -->
    <!-- This causes Visual Studio to re-merge the menu definitions for the package. -->
    <!-- Otherwise, changes won't take effect until the next time devenv /setup is run. -->
    <!-- -->
@@ -410,7 +410,6 @@
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidHideShape"           editor="guidEditor" key1="H"         mod1="CONTROL ALT" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidShowShape"           editor="guidEditor" key1="S"         mod1="CONTROL ALT" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidGenerateCode"        editor="guidEditor" key1="G"         mod1="CONTROL" />
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidLoadNuGet"           editor="guidEditor" key1="N"         mod1="CONTROL ALT" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties"   editor="guidEditor" key1="C"         mod1="CONTROL ALT" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidSaveAsImage"         editor="guidEditor" key1="I"         mod1="CONTROL" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidImageToClipboard"    editor="guidEditor" key1="I"         mod1="CONTROL SHIFT" />
@@ -436,7 +435,6 @@
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties" context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidSaveAsImage"       context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidImageToClipboard"  context="guidEditor"/>
-      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidLoadNuGet"         context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeValues"     context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidExpandSelected"    context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidCollapseSelected"  context="guidEditor"/>
@@ -494,7 +492,6 @@
          <IDSymbol name="cmdidGenerateCode"              value="0x00015"/>
          <IDSymbol name="cmdidAddCodeProperties"         value="0x00016"/>
          <IDSymbol name="cmdidSaveAsImage"               value="0x00017"/>
-         <IDSymbol name="cmdidLoadNuGet"                 value="0x00018"/>
          <IDSymbol name="cmdidAddCodeValues"             value="0x00019"/>
          <IDSymbol name="cmdidExpandSelected"            value="0x0001A"/>
          <IDSymbol name="cmdidCollapseSelected"          value="0x0001B"/>

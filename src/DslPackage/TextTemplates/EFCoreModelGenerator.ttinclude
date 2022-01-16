@@ -23,7 +23,7 @@
 #><#@ import namespace="System.Data.Entity.Design.PluralizationServices"
 #><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
 #><#+
-      // EFDesigner v3.1.0.0
+      // EFDesigner v4.1.2.0
       // Copyright (c) 2017-2022 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -136,7 +136,7 @@
             Output("}");
             Output("}");
             NL();
-            
+
             Output("/// <summary>");
             Output("///     Defines a factory for creating derived DbContext instances.");
             Output("/// </summary>");
@@ -193,77 +193,85 @@
             return result;
          }
 
+         protected virtual void ConfigureModelClass(List<string> segments, ModelClass[] classesWithTables, List<string> foreignKeyColumns, List<Association> visited, ModelClass modelClass)
+         {
+            segments.Clear();
+            foreignKeyColumns.Clear();
+            NL();
+
+            if (modelClass.IsDependentType)
+            {
+               segments.Add($"modelBuilder.Owned<{modelClass.FullName}>()");
+               Output(segments);
+               return;
+            }
+
+            segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
+
+            ConfigureTransientProperties(segments, modelClass);
+
+            //if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.Superclass != null)
+            //   segments.Add("Map(x => x.MapInheritedProperties())");
+
+            if (classesWithTables.Contains(modelClass))
+            {
+               if (modelClass.IsQueryType)
+               {
+                  Output($"// There is no storage defined for {modelClass.Name} because its IsQueryType value is");
+                  Output($"// set to 'true'. Please provide the {modelRoot.FullName}.Get{modelClass.Name}SqlQuery() method in the partial class.");
+                  Output("// ");
+                  Output($"// private string Get{modelClass.Name}SqlQuery()");
+                  Output("// {");
+                  Output($"//    return the defining SQL query that pulls all the properties for {modelClass.FullName}");
+                  Output("// }");
+
+                  segments.Add($"ToSqlQuery(Get{modelClass.Name}SqlQuery())");
+               }
+               else
+                  ConfigureTable(segments, modelClass);
+            }
+
+            if (segments.Count > 1 || modelClass.IsDependentType)
+               Output(segments);
+
+            // attribute level
+            ConfigureModelAttributes(segments, modelClass);
+
+            bool hasDefinedConcurrencyToken = modelClass.AllAttributes.Any(x => x.IsConcurrencyToken);
+
+            if (!hasDefinedConcurrencyToken && modelClass.EffectiveConcurrency == ConcurrencyOverride.Optimistic)
+               Output($@"modelBuilder.Entity<{modelClass.FullName}>().Property<byte[]>(""Timestamp"").IsConcurrencyToken();");
+
+            // Navigation endpoints are distingished as Source and Target. They are also distinguished as Principal
+            // and Dependent. So how do these map to each other? Short answer: they don't - they're orthogonal concepts.
+            // Source and Target are accidents of where the user started drawing the association, and help define where the
+            // properties are in unidirectional associations. Principal and Dependent define where the foreign keys go in 
+            // the persistence mechanism.
+
+            // What matters to code generation is the Principal and Dependent classifications, so we focus on those. 
+            // In the case of 1-1 or 0/1-0/1, it's situational, so the user has to tell us.
+            // In all other cases, we can tell by the cardinalities of the associations.
+
+            // navigation properties
+            List<string> declaredShadowProperties = new List<string>();
+
+            if (!modelClass.IsDependentType)
+            {
+               ConfigureUnidirectionalAssociations(modelClass, visited, foreignKeyColumns, declaredShadowProperties);
+               ConfigureBidirectionalAssociations(modelClass, visited, foreignKeyColumns, declaredShadowProperties);
+            }
+         }
+
          protected virtual void ConfigureModelClasses(List<string> segments, ModelClass[] classesWithTables, List<string> foreignKeyColumns, List<Association> visited)
          {
             foreach (ModelClass modelClass in modelRoot.Classes.OrderBy(x => x.Name))
-            {
-               segments.Clear();
-               foreignKeyColumns.Clear();
-               NL();
+               ConfigureModelClass(segments, classesWithTables, foreignKeyColumns, visited, modelClass);
+         }
 
-               if (modelClass.IsDependentType)
-               {
-                  segments.Add($"modelBuilder.Owned<{modelClass.FullName}>()");
-                  Output(segments);
-                  continue;
-               }
-
-               segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
-
-               foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
-                  segments.Add($"Ignore(t => t.{transient.Name})");
-
-               //if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.Superclass != null)
-               //   segments.Add("Map(x => x.MapInheritedProperties())");
-
-               if (classesWithTables.Contains(modelClass))
-               {
-                  if (modelClass.IsQueryType)
-                  {
-                     Output($"// There is no storage defined for {modelClass.Name} because its IsQueryType value is");
-                     Output($"// set to 'true'. Please provide the {modelRoot.FullName}.Get{modelClass.Name}SqlQuery() method in the partial class.");
-                     Output("// ");
-                     Output($"// private string Get{modelClass.Name}SqlQuery()");
-                     Output("// {");
-                     Output($"//    return the defining SQL query that pulls all the properties for {modelClass.FullName}");
-                     Output("// }");
-
-                     segments.Add($"ToSqlQuery(Get{modelClass.Name}SqlQuery())");
-                  }
-                  else
-                     ConfigureTable(segments, modelClass);
-               }
-
-               if (segments.Count > 1 || modelClass.IsDependentType)
-                  Output(segments);
-
-               // attribute level
-               ConfigureModelAttributes(segments, modelClass);
-
-               bool hasDefinedConcurrencyToken = modelClass.AllAttributes.Any(x => x.IsConcurrencyToken);
-
-               if (!hasDefinedConcurrencyToken && modelClass.EffectiveConcurrency == ConcurrencyOverride.Optimistic)
-                  Output($@"modelBuilder.Entity<{modelClass.FullName}>().Property<byte[]>(""Timestamp"").IsConcurrencyToken();");
-
-               // Navigation endpoints are distingished as Source and Target. They are also distinguished as Principal
-               // and Dependent. So how do these map to each other? Short answer: they don't - they're orthogonal concepts.
-               // Source and Target are accidents of where the user started drawing the association, and help define where the
-               // properties are in unidirectional associations. Principal and Dependent define where the foreign keys go in 
-               // the persistence mechanism.
-
-               // What matters to code generation is the Principal and Dependent classifications, so we focus on those. 
-               // In the case of 1-1 or 0/1-0/1, it's situational, so the user has to tell us.
-               // In all other cases, we can tell by the cardinalities of the associations.
-
-               // navigation properties
-               List<string> declaredShadowProperties = new List<string>();
-
-               if (!modelClass.IsDependentType)
-               {
-                  ConfigureUnidirectionalAssociations(modelClass, visited, foreignKeyColumns, declaredShadowProperties);
-                  ConfigureBidirectionalAssociations(modelClass, visited, foreignKeyColumns, declaredShadowProperties);
-               }
-            }
+         protected static void ConfigureTransientProperties(List<string> segments, ModelClass modelClass)
+         {
+            foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
+               segments.Add($"Ignore(t => t.{transient.Name})");
          }
 
          protected virtual void ConfigureTable(List<string> segments, ModelClass modelClass)
@@ -574,106 +582,106 @@
                switch (association.TargetMultiplicity) // realized by property on source
                {
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                  {
-                     segments.Add(baseSegment);
-                     segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                     segments.Add($"ToTable(\"{(string.IsNullOrEmpty(association.Target.TableName) ? association.Target.Name : association.Target.TableName)}\")");
-                     Output(segments);
+                     {
+                        segments.Add(baseSegment);
+                        segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
+                        segments.Add($"ToTable(\"{(string.IsNullOrEmpty(association.Target.TableName) ? association.Target.Name : association.Target.TableName)}\")");
+                        Output(segments);
 
-                     segments.Add(baseSegment);
-                     segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                     segments.Add($"WithOwner(\"{association.SourcePropertyName}\")");
-                     segments.Add($"HasForeignKey(\"{association.SourcePropertyName}{separator}Id\")");
-                     Output(segments);
+                        segments.Add(baseSegment);
+                        segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
+                        segments.Add($"WithOwner(\"{association.SourcePropertyName}\")");
+                        segments.Add($"HasForeignKey(\"{association.SourcePropertyName}{separator}Id\")");
+                        Output(segments);
 
-                     segments.Add(baseSegment);
-                     segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                     segments.Add($"Property<{modelRoot.DefaultIdentityType}>(\"Id\")");
+                        segments.Add(baseSegment);
+                        segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
+                        segments.Add($"Property<{modelRoot.DefaultIdentityType}>(\"Id\")");
 
-                     Output(segments);
+                        Output(segments);
 
-                     segments.Add(baseSegment);
-                     segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                     segments.Add("HasKey(\"Id\")");
+                        segments.Add(baseSegment);
+                        segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
+                        segments.Add("HasKey(\"Id\")");
 
-                     Output(segments);
+                        Output(segments);
 
-                     WriteBidirectionalDependentAssociations(association.Target, $"{baseSegment}.OwnsMany(p => p.{association.TargetPropertyName})", visited);
+                        WriteBidirectionalDependentAssociations(association.Target, $"{baseSegment}.OwnsMany(p => p.{association.TargetPropertyName})", visited);
 
-                     break;
-                  }
+                        break;
+                     }
 
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
-                  {
-                     segments.Add(baseSegment);
-                     segments.Add($"OwnsOne(p => p.{association.TargetPropertyName})");
-                     segments.Add($"WithOwner(p => p.{association.SourcePropertyName})");
-                     Output(segments);
-
-                     if (!string.IsNullOrEmpty(association.Target.TableName))
                      {
                         segments.Add(baseSegment);
                         segments.Add($"OwnsOne(p => p.{association.TargetPropertyName})");
-                        segments.Add($"ToTable(\"{association.Target.TableName}\")");
+                        segments.Add($"WithOwner(p => p.{association.SourcePropertyName})");
                         Output(segments);
-                     }
 
-                     foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
-                     {
-                        segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
-
-                        if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
-                           segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
-
-                        if (modelAttribute.Required)
-                           segments.Add("IsRequired()");
-
-                        if (segments.Count > 1)
+                        if (!string.IsNullOrEmpty(association.Target.TableName))
+                        {
+                           segments.Add(baseSegment);
+                           segments.Add($"OwnsOne(p => p.{association.TargetPropertyName})");
+                           segments.Add($"ToTable(\"{association.Target.TableName}\")");
                            Output(segments);
+                        }
 
-                        segments.Clear();
+                        foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
+                        {
+                           segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
+
+                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
+                              segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
+
+                           if (modelAttribute.Required)
+                              segments.Add("IsRequired()");
+
+                           if (segments.Count > 1)
+                              Output(segments);
+
+                           segments.Clear();
+                        }
+
+                        WriteBidirectionalDependentAssociations(association.Target, $"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName})", visited);
+
+                        break;
                      }
-
-                     WriteBidirectionalDependentAssociations(association.Target, $"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName})", visited);
-
-                     break;
-                  }
 
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
-                  {
-                     segments.Add(baseSegment);
-                     segments.Add($"OwnsOne(p => p.{association.TargetPropertyName})");
-                     segments.Add($"WithOwner(p => p.{association.SourcePropertyName})");
-                     Output(segments);
-
-                     if (!string.IsNullOrEmpty(association.Target.TableName))
                      {
                         segments.Add(baseSegment);
                         segments.Add($"OwnsOne(p => p.{association.TargetPropertyName})");
-                        segments.Add($"ToTable(\"{association.Target.TableName}\")");
+                        segments.Add($"WithOwner(p => p.{association.SourcePropertyName})");
                         Output(segments);
-                     }
 
-                     foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
-                     {
-                        segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
-
-                        if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
-                           segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
-
-                        if (modelAttribute.Required)
-                           segments.Add("IsRequired()");
-
-                        if (segments.Count > 1)
+                        if (!string.IsNullOrEmpty(association.Target.TableName))
+                        {
+                           segments.Add(baseSegment);
+                           segments.Add($"OwnsOne(p => p.{association.TargetPropertyName})");
+                           segments.Add($"ToTable(\"{association.Target.TableName}\")");
                            Output(segments);
+                        }
 
-                        segments.Clear();
+                        foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
+                        {
+                           segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
+
+                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
+                              segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
+
+                           if (modelAttribute.Required)
+                              segments.Add("IsRequired()");
+
+                           if (segments.Count > 1)
+                              Output(segments);
+
+                           segments.Clear();
+                        }
+
+                        WriteBidirectionalDependentAssociations(association.Target, $"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName})", visited);
+
+                        break;
                      }
-
-                     WriteBidirectionalDependentAssociations(association.Target, $"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName})", visited);
-
-                     break;
-                  }
                }
             }
          }
@@ -721,12 +729,12 @@
 
                      if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                      {
-                        string tableMap = string.IsNullOrEmpty(association.JoinTableName)
-                                             ? $"{association.Target.Name}_{association.SourcePropertyName}_x_{association.Source.Name}_{association.TargetPropertyName}"
-                                             : association.JoinTableName;
+                           string tableMap = string.IsNullOrEmpty(association.JoinTableName)
+                                                ? $"{association.Target.Name}_{association.SourcePropertyName}_x_{association.Source.Name}_{association.TargetPropertyName}"
+                                                : association.JoinTableName;
 
-                        segments.Add($"UsingEntity(x => x.ToTable(\"{tableMap}\"))");
-                     }
+                           segments.Add($"UsingEntity(x => x.ToTable(\"{tableMap}\"))");
+                        }
 
                      break;
 
@@ -742,23 +750,23 @@
                      break;
                }
 
-               string foreignKeySegment = CreateForeignKeySegment(association, foreignKeyColumns);
+                  string foreignKeySegment = CreateForeignKeySegment(association, foreignKeyColumns);
 
-               if (!string.IsNullOrEmpty(foreignKeySegment))
-                  segments.Add(foreignKeySegment);
+                  if (!string.IsNullOrEmpty(foreignKeySegment))
+                     segments.Add(foreignKeySegment);
 
-               WriteSourceDeleteBehavior(association, segments);
+                  WriteSourceDeleteBehavior(association, segments);
 
-               if (required
-                && (association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
-                 || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
-                  segments.Add("IsRequired()");
+                  if (required
+                   && (association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
+                    || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
+                     segments.Add("IsRequired()");
 
                Output(segments);
             }
          }
 
-         protected virtual void WriteTargetDeleteBehavior(UnidirectionalAssociation association, List<string> segments)
+         protected virtual void WriteTargetDeleteBehavior(Association association, List<string> segments)
          {
             if (!association.Source.IsDependentType
              && !association.Target.IsDependentType
@@ -836,69 +844,69 @@
                switch (association.TargetMultiplicity) // realized by property on source
                {
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                  {
-                     segments.Add(baseSegment);
-                     segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                     segments.Add($"WithOwner(\"{association.Source.Name}_{association.TargetPropertyName}\")");
-                     segments.Add($"HasForeignKey(\"{association.Source.Name}_{association.TargetPropertyName}{separator}Id\")");
-                     Output(segments);
+                     {
+                        segments.Add(baseSegment);
+                        segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
+                        segments.Add($"WithOwner(\"{association.Source.Name}_{association.TargetPropertyName}\")");
+                        segments.Add($"HasForeignKey(\"{association.Source.Name}_{association.TargetPropertyName}{separator}Id\")");
+                        Output(segments);
 
-                     segments.Add(baseSegment);
-                     segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                     segments.Add($"Property<{modelRoot.DefaultIdentityType}>(\"Id\")");
+                        segments.Add(baseSegment);
+                        segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
+                        segments.Add($"Property<{modelRoot.DefaultIdentityType}>(\"Id\")");
 
-                     Output(segments);
+                        Output(segments);
 
-                     segments.Add(baseSegment);
-                     segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
-                     segments.Add("HasKey(\"Id\")");
+                        segments.Add(baseSegment);
+                        segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
+                        segments.Add("HasKey(\"Id\")");
 
-                     Output(segments);
+                        Output(segments);
 
-                     WriteUnidirectionalDependentAssociations(association.Target, $"{baseSegment}.OwnsMany(p => p.{association.TargetPropertyName})", visited);
+                        WriteUnidirectionalDependentAssociations(association.Target, $"{baseSegment}.OwnsMany(p => p.{association.TargetPropertyName})", visited);
 
-                     break;
-                  }
+                        break;
+                     }
 
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
-                  {
-                     foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
                      {
-                        segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
+                        foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
+                        {
+                           segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
 
-                        if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
-                           segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
+                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
+                              segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
-                        if (modelAttribute.Required)
-                           segments.Add("IsRequired()");
+                           if (modelAttribute.Required)
+                              segments.Add("IsRequired()");
 
-                        Output(segments);
+                           Output(segments);
+                        }
+
+                        WriteUnidirectionalDependentAssociations(association.Target, $"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName})", visited);
+
+                        break;
                      }
-
-                     WriteUnidirectionalDependentAssociations(association.Target, $"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName})", visited);
-
-                     break;
-                  }
 
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
-                  {
-                     foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
                      {
-                        segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
+                        foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
+                        {
+                           segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
 
-                        if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
-                           segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
+                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
+                              segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
-                        if (modelAttribute.Required)
-                           segments.Add("IsRequired()");
+                           if (modelAttribute.Required)
+                              segments.Add("IsRequired()");
 
-                        Output(segments);
+                           Output(segments);
+                        }
+
+                        WriteUnidirectionalDependentAssociations(association.Target, $"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName})", visited);
+
+                        break;
                      }
-
-                     WriteUnidirectionalDependentAssociations(association.Target, $"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName})", visited);
-
-                     break;
-                  }
                }
             }
          }

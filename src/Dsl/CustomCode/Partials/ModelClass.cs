@@ -522,7 +522,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
       internal bool CanBecomeAssociationClass()
       {
-         return !AllNavigationProperties().Any()
+         return ModelRoot.IsEFCore5Plus
+             && !AllNavigationProperties().Any()
              && string.IsNullOrEmpty(BaseClass)
              && !IsAssociationClass
              && !IsAbstract
@@ -554,15 +555,15 @@ namespace Sawczyn.EFDesigner.EFModel
                                             }
                                           , new[]
                                             {
-                                               new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, $"{bidirectionalAssociation.TargetPropertyName}_{Name}")
-                                             , new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, $"{bidirectionalAssociation.SourcePropertyName}")
-                                             , new PropertyAssignment(Association.TargetDisplayTextDomainPropertyId, $"Association object for {bidirectionalAssociation.TargetPropertyName}")
+                                             //  new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, $"{bidirectionalAssociation.TargetPropertyName}_{Name}")
+                                             //, new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, $"{bidirectionalAssociation.SourcePropertyName}")
+                                              new PropertyAssignment(Association.TargetDisplayTextDomainPropertyId, $"Association object for {bidirectionalAssociation.TargetPropertyName}")
                                              , new PropertyAssignment(BidirectionalAssociation.SourceDisplayTextDomainPropertyId, $"Association object for {bidirectionalAssociation.SourcePropertyName}")
                                              , new PropertyAssignment(Association.TargetSummaryDomainPropertyId, $"Association class for {bidirectionalAssociation.TargetPropertyName}")
                                              , new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, $"Association class for {bidirectionalAssociation.SourcePropertyName}")
                                              , new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, Multiplicity.One)
                                              , new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, Multiplicity.ZeroMany)
-                                             , new PropertyAssignment(Association.FKPropertyNameDomainPropertyId, $"{bidirectionalAssociation.TargetPropertyName}Id")
+                                             , new PropertyAssignment(Association.FKPropertyNameDomainPropertyId, $"{bidirectionalAssociation.SourcePropertyName}Id")
                                             });
 
             // ReSharper disable once UnusedVariable
@@ -575,15 +576,15 @@ namespace Sawczyn.EFDesigner.EFModel
                                             }
                                           , new[]
                                             {
-                                               new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, $"{bidirectionalAssociation.SourcePropertyName}_{Name}")
-                                             , new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, $"{bidirectionalAssociation.TargetPropertyName}")
-                                             , new PropertyAssignment(Association.TargetDisplayTextDomainPropertyId, $"Association object for {bidirectionalAssociation.SourcePropertyName}")
+                                             //  new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, $"{bidirectionalAssociation.SourcePropertyName}_{Name}")
+                                             //, new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, $"{bidirectionalAssociation.TargetPropertyName}")
+                                              new PropertyAssignment(Association.TargetDisplayTextDomainPropertyId, $"Association object for {bidirectionalAssociation.SourcePropertyName}")
                                              , new PropertyAssignment(BidirectionalAssociation.SourceDisplayTextDomainPropertyId, $"Association object for {bidirectionalAssociation.TargetPropertyName}")
                                              , new PropertyAssignment(Association.TargetSummaryDomainPropertyId, $"Association class for {bidirectionalAssociation.SourcePropertyName}")
                                              , new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, $"Association class for {bidirectionalAssociation.TargetPropertyName}")
                                              , new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, Multiplicity.One)
                                              , new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, Multiplicity.ZeroMany)
-                                             , new PropertyAssignment(Association.FKPropertyNameDomainPropertyId, $"{bidirectionalAssociation.SourcePropertyName}Id")
+                                             , new PropertyAssignment(Association.FKPropertyNameDomainPropertyId, $"{bidirectionalAssociation.TargetPropertyName}Id")
                                             });
 
             // set some properties in the association class

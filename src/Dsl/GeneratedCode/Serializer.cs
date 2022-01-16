@@ -1004,6 +1004,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // GenerateTableComments
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribGenerateTableComments = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "generateTableComments");
+	         if (attribGenerateTableComments != null)
+	         {
+	            global::System.Boolean valueOfGenerateTableComments;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribGenerateTableComments, out valueOfGenerateTableComments))
+	            {
+	               instanceOfModelRoot.GenerateTableComments = valueOfGenerateTableComments;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "generateTableComments", typeof(global::System.Boolean), attribGenerateTableComments);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -2296,6 +2313,19 @@ namespace Sawczyn.EFDesigner.EFModel
 	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "showInterfaceIndicators", serializedPropValue);
 	         }
 	      }
+	      // GenerateTableComments
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelRoot.GenerateTableComments;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "generateTableComments", serializedPropValue);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -3116,6 +3146,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            else
 	            {   // Invalid property value, ignored.
 	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "describedAssociationElementId", typeof(global::System.Guid), attribDescribedAssociationElementId);
+	            }
+	         }
+	      }
+	      // TableComment
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribTableComment = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "tableComment");
+	         if (attribTableComment != null)
+	         {
+	            global::System.String valueOfTableComment;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribTableComment, out valueOfTableComment))
+	            {
+	               instanceOfModelClass.TableComment = valueOfTableComment;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "tableComment", typeof(global::System.String), attribTableComment);
 	            }
 	         }
 	      }
@@ -4164,6 +4211,17 @@ namespace Sawczyn.EFDesigner.EFModel
 	         if (!serializationContext.Result.Failed)
 	         {
 	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "describedAssociationElementId", serializedPropValue);
+	         }
+	      }
+	      // TableComment
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.String propValue = instanceOfModelClass.TableComment;
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (!string.IsNullOrEmpty(propValue))
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "tableComment", propValue);
+	
 	         }
 	      }
 	   }
@@ -5867,10 +5925,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	      // IsForeignKeyFor
 	      if (!serializationContext.Result.Failed)
 	      {
-	         // Non-public getter, use DomainPropertyInfo method.
-	         DslModeling::DomainPropertyInfo propInfo = instanceOfModelAttribute.Partition.DomainDataDirectory.GetDomainProperty (ModelAttribute.IsForeignKeyForDomainPropertyId);
-	         global::System.Diagnostics.Debug.Assert (propInfo != null, "Cannot get DomainPropertyInfo for ModelAttribute.IsForeignKeyFor!");
-	         global::System.Guid propValue = ((global::System.Guid)propInfo.GetValue(instanceOfModelAttribute));
+	         global::System.Guid propValue = instanceOfModelAttribute.IsForeignKeyFor;
 	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Guid>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {

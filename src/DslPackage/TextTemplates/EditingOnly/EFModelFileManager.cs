@@ -16,8 +16,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    {
       #region Template
 
-      // EFDesigner v3.0.8.0
-      // Copyright (c) 2017-2021 Michael Sawczyn
+      // EFDesigner v4.1.2.0
+      // Copyright (c) 2017-2022 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
       public class Manager
@@ -201,7 +201,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
             private void CheckoutFileIfRequired(string fileName)
             {
-               SourceControl sc = dte.SourceControl;
+               EnvDTE.SourceControl sc = dte.SourceControl;
 
                if (sc != null && sc.IsItemUnderSCC(fileName) && !sc.IsItemCheckedOut(fileName))
                   sc.CheckOutItem(fileName);

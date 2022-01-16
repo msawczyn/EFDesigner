@@ -23,7 +23,7 @@
 #><#@ import namespace="System.Data.Entity.Design.PluralizationServices"
 #><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
 #><#+
-      // EFDesigner v3.1.0.0
+      // EFDesigner v4.1.2.0
       // Copyright (c) 2017-2022 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -36,7 +36,7 @@
        * Interactions with Visual Studio
        */
 
-      public IEnumerable<Project> GetAllProjects()
+      public IEnumerable<EnvDTE.Project> GetAllProjects()
       {
          foreach (Project project in GetSolution().Projects.OfType<Project>())
          {
@@ -76,7 +76,7 @@
          throw new InvalidOperationException("Error in GetCurrentProject(). Unable to find project.");
       }
 
-      private ProjectItem GetDirectoryItem(string target)
+      private EnvDTE.ProjectItem GetDirectoryItem(string target)
       {
          DTE dte = GetDTE();
          Array projects = dte?.ActiveSolutionProjects as Array;
@@ -89,7 +89,7 @@
             Directory.CreateDirectory(Path.Combine(rootDirectory, target));
 
             Queue<string> paths = new Queue<string>(target.Split('\\'));
-            ProjectItems currentItemList = currentProject.ProjectItems;
+            EnvDTE.ProjectItems currentItemList = currentProject.ProjectItems;
             bool found = false;
 
             while (paths.Any())
@@ -126,7 +126,7 @@
          return targetProjectItem;
       }
 
-      public DTE GetDTE()
+      public EnvDTE.DTE GetDTE()
       {
          IServiceProvider serviceProvider = (IServiceProvider)Host;
 
@@ -162,7 +162,7 @@
          }
       }
 
-      public Solution GetSolution()
+      public EnvDTE.Solution GetSolution()
       {
          return GetDTE().Solution;
       }

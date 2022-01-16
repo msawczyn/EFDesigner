@@ -220,7 +220,7 @@ namespace EFCore3Parser
          result.CustomAttributes = GetCustomAttributes(type.CustomAttributes);
 
          result.CustomInterfaces = type.GetInterfaces().Any()
-                                      ? string.Join(",", type.GetInterfaces().Select(GetTypeFullName))
+                                      ? string.Join(",", type.GetInterfaces().Select(GetTypeFullName).Where(s => s != null))
                                       : null;
 
          result.Properties = entityType.GetDeclaredProperties()

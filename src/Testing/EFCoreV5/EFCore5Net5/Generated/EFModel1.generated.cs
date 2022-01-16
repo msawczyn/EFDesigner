@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.4.7
+//     Produced by Entity Framework Visual Editor v4.1.2.0
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -25,7 +25,9 @@ namespace Testing
    public partial class EFModel1 : DbContext
    {
       #region DbSets
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.AssocClass> AssocClasses { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.Entity1> Entity1 { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.Entity2> Entity2 { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.EntityAbstract> EntityAbstract { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.EntityImplementation> EntityImplementation { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.EntityRelated> EntityRelated { get; set; }
@@ -37,7 +39,14 @@ namespace Testing
       /// </summary>
       public static string ConnectionString { get; set; } = @"Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True";
 
-      /// <inheritdoc />
+      /// <summary>
+      ///     <para>
+      ///         Initializes a new instance of the <see cref="T:Microsoft.EntityFrameworkCore.DbContext" /> class using the specified options.
+      ///         The <see cref="M:Microsoft.EntityFrameworkCore.DbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)" /> method will still be called to allow further
+      ///         configuration of the options.
+      ///     </para>
+      /// </summary>
+      /// <param name="options">The options for this context.</param>
       public EFModel1(DbContextOptions<EFModel1> options) : base(options)
       {
       }
@@ -55,7 +64,20 @@ namespace Testing
       partial void OnModelCreatingImpl(ModelBuilder modelBuilder);
       partial void OnModelCreatedImpl(ModelBuilder modelBuilder);
 
-      /// <inheritdoc />
+      /// <summary>
+      ///     Override this method to further configure the model that was discovered by convention from the entity types
+      ///     exposed in <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> properties on your derived context. The resulting model may be cached
+      ///     and re-used for subsequent instances of your derived context.
+      /// </summary>
+      /// <remarks>
+      ///     If a model is explicitly set on the options for this context (via <see cref="M:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.UseModel(Microsoft.EntityFrameworkCore.Metadata.IModel)" />)
+      ///     then this method will not be run.
+      /// </remarks>
+      /// <param name="modelBuilder">
+      ///     The builder being used to construct the model for this context. Databases (and other extensions) typically
+      ///     define extension methods on this object that allow you to configure aspects of the model that are specific
+      ///     to a given database.
+      /// </param>
       protected override void OnModelCreating(ModelBuilder modelBuilder)
       {
          base.OnModelCreating(modelBuilder);
@@ -71,11 +93,20 @@ namespace Testing
                      .ValueGeneratedOnAdd()
                      .IsRequired();
          modelBuilder.Entity<global::Testing.Entity1>()
-                     .HasOne<global::Testing.EntityImplementation>(p => p.EntityImplementation)
-                     .WithOne(p => p.Entity1)
-                     .HasForeignKey("Entity1", "EntityImplementationId")
-                     .OnDelete(DeleteBehavior.Cascade);
-         modelBuilder.Entity<global::Testing.Entity1>().Navigation(e => e.EntityImplementation).IsRequired();
+                     .HasMany<global::Testing.EntityImplementation>(p => p.EntityImplementations)
+                     .WithMany(p => p.Entity1)
+                     .UsingEntity(x => x.ToTable("EntityImplementation_Entity1_x_Entity1_EntityImplementations"));
+
+         modelBuilder.Entity<global::Testing.Entity2>()
+                     .ToTable("Entity2")
+                     .HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.Entity2>()
+                     .Property(t => t.Id)
+                     .ValueGeneratedOnAdd()
+                     .IsRequired();
+         modelBuilder.Entity<global::Testing.Entity2>()
+                     .HasMany<global::Testing.AssocClass>(p => p.EntityImplementations_Entity3)
+                     .WithOne(p => p.Entity2);
 
          modelBuilder.Entity<global::Testing.EntityAbstract>()
                      .ToTable("EntityAbstract")
@@ -89,6 +120,22 @@ namespace Testing
                      .Property(t => t.Test)
                      .HasMaxLength(255);
 
+         modelBuilder.Entity<global::Testing.EntityImplementation>()
+                     .HasMany<global::Testing.Entity2>(p => p.Entity2)
+                     .WithMany(p => p.EntityImplementations)
+                     .UsingEntity<global::Testing.AssocClass>(j => j.HasOne(x => x.EntityImplementations).WithMany(x => x.Entity2_AssocClass).HasForeignKey(x => x.EntityImplementationsId)
+                                                            , j => j.HasOne(x => x.Entity2).WithMany(x => x.EntityImplementations_AssocClass).HasForeignKey(x => x.Entity2Id)
+                                                            , j =>
+                                                              {
+                                                                 j.ToTable("AssocClasses");
+                                                                 j.HasKey(t => new { t.Entity2Id, t.EntityImplementationsId });
+                                                                 j.Property(t => t.Id).IsRequired();
+                                                                 j.HasIndex(t => t.Id).IsUnique();
+                                                              });
+         modelBuilder.Entity<global::Testing.EntityImplementation>()
+                     .HasMany<global::Testing.AssocClass>(p => p.Entity2_Entity3)
+                     .WithOne(p => p.EntityImplementations);
+
          modelBuilder.Entity<global::Testing.EntityRelated>()
                      .ToTable("EntityRelated")
                      .HasKey(t => t.Id);
@@ -98,9 +145,7 @@ namespace Testing
                      .IsRequired();
          modelBuilder.Entity<global::Testing.EntityRelated>()
                      .HasOne<global::Testing.EntityAbstract>(p => p.EntityAbstract)
-                     .WithMany(p => p.EntityRelated)
-                     .HasForeignKey("EntityAbstractId");
-         modelBuilder.Entity<global::Testing.EntityRelated>().Navigation(e => e.EntityAbstract).IsRequired();
+                     .WithMany(p => p.EntityRelated);
 
          OnModelCreatedImpl(modelBuilder);
       }

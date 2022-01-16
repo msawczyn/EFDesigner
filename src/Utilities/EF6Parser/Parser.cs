@@ -419,7 +419,7 @@ namespace EF6Parser
             IsAbstract = oSpaceType.Abstract,
             BaseClass = GetTypeFullName(oSpaceType.BaseType?.Name),
             CustomInterfaces = type.GetInterfaces().Any()
-                                                      ? string.Join(",", type.GetInterfaces().Select(GetTypeFullName))
+                                                      ? string.Join(",", type.GetInterfaces().Select(GetTypeFullName).Where(s => s != null))
                                                       : null,
             IsDependentType = false,
             CustomAttributes = customAttributes.Length > 2

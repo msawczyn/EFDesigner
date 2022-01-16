@@ -10,8 +10,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.8.0
-      // Copyright (c) 2017-2021 Michael Sawczyn
+      // EFDesigner v4.1.2.0
+      // Copyright (c) 2017-2022 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
       public class EF6ModelGenerator : EFModelGenerator
@@ -796,3 +796,5 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
       #endregion Template
    }
 }
+
+

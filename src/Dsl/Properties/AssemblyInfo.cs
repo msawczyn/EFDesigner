@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.ConstrainedExecution;
 
 [assembly: AssemblyTitle("Entity Framework Visual Designer")]
-[assembly: AssemblyDescription("Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond")]
+[assembly: AssemblyDescription("Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond (VS2019 version)")]
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
 #else
@@ -17,8 +17,8 @@ using System.Runtime.ConstrainedExecution;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("3.1.0.0")]
-[assembly: AssemblyFileVersion("3.1.0.0")]
+[assembly: AssemblyVersion("4.1.2.0")]
+[assembly: AssemblyFileVersion("4.1.2.0")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 [assembly: ReliabilityContract(Consistency.MayCorruptProcess, Cer.None)]

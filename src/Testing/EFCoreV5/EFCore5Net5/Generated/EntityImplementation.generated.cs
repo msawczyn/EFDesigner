@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.4.7
+//     Produced by Entity Framework Visual Editor v4.1.2.0
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -33,6 +33,10 @@ namespace Testing
       /// </summary>
       public EntityImplementation(): base()
       {
+         Entity2 = new System.Collections.Generic.HashSet<global::Testing.Entity2>();
+         Entity2_Entity3 = new System.Collections.Generic.HashSet<global::Testing.AssocClass>();
+         Entity1 = new System.Collections.Generic.HashSet<global::Testing.Entity1>();
+
          Init();
       }
 
@@ -51,7 +55,16 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
-      public virtual global::Testing.Entity1 Entity1 { get; set; }
+      public virtual ICollection<global::Testing.Entity1> Entity1 { get; private set; }
+
+      public virtual ICollection<global::Testing.Entity2> Entity2 { get; private set; }
+
+      /// <summary>
+      /// Association class for Entity2
+      /// </summary>
+      [System.ComponentModel.Description("Association class for Entity2")]
+      [System.ComponentModel.DataAnnotations.Display(Name="Association object for Entity2")]
+      public virtual ICollection<global::Testing.AssocClass> Entity2_Entity3 { get; private set; }
 
    }
 }

@@ -6,15 +6,15 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    {
       #region Template
 
-      // EFDesigner v3.0.8.0
-      // Copyright (c) 2017-2021 Michael Sawczyn
+      // EFDesigner v4.1.2.0
+      // Copyright (c) 2017-2022 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
       public class EFCore3ModelGenerator : EFCore2ModelGenerator
       {
          public EFCore3ModelGenerator(GeneratedTextTransformation host) : base(host) { }
 
-         protected override void WriteTargetDeleteBehavior(UnidirectionalAssociation association, List<string> segments)
+         protected override void WriteTargetDeleteBehavior(Association association, List<string> segments)
          {
             if (!association.Source.IsDependentType
              && !association.Target.IsDependentType
@@ -68,3 +68,5 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
       #endregion Template
    }
 }
+
+

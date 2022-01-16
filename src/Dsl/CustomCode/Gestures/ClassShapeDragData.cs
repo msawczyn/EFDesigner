@@ -66,37 +66,25 @@ namespace Sawczyn.EFDesigner.EFModel
 
       internal void HighlightActionableClassShapes(PointD mousePosition)
       {
-         List<BidirectionalConnector> connectors = GetBidirectionalConnectorsUnderShape(mousePosition);
-         HighlightedShapesCollection highlightedShapes = ClassShape.Diagram.ActiveDiagramView.DiagramClientView.HighlightedShapes;
-
-         DiagramItem classShapeItem = new DiagramItem(ClassShape);
-
-         if (highlightedShapes.Contains(classShapeItem))
-         {
-            highlightedShapes.Remove(classShapeItem);
-            ClassShape.Invalidate();
-         }
+         EFModelDiagram diagram = ((EFModelDiagram)ClassShape.Diagram);
+         diagram.Unhighlight(ClassShape);
 
          foreach (BidirectionalConnector connector in priorHighlightedConnectors)
-         {
-            highlightedShapes.Remove(new DiagramItem(connector));
-            connector.Invalidate();
-         }
+            diagram.Unhighlight(connector);
 
          priorHighlightedConnectors.Clear();
+
+         List<BidirectionalConnector> connectors = GetBidirectionalConnectorsUnderShape(mousePosition);
+         HighlightedShapesCollection highlightedShapes = ClassShape.Diagram.ActiveDiagramView.DiagramClientView.HighlightedShapes;
 
          if (connectors.Any())
          {
             priorHighlightedConnectors.AddRange(connectors);
 
-            highlightedShapes.Add(classShapeItem);
-            ClassShape.Invalidate();
+            diagram.Highlight(ClassShape);
 
             foreach (BidirectionalConnector connector in connectors.Where(c => !highlightedShapes.Contains(new DiagramItem(c))))
-            {
-               highlightedShapes.Add(new DiagramItem(connector));
-               connector.Invalidate();
-            }
+               diagram.Highlight(connector);
          }
       }
    }

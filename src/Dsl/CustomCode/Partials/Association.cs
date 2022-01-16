@@ -109,7 +109,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       public string[] GetForeignKeyPropertyNames()
       {
-         return FKPropertyName?.Split(',').Select(n => n.Trim()).ToArray() ?? new string[0];
+         return FKPropertyName?.Split(',').Select(n => n.Trim()).ToArray() ?? Array.Empty<string>();
       }
 
       /// <summary>

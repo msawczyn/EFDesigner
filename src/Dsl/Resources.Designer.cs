@@ -233,6 +233,16 @@ namespace Sawczyn.EFDesigner.EFModel {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Dictionary_16x {
+            get {
+                object obj = ResourceManager.GetObject("Dictionary_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Dictionary_16xVisible {
             get {
                 object obj = ResourceManager.GetObject("Dictionary_16xVisible", resourceCulture);
