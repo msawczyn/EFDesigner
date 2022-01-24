@@ -1887,17 +1887,17 @@
   <Shapes>
     <CompartmentShape Id="8055f08f-3d3a-435f-8b47-7afcd0e051bd" Description="" Name="ClassShape" DisplayName="Class Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Class Shape" TextColor="White" ExposesTextColor="true" FillColor="0, 122, 204" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="Rectangle">
       <Properties>
-        <DomainProperty Id="77fd1ed0-30ca-4c62-8d29-bfc23ce78a18" Description="Fill color for shape" Name="FillColor" DisplayName="Fill Color" DefaultValue="" Kind="CustomStorage" Category="Display">
+        <DomainProperty Id="77fd1ed0-30ca-4c62-8d29-bfc23ce78a18" Description="Fill color for shape when using a theme with a light background." Name="FillColor" DisplayName="Fill Color" DefaultValue="" Kind="CustomStorage" Category="Display">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing/Color" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="a1bc67d8-5957-4fd3-ac57-e320db11bfe2" Description="Color of the shape's text" Name="TextColor" DisplayName="Text Color" Kind="CustomStorage" Category="Display" IsBrowsable="false">
+        <DomainProperty Id="a1bc67d8-5957-4fd3-ac57-e320db11bfe2" Description="Color of the shape's text when using a theme with a light background." Name="TextColor" DisplayName="Text Color" Kind="CustomStorage" Category="Display" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing/Color" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="b60bda34-6c70-4825-af60-482a9112bdf8" Description="Color of the shape's outline" Name="OutlineColor" DisplayName="Outline Color" Kind="CustomStorage" Category="Display" IsBrowsable="false">
+        <DomainProperty Id="b60bda34-6c70-4825-af60-482a9112bdf8" Description="Color of the shape's outline when using a theme with a light background." Name="OutlineColor" DisplayName="Outline Color" Kind="CustomStorage" Category="Display" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing/Color" />
           </Type>
@@ -1948,33 +1948,33 @@
       <ShapeHasDecorators Position="OuterTopLeft" HorizontalOffset="0.2" VerticalOffset="0.1">
         <IconDecorator Name="Interface" DisplayName="Interface" DefaultIcon="Resources\Interface.png" />
       </ShapeHasDecorators>
-      <Compartment Name="AttributesCompartment" Title="Properties" />
-      <Compartment Name="AssociationsCompartment" Title="Association Targets" />
-      <Compartment Name="SourcesCompartment" Title="Association Sources" />
+      <Compartment FillColor="Transparent" Name="AttributesCompartment" Title="Properties" />
+      <Compartment FillColor="Transparent" Name="AssociationsCompartment" Title="Association Targets" />
+      <Compartment FillColor="Transparent" Name="SourcesCompartment" Title="Association Sources" />
     </CompartmentShape>
     <GeometryShape Id="ac82cb66-4d3d-46ac-a7e2-b7f0cd67a73f" Description="" Name="CommentBoxShape" DisplayName="Comment Box Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Comment Box Shape" ExposesTextColor="true" FillColor="255, 255, 204" OutlineColor="204, 204, 102" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="ForwardDiagonal" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="RoundedRectangle">
       <Properties>
-        <DomainProperty Id="276258af-085d-4201-b3e8-fb26a2d6efc4" Description="Fill color for shape" Name="FillColor" DisplayName="Fill Color" Kind="CustomStorage" Category="Display">
+        <DomainProperty Id="276258af-085d-4201-b3e8-fb26a2d6efc4" Description="Fill color for the shape when using a theme with a light background." Name="FillColor" DisplayName="Fill Color" Kind="CustomStorage" Category="Display">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing/Color" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="b83f02a5-312b-4fa4-862a-93e7d51766e5" Description="Color of the shape's outline" Name="OutlineColor" DisplayName="Outline Color" Kind="CustomStorage" Category="Display">
+        <DomainProperty Id="b83f02a5-312b-4fa4-862a-93e7d51766e5" Description="Color of the shape's outline when using a theme with a light background." Name="OutlineColor" DisplayName="Outline Color" Kind="CustomStorage" Category="Display" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing/Color" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="ba60eaf8-ceb3-4542-a89e-65f69b9dcbc3" Description="Color of the shape's text" Name="TextColor" DisplayName="Text Color" Kind="CustomStorage" Category="Display">
+        <DomainProperty Id="ba60eaf8-ceb3-4542-a89e-65f69b9dcbc3" Description="Color of the shape's text when using a theme with a light background." Name="TextColor" DisplayName="Text Color" Kind="CustomStorage" Category="Display" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing/Color" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="e3459214-9d50-4fe5-b99f-cd1889898547" Description="Line style for the shape's outline" Name="OutlineDashStyle" DisplayName="Outline Dash Style" Kind="CustomStorage" Category="Display">
+        <DomainProperty Id="e3459214-9d50-4fe5-b99f-cd1889898547" Description="Line style for the shape's outline" Name="OutlineDashStyle" DisplayName="Outline Dash Style" Kind="CustomStorage" Category="Display" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing.Drawing2D/DashStyle" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="47b0cf2f-0712-480f-bdf7-d27cfbd8db3e" Description="Thickness, in inches, of the shapes's outline" Name="OutlineThickness" DisplayName="Outline Thickness" Kind="CustomStorage" Category="Display">
+        <DomainProperty Id="47b0cf2f-0712-480f-bdf7-d27cfbd8db3e" Description="Thickness, in inches, of the shapes's outline" Name="OutlineThickness" DisplayName="Outline Thickness" Kind="CustomStorage" Category="Display" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Single" />
           </Type>
@@ -1991,17 +1991,17 @@
     </GeometryShape>
     <CompartmentShape Id="de514c36-0966-422a-9511-997b89ac7a56" Description="" Name="EnumShape" DisplayName="Enum Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Enum Shape" TextColor="White" ExposesTextColor="true" FillColor="Gray" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="Rectangle">
       <Properties>
-        <DomainProperty Id="b4b78660-37fd-48ee-90c1-4a338c5db791" Description="Fill color for shape" Name="FillColor" DisplayName="Fill Color" DefaultValue="" Kind="CustomStorage" Category="Display">
+        <DomainProperty Id="b4b78660-37fd-48ee-90c1-4a338c5db791" Description="Fill color for shape when using a theme with a light background." Name="FillColor" DisplayName="Fill Color" DefaultValue="" Kind="CustomStorage" Category="Display">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing/Color" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="764aa9b3-eb39-4bc7-9371-0e1ec80f3cff" Description="Color of the shape's text" Name="TextColor" DisplayName="Text Color" Kind="CustomStorage" Category="Display" IsBrowsable="false">
+        <DomainProperty Id="764aa9b3-eb39-4bc7-9371-0e1ec80f3cff" Description="Color of the shape's text when using a theme with a light background." Name="TextColor" DisplayName="Text Color" Kind="CustomStorage" Category="Display" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing/Color" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="e8ae18fb-d462-4a71-8b57-00ff03bb5506" Description="Color of the shape's outline" Name="OutlineColor" DisplayName="Outline Color" Kind="CustomStorage" Category="Display" IsBrowsable="false">
+        <DomainProperty Id="e8ae18fb-d462-4a71-8b57-00ff03bb5506" Description="Color of the shape's outline when using a theme with a light background." Name="OutlineColor" DisplayName="Outline Color" Kind="CustomStorage" Category="Display" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing/Color" />
           </Type>
@@ -2037,13 +2037,13 @@
       <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="16" VerticalOffset="0">
         <IconDecorator Name="NoGenGlyph" DisplayName="No Code Generation" DefaultIcon="Resources\No.png" />
       </ShapeHasDecorators>
-      <Compartment Name="ValuesCompartment" Title="Values" />
+      <Compartment FillColor="Transparent" Name="ValuesCompartment" Title="Values" EntryTextColor="IndianRed" />
     </CompartmentShape>
   </Shapes>
   <Connectors>
-    <Connector Id="6b6c3915-4ad2-4118-ab70-d1adf80dc3ba" Description="" Name="AssociationConnector" DisplayName="Association Connector" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Association Connector" Color="113, 111, 110" Thickness="0.01" ExposesColorAsProperty="true" ExposesDashStyleAsProperty="true">
+    <Connector Id="6b6c3915-4ad2-4118-ab70-d1adf80dc3ba" Description="" Name="AssociationConnector" DisplayName="Association Connector" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Association Connector" ExposesTextColor="true" Color="113, 111, 110" Thickness="0.01" ExposesColorAsProperty="true" ExposesDashStyleAsProperty="true">
       <Properties>
-        <DomainProperty Id="87700344-4a49-4734-b376-47dd7ec79b24" Description="No description available" Name="Color" DisplayName="Color" Kind="CustomStorage" IsBrowsable="false">
+        <DomainProperty Id="87700344-4a49-4734-b376-47dd7ec79b24" Description="The connector's color when using a theme with a light background." Name="Color" DisplayName="Color" Kind="CustomStorage" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing/Color" />
           </Type>
@@ -2051,6 +2051,11 @@
         <DomainProperty Id="657f50bd-4284-4ec3-bc1d-7dcdf731ab62" Description="No description available" Name="DashStyle" DisplayName="Dash Style" Kind="CustomStorage" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing.Drawing2D/DashStyle" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="943edfeb-9710-492c-8f5b-5d79db249b77" Description="The connector's text color when using a theme with a light background." Name="TextColor" DisplayName="Text Color" Kind="CustomStorage" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System.Drawing/Color" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -2077,8 +2082,34 @@
         <TextDecorator Name="SourcePropertyNameDisplay" DisplayName="Source Property Name Display" DefaultText="SourcePropertyNameDisplay" />
       </ConnectorHasDecorators>
     </Connector>
-    <Connector Id="6c2b3d5f-a15e-4480-913f-b1dac8612868" Description="" Name="GeneralizationConnector" DisplayName="Generalization Connector" Namespace="Sawczyn.EFDesigner.EFModel" TooltipType="Variable" FixedTooltipText="Generalization Connector" Color="113, 111, 110" SourceEndStyle="HollowArrow" Thickness="0.01" />
-    <Connector Id="bb10a438-849e-4964-b7c6-55f2c121965a" Description="" Name="CommentConnector" DisplayName="Comment Connector" Namespace="Sawczyn.EFDesigner.EFModel" FixedTooltipText="Comment Connector" Color="113, 111, 110" DashStyle="Dot" Thickness="0.01" RoutingStyle="Straight" />
+    <Connector Id="6c2b3d5f-a15e-4480-913f-b1dac8612868" Description="" Name="GeneralizationConnector" DisplayName="Generalization Connector" Namespace="Sawczyn.EFDesigner.EFModel" TooltipType="Variable" FixedTooltipText="Generalization Connector" ExposesTextColor="true" Color="113, 111, 110" SourceEndStyle="HollowArrow" Thickness="0.01" ExposesColorAsProperty="true">
+      <Properties>
+        <DomainProperty Id="7915d940-de37-48d0-a9b9-47494a4c1527" Description="The line color when using a theme with a light background." Name="Color" DisplayName="Color" Kind="CustomStorage" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System.Drawing/Color" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="efd8acb1-9e3f-49a0-a6c5-0ff3d81e8cea" Description="Description for Sawczyn.EFDesigner.EFModel.GeneralizationConnector.Text Color" Name="TextColor" DisplayName="Text Color" Kind="CustomStorage" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System.Drawing/Color" />
+          </Type>
+        </DomainProperty>
+      </Properties>
+    </Connector>
+    <Connector Id="bb10a438-849e-4964-b7c6-55f2c121965a" Description="" Name="CommentConnector" DisplayName="Comment Connector" Namespace="Sawczyn.EFDesigner.EFModel" FixedTooltipText="Comment Connector" ExposesTextColor="true" Color="113, 111, 110" DashStyle="Dot" Thickness="0.01" RoutingStyle="Straight" ExposesColorAsProperty="true">
+      <Properties>
+        <DomainProperty Id="4c7c5ed8-25ee-4163-9db3-d37c70a40fc6" Description="The color of the comment connector when using a theme with a light background." Name="Color" DisplayName="Color" Kind="CustomStorage" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System.Drawing/Color" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="1dc89ca3-d537-460b-b5af-21353cbc9d48" Description="The color of the connector's text when using a theme with a light background." Name="TextColor" DisplayName="Text Color" Kind="CustomStorage" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System.Drawing/Color" />
+          </Type>
+        </DomainProperty>
+      </Properties>
+    </Connector>
   </Connectors>
   <XmlSerializationBehavior Name="EFModelSerializationBehavior" Namespace="Sawczyn.EFDesigner.EFModel">
     <ClassData>
@@ -2727,6 +2758,9 @@
           <XmlPropertyData XmlName="dashStyle">
             <DomainPropertyMoniker Name="AssociationConnector/DashStyle" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="textColor">
+            <DomainPropertyMoniker Name="AssociationConnector/TextColor" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="UnidirectionalConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="unidirectionalConnectorMoniker" ElementName="unidirectionalConnector" MonikerTypeName="UnidirectionalConnectorMoniker">
@@ -2737,12 +2771,36 @@
       </XmlClassData>
       <XmlClassData TypeName="GeneralizationConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="generalizationConnectorMoniker" ElementName="generalizationConnector" MonikerTypeName="GeneralizationConnectorMoniker">
         <ConnectorMoniker Name="GeneralizationConnector" />
+        <ElementData>
+          <XmlPropertyData XmlName="color">
+            <DomainPropertyMoniker Name="GeneralizationConnector/Color" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="textColor">
+            <DomainPropertyMoniker Name="GeneralizationConnector/TextColor" />
+          </XmlPropertyData>
+        </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="CommentConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentConnectorMoniker" ElementName="commentConnector" MonikerTypeName="CommentConnectorMoniker">
         <ConnectorMoniker Name="CommentConnector" />
+        <ElementData>
+          <XmlPropertyData XmlName="color">
+            <DomainPropertyMoniker Name="CommentConnector/Color" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="textColor">
+            <DomainPropertyMoniker Name="CommentConnector/TextColor" />
+          </XmlPropertyData>
+        </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="EFModelDiagram" MonikerAttributeName="" SerializeId="true" MonikerElementName="eFModelDiagramMoniker" ElementName="eFModelDiagram" MonikerTypeName="EFModelDiagramMoniker">
         <DiagramMoniker Name="EFModelDiagram" />
+        <ElementData>
+          <XmlPropertyData XmlName="fillColor">
+            <DomainPropertyMoniker Name="EFModelDiagram/FillColor" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="textColor">
+            <DomainPropertyMoniker Name="EFModelDiagram/TextColor" />
+          </XmlPropertyData>
+        </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelEnum" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelEnumMoniker" ElementName="modelEnum" MonikerTypeName="ModelEnumMoniker">
         <DomainClassMoniker Name="ModelEnum" />
@@ -3028,7 +3086,19 @@
       </LinkConnectDirective>
     </ConnectionBuilder>
   </ConnectionBuilders>
-  <Diagram Id="4bd5b7e6-86b6-43d2-962d-b6e87ac4690a" Description="" Name="EFModelDiagram" DisplayName="Class Diagram" Namespace="Sawczyn.EFDesigner.EFModel">
+  <Diagram Id="4bd5b7e6-86b6-43d2-962d-b6e87ac4690a" Description="" Name="EFModelDiagram" DisplayName="Class Diagram" Namespace="Sawczyn.EFDesigner.EFModel" ExposesFillColor="true" ExposesTextColor="true">
+    <Properties>
+      <DomainProperty Id="65dfd143-7282-4702-a92e-ca443873ba27" Description="The background color when using a theme with a light background." Name="FillColor" DisplayName="Fill Color" Kind="CustomStorage" IsBrowsable="false">
+        <Type>
+          <ExternalTypeMoniker Name="/System.Drawing/Color" />
+        </Type>
+      </DomainProperty>
+      <DomainProperty Id="8e5fb873-c075-421f-a232-4e18798fd81e" Description="The text color when using a theme with a light background." Name="TextColor" DisplayName="Text Color" Kind="CustomStorage" IsBrowsable="false">
+        <Type>
+          <ExternalTypeMoniker Name="/System.Drawing/Color" />
+        </Type>
+      </DomainProperty>
+    </Properties>
     <Class>
       <DomainClassMoniker Name="ModelRoot" />
     </Class>

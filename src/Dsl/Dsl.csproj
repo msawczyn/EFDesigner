@@ -20,9 +20,6 @@
     <StartupObject>
     </StartupObject>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -134,17 +131,20 @@
     <Compile Include="CustomCode\Extensions\PropertyDescriptorCollectionExtensions.cs" />
     <Compile Include="CustomCode\Extensions\StringExtensions.cs" />
     <Compile Include="CustomCode\Extensions\SyntaxNodeExtensions.cs" />
+    <Compile Include="CustomCode\Gestures\ClassDragMouseAction.cs" />
+    <Compile Include="CustomCode\Gestures\ClassShapeDragData.cs" />
     <Compile Include="CustomCode\Gestures\CompartmentDragMouseAction.cs" />
-    <Compile Include="CustomCode\ModelElement Interfaces\ICompartmentShapeMouseTarget.cs" />
+    <Compile Include="CustomCode\ModelElement Interfaces\IThemeable.cs" />
     <Compile Include="CustomCode\Modeling\ViewContext.cs" />
     <Compile Include="CustomCode\Name Providers\ModelDiagramDataNameProvider.cs" />
     <Compile Include="CustomCode\Partials\AssociationConnector.cs" />
     <Compile Include="CustomCode\Domain Types\Namespaces.cs" />
-    <Compile Include="CustomCode\Gestures\ClassShapeDragData.cs" />
     <Compile Include="CustomCode\Partials\CommentBoxShapeBase.cs" />
+    <Compile Include="CustomCode\Utilities\DiagramThemeColors.cs" />
     <Compile Include="CustomCode\Partials\EFModelDomainModel.cs" />
     <Compile Include="CustomCode\Partials\ModelDiagramData.cs" />
     <Compile Include="CustomCode\Rules\AssociationDeletingRules.cs" />
+    <Compile Include="CustomCode\Rules\ClassShapeChangeRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataAddRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataChangeRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataDeleteRules.cs" />
@@ -172,6 +172,7 @@
     <Compile Include="CustomCode\ModelElement Interfaces\IHighlightFromModelExplorer.cs" />
     <Compile Include="CustomCode\ModelElement Interfaces\IModelElementInCompartment.cs" />
     <Compile Include="CustomCode\ModelElement Interfaces\IModelElementWithCompartments.cs" />
+    <Compile Include="CustomCode\ModelElement Interfaces\ICompartmentShapeMouseTarget.cs" />
     <Compile Include="CustomCode\Partials\ModelAttribute.cs" />
     <Compile Include="CustomCode\Rules\GeneralizationDeletingRules.cs" />
     <Compile Include="CustomCode\Rules\ModelClassDeletingRules.cs" />
@@ -396,46 +397,87 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SynchronizationHelper.cs</LastGenOutput>
     </Content>
+    <Content Include="Resources\AbstractEntityGlyph-i.png" />
     <Content Include="Resources\AbstractEntityGlyph.png" />
+    <Content Include="Resources\AbstractEntityGlyphVisible-i.png" />
     <Content Include="Resources\AbstractEntityGlyphVisible.png" />
+    <Content Include="Resources\Association-i.png" />
+    <Content Include="Resources\AssociationClassGlyph-i.png" />
     <Content Include="Resources\AssociationClassGlyph.png" />
+    <Content Include="Resources\AssociationClassGlyphVisible-i.png" />
     <Content Include="Resources\AssociationClassGlyphVisible.png" />
+    <Content Include="Resources\Calculated-i.png" />
     <Content Include="Resources\Calculated.png" />
+    <Content Include="Resources\CalculatedInternal-i.png" />
     <Content Include="Resources\CalculatedInternal.png" />
+    <Content Include="Resources\CalculatedProtected-i.png" />
     <Content Include="Resources\CalculatedProtected.png" />
+    <Content Include="Resources\cardinality-0-0-i.png" />
     <Content Include="Resources\cardinality-0-0.png" />
+    <Content Include="Resources\cardinality-0-1-i.png" />
     <Content Include="Resources\cardinality-0-1.png" />
+    <Content Include="Resources\cardinality-0-many-i.png" />
     <Content Include="Resources\cardinality-0-many.png" />
+    <Content Include="Resources\cardinality-1-0-i.png" />
     <Content Include="Resources\cardinality-1-0.png" />
+    <Content Include="Resources\cardinality-1-1-i.png" />
     <Content Include="Resources\cardinality-1-1.png" />
+    <Content Include="Resources\cardinality-1-many-i.png" />
     <Content Include="Resources\cardinality-1-many.png" />
+    <Content Include="Resources\cardinality-many-0-i.png" />
     <Content Include="Resources\cardinality-many-0.png" />
+    <Content Include="Resources\cardinality-many-1-i.png" />
     <Content Include="Resources\cardinality-many-1.png" />
+    <Content Include="Resources\cardinality-many-many-i.png" />
     <Content Include="Resources\cardinality-many-many.png" />
-    <Content Include="Resources\Dictionary_16x.png" />
+    <Content Include="Resources\Dictionary_16x-i.png" />
+    <Content Include="Resources\Dictionary_16xVisible-i.png" />
     <Content Include="Resources\Dictionary_16xVisible.png" />
+    <Content Include="Resources\Dictionary_16x.png" />
+    <Content Include="Resources\EntityGlyph-i.png" />
     <Content Include="Resources\EntityGlyph.png" />
+    <Content Include="Resources\EntityGlyphVisible-i.png" />
     <Content Include="Resources\EntityGlyphVisible.png" />
+    <Content Include="Resources\Enumerator_16x-i.png" />
     <Content Include="Resources\Enumerator_16x.png" />
+    <Content Include="Resources\Enumerator_16xVisible-i.png" />
     <Content Include="Resources\Enumerator_16xVisible.png" />
+    <Content Include="Resources\EnumItem_16x-i.png" />
     <Content Include="Resources\EnumItem_16x.png" />
+    <Content Include="Resources\EnumValue-i.png" />
     <Content Include="Resources\EnumValue.png" />
+    <Content Include="Resources\ForeignKey-i.png" />
     <Content Include="Resources\ForeignKey.png" />
+    <Content Include="Resources\ForeignKeyIdentity-i.png" />
     <Content Include="Resources\ForeignKeyIdentity.png" />
+    <Content Include="Resources\Identity-i.png" />
     <Content Include="Resources\Identity.png" />
+    <Content Include="Resources\Interface-i.png" />
     <Content Include="Resources\Interface.png" />
+    <Content Include="Resources\Internal-i.png" />
     <Content Include="Resources\Internal.png" />
+    <Content Include="Resources\KeyRight_left_16x-i.png" />
     <Content Include="Resources\KeyRight_left_16x.png" />
+    <Content Include="Resources\No-i.png" />
     <Content Include="Resources\No.png" />
+    <Content Include="Resources\Protected-i.png" />
     <Content Include="Resources\Protected.png" />
+    <Content Include="Resources\Public-i.png" />
     <Content Include="Resources\Public.png" />
+    <Content Include="Resources\ShowDiagramPane_16x-i.png" />
     <Content Include="Resources\ShowDiagramPane_16x.png" />
+    <Content Include="Resources\Spacer-i.png" />
     <Content Include="Resources\Spacer.png" />
+    <Content Include="Resources\SQL-i.png" />
     <Content Include="Resources\SQL.png" />
     <None Include="Templates\SerializationHelper.tt" />
     <None Include="Resources\SQLVisible.png" />
+    <Content Include="Resources\SQLVisible-i.png" />
+    <Content Include="Resources\TransientClass-i.png" />
     <Content Include="Resources\TransientClass.png" />
+    <Content Include="Resources\TransientClassVisible-i.png" />
     <Content Include="Resources\TransientClassVisible.png" />
+    <Content Include="Resources\Warning-i.png" />
     <Content Include="Resources\Warning.png" />
     <None Include="Templates\MonikerAmbiguityValidation.tt" />
     <None Include="Templates\Diagram.tt" />

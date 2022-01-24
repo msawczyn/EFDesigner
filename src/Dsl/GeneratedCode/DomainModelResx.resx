@@ -3634,7 +3634,7 @@
     <comment>DisplayName for DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/FillColor.Description" xml:space="preserve">
-    <value>Fill color for shape</value>
+    <value>Fill color for shape when using a theme with a light background.</value>
     <comment>Description for DomainProperty &apos;FillColor&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/FillColor.DisplayName" xml:space="preserve">
@@ -3646,7 +3646,7 @@
     <comment>Category for DomainProperty &apos;FillColor&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/TextColor.Description" xml:space="preserve">
-    <value>Color of the shape&apos;s text</value>
+    <value>Color of the shape&apos;s text when using a theme with a light background.</value>
     <comment>Description for DomainProperty &apos;TextColor&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/TextColor.DisplayName" xml:space="preserve">
@@ -3658,7 +3658,7 @@
     <comment>Category for DomainProperty &apos;TextColor&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/OutlineColor.Description" xml:space="preserve">
-    <value>Color of the shape&apos;s outline</value>
+    <value>Color of the shape&apos;s outline when using a theme with a light background.</value>
     <comment>Description for DomainProperty &apos;OutlineColor&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/OutlineColor.DisplayName" xml:space="preserve">
@@ -3730,7 +3730,7 @@
     <comment>DisplayName for DomainClass &apos;CommentBoxShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/FillColor.Description" xml:space="preserve">
-    <value>Fill color for shape</value>
+    <value>Fill color for the shape when using a theme with a light background.</value>
     <comment>Description for DomainProperty &apos;FillColor&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/FillColor.DisplayName" xml:space="preserve">
@@ -3742,7 +3742,7 @@
     <comment>Category for DomainProperty &apos;FillColor&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineColor.Description" xml:space="preserve">
-    <value>Color of the shape&apos;s outline</value>
+    <value>Color of the shape&apos;s outline when using a theme with a light background.</value>
     <comment>Description for DomainProperty &apos;OutlineColor&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineColor.DisplayName" xml:space="preserve">
@@ -3754,7 +3754,7 @@
     <comment>Category for DomainProperty &apos;OutlineColor&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/TextColor.Description" xml:space="preserve">
-    <value>Color of the shape&apos;s text</value>
+    <value>Color of the shape&apos;s text when using a theme with a light background.</value>
     <comment>Description for DomainProperty &apos;TextColor&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/TextColor.DisplayName" xml:space="preserve">
@@ -3810,7 +3810,7 @@
     <comment>DisplayName for DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/FillColor.Description" xml:space="preserve">
-    <value>Fill color for shape</value>
+    <value>Fill color for shape when using a theme with a light background.</value>
     <comment>Description for DomainProperty &apos;FillColor&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/FillColor.DisplayName" xml:space="preserve">
@@ -3822,7 +3822,7 @@
     <comment>Category for DomainProperty &apos;FillColor&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/TextColor.Description" xml:space="preserve">
-    <value>Color of the shape&apos;s text</value>
+    <value>Color of the shape&apos;s text when using a theme with a light background.</value>
     <comment>Description for DomainProperty &apos;TextColor&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/TextColor.DisplayName" xml:space="preserve">
@@ -3834,7 +3834,7 @@
     <comment>Category for DomainProperty &apos;TextColor&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/OutlineColor.Description" xml:space="preserve">
-    <value>Color of the shape&apos;s outline</value>
+    <value>Color of the shape&apos;s outline when using a theme with a light background.</value>
     <comment>Description for DomainProperty &apos;OutlineColor&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/OutlineColor.DisplayName" xml:space="preserve">
@@ -3898,7 +3898,7 @@
     <comment>DisplayName for DomainClass &apos;AssociationConnector&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.AssociationConnector/Color.Description" xml:space="preserve">
-    <value>No description available</value>
+    <value>The connector&apos;s color when using a theme with a light background.</value>
     <comment>Description for DomainProperty &apos;Color&apos; on DomainClass &apos;AssociationConnector&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.AssociationConnector/Color.DisplayName" xml:space="preserve">
@@ -3912,6 +3912,14 @@
   <data name="Sawczyn.EFDesigner.EFModel.AssociationConnector/DashStyle.DisplayName" xml:space="preserve">
     <value>Dash Style</value>
     <comment>DisplayName for DomainProperty &apos;DashStyle&apos; on DomainClass &apos;AssociationConnector&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.AssociationConnector/TextColor.Description" xml:space="preserve">
+    <value>The connector&apos;s text color when using a theme with a light background.</value>
+    <comment>Description for DomainProperty &apos;TextColor&apos; on DomainClass &apos;AssociationConnector&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.AssociationConnector/TextColor.DisplayName" xml:space="preserve">
+    <value>Text Color</value>
+    <comment>DisplayName for DomainProperty &apos;TextColor&apos; on DomainClass &apos;AssociationConnector&apos;</comment>
   </data>
   <data name="AssociationConnectorTargetPropertyNameDisplayDefaultText" xml:space="preserve">
     <value>TargetPropertyNameDisplay</value>
@@ -3953,6 +3961,22 @@
     <value>Generalization Connector</value>
     <comment>DisplayName for DomainClass &apos;GeneralizationConnector&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.GeneralizationConnector/Color.Description" xml:space="preserve">
+    <value>The line color when using a theme with a light background.</value>
+    <comment>Description for DomainProperty &apos;Color&apos; on DomainClass &apos;GeneralizationConnector&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.GeneralizationConnector/Color.DisplayName" xml:space="preserve">
+    <value>Color</value>
+    <comment>DisplayName for DomainProperty &apos;Color&apos; on DomainClass &apos;GeneralizationConnector&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.GeneralizationConnector/TextColor.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.GeneralizationConnector.Text Color</value>
+    <comment>Description for DomainProperty &apos;TextColor&apos; on DomainClass &apos;GeneralizationConnector&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.GeneralizationConnector/TextColor.DisplayName" xml:space="preserve">
+    <value>Text Color</value>
+    <comment>DisplayName for DomainProperty &apos;TextColor&apos; on DomainClass &apos;GeneralizationConnector&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.CommentConnector.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;CommentConnector&apos;</comment>
@@ -3960,6 +3984,22 @@
   <data name="Sawczyn.EFDesigner.EFModel.CommentConnector.DisplayName" xml:space="preserve">
     <value>Comment Connector</value>
     <comment>DisplayName for DomainClass &apos;CommentConnector&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentConnector/Color.Description" xml:space="preserve">
+    <value>The color of the comment connector when using a theme with a light background.</value>
+    <comment>Description for DomainProperty &apos;Color&apos; on DomainClass &apos;CommentConnector&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentConnector/Color.DisplayName" xml:space="preserve">
+    <value>Color</value>
+    <comment>DisplayName for DomainProperty &apos;Color&apos; on DomainClass &apos;CommentConnector&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentConnector/TextColor.Description" xml:space="preserve">
+    <value>The color of the connector&apos;s text when using a theme with a light background.</value>
+    <comment>Description for DomainProperty &apos;TextColor&apos; on DomainClass &apos;CommentConnector&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentConnector/TextColor.DisplayName" xml:space="preserve">
+    <value>Text Color</value>
+    <comment>DisplayName for DomainProperty &apos;TextColor&apos; on DomainClass &apos;CommentConnector&apos;</comment>
   </data>
   <data name="FormatList" xml:space="preserve">
     <value>Entity Framework Visual Editor (*.efmodel)|*.efmodel</value>
@@ -3976,6 +4016,22 @@
   <data name="Sawczyn.EFDesigner.EFModel.EFModelDiagram.DisplayName" xml:space="preserve">
     <value>Class Diagram</value>
     <comment>DisplayName for DomainClass &apos;EFModelDiagram&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EFModelDiagram/FillColor.Description" xml:space="preserve">
+    <value>The background color when using a theme with a light background.</value>
+    <comment>Description for DomainProperty &apos;FillColor&apos; on DomainClass &apos;EFModelDiagram&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EFModelDiagram/FillColor.DisplayName" xml:space="preserve">
+    <value>Fill Color</value>
+    <comment>DisplayName for DomainProperty &apos;FillColor&apos; on DomainClass &apos;EFModelDiagram&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EFModelDiagram/TextColor.Description" xml:space="preserve">
+    <value>The text color when using a theme with a light background.</value>
+    <comment>Description for DomainProperty &apos;TextColor&apos; on DomainClass &apos;EFModelDiagram&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EFModelDiagram/TextColor.DisplayName" xml:space="preserve">
+    <value>Text Color</value>
+    <comment>DisplayName for DomainProperty &apos;TextColor&apos; on DomainClass &apos;EFModelDiagram&apos;</comment>
   </data>
   <data name="EF Model DiagramsToolboxTab" xml:space="preserve">
     <value>EF Model Diagrams</value>

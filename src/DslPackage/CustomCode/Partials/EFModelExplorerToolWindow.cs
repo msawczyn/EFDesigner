@@ -43,6 +43,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      CompartmentItemAddRule.UpdateCompartments(classElements, typeof(ClassShape), "SourcesCompartment", false);
 
                      // any associations to visible classes on this diagram need to be visible as well
+                     // ReSharper disable once LoopCanBePartlyConvertedToQuery
                      foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties())
                      {
                         ModelClass other = navigationProperty.AssociationObject.Source == modelClass
@@ -67,6 +68,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      }
 
                      // so do generalizations, as long as both classes are available
+                     // ReSharper disable once LoopCanBePartlyConvertedToQuery
                      foreach (Generalization generalization in modelClass.Store.ElementDirectory.AllElements
                                                                          .OfType<Generalization>()
                                                                          .Where(g => g.Superclass == modelClass 

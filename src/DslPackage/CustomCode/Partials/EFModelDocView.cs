@@ -14,7 +14,7 @@ namespace Sawczyn.EFDesigner.EFModel
          Messages.AddStatus(Messages.LastStatusMessage);
       }
 
-      protected EFModelExplorerToolWindow ModelExplorerWindow
+      internal EFModelExplorerToolWindow ModelExplorerWindow
       {
          get
          {

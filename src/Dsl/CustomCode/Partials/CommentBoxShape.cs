@@ -2,10 +2,35 @@
 using System.Collections.Generic;
 using System.Drawing;
 
+using Microsoft.VisualStudio.Modeling;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public partial class CommentBoxShape: IHasStore
+   public partial class CommentBoxShape: IHasStore, IThemeable
    {
+      /// <summary>
+      /// Shape instance initialization.
+      /// </summary>
+      public override void OnInitialize()
+      {
+         base.OnInitialize();
+         if (ModelDisplay.GetDiagramColors != null)
+            SetThemeColors(ModelDisplay.GetDiagramColors());
+      }
+
+      public void SetThemeColors(DiagramThemeColors diagramColors)
+      {
+         using (Transaction tx = Store.TransactionManager.BeginTransaction("Set diagram colors"))
+         {
+            FillColor = diagramColors.Background;
+            TextColor = FillColor.LegibleTextColor();
+
+            Invalidate();
+
+            tx.Commit();
+         }
+      }
+
       //Called once for each shape instance. 
       protected override void InitializeDecorators(IList<ShapeField> shapeFields, IList<Decorator> decorators)
       {
