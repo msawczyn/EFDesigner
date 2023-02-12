@@ -12,8 +12,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.7
-      // Copyright (c) 2017-2021 Michael Sawczyn
+      // EFDesigner v4.1.2.0
+      // Copyright (c) 2017-2022 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
       protected void NL()
@@ -27,6 +27,16 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             OutputChopped(segments);
          else
             Output(string.Join(".", segments) + ";");
+
+         segments.Clear();
+      }
+
+      protected void OutputNoTerminator(List<string> segments)
+      {
+         if (ModelRoot.ChopMethodChains)
+            OutputChoppedNoTerminator(segments);
+         else
+            Output(string.Join(".", segments));
 
          segments.Clear();
       }
@@ -72,6 +82,34 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
          if (!segmentArray[segmentArray.Length - 1].Trim().EndsWith(";"))
             segmentArray[segmentArray.Length - 1] = segmentArray[segmentArray.Length - 1] + ";";
+
+         foreach (string segment in segmentArray)
+            Output(segment);
+
+         segments.Clear();
+      }
+
+      protected void OutputChoppedNoTerminator(List<string> segments)
+      {
+         string[] segmentArray = segments?.ToArray() ?? new string[0];
+
+         if (!segmentArray.Any())
+            return;
+
+         int indent = segmentArray[0].IndexOf('.');
+
+         if (indent == -1)
+         {
+            if (segmentArray.Length > 1)
+            {
+               segmentArray[0] = $"{segmentArray[0]}.{segmentArray[1]}";
+               indent = segmentArray[0].IndexOf('.');
+               segmentArray = segmentArray.Where((source, index) => index != 1).ToArray();
+            }
+         }
+
+         for (int index = 1; index < segmentArray.Length; ++index)
+            segmentArray[index] = $"{new string(' ', indent)}.{segmentArray[index]}";
 
          foreach (string segment in segmentArray)
             Output(segment);
@@ -139,8 +177,11 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          // implementations delegated to the surrounding GeneratedTextTransformation for backward compatability
          protected void NL() { host.NL(); }
          protected void Output(List<string> segments) { host.Output(segments); }
+         protected void OutputNoTerminator(List<string> segments) { host.OutputNoTerminator(segments); }
          protected void Output(string text) { host.Output(text); }
          protected void Output(string template, params object[] items) { host.Output(template, items); }
+         protected void PushIndent(string indent) { host.PushIndent(indent); }
+         protected void PopIndent() { host.PopIndent(); }
          protected void ClearIndent() { host.ClearIndent(); }
 
          public static string[] NonNullableTypes
@@ -278,10 +319,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             }
 
             if (!string.IsNullOrWhiteSpace(modelAttribute.DisplayText))
-               Output($"[Display(Name=\"{modelAttribute.DisplayText.Replace("\"", "\\\"")}\")]");
+               Output($"[System.ComponentModel.DataAnnotations.Display(Name=\"{modelAttribute.DisplayText.Replace("\"", "\\\"")}\")]");
 
             if (!string.IsNullOrWhiteSpace(modelAttribute.Summary))
-               Output($"[System.ComponentModel.Description(\"{modelAttribute.Summary.Replace("\"", "\\\"")}\")]");
+               Output($"[System.ComponentModel.Description(\"{modelAttribute.Summary.Trim('\r', '\n').Replace("\"", "\\\"")}\")]");
          }
 
          protected abstract List<string> GetAdditionalUsingStatements();
@@ -362,7 +403,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             nsParts.Add("Migrations");
 
             return string.Join(".", nsParts);
-         }         protected List<string> GetRequiredParameterNames(ModelClass modelClass, bool publicOnly = false)
+         }
+         protected List<string> GetRequiredParameterNames(ModelClass modelClass, bool publicOnly = false)
          {
             return GetRequiredParameters(modelClass, null, publicOnly).Select(p => p.Split(' ')[1]).ToList();
          }
@@ -479,7 +521,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                Output($"[{modelClass.CustomAttributes.Trim('[', ']')}]");
 
             if (!string.IsNullOrWhiteSpace(modelClass.Summary))
-               Output($"[System.ComponentModel.Description(\"{modelClass.Summary.Replace("\"", "\\\"")}\")]");
+               Output($"[System.ComponentModel.Description(\"{modelClass.Summary.Trim('\r', '\n').Replace("\"", "\\\"")}\")]");
 
             Output(baseClass.Length > 0
                       ? $"public {isAbstract}partial class {modelClass.Name}: {baseClass}"
@@ -504,7 +546,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             if (!string.IsNullOrEmpty(comment))
             {
                int chunkSize = 80;
-               string[] parts = comment.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.RemoveEmptyEntries);
+               string[] parts = comment.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
                foreach (string value in parts)
                {
@@ -536,7 +578,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          protected void WriteCommentBody(string comment)
          {
             foreach (string s in GenerateCommentBody(comment))
-                Output($"/// {s}");
+               Output($"/// {s}");
          }
 
          protected void WriteConstructor(ModelClass modelClass)
@@ -674,7 +716,11 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   else if (requiredAttribute.Type.StartsWith("Geo"))
                      Output($"if ({requiredAttribute.Name.ToLower()} == null) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");
 
-                  Output($"this.{requiredAttribute.Name} = {requiredAttribute.Name.ToLower()};");
+                  string lhs = requiredAttribute.AutoProperty || string.IsNullOrEmpty(requiredAttribute.BackingFieldName)
+                                   ? requiredAttribute.Name
+                                   : requiredAttribute.BackingFieldName;
+
+                  Output($"this.{lhs} = {requiredAttribute.Name.ToLower()};");
                   NL();
                }
 
@@ -692,9 +738,13 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   if (modelAttribute.Type == "decimal")
                      initialValue += "m";
 
+                  string lhs = modelAttribute.AutoProperty || string.IsNullOrEmpty(modelAttribute.BackingFieldName)
+                                   ? modelAttribute.Name
+                                   : modelAttribute.BackingFieldName;
+
                   Output(quote.Length > 0
-                            ? $"this.{modelAttribute.Name} = {quote}{FullyQualified(initialValue.Trim(quote[0]))}{quote};"
-                            : $"this.{modelAttribute.Name} = {quote}{FullyQualified(initialValue)}{quote};");
+                            ? $"this.{lhs} = {quote}{FullyQualified(initialValue.Trim(quote[0]))}{quote};"
+                            : $"this.{lhs} = {quote}{FullyQualified(initialValue)}{quote};");
                }
 
                // all required navigation properties that aren't a 1..1 relationship
@@ -706,17 +756,21 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   string parameterName = requiredNavigationProperty.PropertyName.ToLower();
                   Output($"if ({parameterName} == null) throw new ArgumentNullException(nameof({parameterName}));");
 
+                  string targetObjectName = requiredNavigationProperty.IsAutoProperty
+                     ? requiredNavigationProperty.PropertyName
+                     : requiredNavigationProperty.BackingFieldName;
+
                   if (!requiredNavigationProperty.ConstructorParameterOnly)
                   {
                      Output(requiredNavigationProperty.IsCollection
-                               ? $"{requiredNavigationProperty.PropertyName}.Add({parameterName});"
-                               : $"this.{requiredNavigationProperty.PropertyName} = {parameterName};");
+                                ? $"this.{targetObjectName}.Add({parameterName});"
+                                : $"this.{targetObjectName} = {parameterName};");
                   }
 
                   if (!string.IsNullOrEmpty(otherSide.PropertyName))
                   {
-                     Output(otherSide.IsCollection 
-                               ? $"{parameterName}.{otherSide.PropertyName}.Add(this);" 
+                     Output(otherSide.IsCollection
+                               ? $"{parameterName}.{otherSide.PropertyName}.Add(this);"
                                : $"{parameterName}.{otherSide.PropertyName} = this;");
                   }
 
@@ -841,9 +895,13 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                if (modelAttribute.Type == "decimal")
                   initialValue += "m";
 
+               string lhs = modelAttribute.AutoProperty || string.IsNullOrEmpty(modelAttribute.BackingFieldName)
+                                ? modelAttribute.Name
+                                : modelAttribute.BackingFieldName;
+
                Output(quote.Length == 1
-                         ? $"{modelAttribute.Name} = {quote}{FullyQualified(initialValue.Trim(quote[0]))}{quote};"
-                         : $"{modelAttribute.Name} = {quote}{FullyQualified(initialValue)}{quote};");
+                         ? $"{lhs} = {quote}{FullyQualified(initialValue.Trim(quote[0]))}{quote};"
+                         : $"{lhs} = {quote}{FullyQualified(initialValue)}{quote};");
 
                ++lineCount;
             }
@@ -884,7 +942,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                Output($"[{modelEnum.CustomAttributes.Trim('[', ']')}]");
 
             if (!string.IsNullOrWhiteSpace(modelEnum.Summary))
-               Output($"[System.ComponentModel.Description(\"{modelEnum.Summary.Replace("\"", "\\\"")}\")]");
+               Output($"[System.ComponentModel.Description(\"{modelEnum.Summary.Trim('\r', '\n').Replace("\"", "\\\"")}\")]");
 
             Output($"public enum {modelEnum.Name} : {modelEnum.ValueType}");
             Output("{");
@@ -911,10 +969,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   Output($"[{values[index].CustomAttributes.Trim('[', ']')}]");
 
                if (!string.IsNullOrWhiteSpace(values[index].Summary))
-                  Output($"[System.ComponentModel.Description(\"{values[index].Summary.Replace("\"", "\\\"")}\")]");
+                  Output($"[System.ComponentModel.Description(\"{values[index].Summary.Trim('\r', '\n').Replace("\"", "\\\"")}\")]");
 
                if (!string.IsNullOrWhiteSpace(values[index].DisplayText))
-                  Output($"[System.ComponentModel.DataAnnotations.Display(Name=\"{values[index].DisplayText.Replace("\"", "\\\"")}\")]");
+                  Output($"[System.ComponentModel.DataAnnotations.Display(Name=\"{values[index].DisplayText.Trim('\r', '\n').Replace("\"", "\\\"")}\")]");
 
                Output(string.IsNullOrEmpty(values[index].Value)
                          ? $"{values[index].Name}{(index < values.Length - 1 ? "," : string.Empty)}"
@@ -937,7 +995,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             Output(" *************************************************************************/");
             NL();
 
-            foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties().Where(x => !x.ConstructorParameterOnly))
+            foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties().Where(x => !x.ConstructorParameterOnly).OrderBy(x => x.PropertyName))
             {
                string type = navigationProperty.IsCollection
                                 ? $"ICollection<{navigationProperty.ClassType.FullName}>"
@@ -1004,10 +1062,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   Output($"[{navigationProperty.CustomAttributes.Trim('[', ']')}]");
 
                if (!string.IsNullOrWhiteSpace(navigationProperty.Summary))
-                  Output($"[Description(\"{navigationProperty.Summary.Replace("\"", "\\\"")}\")]");
+                  Output($"[System.ComponentModel.Description(\"{navigationProperty.Summary.Replace("\"", "\\\"")}\")]");
 
                if (!string.IsNullOrWhiteSpace(navigationProperty.DisplayText))
-                  Output($"[Display(Name=\"{navigationProperty.DisplayText.Replace("\"", "\\\"")}\")]");
+                  Output($"[System.ComponentModel.DataAnnotations.Display(Name=\"{navigationProperty.DisplayText.Replace("\"", "\\\"")}\")]");
 
                if (navigationProperty.IsAutoProperty)
                {
@@ -1042,7 +1100,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   Output("}");
                   Output("set");
                   Output("{");
-                  Output($"{type} oldValue = {navigationProperty.BackingFieldName};");
+                  Output($"{type} oldValue = {navigationProperty.PropertyName};");
                   Output($"Set{navigationProperty.PropertyName}(oldValue, ref value);");
                   Output("if (oldValue != value)");
                   Output("{");
@@ -1069,7 +1127,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
             List<string> segments = new List<string>();
 
-            foreach (ModelAttribute modelAttribute in modelClass.Attributes)
+            foreach (ModelAttribute modelAttribute in modelClass.Attributes.OrderBy(x => x.Name))
             {
                segments.Clear();
 
@@ -1174,7 +1232,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   Output("}");
                   Output($"{setterVisibility}set");
                   Output("{");
-                  Output($"{modelAttribute.FQPrimitiveType}{nullable} oldValue = {modelAttribute.BackingFieldName};");
+                  Output($"{modelAttribute.FQPrimitiveType}{nullable} oldValue = {modelAttribute.Name};");
                   Output($"Set{modelAttribute.Name}(oldValue, ref value);");
                   Output("if (oldValue != value)");
                   Output("{");
@@ -1197,7 +1255,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                Output("/// <summary>");
                Output("/// Concurrency token");
                Output("/// </summary>");
-               Output("[Timestamp]");
+               Output("[System.ComponentModel.DataAnnotations.Timestamp]");
                Output("public Byte[] Timestamp { get; set; }");
                NL();
             }
@@ -1206,3 +1264,4 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
       #endregion Template
    }
 }
+

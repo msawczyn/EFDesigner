@@ -94,6 +94,10 @@ namespace Sawczyn.EFDesigner.EFModel
                propertyDescriptors.Remove("IndexedUnique");
             }
 
+            // Only transient properties can be made ReadOnly (i.e., have no setter)
+            if (modelAttribute.Persistent)
+               propertyDescriptors.Remove("ReadOnly");
+
             /********************************************************************************/
 
             //Add the descriptors for the tracking properties 

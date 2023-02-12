@@ -12,11 +12,14 @@ namespace ParsingModels
 
       protected static string GetTypeFullName(Type type)
       {
-         return GetTypeFullName(type.FullName);
+         return GetTypeFullName(type?.FullName);
       }
 
       protected static string GetTypeFullName(string fullName)
       {
+         if (string.IsNullOrWhiteSpace(fullName))
+            return null;
+
          Match m = TypeNameRegex.Match(fullName);
 
          if (m.Success)

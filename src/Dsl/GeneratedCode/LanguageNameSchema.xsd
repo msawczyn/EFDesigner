@@ -387,6 +387,12 @@
             <xsd:documentation>If true, will display a UML interface glyph on classes that have custom interfaces defined</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: GenerateTableComments -->
+        <xsd:attribute name="generateTableComments" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, will allow generating [Comment] attributes on C# class</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -644,6 +650,30 @@
         <xsd:attribute name="isAutoPropertyDefaultTracking" type="xsd:boolean" >
           <xsd:annotation>
             <xsd:documentation>If true, ModelClass.AutoPropertyDefault tracks ModelRoot.AutoPropertyDefault</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: UseTemporalTables -->
+        <xsd:attribute name="useTemporalTables" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, will configure the class to use temporal tables for storage. This is not supported in all database types.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsAssociationClass -->
+        <xsd:attribute name="isAssociationClass" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, this is an association class for a many-to-many association</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: DescribedAssociationElementId -->
+        <xsd:attribute name="describedAssociationElementId" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>When IsAssociationClass is true, the element id of the association this entity extends</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: TableComment -->
+        <xsd:attribute name="tableComment" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Table comment that will be applied to the database, if possible</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>

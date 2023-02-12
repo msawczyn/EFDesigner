@@ -1004,6 +1004,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // GenerateTableComments
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribGenerateTableComments = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "generateTableComments");
+	         if (attribGenerateTableComments != null)
+	         {
+	            global::System.Boolean valueOfGenerateTableComments;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribGenerateTableComments, out valueOfGenerateTableComments))
+	            {
+	               instanceOfModelRoot.GenerateTableComments = valueOfGenerateTableComments;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "generateTableComments", typeof(global::System.Boolean), attribGenerateTableComments);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -2296,6 +2313,19 @@ namespace Sawczyn.EFDesigner.EFModel
 	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "showInterfaceIndicators", serializedPropValue);
 	         }
 	      }
+	      // GenerateTableComments
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelRoot.GenerateTableComments;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "generateTableComments", serializedPropValue);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -3062,6 +3092,77 @@ namespace Sawczyn.EFDesigner.EFModel
 	            else
 	            {   // Invalid property value, ignored.
 	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isAutoPropertyDefaultTracking", typeof(global::System.Boolean), attribIsAutoPropertyDefaultTracking);
+	            }
+	         }
+	      }
+	      // UseTemporalTables
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribUseTemporalTables = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "useTemporalTables");
+	         if (attribUseTemporalTables != null)
+	         {
+	            global::System.Boolean valueOfUseTemporalTables;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribUseTemporalTables, out valueOfUseTemporalTables))
+	            {
+	               instanceOfModelClass.UseTemporalTables = valueOfUseTemporalTables;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "useTemporalTables", typeof(global::System.Boolean), attribUseTemporalTables);
+	            }
+	         }
+	      }
+	      // IsAssociationClass
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribIsAssociationClass = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isAssociationClass");
+	         if (attribIsAssociationClass != null)
+	         {
+	            global::System.Boolean valueOfIsAssociationClass;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsAssociationClass, out valueOfIsAssociationClass))
+	            {
+	               instanceOfModelClass.IsAssociationClass = valueOfIsAssociationClass;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isAssociationClass", typeof(global::System.Boolean), attribIsAssociationClass);
+	            }
+	         }
+	      }
+	      // DescribedAssociationElementId
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribDescribedAssociationElementId = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "describedAssociationElementId");
+	         if (attribDescribedAssociationElementId != null)
+	         {
+	            global::System.Guid valueOfDescribedAssociationElementId;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Guid>(serializationContext, attribDescribedAssociationElementId, out valueOfDescribedAssociationElementId))
+	            {
+	               // Non-public setter, use DomainPropertyInfo method.
+	               DslModeling::DomainPropertyInfo propInfo = instanceOfModelClass.Partition.DomainDataDirectory.GetDomainProperty (ModelClass.DescribedAssociationElementIdDomainPropertyId);
+	               global::System.Diagnostics.Debug.Assert (propInfo != null, "Cannot get DomainPropertyInfo for ModelClass.DescribedAssociationElementId!");
+	               propInfo.SetValue(instanceOfModelClass, valueOfDescribedAssociationElementId);
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "describedAssociationElementId", typeof(global::System.Guid), attribDescribedAssociationElementId);
+	            }
+	         }
+	      }
+	      // TableComment
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribTableComment = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "tableComment");
+	         if (attribTableComment != null)
+	         {
+	            global::System.String valueOfTableComment;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribTableComment, out valueOfTableComment))
+	            {
+	               instanceOfModelClass.TableComment = valueOfTableComment;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "tableComment", typeof(global::System.String), attribTableComment);
 	            }
 	         }
 	      }
@@ -4080,6 +4181,47 @@ namespace Sawczyn.EFDesigner.EFModel
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isAutoPropertyDefaultTracking", serializedPropValue);
 	            }
+	         }
+	      }
+	      // UseTemporalTables
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelClass.UseTemporalTables;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "useTemporalTables", serializedPropValue);
+	         }
+	      }
+	      // IsAssociationClass
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelClass.IsAssociationClass;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isAssociationClass", serializedPropValue);
+	         }
+	      }
+	      // DescribedAssociationElementId
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Guid propValue = instanceOfModelClass.DescribedAssociationElementId;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Guid>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "describedAssociationElementId", serializedPropValue);
+	         }
+	      }
+	      // TableComment
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.String propValue = instanceOfModelClass.TableComment;
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (!string.IsNullOrEmpty(propValue))
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "tableComment", propValue);
+	
 	         }
 	      }
 	   }
@@ -5783,10 +5925,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	      // IsForeignKeyFor
 	      if (!serializationContext.Result.Failed)
 	      {
-	         // Non-public getter, use DomainPropertyInfo method.
-	         DslModeling::DomainPropertyInfo propInfo = instanceOfModelAttribute.Partition.DomainDataDirectory.GetDomainProperty (ModelAttribute.IsForeignKeyForDomainPropertyId);
-	         global::System.Diagnostics.Debug.Assert (propInfo != null, "Cannot get DomainPropertyInfo for ModelAttribute.IsForeignKeyFor!");
-	         global::System.Guid propValue = ((global::System.Guid)propInfo.GetValue(instanceOfModelAttribute));
+	         global::System.Guid propValue = instanceOfModelAttribute.IsForeignKeyFor;
 	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Guid>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
@@ -23329,6 +23468,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // TextColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribTextColor = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "textColor");
+	         if (attribTextColor != null)
+	         {
+	            global::System.Drawing.Color valueOfTextColor;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Color>(serializationContext, attribTextColor, out valueOfTextColor))
+	            {
+	               instanceOfAssociationConnector.TextColor = valueOfTextColor;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "textColor", typeof(global::System.Drawing.Color), attribTextColor);
+	            }
+	         }
+	      }
 	   }
 	
 	   #region TryCreateInstance
@@ -23646,6 +23802,16 @@ namespace Sawczyn.EFDesigner.EFModel
 	         if (!serializationContext.Result.Failed)
 	         {
 	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "dashStyle", serializedPropValue);
+	         }
+	      }
+	      // TextColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Drawing.Color propValue = instanceOfAssociationConnector.TextColor;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "textColor", serializedPropValue);
 	         }
 	      }
 	   }
@@ -24937,7 +25103,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	      #endregion
 	
 	      // Read properties serialized as XML attributes.
-	      base.ReadPropertiesFromAttributes(serializationContext, element, reader);
+	      ReadPropertiesFromAttributes(serializationContext, element, reader);
 	
 	      // Read nested XML elements.
 	      if (!serializationContext.Result.Failed)
@@ -24969,6 +25135,61 @@ namespace Sawczyn.EFDesigner.EFModel
 	      DslModeling::SerializationUtilities.Skip(reader);
 	   }
 	
+	
+	   /// <summary>
+	   /// This method deserializes all properties that are serialized as XML attributes.
+	   /// </summary>
+	   /// <remarks>
+	   /// Because this method only handles properties serialized as XML attributes, the passed-in reader shouldn't be moved inside this method.
+	   /// The caller will guarantee that the reader is positioned on the open XML tag of the current element being deserialized.
+	   /// </remarks>
+	   /// <param name="serializationContext">Serialization context.</param>
+	   /// <param name="element">In-memory GeneralizationConnector instance that will get the deserialized data.</param>
+	   /// <param name="reader">XmlReader to read serialized data from.</param>
+	   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+	   protected override void ReadPropertiesFromAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
+	   {
+	      // Always call the base class so any extensions are deserialized
+	      base.ReadPropertiesFromAttributes(serializationContext, element, reader);
+	
+	      GeneralizationConnector instanceOfGeneralizationConnector = element as GeneralizationConnector;
+	      global::System.Diagnostics.Debug.Assert(instanceOfGeneralizationConnector != null, "Expecting an instance of GeneralizationConnector");
+	
+	      // Color
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribColor = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "color");
+	         if (attribColor != null)
+	         {
+	            global::System.Drawing.Color valueOfColor;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Color>(serializationContext, attribColor, out valueOfColor))
+	            {
+	               instanceOfGeneralizationConnector.Color = valueOfColor;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "color", typeof(global::System.Drawing.Color), attribColor);
+	            }
+	         }
+	      }
+	      // TextColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribTextColor = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "textColor");
+	         if (attribTextColor != null)
+	         {
+	            global::System.Drawing.Color valueOfTextColor;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Color>(serializationContext, attribTextColor, out valueOfTextColor))
+	            {
+	               instanceOfGeneralizationConnector.TextColor = valueOfTextColor;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "textColor", typeof(global::System.Drawing.Color), attribTextColor);
+	            }
+	         }
+	      }
+	   }
 	
 	   #region TryCreateInstance
 	   /// <summary>
@@ -25337,9 +25558,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 	      // Write out element Id.
 	      writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
-	
-	      base.WritePropertiesAsAttributes(serializationContext, element, writer);
-	
+	      WritePropertiesAsAttributes(serializationContext, element, writer);
 	      // Write out any extension data if this is the root element
 	      if (rootElementSettings != null && !serializationContext.Result.Failed)
 	      {
@@ -25353,6 +25572,43 @@ namespace Sawczyn.EFDesigner.EFModel
 	      }
 	
 	      writer.WriteEndElement();
+	   }
+	
+	   /// <summary>
+	   /// Write all properties that need to be serialized as XML attributes.
+	   /// </summary>
+	   /// <param name="serializationContext">Serialization context.</param>
+	   /// <param name="element">GeneralizationConnector instance to be serialized.</param>
+	   /// <param name="writer">XmlWriter to write serialized data to.</param> 
+	   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+	   protected override void WritePropertiesAsAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer)
+	   {
+	      // Always call the base class so any extensions are serialized
+	      base.WritePropertiesAsAttributes(serializationContext, element, writer);
+	
+	      GeneralizationConnector instanceOfGeneralizationConnector = element as GeneralizationConnector;
+	      global::System.Diagnostics.Debug.Assert(instanceOfGeneralizationConnector != null, "Expecting an instance of GeneralizationConnector");
+	
+	      // Color
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Drawing.Color propValue = instanceOfGeneralizationConnector.Color;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "color", serializedPropValue);
+	         }
+	      }
+	      // TextColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Drawing.Color propValue = instanceOfGeneralizationConnector.TextColor;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "textColor", serializedPropValue);
+	         }
+	      }
 	   }
 	   #endregion
 	
@@ -25500,7 +25756,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	      #endregion
 	
 	      // Read properties serialized as XML attributes.
-	      base.ReadPropertiesFromAttributes(serializationContext, element, reader);
+	      ReadPropertiesFromAttributes(serializationContext, element, reader);
 	
 	      // Read nested XML elements.
 	      if (!serializationContext.Result.Failed)
@@ -25532,6 +25788,61 @@ namespace Sawczyn.EFDesigner.EFModel
 	      DslModeling::SerializationUtilities.Skip(reader);
 	   }
 	
+	
+	   /// <summary>
+	   /// This method deserializes all properties that are serialized as XML attributes.
+	   /// </summary>
+	   /// <remarks>
+	   /// Because this method only handles properties serialized as XML attributes, the passed-in reader shouldn't be moved inside this method.
+	   /// The caller will guarantee that the reader is positioned on the open XML tag of the current element being deserialized.
+	   /// </remarks>
+	   /// <param name="serializationContext">Serialization context.</param>
+	   /// <param name="element">In-memory CommentConnector instance that will get the deserialized data.</param>
+	   /// <param name="reader">XmlReader to read serialized data from.</param>
+	   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+	   protected override void ReadPropertiesFromAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
+	   {
+	      // Always call the base class so any extensions are deserialized
+	      base.ReadPropertiesFromAttributes(serializationContext, element, reader);
+	
+	      CommentConnector instanceOfCommentConnector = element as CommentConnector;
+	      global::System.Diagnostics.Debug.Assert(instanceOfCommentConnector != null, "Expecting an instance of CommentConnector");
+	
+	      // Color
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribColor = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "color");
+	         if (attribColor != null)
+	         {
+	            global::System.Drawing.Color valueOfColor;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Color>(serializationContext, attribColor, out valueOfColor))
+	            {
+	               instanceOfCommentConnector.Color = valueOfColor;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "color", typeof(global::System.Drawing.Color), attribColor);
+	            }
+	         }
+	      }
+	      // TextColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribTextColor = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "textColor");
+	         if (attribTextColor != null)
+	         {
+	            global::System.Drawing.Color valueOfTextColor;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Color>(serializationContext, attribTextColor, out valueOfTextColor))
+	            {
+	               instanceOfCommentConnector.TextColor = valueOfTextColor;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "textColor", typeof(global::System.Drawing.Color), attribTextColor);
+	            }
+	         }
+	      }
+	   }
 	
 	   #region TryCreateInstance
 	   /// <summary>
@@ -25900,9 +26211,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 	      // Write out element Id.
 	      writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
-	
-	      base.WritePropertiesAsAttributes(serializationContext, element, writer);
-	
+	      WritePropertiesAsAttributes(serializationContext, element, writer);
 	      // Write out any extension data if this is the root element
 	      if (rootElementSettings != null && !serializationContext.Result.Failed)
 	      {
@@ -25916,6 +26225,43 @@ namespace Sawczyn.EFDesigner.EFModel
 	      }
 	
 	      writer.WriteEndElement();
+	   }
+	
+	   /// <summary>
+	   /// Write all properties that need to be serialized as XML attributes.
+	   /// </summary>
+	   /// <param name="serializationContext">Serialization context.</param>
+	   /// <param name="element">CommentConnector instance to be serialized.</param>
+	   /// <param name="writer">XmlWriter to write serialized data to.</param> 
+	   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+	   protected override void WritePropertiesAsAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer)
+	   {
+	      // Always call the base class so any extensions are serialized
+	      base.WritePropertiesAsAttributes(serializationContext, element, writer);
+	
+	      CommentConnector instanceOfCommentConnector = element as CommentConnector;
+	      global::System.Diagnostics.Debug.Assert(instanceOfCommentConnector != null, "Expecting an instance of CommentConnector");
+	
+	      // Color
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Drawing.Color propValue = instanceOfCommentConnector.Color;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "color", serializedPropValue);
+	         }
+	      }
+	      // TextColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Drawing.Color propValue = instanceOfCommentConnector.TextColor;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "textColor", serializedPropValue);
+	         }
+	      }
 	   }
 	   #endregion
 	
@@ -26063,7 +26409,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	      #endregion
 	
 	      // Read properties serialized as XML attributes.
-	      base.ReadPropertiesFromAttributes(serializationContext, element, reader);
+	      ReadPropertiesFromAttributes(serializationContext, element, reader);
 	
 	      // Read nested XML elements.
 	      if (!serializationContext.Result.Failed)
@@ -26095,6 +26441,61 @@ namespace Sawczyn.EFDesigner.EFModel
 	      DslModeling::SerializationUtilities.Skip(reader);
 	   }
 	
+	
+	   /// <summary>
+	   /// This method deserializes all properties that are serialized as XML attributes.
+	   /// </summary>
+	   /// <remarks>
+	   /// Because this method only handles properties serialized as XML attributes, the passed-in reader shouldn't be moved inside this method.
+	   /// The caller will guarantee that the reader is positioned on the open XML tag of the current element being deserialized.
+	   /// </remarks>
+	   /// <param name="serializationContext">Serialization context.</param>
+	   /// <param name="element">In-memory EFModelDiagram instance that will get the deserialized data.</param>
+	   /// <param name="reader">XmlReader to read serialized data from.</param>
+	   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+	   protected override void ReadPropertiesFromAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
+	   {
+	      // Always call the base class so any extensions are deserialized
+	      base.ReadPropertiesFromAttributes(serializationContext, element, reader);
+	
+	      EFModelDiagram instanceOfEFModelDiagram = element as EFModelDiagram;
+	      global::System.Diagnostics.Debug.Assert(instanceOfEFModelDiagram != null, "Expecting an instance of EFModelDiagram");
+	
+	      // FillColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribFillColor = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "fillColor");
+	         if (attribFillColor != null)
+	         {
+	            global::System.Drawing.Color valueOfFillColor;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Color>(serializationContext, attribFillColor, out valueOfFillColor))
+	            {
+	               instanceOfEFModelDiagram.FillColor = valueOfFillColor;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "fillColor", typeof(global::System.Drawing.Color), attribFillColor);
+	            }
+	         }
+	      }
+	      // TextColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribTextColor = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "textColor");
+	         if (attribTextColor != null)
+	         {
+	            global::System.Drawing.Color valueOfTextColor;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Color>(serializationContext, attribTextColor, out valueOfTextColor))
+	            {
+	               instanceOfEFModelDiagram.TextColor = valueOfTextColor;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "textColor", typeof(global::System.Drawing.Color), attribTextColor);
+	            }
+	         }
+	      }
+	   }
 	
 	   #region TryCreateInstance
 	   /// <summary>
@@ -26477,9 +26878,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	      // Write out element Id.
 	      writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
 	                writer.WriteAttributeString("type", element.GetType().FullName);
-	
-	      base.WritePropertiesAsAttributes(serializationContext, element, writer);
-	
+	      WritePropertiesAsAttributes(serializationContext, element, writer);
 	      // Write out any extension data if this is the root element
 	      if (rootElementSettings != null && !serializationContext.Result.Failed)
 	      {
@@ -26493,6 +26892,43 @@ namespace Sawczyn.EFDesigner.EFModel
 	      }
 	
 	      writer.WriteEndElement();
+	   }
+	
+	   /// <summary>
+	   /// Write all properties that need to be serialized as XML attributes.
+	   /// </summary>
+	   /// <param name="serializationContext">Serialization context.</param>
+	   /// <param name="element">EFModelDiagram instance to be serialized.</param>
+	   /// <param name="writer">XmlWriter to write serialized data to.</param> 
+	   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+	   protected override void WritePropertiesAsAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer)
+	   {
+	      // Always call the base class so any extensions are serialized
+	      base.WritePropertiesAsAttributes(serializationContext, element, writer);
+	
+	      EFModelDiagram instanceOfEFModelDiagram = element as EFModelDiagram;
+	      global::System.Diagnostics.Debug.Assert(instanceOfEFModelDiagram != null, "Expecting an instance of EFModelDiagram");
+	
+	      // FillColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Drawing.Color propValue = instanceOfEFModelDiagram.FillColor;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "fillColor", serializedPropValue);
+	         }
+	      }
+	      // TextColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Drawing.Color propValue = instanceOfEFModelDiagram.TextColor;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "textColor", serializedPropValue);
+	         }
+	      }
 	   }
 	   #endregion
 	

@@ -567,7 +567,7 @@ namespace Sawczyn.EFDesigner.EFModel
                result = new ModelClass(Store
                                      , new PropertyAssignment(ModelClass.NameDomainPropertyId, className)
                                      , new PropertyAssignment(ModelClass.NamespaceDomainPropertyId, namespaceDecl?.Name.ToString() ?? modelRoot.Namespace)
-                                     , new PropertyAssignment(ModelClass.IsAbstractDomainPropertyId, classDecl.DescendantNodes().Any(n => n.Kind() == SyntaxKind.AbstractKeyword)));
+                                     , new PropertyAssignment(ModelClass.IsAbstractDomainPropertyId, classDecl.DescendantNodes().Any(n => n.IsKind(SyntaxKind.AbstractKeyword))));
 
                newElements.Add(result);
                modelRoot.Classes.Add(result);

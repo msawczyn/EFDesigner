@@ -38,7 +38,6 @@ namespace Sawczyn.EFDesigner.EFModel
       private const int cmdidGenerateCode = 0x0015;
       private const int cmdidAddCodeProperties = 0x0016;
       private const int cmdidSaveAsImage = 0x0017;
-      private const int cmdidLoadNuGet = 0x0018;
       private const int cmdidAddCodeValues = 0x0019;
       private const int cmdidExpandSelected = 0x001A;
       private const int cmdidCollapseSelected = 0x001B;
@@ -194,17 +193,6 @@ namespace Sawczyn.EFDesigner.EFModel
             new DynamicStatusMenuCommand(OnStatusImageToClipboard, OnMenuImageToClipboard, new CommandID(guidEFDiagramMenuCmdSet, cmdidImageToClipboard));
 
          commands.Add(imageToClipboard);
-
-         #endregion
-
-         #region loadNuGetCommand
-
-#pragma warning disable 612
-         DynamicStatusMenuCommand loadNuGetCommand =
-            new DynamicStatusMenuCommand(OnStatusLoadNuGet, OnMenuLoadNuGet, new CommandID(guidEFDiagramMenuCmdSet, cmdidLoadNuGet));
-#pragma warning restore 612
-
-         commands.Add(loadNuGetCommand);
 
          #endregion
 
@@ -413,6 +401,13 @@ namespace Sawczyn.EFDesigner.EFModel
                if (BooleanQuestionDisplay.Show(enumShape.Store, $"{fullName} is used as an entity property. Deleting the enumeration will remove those properties. Are you sure?") != true)
                   return;
             }
+         }
+
+         if (CurrentSelection.OfType<ModelAttribute>().Any(a => a.ModelClass.IsAssociationClass && a.IsIdentity))
+         {
+            MessageDisplay.Show("Identity attributes of association classes can't be deleted");
+
+            return;
          }
 
          base.ProcessOnMenuDeleteCommand();
@@ -1080,31 +1075,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion
 
-      #region Load NuGet
-
-      [Obsolete]
-      private void OnStatusLoadNuGet(object sender, EventArgs e)
-      {
-         if (sender is MenuCommand command)
-         {
-            //Store store = CurrentDocData.Store;
-            //ModelRoot modelRoot = store.ModelRoot();
-            command.Visible = false; // modelRoot != null && CurrentDocData is EFModelDocData && IsDiagramSelected();
-            command.Enabled = false; // IsDiagramSelected() && ModelRoot.CanLoadNugetPackages;
-         }
-      }
-
-      [Obsolete]
-      private void OnMenuLoadNuGet(object sender, EventArgs e)
-      {
-         //Store store = CurrentDocData.Store;
-         //ModelRoot modelRoot = store.ModelRoot();
-
-         //((EFModelDocData)CurrentDocData).EnsureCorrectNuGetPackages(modelRoot);
-      }
-
-      #endregion Load NuGet
-
       #region Merge Unidirectional Associations
 
       private void OnStatusMergeAssociations(object sender, EventArgs e)
@@ -1700,17 +1670,15 @@ namespace Sawczyn.EFDesigner.EFModel
                   // Create a new shape that represents the new element,
                   // associate it with the new element, 
                   // size it, position it and link it to the diagram.
-                  ClassShape newShape = new ClassShape(diagram.Partition);
-                  newShape.ModelElement = modelClass;
-                  
-                  if (diagram.MouseDownPosition != default(PointD))
+                  ClassShape newShape = new ClassShape(diagram.Partition)
+                                        {
+                                           ModelElement = modelClass
+                                        };
+
+                  if (diagram.MouseDownPosition != default)
                   {
                      // Move to cursor location where the context menu popped up.
-                     double x = diagram.MouseDownPosition.X;
-                     double y = diagram.MouseDownPosition.Y;
-
-                     PointD p = new PointD(x, y);
-                     newShape.AbsoluteBounds = new RectangleD(p, new SizeD(2, 1));
+                     newShape.AbsoluteBounds = new RectangleD(diagram.MouseDownPosition, new SizeD(2, 1));
                   }
 
                   diagram.NestedChildShapes.Add(newShape);

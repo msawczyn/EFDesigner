@@ -109,7 +109,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       public string[] GetForeignKeyPropertyNames()
       {
-         return FKPropertyName?.Split(',').Select(n => n.Trim()).ToArray() ?? new string[0];
+         return FKPropertyName?.Split(',').Select(n => n.Trim()).ToArray() ?? Array.Empty<string>();
       }
 
       /// <summary>
@@ -182,8 +182,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
       internal IEnumerable<ModelAttribute> GetFKAutoIdentityErrors()
       {
-         if (string.IsNullOrWhiteSpace(FKPropertyName))
-            return new ModelAttribute[0];
+         if (string.IsNullOrWhiteSpace(FKPropertyName) || Dependent == null)
+            return Array.Empty<ModelAttribute>();
 
          return FKPropertyName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                               .Select(name => Dependent.Attributes.FirstOrDefault(a => a.Name == name.Trim()))

@@ -247,8 +247,9 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             ModelClass superClass = modelRoot.Classes.FirstOrDefault(s => s.Name == baseClassName);
 
+               // The Generalization connection tool specifies that source and target should be reversed. 
             if (superClass != null)
-               GeneralizationBuilder.Connect(subClass, superClass);
+                  GeneralizationBuilder.Connect(superClass, subClass);
             else
             {
                string message = $"Found base class {baseClassName} for {subClass.FullName}, but it's not a persistent entity. You will have to manually add this to a partial class for {subClass.FullName}.";

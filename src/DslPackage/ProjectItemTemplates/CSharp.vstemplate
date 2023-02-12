@@ -2,9 +2,9 @@
 <VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<TemplateData>
 		<TemplateID>{3dacc232-34bc-4ae2-8394-212bec630667}</TemplateID>
-		<Name Package="{56bbe1ba-aaee-4883-848f-e3c8656f8db2}" ID="103"/>
-		<Description Package="{56bbe1ba-aaee-4883-848f-e3c8656f8db2}" ID="102"/>
-		<Icon Package="{56bbe1ba-aaee-4883-848f-e3c8656f8db2}" ID="201" />
+		<Name Package="{dd1c2ec0-b732-4b74-a591-4d78684bb231}" ID="103"/>
+		<Description Package="{dd1c2ec0-b732-4b74-a591-4d78684bb231}" ID="102"/>
+		<Icon Package="{dd1c2ec0-b732-4b74-a591-4d78684bb231}" ID="201" />
 		<ProjectType>CSharp</ProjectType>
       <ProjectSubType>Data</ProjectSubType>
       <NumberOfParentCategoriesToRollUp>2</NumberOfParentCategoriesToRollUp>

@@ -124,6 +124,24 @@
   <data name="AbstractEntityGlyphVisible" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\abstractentityglyphvisible.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AbstractEntityGlyphVisible_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\abstractentityglyphvisible-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AbstractEntityGlyph_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\abstractentityglyph-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AssociationClassGlyph" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\associationclassglyph.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AssociationClassGlyphVisible" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\associationclassglyphvisible.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AssociationClassGlyphVisible_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\associationclassglyphvisible-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AssociationClassGlyph_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\associationclassglyph-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="AttributeGrammar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>customcode\modelattribute parser\attributegrammar.egt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -133,35 +151,83 @@
   <data name="CalculatedInternal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\calculatedinternal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CalculatedInternal_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\calculatedinternal-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="CalculatedProtected" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\calculatedprotected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CalculatedProtected_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\calculatedprotected-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Calculated_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\calculated-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Cardinality_0_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\cardinality-0-0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Cardinality_0_0_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-0-0-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Cardinality_0_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\cardinality-0-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cardinality_0_1_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-0-1-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Cardinality_0_many" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\cardinality-0-many.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Cardinality_0_many_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-0-many-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Cardinality_1_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\cardinality-1-0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cardinality_1_0_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-1-0-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Cardinality_1_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\cardinality-1-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Cardinality_1_1_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-1-1-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Cardinality_1_many" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\cardinality-1-many.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cardinality_1_many_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-1-many-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Cardinality_many_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\cardinality-many-0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Cardinality_many_0_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-many-0-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Cardinality_many_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\cardinality-many-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Cardinality_many_1_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-many-1-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Cardinality_many_many" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\cardinality-many-many.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cardinality_many_many_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-many-many-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dictionary_16x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\dictionary_16x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dictionary_16xVisible" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\dictionary_16xvisible.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dictionary_16xVisible_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\dictionary_16xvisible-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dictionary_16x_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\dictionary_16x-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="EntityGlyph" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\entityglyph.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -169,14 +235,32 @@
   <data name="EntityGlyphVisible" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\entityglyphvisible.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="EntityGlyphVisible_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\entityglyphvisible-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EntityGlyph_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\entityglyph-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Enumerator_16x" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\enumerator_16x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Enumerator_16xVisible" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\enumerator_16xvisible.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Enumerator_16xVisible_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\enumerator_16xvisible-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Enumerator_16x_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\enumerator_16x-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EnumItem_16x_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\enumitem_16x-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="EnumValue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\enumitem_16x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EnumValue_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\enumvalue-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ForeignKey" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\foreignkey.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -184,14 +268,32 @@
   <data name="ForeignKeyIdentity" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\foreignkeyidentity.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ForeignKeyIdentity_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\foreignkeyidentity-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ForeignKey_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\foreignkey-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Identity" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\identity.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Identity_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\identity-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Interface_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\interface-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Internal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\internal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Internal_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\internal-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="KeyRight_left_16x" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\keyright_left_16x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="KeyRight_left_16x_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\keyright_left_16x-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MoveCursor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Move.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -199,14 +301,29 @@
   <data name="No" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\no.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="No_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\no-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Protected" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\protected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Protected_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\protected-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Public" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\public.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Public_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\public-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ShowDiagramPane_16x_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\showdiagrampane_16x-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Spacer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\spacer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Spacer_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\spacer-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SQL" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\sql.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -214,13 +331,28 @@
   <data name="SQLVisible" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\SQLVisible.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="SQLVisible_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\sqlvisible-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SQL_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\sql-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="TransientClass" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\transientclass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TransientClassVisible" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\transientclassvisible.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="TransientClassVisible_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\transientclassvisible-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TransientClass_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\transientclass-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Warning_i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\warning-i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -1,6 +1,4 @@
-﻿// 
-
-using Microsoft.VisualStudio.Modeling;
+﻿using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel {
    public interface IHasStore

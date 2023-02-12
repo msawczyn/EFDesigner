@@ -1,5 +1,5 @@
-﻿using Sawczyn.EFDesigner.EFModel;
-using Sawczyn.EFDesigner.EFModel.Extensions;
+﻿using System;
+using Sawczyn.EFDesigner.EFModel;
 
 namespace Sawczyn.EFDesigner
 {
@@ -8,6 +8,8 @@ namespace Sawczyn.EFDesigner
    /// </summary>
    public static class ModelDisplay
    {
+      public static Func<DiagramThemeColors> GetDiagramColors;
+
       // executes autolayout on the diagram passed in
       public delegate void LayoutDiagramAction(EFModelDiagram diagram);
 

@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.7.1
+//     Produced by Entity Framework Visual Editor v4.1.2.0
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -33,6 +33,9 @@ namespace SureImpact.Data.Framework
       /// </summary>
       protected TestData()
       {
+         _entity1 = new System.Collections.Generic.HashSet<global::SureImpact.Data.Framework.Entity1>();
+         Entity1_Entity2 = new System.Collections.Generic.HashSet<global::SureImpact.Data.Framework.Entity2>();
+
          Init();
       }
 
@@ -53,6 +56,8 @@ namespace SureImpact.Data.Framework
          if (string.IsNullOrEmpty(teststring)) throw new ArgumentNullException(nameof(teststring));
          this.TestString = teststring;
 
+         _entity1 = new System.Collections.Generic.HashSet<global::SureImpact.Data.Framework.Entity1>();
+         Entity1_Entity2 = new System.Collections.Generic.HashSet<global::SureImpact.Data.Framework.Entity2>();
          Init();
       }
 
@@ -70,6 +75,15 @@ namespace SureImpact.Data.Framework
        *************************************************************************/
 
       /// <summary>
+      /// Identity, Indexed, Required
+      /// Unique identifier
+      /// </summary>
+      [Key]
+      [Required]
+      [System.ComponentModel.Description("Unique identifier")]
+      public long Id { get; set; }
+
+      /// <summary>
       /// Indexed, Required, Max length = 200
       /// Test string
       /// </summary>
@@ -79,14 +93,33 @@ namespace SureImpact.Data.Framework
       [System.ComponentModel.Description("Test string")]
       public string TestString { get; set; }
 
+      /*************************************************************************
+       * Navigation properties
+       *************************************************************************/
+
       /// <summary>
-      /// Identity, Indexed, Required
-      /// Unique identifier
+      /// Backing field for Entity1
       /// </summary>
-      [Key]
-      [Required]
-      [System.ComponentModel.Description("Unique identifier")]
-      public long Id { get; set; }
+      protected ICollection<global::SureImpact.Data.Framework.Entity1> _entity1;
+
+      public virtual ICollection<global::SureImpact.Data.Framework.Entity1> Entity1
+      {
+         get
+         {
+            return _entity1;
+         }
+         private set
+         {
+            _entity1 = value;
+         }
+      }
+
+      /// <summary>
+      /// Association class for Entity1
+      /// </summary>
+      [System.ComponentModel.Description("Association class for Entity1")]
+      [System.ComponentModel.DataAnnotations.Display(Name="Association object for Entity1")]
+      public virtual ICollection<global::SureImpact.Data.Framework.Entity2> Entity1_Entity2 { get; private set; }
 
    }
 }

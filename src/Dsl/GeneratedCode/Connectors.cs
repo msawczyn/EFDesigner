@@ -49,6 +49,30 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		#region Custom storage for connector properties that appear in the property grid
 		/// <summary>
+		/// Custom storage for domain property TextColor.
+		/// </summary>
+		private global::System.Drawing.Color GetTextColorValue()
+		{
+			DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.ShapeText);
+			if(settings != null && settings.IsOverridden(DslDiagrams::BrushSettingsFlags.Color))
+			{
+				return settings.Color;
+			}
+			return global::System.Drawing.Color.FromKnownColor(global::System.Drawing.KnownColor.Black);
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property TextColor.
+		/// </summary>
+		private void SetTextColorValue(global::System.Drawing.Color newValue)
+		{
+			DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.ShapeText);
+			if(settings == null) settings = new DslDiagrams::BrushSettings();
+			settings.Color = newValue;
+			this.StyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.ShapeText, settings);
+			this.Invalidate();
+		}
+		/// <summary>
 		/// Custom storage for domain property DashStyle.
 		/// </summary>
 		private global::System.Drawing.Drawing2D.DashStyle GetDashStyleValue()
@@ -180,7 +204,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of Color domain property.
-		/// No description available
+		/// The connector's color when using a theme with a light background.
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.AssociationConnector/Color.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.AssociationConnector/Color.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -345,6 +369,96 @@ namespace Sawczyn.EFDesigner.EFModel
 					// set to CustomStorage. Please provide the SetDashStyleValue()
 					// method on the domain class.
 					element.SetDashStyleValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region TextColor domain property code
+		
+		/// <summary>
+		/// TextColor domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid TextColorDomainPropertyId = new global::System.Guid(0x943edfeb, 0x9710, 0x492c, 0x8f, 0x5b, 0x5d, 0x79, 0xdb, 0x24, 0x9b, 0x77);
+		
+		/// <summary>
+		/// Gets or sets the value of TextColor domain property.
+		/// The connector's text color when using a theme with a light background.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.AssociationConnector/TextColor.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.AssociationConnector/TextColor.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("943edfeb-9710-492c-8f5b-5d79db249b77")]
+		public global::System.Drawing.Color TextColor
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return TextColorPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				TextColorPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the AssociationConnector.TextColor domain property.
+		/// </summary>
+		internal sealed partial class TextColorPropertyHandler : DslModeling::DomainPropertyValueHandler<AssociationConnectorBase, global::System.Drawing.Color>
+		{
+			private TextColorPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the AssociationConnector.TextColor domain property value handler.
+			/// </summary>
+			public static readonly TextColorPropertyHandler Instance = new TextColorPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the AssociationConnector.TextColor domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return TextColorDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Drawing.Color GetValue(AssociationConnectorBase element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for TextColor because its Kind is
+				// set to CustomStorage. Please provide the GetTextColorValue()
+				// method on the domain class.
+				return element.GetTextColorValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(AssociationConnectorBase element, global::System.Drawing.Color newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Drawing.Color oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for TextColor because its Kind is
+					// set to CustomStorage. Please provide the SetTextColorValue()
+					// method on the domain class.
+					element.SetTextColorValue(newValue);
 					ValueChanged(element, oldValue, GetValue(element));
 				}
 			}
@@ -838,6 +952,61 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		#endregion
 		
+		#region Custom storage for connector properties that appear in the property grid
+		/// <summary>
+		/// Custom storage for domain property TextColor.
+		/// </summary>
+		private global::System.Drawing.Color GetTextColorValue()
+		{
+			DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.ShapeText);
+			if(settings != null && settings.IsOverridden(DslDiagrams::BrushSettingsFlags.Color))
+			{
+				return settings.Color;
+			}
+			return global::System.Drawing.Color.FromKnownColor(global::System.Drawing.KnownColor.Black);
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property TextColor.
+		/// </summary>
+		private void SetTextColorValue(global::System.Drawing.Color newValue)
+		{
+			DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.ShapeText);
+			if(settings == null) settings = new DslDiagrams::BrushSettings();
+			settings.Color = newValue;
+			this.StyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.ShapeText, settings);
+			this.Invalidate();
+		}
+		/// <summary>
+		/// Custom storage for domain property FillColor.
+		/// </summary>
+		private global::System.Drawing.Color GetColorValue()
+		{
+			DslDiagrams::PenSettings settings = this.StyleSet.GetOverriddenPenSettings(DslDiagrams::DiagramPens.ConnectionLine);
+			if(settings != null && settings.IsOverridden(DslDiagrams::PenSettingsFlags.Color))
+			{
+				return settings.Color;
+			}
+			return global::System.Drawing.Color.FromArgb(255, 113, 111, 110);
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property FillColor.
+		/// </summary>
+		private void SetColorValue(global::System.Drawing.Color newValue)
+		{
+			DslDiagrams::PenSettings settings = this.StyleSet.GetOverriddenPenSettings(DslDiagrams::DiagramPens.ConnectionLine);
+			if(settings == null) settings = new DslDiagrams::PenSettings();
+			settings.Color = newValue;
+			this.StyleSet.OverridePen(DslDiagrams::DiagramPens.ConnectionLine, settings);
+			settings = this.StyleSet.GetOverriddenPenSettings(DslDiagrams::DiagramPens.ConnectionLineDecorator);
+			if(settings == null) settings = new DslDiagrams::PenSettings();
+			settings.Color = newValue;
+			this.StyleSet.OverridePen(DslDiagrams::DiagramPens.ConnectionLineDecorator, settings);
+			this.Invalidate();
+		}
+		#endregion
+		
 		#region Constructors, domain class Id
 	
 		/// <summary>
@@ -863,6 +1032,186 @@ namespace Sawczyn.EFDesigner.EFModel
 			: base(partition, propertyAssignments)
 		{
 		}
+		#endregion
+		#region Color domain property code
+		
+		/// <summary>
+		/// Color domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ColorDomainPropertyId = new global::System.Guid(0x7915d940, 0xde37, 0x48d0, 0xa9, 0xb9, 0x47, 0x49, 0x4a, 0x4c, 0x15, 0x27);
+		
+		/// <summary>
+		/// Gets or sets the value of Color domain property.
+		/// The line color when using a theme with a light background.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.GeneralizationConnector/Color.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.GeneralizationConnector/Color.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("7915d940-de37-48d0-a9b9-47494a4c1527")]
+		public global::System.Drawing.Color Color
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return ColorPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ColorPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the GeneralizationConnector.Color domain property.
+		/// </summary>
+		internal sealed partial class ColorPropertyHandler : DslModeling::DomainPropertyValueHandler<GeneralizationConnector, global::System.Drawing.Color>
+		{
+			private ColorPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the GeneralizationConnector.Color domain property value handler.
+			/// </summary>
+			public static readonly ColorPropertyHandler Instance = new ColorPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the GeneralizationConnector.Color domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ColorDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Drawing.Color GetValue(GeneralizationConnector element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for Color because its Kind is
+				// set to CustomStorage. Please provide the GetColorValue()
+				// method on the domain class.
+				return element.GetColorValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(GeneralizationConnector element, global::System.Drawing.Color newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Drawing.Color oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for Color because its Kind is
+					// set to CustomStorage. Please provide the SetColorValue()
+					// method on the domain class.
+					element.SetColorValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region TextColor domain property code
+		
+		/// <summary>
+		/// TextColor domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid TextColorDomainPropertyId = new global::System.Guid(0xefd8acb1, 0x9e3f, 0x49a0, 0xa6, 0xc5, 0x0f, 0xf3, 0xd8, 0x1e, 0x8c, 0xea);
+		
+		/// <summary>
+		/// Gets or sets the value of TextColor domain property.
+		/// Description for Sawczyn.EFDesigner.EFModel.GeneralizationConnector.Text Color
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.GeneralizationConnector/TextColor.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.GeneralizationConnector/TextColor.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("efd8acb1-9e3f-49a0-a6c5-0ff3d81e8cea")]
+		public global::System.Drawing.Color TextColor
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return TextColorPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				TextColorPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the GeneralizationConnector.TextColor domain property.
+		/// </summary>
+		internal sealed partial class TextColorPropertyHandler : DslModeling::DomainPropertyValueHandler<GeneralizationConnector, global::System.Drawing.Color>
+		{
+			private TextColorPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the GeneralizationConnector.TextColor domain property value handler.
+			/// </summary>
+			public static readonly TextColorPropertyHandler Instance = new TextColorPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the GeneralizationConnector.TextColor domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return TextColorDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Drawing.Color GetValue(GeneralizationConnector element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for TextColor because its Kind is
+				// set to CustomStorage. Please provide the GetTextColorValue()
+				// method on the domain class.
+				return element.GetTextColorValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(GeneralizationConnector element, global::System.Drawing.Color newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Drawing.Color oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for TextColor because its Kind is
+					// set to CustomStorage. Please provide the SetTextColorValue()
+					// method on the domain class.
+					element.SetTextColorValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
 		#endregion
 	}
 }
@@ -986,6 +1335,61 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		#endregion
 		
+		#region Custom storage for connector properties that appear in the property grid
+		/// <summary>
+		/// Custom storage for domain property TextColor.
+		/// </summary>
+		private global::System.Drawing.Color GetTextColorValue()
+		{
+			DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.ShapeText);
+			if(settings != null && settings.IsOverridden(DslDiagrams::BrushSettingsFlags.Color))
+			{
+				return settings.Color;
+			}
+			return global::System.Drawing.Color.FromKnownColor(global::System.Drawing.KnownColor.Black);
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property TextColor.
+		/// </summary>
+		private void SetTextColorValue(global::System.Drawing.Color newValue)
+		{
+			DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.ShapeText);
+			if(settings == null) settings = new DslDiagrams::BrushSettings();
+			settings.Color = newValue;
+			this.StyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.ShapeText, settings);
+			this.Invalidate();
+		}
+		/// <summary>
+		/// Custom storage for domain property FillColor.
+		/// </summary>
+		private global::System.Drawing.Color GetColorValue()
+		{
+			DslDiagrams::PenSettings settings = this.StyleSet.GetOverriddenPenSettings(DslDiagrams::DiagramPens.ConnectionLine);
+			if(settings != null && settings.IsOverridden(DslDiagrams::PenSettingsFlags.Color))
+			{
+				return settings.Color;
+			}
+			return global::System.Drawing.Color.FromArgb(255, 113, 111, 110);
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property FillColor.
+		/// </summary>
+		private void SetColorValue(global::System.Drawing.Color newValue)
+		{
+			DslDiagrams::PenSettings settings = this.StyleSet.GetOverriddenPenSettings(DslDiagrams::DiagramPens.ConnectionLine);
+			if(settings == null) settings = new DslDiagrams::PenSettings();
+			settings.Color = newValue;
+			this.StyleSet.OverridePen(DslDiagrams::DiagramPens.ConnectionLine, settings);
+			settings = this.StyleSet.GetOverriddenPenSettings(DslDiagrams::DiagramPens.ConnectionLineDecorator);
+			if(settings == null) settings = new DslDiagrams::PenSettings();
+			settings.Color = newValue;
+			this.StyleSet.OverridePen(DslDiagrams::DiagramPens.ConnectionLineDecorator, settings);
+			this.Invalidate();
+		}
+		#endregion
+		
 		#region Constructors, domain class Id
 	
 		/// <summary>
@@ -1011,6 +1415,186 @@ namespace Sawczyn.EFDesigner.EFModel
 			: base(partition, propertyAssignments)
 		{
 		}
+		#endregion
+		#region Color domain property code
+		
+		/// <summary>
+		/// Color domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ColorDomainPropertyId = new global::System.Guid(0x4c7c5ed8, 0x25ee, 0x4163, 0x9d, 0xb3, 0xd3, 0x7c, 0x70, 0xa4, 0x0f, 0xc6);
+		
+		/// <summary>
+		/// Gets or sets the value of Color domain property.
+		/// The color of the comment connector when using a theme with a light background.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentConnector/Color.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentConnector/Color.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("4c7c5ed8-25ee-4163-9db3-d37c70a40fc6")]
+		public global::System.Drawing.Color Color
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return ColorPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ColorPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the CommentConnector.Color domain property.
+		/// </summary>
+		internal sealed partial class ColorPropertyHandler : DslModeling::DomainPropertyValueHandler<CommentConnector, global::System.Drawing.Color>
+		{
+			private ColorPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the CommentConnector.Color domain property value handler.
+			/// </summary>
+			public static readonly ColorPropertyHandler Instance = new ColorPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the CommentConnector.Color domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ColorDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Drawing.Color GetValue(CommentConnector element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for Color because its Kind is
+				// set to CustomStorage. Please provide the GetColorValue()
+				// method on the domain class.
+				return element.GetColorValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(CommentConnector element, global::System.Drawing.Color newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Drawing.Color oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for Color because its Kind is
+					// set to CustomStorage. Please provide the SetColorValue()
+					// method on the domain class.
+					element.SetColorValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region TextColor domain property code
+		
+		/// <summary>
+		/// TextColor domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid TextColorDomainPropertyId = new global::System.Guid(0x1dc89ca3, 0xd537, 0x460b, 0xb5, 0xaf, 0x21, 0x35, 0x3c, 0xbc, 0x9d, 0x48);
+		
+		/// <summary>
+		/// Gets or sets the value of TextColor domain property.
+		/// The color of the connector's text when using a theme with a light background.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentConnector/TextColor.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentConnector/TextColor.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("1dc89ca3-d537-460b-b5af-21353cbc9d48")]
+		public global::System.Drawing.Color TextColor
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return TextColorPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				TextColorPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the CommentConnector.TextColor domain property.
+		/// </summary>
+		internal sealed partial class TextColorPropertyHandler : DslModeling::DomainPropertyValueHandler<CommentConnector, global::System.Drawing.Color>
+		{
+			private TextColorPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the CommentConnector.TextColor domain property value handler.
+			/// </summary>
+			public static readonly TextColorPropertyHandler Instance = new TextColorPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the CommentConnector.TextColor domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return TextColorDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Drawing.Color GetValue(CommentConnector element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for TextColor because its Kind is
+				// set to CustomStorage. Please provide the GetTextColorValue()
+				// method on the domain class.
+				return element.GetTextColorValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(CommentConnector element, global::System.Drawing.Color newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Drawing.Color oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for TextColor because its Kind is
+					// set to CustomStorage. Please provide the SetTextColorValue()
+					// method on the domain class.
+					element.SetTextColorValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
 		#endregion
 	}
 }

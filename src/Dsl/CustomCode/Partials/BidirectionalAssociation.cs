@@ -219,7 +219,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   throw;
             }
 
-            if (calculatedValue != null && element.Source.AutoPropertyDefault == (bool)calculatedValue)
+            if (calculatedValue != null && element.SourceAutoProperty == (bool)calculatedValue)
                element.isSourceAutoPropertyTrackingPropertyStorage = true;
          }
 

@@ -63,7 +63,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </returns>
       public override bool GetStandardValuesExclusive(ITypeDescriptorContext context)
       {
-         return true;
+         return false;
       }
 
       /// <summary>

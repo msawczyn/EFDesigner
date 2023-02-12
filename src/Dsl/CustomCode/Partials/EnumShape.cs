@@ -12,8 +12,48 @@ namespace Sawczyn.EFDesigner.EFModel
    ///    Override some methods of the compartment shape.
    ///    *** GenerateDoubleDerived must be set for this shape in DslDefinition.dsl. ****
    /// </summary>
-   public partial class EnumShape : IHighlightFromModelExplorer, IMouseActionTarget
+   public partial class EnumShape : IHighlightFromModelExplorer, ICompartmentShapeMouseTarget, IThemeable
    {
+      /// <summary>
+      /// Shape instance initialization.
+      /// </summary>
+      public override void OnInitialize()
+      {
+         base.OnInitialize();
+         if (ModelDisplay.GetDiagramColors != null)
+            SetThemeColors(ModelDisplay.GetDiagramColors());
+      }
+
+      private static bool UseInverseGlyphs
+      {
+         get
+         {
+            return ModelDisplay.GetDiagramColors?.Invoke().Background.IsDark() ?? false;
+         }
+      }
+
+      public void SetThemeColors(DiagramThemeColors diagramColors)
+      {
+         using (Transaction tx = Store.TransactionManager.BeginTransaction("Set diagram colors"))
+         {
+            TextColor = diagramColors.Text;
+            FillColor = diagramColors.Background;
+
+            foreach (ListCompartment compartment in NestedChildShapes.OfType<ListCompartment>())
+            {
+               compartment.CompartmentFillColor = diagramColors.Background;
+               compartment.ItemTextColor = diagramColors.Text;
+               compartment.TitleFillColor = diagramColors.HeaderBackground;
+               compartment.TitleTextColor = diagramColors.HeaderText;
+
+               compartment.Invalidate();
+            }
+
+            Invalidate();
+            tx.Commit();
+         }
+      }
+
       /// <summary>
       /// Exposes NodeShape Collapse() function to DSL's context menu
       /// </summary>
@@ -36,22 +76,35 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          CompartmentMapping[] mappings = base.GetCompartmentMappings(melType);
 
-         // Each item in the ValuesCompartment will call GetValueImage to determine its icon. Called any time the element's presentation element invalidates.
-         foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>()
-                                                                   .Where(m => m.CompartmentId == "ValuesCompartment"))
-            mapping.ImageGetter = GetValueImage;
+         // Each item in the ValuesCompartment will call GetValueGlyph to determine its icon. Called any time the element's presentation element invalidates.
+         foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>().Where(m => m.CompartmentId == "ValuesCompartment"))
+            mapping.ImageGetter = GetValueGlyph;
+
+         if (ModelDisplay.GetDiagramColors != null)
+            SetThemeColors(ModelDisplay.GetDiagramColors());
 
          return mappings;
       }
 
-      private Image GetValueImage(ModelElement element)
+      public static string GetExplorerNodeGlyphName(ModelEnum modelEnum)
+      {
+         string result = (modelEnum.IsVisible() ? nameof(Resources.Enumerator_16xVisible) : nameof(Resources.Enumerator_16x));
+
+         return UseInverseGlyphs
+                   ? result + "_i"
+                   : result;
+      }
+
+      private Image GetValueGlyph(ModelElement element)
       {
          ModelRoot modelRoot = element.Store.ModelRoot();
          if (element is ModelEnumValue enumValue)
          {
+            Color background = ModelDisplay.GetDiagramColors?.Invoke().Background ?? Color.White;
+
             return modelRoot.ShowWarningsInDesigner && enumValue.GetHasWarningValue()
-                      ? Resources.Warning
-                      : Resources.EnumValue;
+                      ? (background.IsLight() ? Resources.Warning : Resources.Warning_i)
+                      : (background.IsLight() ? Resources.EnumValue : Resources.EnumValue_i);
          }
 
          return null;
@@ -113,7 +166,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       /// <param name="dragFrom"></param>
       /// <param name="e"></param>
-      public void DoMouseUp(ModelElement dragFrom, DiagramMouseEventArgs e)
+      public void MoveCompartmentItem(ModelElement dragFrom, DiagramMouseEventArgs e)
       {
          // Original or "from" item:
 #pragma warning disable IDE0019 // Use pattern matching

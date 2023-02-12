@@ -23,8 +23,8 @@
 #><#@ import namespace="System.Data.Entity.Design.PluralizationServices"
 #><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
 #><#+
-      // EFDesigner v3.0.7
-      // Copyright (c) 2017-2021 Michael Sawczyn
+      // EFDesigner v4.1.2.0
+      // Copyright (c) 2017-2022 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
       public void GenerateEF6(Manager manager, ModelRoot modelRoot)

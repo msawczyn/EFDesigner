@@ -25,6 +25,9 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**3.0.8**
+   - Autoproperty setting for End1 on association wasn't persisting, so reloading the model lost that change
+
 **3.0.7**
    - **[NEW]** New context menu item to add class elements at the cursor position on a diagram (thanks to dcastenholz for the addition)
    - **[NEW]** New context menu item to generate code from the Solution Explorer (thanks to dcastenholz for the addition)

@@ -87,7 +87,7 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Modeling.Components.15.0">
-      <HintPath>..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\Microsoft\Modeling\16.0\Microsoft.VisualStudio.Modeling.Components.15.0.dll</HintPath>
+      <HintPath>..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\Microsoft\Modeling_\16.0\Microsoft.VisualStudio.Modeling.Components.15.0.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Modeling.Sdk$(DslToolsVersionSuffix)" />
     <Reference Include="Microsoft.VisualStudio.Modeling.Sdk.Diagrams$(DslToolsVersionSuffix)" />
@@ -241,6 +241,7 @@
     <Content Include="Parsers\EFCore5Parser.exe">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <None Include="PreviewImage.png" />
     <Content Include="Resources\Commands.png" />
     <Content Include="Resources\Commands.png" />
     <Content Include="TextTemplates\EF6Designer.ttinclude">
@@ -273,6 +274,18 @@
     <Content Include="TextTemplates\EFModelGenerator.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Compile Include="TextTemplates\EditingOnly\EF6Designer.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EF6ModelGenerator.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFCore2ModelGenerator.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFCore3ModelGenerator.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFCore5ModelGenerator.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFCoreDesigner.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFCoreModelGenerator.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFDesigner.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFModelFileManager.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFModelGenerator.cs" />
+    <Compile Include="TextTemplates\EditingOnly\MultipleOutputHelper.cs" />
+    <Compile Include="TextTemplates\EditingOnly\VSIntegration.cs" />
     <Compile Include="VSPackage.Designer.cs" />
     <Content Include="Logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -401,6 +414,7 @@
     <Content Include="TextTemplates\VSIntegration.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <None Include="TextTemplates\EditingOnly\_ReadMe.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dsl\Dsl.csproj">
@@ -493,6 +507,11 @@ if "$(ConfigurationName)"=="Release" del "$(ProjectDir)Parsers\*.pdb
   <ItemGroup>
     <PackageReference Include="EnvDTE80">
       <Version>16.10.31320.204</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.SDK.Analyzers">
+      <Version>16.10.10</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK.EmbedInteropTypes">
       <Version>15.0.36</Version>

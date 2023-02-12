@@ -1,3 +1,17 @@
+4.1.2
+   - Added association classes to model for EFCore >= 5
+   - Added table comments for EFCore >= 5 (generation of [Comment] attribute on class)
+
+4.0.0
+   - Added EFCore 6 support
+
+3.1.0
+   - Fix generalizations in assembly import
+   - Add DbContextFactory generation on request
+
+3.0.8
+   - Autoproperty setting for End1 on association wasn't persisting, so reloading the model lost that change
+
 3.0.7
    - Fixed a number of issues with importing compiled assemblies
    - Fixed coloring of cascade delete associations when flagged on the model (see https://github.com/msawczyn/EFDesigner/issues/291)   

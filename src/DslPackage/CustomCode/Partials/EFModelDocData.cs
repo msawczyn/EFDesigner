@@ -3,24 +3,30 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+
 using EnvDTE;
+
 using EnvDTE80;
+
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Shell;
 using Microsoft.VisualStudio.Modeling.Validation;
+using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
 using Sawczyn.EFDesigner.EFModel.Extensions;
 
 using VSLangProj;
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -41,6 +47,11 @@ namespace Sawczyn.EFDesigner.EFModel
             Dte.ActiveSolutionProjects is Array activeSolutionProjects && activeSolutionProjects.Length > 0
                   ? activeSolutionProjects.GetValue(0) as Project
                   : null;
+
+      static EFModelDocData()
+      {
+         ModelDisplay.GetDiagramColors = GetDiagramColors;
+      }
 
       internal static void GenerateCode()
       {
@@ -219,6 +230,8 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelDiagramData.CloseDiagram = CloseDiagram;
          ModelDiagramData.RenameWindow = RenameWindow;
 
+         VSColorTheme.ThemeChanged += VSColorTheme_OnThemeChanged;
+
          // set to the project's namespace if no namespace set
          if (string.IsNullOrEmpty(modelRoot.Namespace))
          {
@@ -292,11 +305,12 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
 
-         using (Transaction tx = Store.TransactionManager.BeginTransaction("SetClassVisuals"))
+         using (Transaction tx = Store.TransactionManager.BeginTransaction("SetVisuals"))
          {
             foreach (ModelClass modelClass in Store.ElementDirectory.FindElements<ModelClass>())
                PresentationHelper.UpdateClassDisplay(modelClass);
 
+            VSColorTheme_OnThemeChanged(null);
             tx.Commit();
          }
 
@@ -322,7 +336,50 @@ namespace Sawczyn.EFDesigner.EFModel
             tx.Commit();
          }
 
+         EFModelDocView docView = (EFModelDocView)CurrentDocView;
+         EFModelExplorer modelExplorer = (EFModelExplorer)docView?.ModelExplorerWindow?.TreeContainer;
+         modelExplorer?.Show();
+
          SetDocDataDirty(0);
+      }
+
+      private static DiagramThemeColors GetDiagramColors()
+      {
+         return new DiagramThemeColors(VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundBrushKey));
+      }
+
+      private void VSColorTheme_OnThemeChanged(ThemeChangedEventArgs e)
+      {
+         DiagramThemeColors diagramColors = GetDiagramColors();
+
+         EFModelDocView docView = (EFModelDocView)CurrentDocView;
+         EFModelExplorer modelExplorer = (EFModelExplorer)docView?.ModelExplorerWindow.TreeContainer;
+         modelExplorer?.SetThemeColors(diagramColors);
+         modelExplorer?.Show();
+
+         if (Store != null)
+         {
+            foreach (GeneralizationConnector connector in Store.ElementDirectory.AllElements.OfType<GeneralizationConnector>().ToArray())
+               connector.SetThemeColors(diagramColors);
+
+            foreach (AssociationConnector connector in Store.ElementDirectory.AllElements.OfType<AssociationConnector>().ToArray())
+               connector.SetThemeColors(diagramColors);
+
+            foreach (CommentConnector connector in Store.ElementDirectory.AllElements.OfType<CommentConnector>().ToArray())
+               connector.SetThemeColors(diagramColors);
+
+            foreach (ClassShape classShape in Store.ElementDirectory.AllElements.OfType<ClassShape>().ToArray())
+               classShape.SetThemeColors(diagramColors);
+
+            foreach (EnumShape enumShape in Store.ElementDirectory.AllElements.OfType<EnumShape>().ToArray())
+               enumShape.SetThemeColors(diagramColors);
+
+            foreach (CommentBoxShape commentShape in Store.ElementDirectory.AllElements.OfType<CommentBoxShape>().ToArray())
+               commentShape.SetThemeColors(diagramColors);
+
+            foreach (EFModelDiagram diagram in Store.ElementDirectory.AllElements.OfType<EFModelDiagram>().ToArray())
+               diagram.SetThemeColors(diagramColors);
+         }
       }
 
       private void DisplayDiagram(ModelDiagramData diagramData)

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 
 using Microsoft.VisualStudio.Modeling;
@@ -14,7 +13,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public partial class EFModelDiagram : IHasStore
+   public partial class EFModelDiagram : IHasStore, IThemeable
    {
       public override void OnInitialize()
       {
@@ -30,6 +29,32 @@ namespace Sawczyn.EFDesigner.EFModel
          ShowGrid = modelRoot?.ShowGrid ?? true;
          GridColor = modelRoot?.GridColor ?? Color.Gainsboro;
          SnapToGrid = modelRoot?.SnapToGrid ?? true;
+
+         if (ModelDisplay.GetDiagramColors != null)
+            SetThemeColors(ModelDisplay.GetDiagramColors());
+      }
+
+      public void SetThemeColors(DiagramThemeColors diagramColors)
+      {
+         Transaction tx = Store.TransactionManager.InTransaction
+                             ? null
+                             : Store.TransactionManager.BeginTransaction("Set diagram colors");
+
+         try
+         {
+            FillColor = diagramColors.Background;
+            TextColor = diagramColors.Text;
+
+            Invalidate();
+         }
+         finally
+         {
+            if (tx != null)
+            {
+               tx.Commit();
+               tx.Dispose();
+            }
+         }
       }
 
       /// <summary>
@@ -65,21 +90,43 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       public static bool IsDroppingExternal { get; private set; }
 
-      public bool ForceAddShape { get; set; }
+      private bool ForceAddShape { get; set; }
+
+      public void Highlight(ShapeElement shape)
+      {
+         ShapeElement highlightShape = DetermineHighlightShape(shape);
+         if (highlightShape != null)
+            ActiveDiagramView.DiagramClientView.HighlightedShapes.Add(new DiagramItem(highlightShape));
+      }
+
+      public void Unhighlight(ShapeElement shape)
+      {
+         ShapeElement highlightShape = DetermineHighlightShape(shape);
+         if (highlightShape != null)
+            ActiveDiagramView.DiagramClientView.HighlightedShapes.Remove(new DiagramItem(highlightShape));
+      }
 
       public override void OnDragOver(DiagramDragEventArgs diagramDragEventArgs)
       {
          base.OnDragOver(diagramDragEventArgs);
+         diagramDragEventArgs.Handled = false;
 
-         if (diagramDragEventArgs.Handled)
-            return;
+         List<BidirectionalConnector> bidirectionalConnectorsUnderShape = ClassShape.ClassShapeDragData?.GetBidirectionalConnectorsUnderShape(diagramDragEventArgs.MousePosition);
+         bool isDroppingAssociationClass = bidirectionalConnectorsUnderShape?.Any() == true;
 
-         if (diagramDragEventArgs.Data.GetData("Sawczyn.EFDesigner.EFModel.ModelEnum") is ModelEnum
-          || diagramDragEventArgs.Data.GetData("Sawczyn.EFDesigner.EFModel.ModelClass") is ModelClass
-          || IsAcceptableDropItem(diagramDragEventArgs))
+         if (isDroppingAssociationClass)
+         {
+            foreach (BidirectionalConnector connector in bidirectionalConnectorsUnderShape)
+               Highlight(connector);
+
             diagramDragEventArgs.Effect = DragDropEffects.Copy;
-         else
-            diagramDragEventArgs.Effect = DragDropEffects.None;
+         }
+         else if (diagramDragEventArgs.Data.GetData("Sawczyn.EFDesigner.EFModel.ModelEnum") is ModelEnum
+               || diagramDragEventArgs.Data.GetData("Sawczyn.EFDesigner.EFModel.ModelClass") is ModelClass
+               || IsAcceptableDropItem(diagramDragEventArgs))
+            diagramDragEventArgs.Effect = DragDropEffects.Copy;
+
+         diagramDragEventArgs.Handled = true;
       }
 
       /// <summary>
@@ -94,7 +141,9 @@ namespace Sawczyn.EFDesigner.EFModel
                             && filenames2.All(File.Exists))
                            || (diagramDragEventArgs.Data.GetData("FileDrop") is string[] filenames3 && filenames3.All(File.Exists));
 
-         return IsDroppingExternal;
+         bool isDroppingAssociationClass = ClassShape.ClassShapeDragData?.GetBidirectionalConnectorsUnderShape(diagramDragEventArgs.MousePosition).Any() == true;
+
+         return IsDroppingExternal || isDroppingAssociationClass;
       }
 
       private List<ModelElement> DisplayedElements => NestedChildShapes.Select(nestedShape => nestedShape.ModelElement).ToList();
@@ -128,108 +177,41 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public override void OnDragDrop(DiagramDragEventArgs diagramDragEventArgs)
       {
-         // came from model explorer?
          ModelElement element = (diagramDragEventArgs.Data.GetData("Sawczyn.EFDesigner.EFModel.ModelClass") as ModelElement)
                              ?? (diagramDragEventArgs.Data.GetData("Sawczyn.EFDesigner.EFModel.ModelEnum") as ModelElement);
 
-         if (element != null)
+         List<BidirectionalConnector> candidates = ClassShape.ClassShapeDragData?.GetBidirectionalConnectorsUnderShape(diagramDragEventArgs.MousePosition);
+
+         // are we creating an association class?
+         if (candidates?.Any() == true)
          {
-            ShapeElement newShape = AddExistingModelElement(this, element);
-
-            if (newShape != null)
+            MakeAssociationClass(candidates);
+            try
             {
-               using (Transaction t = element.Store.TransactionManager.BeginTransaction("Moving pasted shapes"))
-               {
-                  if (newShape is NodeShape nodeShape)
-                     nodeShape.Location = diagramDragEventArgs.MousePosition;
-
-                  t.Commit();
-               }
+               base.OnDragDrop(diagramDragEventArgs);
+            }
+            catch (ArgumentException)
+            {
+               // ignore. byproduct of multiple diagrams
             }
          }
+
+         // came from model explorer?
+         else if (element != null)
+            AddToDiagram(element, diagramDragEventArgs.MousePosition);
+
+         else if (IsDroppingExternal)
+            DropExternalElements(diagramDragEventArgs);
+
          else
          {
-            if (IsDroppingExternal)
+            try
             {
-               DisableDiagramRules();
-               Cursor prev = Cursor.Current;
-               Cursor.Current = Cursors.WaitCursor;
-
-               List<ModelElement> newElements = null;
-
-               try
-               {
-
-                  try
-                  {
-                     // add to the model
-                     string[] filenames;
-
-                     if (diagramDragEventArgs.Data.GetData("Text") is string concatenatedFilenames)
-                        filenames = concatenatedFilenames.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-                     else if (diagramDragEventArgs.Data.GetData("FileDrop") is string[] droppedFilenames)
-                        filenames = droppedFilenames;
-                     else
-                     {
-                        ErrorDisplay.Show(Store, "Unexpected error dropping files. Please create an issue in Github.");
-
-                        return;
-                     }
-
-                     string[] existingFiles = filenames.Where(File.Exists).ToArray();
-                     newElements = FileDropHelper.HandleMultiDrop(Store, existingFiles).ToList();
-
-                     string[] missingFiles = filenames.Except(existingFiles).ToArray();
-
-                     if (missingFiles.Any())
-                     {
-                        if (missingFiles.Length > 1)
-                           missingFiles[missingFiles.Length - 1] = "and " + missingFiles[missingFiles.Length - 1];
-
-                        ErrorDisplay.Show(Store, $"Can't find files {string.Join(", ", missingFiles)}");
-                     }
-                  }
-                  finally
-                  {
-                     if (newElements?.Count > 0)
-                     {
-                        string message = $"Created {newElements.Count} new elements that have been added to the Model Explorer. "
-                                       + $"Do you want these added to the current diagram as well? It could take a while.";
-
-                        if (BooleanQuestionDisplay.Show(Store, message) == true)
-                        {
-                           AddElementsToActiveDiagram(newElements);
-                        }
-                     }
-
-                     //string message = $"{newElements.Count} have been added to the Model Explorer. You can add them to this or any other diagram by dragging them from the Model Explorer and dropping them onto the design surface.";
-                     //MessageDisplay.Show(message);
-
-                     IsDroppingExternal = false;
-                  }
-               }
-               finally
-               {
-                  EnableDiagramRules();
-                  Cursor.Current = prev;
-
-                  MessageDisplay.Show(newElements == null || !newElements.Any()
-                                         ? "Import dropped files: no new elements added"
-                                         : BuildMessage(newElements));
-
-                  StatusDisplay.Show("Ready");
-               }
+               base.OnDragDrop(diagramDragEventArgs);
             }
-            else
+            catch (ArgumentException)
             {
-               try
-               {
-                  base.OnDragDrop(diagramDragEventArgs);
-               }
-               catch (ArgumentException)
-               {
-                  // ignore. byproduct of multiple diagrams
-               }
+               // ignore. byproduct of multiple diagrams
             }
          }
 
@@ -253,6 +235,113 @@ namespace Sawczyn.EFDesigner.EFModel
                messageParts.Add($"{enumCount} enums");
 
             return $"Import dropped files: added {(messageParts.Count > 1 ? string.Join(", ", messageParts.Take(messageParts.Count - 1)) + " and " + messageParts.Last() : messageParts.First())}";
+         }
+
+         void MakeAssociationClass(List<BidirectionalConnector> possibleConnectors)
+         {
+            ModelClass modelClass = (ModelClass)ClassShape.ClassShapeDragData.ClassShape.ModelElement;
+
+            using (Transaction t = modelClass.Store.TransactionManager.BeginTransaction("Creating association class"))
+            {
+               foreach (BidirectionalConnector candidate in possibleConnectors)
+               {
+                  BidirectionalAssociation association = ((BidirectionalAssociation)candidate.ModelElement);
+
+                  if (BooleanQuestionDisplay.Show(Store, $"Make {modelClass.Name} an association class for {association.GetDisplayText()}?") == true)
+                  {
+                     modelClass.ConvertToAssociationClass(association);
+                     ClassShape.ClassShapeDragData = null;
+
+                     break;
+                  }
+               }
+
+               t.Commit();
+            }
+
+            ClassShape.ClassShapeDragData = null;
+         }
+
+         void AddToDiagram(ModelElement elementToAdd, PointD atPosition)
+         {
+            ShapeElement newShape = AddExistingModelElement(this, elementToAdd);
+
+            if (newShape != null)
+            {
+               using (Transaction t = elementToAdd.Store.TransactionManager.BeginTransaction("Moving pasted shapes"))
+               {
+                  if (newShape is NodeShape nodeShape)
+                     nodeShape.Location = atPosition;
+
+                  t.Commit();
+               }
+            }
+         }
+
+         void DropExternalElements(DiagramDragEventArgs eventData)
+         {
+            DisableDiagramRules();
+            Cursor prev = Cursor.Current;
+            Cursor.Current = Cursors.WaitCursor;
+
+            List<ModelElement> newElements = null;
+
+            try
+            {
+               try
+               {
+                  // add to the model
+                  string[] filenames;
+
+                  if (eventData.Data.GetData("Text") is string concatenatedFilenames)
+                     filenames = concatenatedFilenames.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+                  else if (eventData.Data.GetData("FileDrop") is string[] droppedFilenames)
+                     filenames = droppedFilenames;
+                  else
+                  {
+                     ErrorDisplay.Show(Store, "Unexpected error dropping files. Please create an issue in Github.");
+
+                     return;
+                  }
+
+                  string[] existingFiles = filenames.Where(File.Exists).ToArray();
+                  newElements = FileDropHelper.HandleMultiDrop(Store, existingFiles).ToList();
+
+                  string[] missingFiles = filenames.Except(existingFiles).ToArray();
+
+                  if (missingFiles.Any())
+                  {
+                     if (missingFiles.Length > 1)
+                        missingFiles[missingFiles.Length - 1] = "and " + missingFiles[missingFiles.Length - 1];
+
+                     ErrorDisplay.Show(Store, $"Can't find files {string.Join(", ", missingFiles)}");
+                  }
+               }
+               finally
+               {
+                  if (newElements?.Count > 0)
+                  {
+                     string message = $"Created {newElements.Count} new elements that have been added to the Model Explorer. "
+                                    + "Do you want these added to the current diagram as well? It could take a while.";
+
+                     if (BooleanQuestionDisplay.Show(Store, message) == true)
+                        AddElementsToActiveDiagram(newElements);
+                  }
+
+                  IsDroppingExternal = false;
+               }
+            }
+            finally
+            {
+               EnableDiagramRules();
+               Cursor.Current = prev;
+
+               MessageDisplay.Show(newElements == null || !newElements.Any()
+                                      ? "Import dropped files: no new elements added"
+                                      : BuildMessage(newElements));
+
+               StatusDisplay.Show("Ready");
+            }
          }
       }
 
@@ -300,6 +389,7 @@ namespace Sawczyn.EFDesigner.EFModel
       public override void OnMouseUp(DiagramMouseEventArgs e)
       {
          IsDroppingExternal = false;
+         ClassShape.ClassShapeDragData = null;
          base.OnMouseUp(e);
       }
 

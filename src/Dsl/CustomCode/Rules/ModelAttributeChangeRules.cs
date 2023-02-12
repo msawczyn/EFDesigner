@@ -169,12 +169,13 @@ namespace Sawczyn.EFDesigner.EFModel
                         }
                      }
 
-                     foreach (Association association in element.ModelClass.LocalNavigationProperties()
-                                                                .Where(nav => nav.AssociationObject.Dependent == element.ModelClass)
-                                                                .Select(nav => nav.AssociationObject)
-                                                                .Where(a => !string.IsNullOrWhiteSpace(a.FKPropertyName)
-                                                                         && a.FKPropertyName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Any(n => n.Trim() == element.Name)))
-                        association.GetFKAutoIdentityErrors();
+                     // looks like something got started here but never finished. Doesn't matter as this validation is implemented elsewhere
+                     //foreach (Association association in element.ModelClass.LocalNavigationProperties()
+                     //                                           .Where(nav => nav.AssociationObject.Dependent == element.ModelClass)
+                     //                                           .Select(nav => nav.AssociationObject)
+                     //                                           .Where(a => !string.IsNullOrWhiteSpace(a.FKPropertyName)
+                     //                                                    && a.FKPropertyName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Any(n => n.Trim() == element.Name)))
+                     //   association.GetFKAutoIdentityErrors();
                   }
                   else
                      element.IdentityType = IdentityType.None;

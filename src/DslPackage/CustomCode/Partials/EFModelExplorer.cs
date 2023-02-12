@@ -14,13 +14,18 @@ using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
-using Sawczyn.EFDesigner.EFModel.Extensions;
-
 namespace Sawczyn.EFDesigner.EFModel
 {
-   internal partial class EFModelExplorer : IVsWindowSearch
+   internal partial class EFModelExplorer : IVsWindowSearch, IThemeable
    {
       private readonly List<Type> nodeEventHandlersAdded = new List<Type>();
+
+      public void SetThemeColors(DiagramThemeColors diagramColors)
+      {
+         ObjectModelBrowser.BackColor = diagramColors.Background;
+         ObjectModelBrowser.ForeColor = diagramColors.Text;
+         ObjectModelBrowser.Invalidate();
+      }
 
       #region Context Menu 
 
@@ -395,10 +400,16 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          // this sets up the images for use in the model explorer. They don't come out of Dsl::Resources.resx directly, but are named the same
          // See EFModelElementTreeNode.GetExplorerNodeImageName (below) for how this happens.
-         foreach (KeyValuePair<string, Image> image in ClassShape.PropertyImages.Union(ClassShape.ClassImages))
+         List<KeyValuePair<string, Image>> glyphs = ClassShape.PropertyGlyphCache.Union(ClassShape.ClassGlyphCache).ToList();
+         glyphs.AddRange(ClassShape.InvertedPropertyGlyphCache.Select(kv => new KeyValuePair<string, Image>(kv.Key + "_i", kv.Value)));
+         glyphs.AddRange(ClassShape.InvertedClassGlyphCache.Select(kv => new KeyValuePair<string, Image>(kv.Key + "_i", kv.Value)));
+
+         foreach (KeyValuePair<string, Image> image in glyphs)
             ObjectModelBrowser.ImageList.Images.Add(image.Key, image.Value);
          ObjectModelBrowser.ImageList.Images.Add(nameof(Resources.Enumerator_16x), Resources.Enumerator_16x);
          ObjectModelBrowser.ImageList.Images.Add(nameof(Resources.Enumerator_16xVisible), Resources.Enumerator_16xVisible);
+         ObjectModelBrowser.ImageList.Images.Add(nameof(Resources.Enumerator_16x_i), Resources.Enumerator_16x_i);
+         ObjectModelBrowser.ImageList.Images.Add(nameof(Resources.Enumerator_16xVisible_i), Resources.Enumerator_16xVisible_i);
 
          // shoehorn the search widget into the list
          SuspendLayout();
@@ -425,6 +436,7 @@ namespace Sawczyn.EFDesigner.EFModel
          Controls.Add(ObjectModelBrowser);
          ObjectModelBrowser.BringToFront();
 
+         SetThemeColors(ModelDisplay.GetDiagramColors());
          ResumeLayout(false);
          PerformLayout();
 
@@ -618,12 +630,14 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             // we're using the images determined by the shape class to keep the explorer and diagram glyphs in sync
             // available images are determined in EFModelExplorer.Init()
+            string suffix = ClassShape.UseInverseGlyphs ? "_i" : string.Empty;
+
             if (RepresentedElement is ModelAttribute modelAttribute)
-               ThreadHelper.Generic.BeginInvoke(() => { SelectedImageKey = ImageKey = ClassShape.GetExplorerNodeImageName(modelAttribute); });
+               ThreadHelper.Generic.BeginInvoke(() => { SelectedImageKey = ImageKey = ClassShape.GetExplorerNodeGlyphName(modelAttribute) + suffix; });
             else if (RepresentedElement is ModelClass modelClass)
-               ThreadHelper.Generic.BeginInvoke(() => { SelectedImageKey = ImageKey = ClassShape.GetExplorerNodeImageName(modelClass); });
+               ThreadHelper.Generic.BeginInvoke(() => { SelectedImageKey = ImageKey = ClassShape.GetExplorerNodeGlyphName(modelClass) + suffix; });
             else if (RepresentedElement is ModelEnum modelEnum)
-               ThreadHelper.Generic.BeginInvoke(() => { SelectedImageKey = ImageKey = (modelEnum.IsVisible() ? nameof(Resources.Enumerator_16xVisible) : nameof(Resources.Enumerator_16x)); });
+               ThreadHelper.Generic.BeginInvoke(() => { SelectedImageKey = ImageKey = EnumShape.GetExplorerNodeGlyphName(modelEnum) + suffix; });
          }
       }
    }

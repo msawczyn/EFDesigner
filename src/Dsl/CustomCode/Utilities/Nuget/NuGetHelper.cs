@@ -37,6 +37,7 @@ namespace Sawczyn.EFDesigner.EFModel
         public static Dictionary<EFVersion, IEnumerable<string>> EFPackageVersions { get; }
         public static List<NuGetDisplay> NuGetPackageDisplay { get; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "VSTHRD002:Avoid problematic synchronous waits", Justification = "Caller requires synchronous method")]
         private static void LoadNuGetVersions(EFVersion efVersion, string packageId)
         {
             // get NuGet packages with that package id

@@ -14,8 +14,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    {
       #region Template
 
-      // EFDesigner v3.0.7
-      // Copyright (c) 2017-2021 Michael Sawczyn
+      // EFDesigner v4.1.2.0
+      // Copyright (c) 2017-2022 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
       // this bit is based on EntityFramework Reverse POCO Code First Generator
@@ -27,7 +27,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
        * Interactions with Visual Studio
        */
 
-      public IEnumerable<Project> GetAllProjects()
+      public IEnumerable<EnvDTE.Project> GetAllProjects()
       {
          foreach (Project project in GetSolution().Projects.OfType<Project>())
          {
@@ -67,7 +67,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          throw new InvalidOperationException("Error in GetCurrentProject(). Unable to find project.");
       }
 
-      private ProjectItem GetDirectoryItem(string target)
+      private EnvDTE.ProjectItem GetDirectoryItem(string target)
       {
          DTE dte = GetDTE();
          Array projects = dte?.ActiveSolutionProjects as Array;
@@ -80,7 +80,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             Directory.CreateDirectory(Path.Combine(rootDirectory, target));
 
             Queue<string> paths = new Queue<string>(target.Split('\\'));
-            ProjectItems currentItemList = currentProject.ProjectItems;
+            EnvDTE.ProjectItems currentItemList = currentProject.ProjectItems;
             bool found = false;
 
             while (paths.Any())
@@ -117,7 +117,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          return targetProjectItem;
       }
 
-      public DTE GetDTE()
+      public EnvDTE.DTE GetDTE()
       {
          IServiceProvider serviceProvider = (IServiceProvider)Host;
 
@@ -153,7 +153,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          }
       }
 
-      public Solution GetSolution()
+      public EnvDTE.Solution GetSolution()
       {
          return GetDTE().Solution;
       }
@@ -181,3 +181,5 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
       #endregion Template
    }
 }
+
+

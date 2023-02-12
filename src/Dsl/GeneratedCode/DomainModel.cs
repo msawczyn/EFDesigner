@@ -22,7 +22,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	[DslModeling::DependsOnDomainModel(typeof(global::Microsoft.VisualStudio.Modeling.CoreDomainModel))]
 	[DslModeling::DependsOnDomainModel(typeof(global::Microsoft.VisualStudio.Modeling.Diagrams.CoreDesignSurfaceDomainModel))]
 	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]
-	[DslModeling::DomainObjectId("9987f227-3d05-49b7-b151-857879f5dfb8")]
+	[DslModeling::DomainObjectId("2f9962d2-544c-40e2-a4ba-a2babee17a5b")]
 	public partial class EFModelDomainModel : DslModeling::DomainModel
 	{
 	   #region Constructor, domain model Id
@@ -30,7 +30,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	   /// <summary>
 	   /// EFModelDomainModel domain model Id.
 	   /// </summary>
-	   public static readonly global::System.Guid DomainModelId = new global::System.Guid(0x9987f227, 0x3d05, 0x49b7, 0xb1, 0x51, 0x85, 0x78, 0x79, 0xf5, 0xdf, 0xb8);
+	   public static readonly global::System.Guid DomainModelId = new global::System.Guid(0x2f9962d2, 0x544c, 0x40e2, 0xa4, 0xba, 0xa2, 0xba, 0xbe, 0xe1, 0x7a, 0x5b);
 	
 	   /// <summary>
 	   /// Constructor.
@@ -168,6 +168,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(ModelRoot), "ShadowKeyNamePattern", ModelRoot.ShadowKeyNamePatternDomainPropertyId, typeof(ModelRoot.ShadowKeyNamePatternPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelRoot), "AutoPropertyDefault", ModelRoot.AutoPropertyDefaultDomainPropertyId, typeof(ModelRoot.AutoPropertyDefaultPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelRoot), "ShowInterfaceIndicators", ModelRoot.ShowInterfaceIndicatorsDomainPropertyId, typeof(ModelRoot.ShowInterfaceIndicatorsPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "GenerateTableComments", ModelRoot.GenerateTableCommentsDomainPropertyId, typeof(ModelRoot.GenerateTableCommentsPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "DatabaseSchema", ModelClass.DatabaseSchemaDomainPropertyId, typeof(ModelClass.DatabaseSchemaPropertyHandler)),
@@ -198,6 +199,10 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(ModelClass), "IsDefaultConstructorVisibilityTracking", ModelClass.IsDefaultConstructorVisibilityTrackingDomainPropertyId, typeof(ModelClass.IsDefaultConstructorVisibilityTrackingPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "IsAutoPropertyDefaultTracking", ModelClass.IsAutoPropertyDefaultTrackingDomainPropertyId, typeof(ModelClass.IsAutoPropertyDefaultTrackingPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "ShouldShowInterfaceGlyph", ModelClass.ShouldShowInterfaceGlyphDomainPropertyId, typeof(ModelClass.ShouldShowInterfaceGlyphPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "UseTemporalTables", ModelClass.UseTemporalTablesDomainPropertyId, typeof(ModelClass.UseTemporalTablesPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "IsAssociationClass", ModelClass.IsAssociationClassDomainPropertyId, typeof(ModelClass.IsAssociationClassPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "DescribedAssociationElementId", ModelClass.DescribedAssociationElementIdDomainPropertyId, typeof(ModelClass.DescribedAssociationElementIdPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "TableComment", ModelClass.TableCommentDomainPropertyId, typeof(ModelClass.TableCommentPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "Type", ModelAttribute.TypeDomainPropertyId, typeof(ModelAttribute.TypePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "InitialValue", ModelAttribute.InitialValueDomainPropertyId, typeof(ModelAttribute.InitialValuePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "IsIdentity", ModelAttribute.IsIdentityDomainPropertyId, typeof(ModelAttribute.IsIdentityPropertyHandler)),
@@ -300,8 +305,15 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(BidirectionalAssociation), "IsSourceAutoPropertyTracking", BidirectionalAssociation.IsSourceAutoPropertyTrackingDomainPropertyId, typeof(BidirectionalAssociation.IsSourceAutoPropertyTrackingPropertyHandler)),
 	         new DomainMemberInfo(typeof(BidirectionalAssociation), "IsSourceAbstract", BidirectionalAssociation.IsSourceAbstractDomainPropertyId, typeof(BidirectionalAssociation.IsSourceAbstractPropertyHandler)),
 	         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourceAutoInclude", BidirectionalAssociation.SourceAutoIncludeDomainPropertyId, typeof(BidirectionalAssociation.SourceAutoIncludePropertyHandler)),
+	         new DomainMemberInfo(typeof(EFModelDiagram), "FillColor", EFModelDiagram.FillColorDomainPropertyId, typeof(EFModelDiagram.FillColorPropertyHandler)),
+	         new DomainMemberInfo(typeof(EFModelDiagram), "TextColor", EFModelDiagram.TextColorDomainPropertyId, typeof(EFModelDiagram.TextColorPropertyHandler)),
 	         new DomainMemberInfo(typeof(AssociationConnector), "Color", AssociationConnector.ColorDomainPropertyId, typeof(AssociationConnector.ColorPropertyHandler)),
 	         new DomainMemberInfo(typeof(AssociationConnector), "DashStyle", AssociationConnector.DashStyleDomainPropertyId, typeof(AssociationConnector.DashStylePropertyHandler)),
+	         new DomainMemberInfo(typeof(AssociationConnector), "TextColor", AssociationConnector.TextColorDomainPropertyId, typeof(AssociationConnector.TextColorPropertyHandler)),
+	         new DomainMemberInfo(typeof(GeneralizationConnector), "Color", GeneralizationConnector.ColorDomainPropertyId, typeof(GeneralizationConnector.ColorPropertyHandler)),
+	         new DomainMemberInfo(typeof(GeneralizationConnector), "TextColor", GeneralizationConnector.TextColorDomainPropertyId, typeof(GeneralizationConnector.TextColorPropertyHandler)),
+	         new DomainMemberInfo(typeof(CommentConnector), "Color", CommentConnector.ColorDomainPropertyId, typeof(CommentConnector.ColorPropertyHandler)),
+	         new DomainMemberInfo(typeof(CommentConnector), "TextColor", CommentConnector.TextColorDomainPropertyId, typeof(CommentConnector.TextColorPropertyHandler)),
 	         new DomainMemberInfo(typeof(CommentBoxShape), "FillColor", CommentBoxShape.FillColorDomainPropertyId, typeof(CommentBoxShape.FillColorPropertyHandler)),
 	         new DomainMemberInfo(typeof(CommentBoxShape), "OutlineColor", CommentBoxShape.OutlineColorDomainPropertyId, typeof(CommentBoxShape.OutlineColorPropertyHandler)),
 	         new DomainMemberInfo(typeof(CommentBoxShape), "TextColor", CommentBoxShape.TextColorDomainPropertyId, typeof(CommentBoxShape.TextColorPropertyHandler)),

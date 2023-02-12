@@ -25,9 +25,16 @@ namespace Sawczyn.EFDesigner.EFModel
             storeDomainDataDirectory = modelClass.Store.DomainDataDirectory;
             ModelRoot modelRoot = modelClass.ModelRoot;
 
+            // things unavailable if pre-EFCore6
+            if (!modelRoot.IsEFCore6Plus)
+            {
+               propertyDescriptors.Remove("UseTemporalTables");
+            }
+
             // things unavailable if pre-EFCore5
             if (!modelRoot.IsEFCore5Plus)
             {
+               propertyDescriptors.Remove("TableComment");
                propertyDescriptors.Remove("IsPropertyBag");
                propertyDescriptors.Remove("IsQueryType");
                propertyDescriptors.Remove("ExcludeFromMigrations");
@@ -39,20 +46,44 @@ namespace Sawczyn.EFDesigner.EFModel
             }
             else
             {
+               if (!modelRoot.GenerateTableComments)
+                  propertyDescriptors.Remove("TableComment");
+
                if (modelClass.IsQueryType)
                {
                   propertyDescriptors.Remove("TableName");
+                  propertyDescriptors.Remove("TableComment");
                   propertyDescriptors.Remove("DatabaseSchema");
                   propertyDescriptors.Remove("Concurrency");
                }
 
                if (modelClass.IsDatabaseView)
+               {
                   propertyDescriptors.Remove("TableName");
+                  propertyDescriptors.Remove("TableComment");
+               }    
                else
                   propertyDescriptors.Remove("ViewName");
 
                if (modelClass.IsPropertyBag)
                   propertyDescriptors.Remove("IsDependentType");
+            }
+
+            if (modelClass.IsDatabaseView
+             || (modelClass.Subclasses.Any() && modelClass.ModelRoot.InheritanceStrategy != CodeStrategy.TablePerHierarchy)
+             || modelClass.Superclass != null)
+               propertyDescriptors.Remove("UseTemporalTables");
+
+            // things unavailable for association classes
+            if (modelClass.IsAssociationClass)
+            {
+               propertyDescriptors.Remove("IsAbstract");
+               propertyDescriptors.Remove("IsDependentType");
+               propertyDescriptors.Remove("IsPropertyBag");
+               propertyDescriptors.Remove("IsQueryType");
+               propertyDescriptors.Remove("IsDatabaseView");
+               propertyDescriptors.Remove("ViewName");
+               propertyDescriptors.Remove("ExcludeFromMigrations");
             }
 
             //Add the descriptors for the tracking properties 
