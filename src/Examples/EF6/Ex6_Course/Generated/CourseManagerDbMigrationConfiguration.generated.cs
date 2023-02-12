@@ -18,7 +18,7 @@ using System.Data.Entity.Migrations;
 namespace Migrations
 {
    /// <inheritdoc/>
-   public sealed partial class CourseManagerDbMigrationConfiguration : DbMigrationsConfiguration<Ex5_Course.CourseManager>
+   public sealed partial class CourseManagerDbMigrationConfiguration : DbMigrationsConfiguration<Ex6_Course.CourseManager>
    {
       partial void Init();
 

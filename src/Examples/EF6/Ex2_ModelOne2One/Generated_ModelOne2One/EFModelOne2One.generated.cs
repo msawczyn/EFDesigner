@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.7.2
+//     Produced by Entity Framework Visual Editor v4.2.1.3
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -116,17 +116,11 @@ namespace Ex2_ModelOne2One
 
          modelBuilder.Entity<global::Ex2_ModelOne2One.Address>()
                      .ToTable("Address")
-                     .HasKey(t => t.Id);
-         modelBuilder.Entity<global::Ex2_ModelOne2One.Address>()
-                     .Property(t => t.Id)
-                     .IsRequired()
-                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+                     .HasKey(t => t.AddressId);
          modelBuilder.Entity<global::Ex2_ModelOne2One.Address>()
                      .Property(t => t.AddressId)
                      .IsRequired()
-                     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()));
-         modelBuilder.Entity<global::Ex2_ModelOne2One.Address>().HasIndex(t => t.AddressId)
-                     .IsUnique();
+                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<global::Ex2_ModelOne2One.Address>()
                      .HasRequired(x => x.Person)
                      .WithOptional(x => x.Address)

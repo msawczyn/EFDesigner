@@ -37,38 +37,35 @@ namespace Ex3_ModelManytoMany
             // 
             // txtDebug
             // 
-            this.txtDebug.Location = new System.Drawing.Point(211, 135);
-            this.txtDebug.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtDebug.Location = new System.Drawing.Point(141, 88);
             this.txtDebug.Multiline = true;
             this.txtDebug.Name = "txtDebug";
-            this.txtDebug.Size = new System.Drawing.Size(710, 266);
+            this.txtDebug.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtDebug.Size = new System.Drawing.Size(475, 192);
             this.txtDebug.TabIndex = 12;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(207, 49);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(138, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(167, 20);
+            this.label1.Size = new System.Drawing.Size(113, 13);
             this.label1.TabIndex = 11;
             this.label1.Text = "Sql Server Connection";
             // 
             // txtConnection
             // 
-            this.txtConnection.Location = new System.Drawing.Point(211, 74);
-            this.txtConnection.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtConnection.Location = new System.Drawing.Point(141, 48);
             this.txtConnection.Name = "txtConnection";
-            this.txtConnection.Size = new System.Drawing.Size(710, 26);
+            this.txtConnection.Size = new System.Drawing.Size(475, 20);
             this.txtConnection.TabIndex = 10;
             this.txtConnection.Text = "...";
             // 
             // btnTestOne2One
             // 
-            this.btnTestOne2One.Location = new System.Drawing.Point(33, 135);
-            this.btnTestOne2One.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnTestOne2One.Location = new System.Drawing.Point(22, 88);
             this.btnTestOne2One.Name = "btnTestOne2One";
-            this.btnTestOne2One.Size = new System.Drawing.Size(170, 63);
+            this.btnTestOne2One.Size = new System.Drawing.Size(113, 41);
             this.btnTestOne2One.TabIndex = 9;
             this.btnTestOne2One.Text = "Test One to Many";
             this.btnTestOne2One.UseVisualStyleBackColor = true;
@@ -76,13 +73,14 @@ namespace Ex3_ModelManytoMany
             // 
             // FrmModelOnetoMany
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(958, 450);
+            this.ClientSize = new System.Drawing.Size(639, 292);
             this.Controls.Add(this.txtDebug);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtConnection);
             this.Controls.Add(this.btnTestOne2One);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FrmModelOnetoMany";
             this.Text = "Ex 3: One 2 Many - Authors & Books";
             this.Load += new System.EventHandler(this.FrmMany2Many_Load);
