@@ -5,7 +5,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Ex5_Course
+namespace Ex6_Course
 {
     public partial class FrmCourseManager : Form
     {
@@ -387,14 +387,14 @@ namespace Ex5_Course
 
                 Enrollment enroll = db.Enrollments.Create();
 
-                if (txtGrade.Text != "")
-                    enroll.Grade = Convert.ToInt32(txtGrade.Text);
+                int grade = int.TryParse(txtGrade.Text, out _) ? Convert.ToInt32(txtGrade.Text) : 0;
+                enroll.Grade = Convert.ToInt32(grade);
 
                 Course CourseToLink = db.Courses.First(c => c.CourseId == CoursePk);
                 Student StudentToLink = db.Students.First(s => s.StudentId == StudentPk);
 
-                StudentToLink.Enrollments.Add(enroll);
-                CourseToLink.Enrollments.Add(enroll);
+                enroll.Student = StudentToLink;
+                enroll.Course = CourseToLink;
 
                 db.Enrollments.Add(enroll);
 

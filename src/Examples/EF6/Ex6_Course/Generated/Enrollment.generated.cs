@@ -22,7 +22,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Ex5_Course
+namespace Ex6_Course
 {
    public partial class Enrollment
    {
@@ -49,7 +49,7 @@ namespace Ex5_Course
       /// </summary>
       /// <param name="course"></param>
       /// <param name="student"></param>
-      public Enrollment(global::Ex5_Course.Course course, global::Ex5_Course.Student student)
+      public Enrollment(global::Ex6_Course.Course course, global::Ex6_Course.Student student)
       {
          if (course == null) throw new ArgumentNullException(nameof(course));
          this.Course = course;
@@ -67,7 +67,7 @@ namespace Ex5_Course
       /// </summary>
       /// <param name="course"></param>
       /// <param name="student"></param>
-      public static Enrollment Create(global::Ex5_Course.Course course, global::Ex5_Course.Student student)
+      public static Enrollment Create(global::Ex6_Course.Course course, global::Ex6_Course.Student student)
       {
          return new Enrollment(course, student);
       }
@@ -92,12 +92,12 @@ namespace Ex5_Course
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Ex5_Course.Course Course { get; set; }
+      public virtual global::Ex6_Course.Course Course { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Ex5_Course.Student Student { get; set; }
+      public virtual global::Ex6_Course.Student Student { get; set; }
 
    }
 }

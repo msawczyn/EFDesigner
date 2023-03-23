@@ -1,5 +1,5 @@
 ﻿
-namespace Ex5_Course
+namespace Ex6_Course
 {
     partial class FrmCourseManager
     {

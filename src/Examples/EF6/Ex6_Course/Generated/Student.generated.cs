@@ -22,7 +22,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Ex5_Course
+namespace Ex6_Course
 {
    public partial class Student
    {
@@ -33,7 +33,7 @@ namespace Ex5_Course
       /// </summary>
       public Student()
       {
-         Enrollments = new System.Collections.Generic.HashSet<global::Ex5_Course.Enrollment>();
+         Enrollments = new System.Collections.Generic.HashSet<global::Ex6_Course.Enrollment>();
 
          Init();
       }
@@ -57,7 +57,7 @@ namespace Ex5_Course
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Ex5_Course.Enrollment> Enrollments { get; private set; }
+      public virtual ICollection<global::Ex6_Course.Enrollment> Enrollments { get; private set; }
 
    }
 }
